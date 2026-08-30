@@ -1,6 +1,8 @@
 ﻿using System.Globalization;
 using System.Reflection;
 using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Shell;
+using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace ToolsCore.Tools;
 
@@ -13,6 +15,8 @@ public static class AppRegistry
     private static ProjectInfo[] _projects;
 
     private static string ProductName => _productName ??= Assembly.GetEntryAssembly()?.GetName().Name;
+
+    private static JumpList _jumpList;
 
     /// <summary>
     ///     Nazov kluca v Registy so zoznamom poslednych pouzivanych priecinkov s datami.
@@ -106,6 +110,23 @@ public static class AppRegistry
         return _projects = projects.ToArray();
     }
 
+    public static void RegisterJumpList()
+    {
+        _jumpList?.ClearAllUserTasks();
+
+        var projects = GetOpenedProjects();
+
+        foreach (var project in projects)
+        {
+            var jumpListLink = new JumpListLink(project.Path, project.Path);
+            jumpListLink.Arguments = project.Path;
+            jumpListLink.IconReference = new IconReference(Assembly.GetEntryAssembly()?.Location, 0);
+            _jumpList?.AddUserTasks(jumpListLink);
+        }
+
+        _jumpList?.Refresh();
+    }
+
     /// <summary>
     ///     Prida novu cestu na koniec zoznamu poslednych pouzivanych projektov.<br/>
     ///     Ak kluc v Registry neexistuje, vytvori sa a prida zadanu cestu path.
@@ -140,6 +161,11 @@ public static class AppRegistry
             sb.Append('*');
             sb.Append(DateTime.Now.ToString(CultureInfo.InvariantCulture));
             sb.Append('|');
+            var jumpListLink = new JumpListLink(path, path);
+            jumpListLink.Arguments = path;
+            jumpListLink.IconReference = new IconReference(Assembly.GetEntryAssembly()?.Location, 0);
+            _jumpList?.AddUserTasks(jumpListLink);
+            _jumpList?.Refresh();
         }
 
         key.SetValue(REG_OPENED_PROJECTS, sb.ToString());
