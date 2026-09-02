@@ -1,1 +1,4 @@
-<Solution />
+<Solution>
+  <Project Path="ToolsCore.Tests/ToolsCore.Tests.csproj" />
+  <Project Path="ToolsCore/ToolsCore.csproj" />
+</Solution>
