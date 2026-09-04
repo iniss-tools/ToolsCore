@@ -23,34 +23,34 @@ public static class AppRegistry
     /// <summary>
     ///     Maximalny pocet projektov zobrazenych v zozname odkazov na paneli uloh.
     /// </summary>
-    private const int MAX_JUMPLIST_ITEMS = 10;
+    private const int MaxJumplistItems = 10;
 
     /// <summary>
     ///     Nazov kluca v Registy so zoznamom poslednych pouzivanych priecinkov s datami.
     /// </summary>
-    private const string REG_RECENT_DIRS = "RecentDirs";
+    private const string RegRecentDirs = "RecentDirs";
 
     /// <summary>
     ///     Nazov kluca v Registy so zoznamom poslednych pouzivanych suborov.
     /// </summary>
-    private const string REG_RECENT_FILES = "RecentFiles";
+    private const string RegRecentFiles = "RecentFiles";
 
     /// <summary>
     ///     Nazov kluca v Registy s posledne otvorenehym projektom.
     /// </summary>
-    private const string REG_LAST_PROJECT = "LastProject";
+    private const string RegLastProject = "LastProject";
 
     /// <summary>
     ///     Nazov kluca v Registy so zoznamom posledne pouzivanych projektu.
     /// </summary>
-    private const string REG_OPENED_PROJECTS = "OpenedProjects";
+    private const string RegOpenedProjects = "OpenedProjects";
 
     private static List<string> GetOpenedProjectsOld(bool forFiles = false)
     {
         var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
         var dirs = new HashSet<string>();
 
-        var value = key?.GetValue(forFiles ? REG_RECENT_FILES : REG_RECENT_DIRS);
+        var value = key?.GetValue(forFiles ? RegRecentFiles : RegRecentDirs);
 
         if (value == null) 
             return dirs.ToList();
@@ -78,7 +78,7 @@ public static class AppRegistry
             return Array.Empty<ProjectInfo>();
 
         var projects = new HashSet<ProjectInfo>();
-        var regValue = key.GetValue(REG_OPENED_PROJECTS);
+        var regValue = key.GetValue(RegOpenedProjects);
         if (regValue is null)
         {
             //konvertovanie stareho listu priecinkov na novy zoznam projektov
@@ -160,7 +160,7 @@ public static class AppRegistry
         //zoznam projektov je uz zoradeny od naposledy otvoreneho
         var projects = (_projects ?? GetOpenedProjects())
             .Where(project => !string.IsNullOrWhiteSpace(project.Path))
-            .Take(MAX_JUMPLIST_ITEMS)
+            .Take(MaxJumplistItems)
             .ToArray();
 
         try
@@ -257,7 +257,7 @@ public static class AppRegistry
             project.LastAccess = DateTime.Now;
 
         _projects = SortByLastAccess(projects);
-        key.SetValue(REG_OPENED_PROJECTS, SerializeProjects(_projects));
+        key.SetValue(RegOpenedProjects, SerializeProjects(_projects));
 
         RefreshJumpList();
     }
@@ -267,7 +267,7 @@ public static class AppRegistry
     /// </summary>
     /// <param name="path">Cesta k projektu.</param>
     /// <returns><see langword="true"/>, ak sa projekt v zozname nachadzal.</returns>
-    public static bool RemoveProject(string path)
+    private static bool RemoveProject(string path)
     {
         if (string.IsNullOrWhiteSpace(path))
             return false;
@@ -282,7 +282,7 @@ public static class AppRegistry
             return false;
 
         _projects = rest;
-        key.SetValue(REG_OPENED_PROJECTS, SerializeProjects(rest));
+        key.SetValue(RegOpenedProjects, SerializeProjects(rest));
         return true;
     }
 
@@ -308,14 +308,14 @@ public static class AppRegistry
     public static string GetLastProject()
     {
         var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
-        var value = key?.GetValue(REG_LAST_PROJECT);
+        var value = key?.GetValue(RegLastProject);
         return value is null ? "" : value.ToString();
     }
 
     public static void SetLastProject(string path)
     {
         var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
-        key?.SetValue(REG_LAST_PROJECT, path);
+        key?.SetValue(RegLastProject, path);
     }
 }
 
@@ -335,13 +335,13 @@ public class ProjectInfo
         return obj is ProjectInfo pi && Equals(pi);
     }
 
-    public bool Equals(ProjectInfo other)
+    private bool Equals(ProjectInfo other)
     {
         return Path == other.Path;
     }
 
     public override int GetHashCode()
     {
-        return (Path != null ? Path.GetHashCode() : 0);
+        return Path != null ? Path.GetHashCode() : 0;
     }
 }
