@@ -97,6 +97,22 @@ public static class Utils
     }
 
     /// <summary>
+    ///     Vrati cestu k projektu zadanu ako argument prikazoveho riadka (napr. pri spusteni zo zoznamu odkazov
+    ///     na paneli uloh). Prepinace zacinajuce znakom / alebo - sa preskakuju.
+    /// </summary>
+    /// <returns>cesta k projektu alebo <see langword="null"/>, ak nebola zadana.</returns>
+    [ExcludeFromCodeCoverage]
+    public static string GetProjectPathFromArgs()
+    {
+        string path = null;
+        foreach (var arg in Environment.GetCommandLineArgs().Skip(1))
+            if (!arg.StartsWith("/") && !arg.StartsWith("-"))
+                path = arg;
+
+        return path;
+    }
+
+    /// <summary>
     ///     Reštartuje program.
     /// </summary>
     [ExcludeFromCodeCoverage]
