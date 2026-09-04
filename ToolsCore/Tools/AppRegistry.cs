@@ -68,7 +68,7 @@ public static class AppRegistry
     /// <summary>
     ///     Vrati zoznam vsetkych ciest poslednych pouzivanych priecinkov s datami zoradeny od naposledy
     ///     otvoreneho projektu.<br></br>
-    ///     Ak kluc v Registri s tymto zoznamom neexisstuje, metoda vrati prazdny list.
+    ///     Ak kluc v Registri s tymto zoznamom neexistuje, metoda vrati prazdny list.
     /// </summary>
     /// <returns>zoznam ciest.</returns>
     public static ProjectInfo[] GetOpenedProjects()
