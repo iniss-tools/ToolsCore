@@ -26,7 +26,7 @@ public static class AppInit
         if (!Directory.Exists(configsDir))
             Directory.CreateDirectory(configsDir);
 
-        //nacitanie konfuguracneho suboru CONFIG.XML
+        //nacitanie konfiguracneho suboru CONFIG.XML
         try
         {
             config = XmlSerialization.ReadData<TC>(Utils.CombinePath(configsDir, FileConsts.FILE_CONFIG));
