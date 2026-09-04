@@ -56,4 +56,10 @@
   <data name="NameAppFontSetting_Menu" xml:space="preserve">
     <value>Menu</value>
   </data>
+  <data name="RRecentFiles" xml:space="preserve">
+    <value>Poslední soubory</value>
+  </data>
+  <data name="RRecentProjects" xml:space="preserve">
+    <value>Poslední projekty</value>
+  </data>
 </root>

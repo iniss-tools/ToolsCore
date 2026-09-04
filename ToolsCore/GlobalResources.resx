@@ -147,6 +147,12 @@
   <data name="RQuestion" xml:space="preserve">
     <value>Otázka</value>
   </data>
+  <data name="RRecentFiles" xml:space="preserve">
+    <value>Posledné súbory</value>
+  </data>
+  <data name="RRecentProjects" xml:space="preserve">
+    <value>Posledné projekty</value>
+  </data>
   <data name="RWarning" xml:space="preserve">
     <value>Upozornenie</value>
   </data>

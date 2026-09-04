@@ -22,6 +22,19 @@ public static class FormUtils
         form.ResumeLayout(true);
     }
 
+    /// <summary>
+    ///     Nastaví farby a písmo podľa aktuálneho štýlu položke menu, ktorá vznikla až za behu aplikácie
+    ///     (napr. položka v zozname posledných projektov).
+    /// </summary>
+    /// <param name="item">položka menu</param>
+    public static void ApplyThemeAndFont(this ToolStripItem item)
+    {
+        var scheme = GlobSettings.UsingStyle.ControlsColorScheme;
+        item.BackColor = scheme.Panel.BackColor;
+        item.ForeColor = scheme.Panel.ForeColor;
+        item.Font = GlobSettings.Fonts.Menu.Font;
+    }
+
     public static void ApplyTheme(this Control c)
     {
         var style = GlobSettings.UsingStyle;

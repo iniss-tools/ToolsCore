@@ -21,11 +21,6 @@ public static class AppRegistry
     private static bool _jumpListItemRemoved;
     
     /// <summary>
-    ///     Predvoleny nazov kategorie v zozname odkazov (jump list) na paneli uloh.
-    /// </summary>
-    private const string JUMPLIST_CATEGORY = "Posledné projekty";
-
-    /// <summary>
     ///     Maximalny pocet projektov zobrazenych v zozname odkazov na paneli uloh.
     /// </summary>
     private const int MAX_JUMPLIST_ITEMS = 10;
@@ -71,7 +66,8 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Vrati zoznam vsetkych ciest poslednych pouzivanych priecinkov s datami.<br></br>
+    ///     Vrati zoznam vsetkych ciest poslednych pouzivanych priecinkov s datami zoradeny od naposledy
+    ///     otvoreneho projektu.<br></br>
     ///     Ak kluc v Registri s tymto zoznamom neexisstuje, metoda vrati prazdny list.
     /// </summary>
     /// <returns>zoznam ciest.</returns>
@@ -119,18 +115,29 @@ public static class AppRegistry
             }
         }
 
-        return _projects = projects.ToArray();
+        return _projects = SortByLastAccess(projects);
     }
+
+    /// <summary>
+    ///     Zoradi projekty od naposledy otvoreneho po najstarsi.
+    /// </summary>
+    /// <param name="projects">Zoznam projektov.</param>
+    /// <returns>zoradene pole projektov.</returns>
+    private static ProjectInfo[] SortByLastAccess(IEnumerable<ProjectInfo> projects) =>
+        projects.OrderByDescending(project => project.LastAccess).ToArray();
 
     /// <summary>
     ///     Vytvori zoznam odkazov (jump list) na paneli uloh so zoznamom poslednych pouzivanych projektov.<br/>
     ///     Metodu treba zavolat pri starte aplikacie po vytvoreni hlavneho okna, dalej sa zoznam aktualizuje sam
     ///     pri kazdom otvoreni projektu.
     /// </summary>
-    /// <param name="categoryName">Nazov kategorie, pod ktorou sa projekty na paneli uloh zobrazia.</param>
-    public static void RegisterJumpList(string categoryName = JUMPLIST_CATEGORY)
+    /// <param name="categoryName">
+    ///     Nazov kategorie, pod ktorou sa projekty na paneli uloh zobrazia. Ak nie je zadany, pouzije sa nazov
+    ///     v jazyku nastavenom v aplikacii.
+    /// </param>
+    public static void RegisterJumpList(string categoryName = null)
     {
-        _jumpListCategory = categoryName;
+        _jumpListCategory = categoryName ?? GlobalResources.RRecentProjects;
         RefreshJumpList();
     }
 
@@ -150,9 +157,9 @@ public static class AppRegistry
         if (string.IsNullOrEmpty(exePath))
             return;
 
+        //zoznam projektov je uz zoradeny od naposledy otvoreneho
         var projects = (_projects ?? GetOpenedProjects())
             .Where(project => !string.IsNullOrWhiteSpace(project.Path))
-            .OrderByDescending(project => project.LastAccess)
             .Take(MAX_JUMPLIST_ITEMS)
             .ToArray();
 
@@ -228,7 +235,8 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Prida novu cestu na koniec zoznamu poslednych pouzivanych projektov.<br/>
+    ///     Prida novu cestu na zaciatok zoznamu poslednych pouzivanych projektov, pripadne aktualizuje datum
+    ///     otvorenia uz existujuceho projektu.<br/>
     ///     Ak kluc v Registry neexistuje, vytvori sa a prida zadanu cestu path.
     /// </summary>
     /// <param name="path">Cesta k projektu.</param>
@@ -248,7 +256,7 @@ public static class AppRegistry
         else
             project.LastAccess = DateTime.Now;
 
-        _projects = projects.ToArray();
+        _projects = SortByLastAccess(projects);
         key.SetValue(REG_OPENED_PROJECTS, SerializeProjects(_projects));
 
         RefreshJumpList();

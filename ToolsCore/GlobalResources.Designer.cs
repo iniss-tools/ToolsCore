@@ -668,6 +668,24 @@ namespace ToolsCore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Posledné súbory.
+        /// </summary>
+        public static string RRecentFiles {
+            get {
+                return ResourceManager.GetString("RRecentFiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Posledné projekty.
+        /// </summary>
+        public static string RRecentProjects {
+            get {
+                return ResourceManager.GetString("RRecentProjects", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Upozornenie.
         /// </summary>
         public static string RWarning {
