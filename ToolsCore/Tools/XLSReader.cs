@@ -22,7 +22,7 @@ public class XlsReader : TableFileReader
     {
         _excelApp = new Application();
         _workbook = _excelApp.Workbooks.Open(fileName, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-        _worksheet = _workbook.Worksheets[worksheetID];
+        _worksheet = (Worksheet)_workbook.Worksheets[worksheetID];
 
         ReadWorksheet();
     }
@@ -49,7 +49,7 @@ public class XlsReader : TableFileReader
         {
             for (var c = 1; c <= ColumnCount; c++)
             {
-                Data[r - 1, c - 1] = (range.Cells[r, c] as Range)?.Value2.ToString();
+                Data[r - 1, c - 1] = (range.Cells[r, c] as Microsoft.Office.Interop.Excel.Range)?.Value2.ToString();
             }
         }
     }

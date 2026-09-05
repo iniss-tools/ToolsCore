@@ -1,10 +1,11 @@
 ﻿using ExControls;
 using System.Collections;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Text;
 using System.Globalization;
 using Microsoft.VisualBasic.FileIO;
-using Shell32;
+using Vanara.Windows.Shell;
 using SearchOption = System.IO.SearchOption;
 
 // ReSharper disable UnusedMethodReturnValue.Global
@@ -21,8 +22,7 @@ public static class Utils
     [ExcludeFromCodeCoverage]
     public static string ANSItoUTF(this byte[] data)
     {
-        if (data is null)
-            throw new ArgumentNullException(nameof(data));
+        ArgumentNullException.ThrowIfNull(data);
         if (data.Length == 0)
             return "";
 
@@ -37,8 +37,7 @@ public static class Utils
     [ExcludeFromCodeCoverage]
     public static string ANSItoUTF(this string data)
     {
-        if (data is null)
-            throw new ArgumentNullException(nameof(data));
+        ArgumentNullException.ThrowIfNull(data);
         if (data.Length == 0)
             return "";
 
@@ -53,8 +52,7 @@ public static class Utils
     [ExcludeFromCodeCoverage]
     public static string UTFtoANSI(this byte[] data)
     {
-        if (data is null)
-            throw new ArgumentNullException(nameof(data));
+        ArgumentNullException.ThrowIfNull(data);
         if (data.Length == 0)
             return "";
 
@@ -69,8 +67,7 @@ public static class Utils
     [ExcludeFromCodeCoverage]
     public static string UTFtoANSI(this string data)
     {
-        if (data is null)
-            throw new ArgumentNullException(nameof(data));
+        ArgumentNullException.ThrowIfNull(data);
         if (data.Length == 0)
             return "";
 
@@ -111,6 +108,13 @@ public static class Utils
 
         return path;
     }
+
+    /// <summary>
+    ///     Otvorí URL, mailto odkaz, súbor alebo priečinok cez asociovaný shell handler (predvolený prehliadač,
+    ///     poštový klient, Prieskumník...).
+    /// </summary>
+    /// <param name="target">URL, mailto: odkaz, cesta k súboru alebo priečinku.</param>
+    public static void OpenShell(string target) => Process.Start(new ProcessStartInfo(target) { UseShellExecute = true });
 
     /// <summary>
     ///     Reštartuje program.
@@ -698,32 +702,11 @@ public static class Utils
     /// <returns>ci sa podarilo obnovit subor/priecinok</returns>
     public static bool TryRecoverFileOrDirFromBin(string fullPath)
     {
-        var shell = new Shell();
-        var recycler = shell.NameSpace(10);
-        for (var i = 0; i < recycler.Items().Count; i++) {
-            var fi = recycler.Items().Item(i);
-            var fileName = recycler.GetDetailsOf(fi, 0);
-
-            if (Path.GetExtension(fileName) == "") 
-                fileName += Path.GetExtension(fi.Path);
-
-            //Necessary for systems with hidden file extensions.
-            var filePath = recycler.GetDetailsOf(fi, 1);
-
-            if (fullPath == Path.Combine(filePath, fileName)) {
-                return DoVerb(fi, @"ESTORE");
-            }
-        }
-        return false;
-    }
-
-    private static bool DoVerb(FolderItem item, string verb)
-    {
-        var fiVerb = item.Verbs().Cast<FolderItemVerb>().FirstOrDefault(fiVerb => fiVerb.Name.ToUpper().Contains(verb.ToUpper()));
-        if (fiVerb is null) 
+        var item = RecycleBin.GetItemFromOriginalPath(fullPath);
+        if (item is null)
             return false;
 
-        fiVerb.DoIt();
+        RecycleBin.Restore(item, true);
         return true;
     }
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Diagnostics;
 using System.Reflection;
 using ExControls;
 using ToolsCore.Properties;
@@ -147,7 +146,7 @@ public partial class FAppSettingsBase : Form
         if (string.IsNullOrWhiteSpace(Config.LinkAppSettingsGuide))
             return;
 
-        Process.Start(Config.LinkAppSettingsGuide);
+        Utils.OpenShell(Config.LinkAppSettingsGuide);
     }
 
     private void BSave_Click(object sender, EventArgs e)

@@ -11,12 +11,12 @@ namespace ToolsCore.Tools;
 /// </summary>
 public static class AppRegistry
 {
-    private static string _productName;
-    private static ProjectInfo[] _projects;
+    private static string? _productName;
+    private static ProjectInfo[]? _projects;
 
     private static string ProductName => _productName ??= Assembly.GetEntryAssembly()?.GetName().Name;
 
-    private static string _jumpListCategory;
+    private static string? _jumpListCategory;
     private static bool _jumpListFailed;
     private static bool _jumpListItemRemoved;
     
@@ -56,7 +56,7 @@ public static class AppRegistry
             return dirs.ToList();
 
         var itemsString = value.ToString();
-        var items = itemsString.Split(';');
+        var items = itemsString!.Split(';');
 
         foreach (var item in items)
             if (!string.IsNullOrWhiteSpace(item))
@@ -92,7 +92,7 @@ public static class AppRegistry
         else
         {
             var itemsString = regValue.ToString();
-            var items = itemsString.Split('|');
+            var items = itemsString!.Split('|');
             foreach (var item in items)
             {
                 if (string.IsNullOrWhiteSpace(item))
@@ -135,7 +135,7 @@ public static class AppRegistry
     ///     Nazov kategorie, pod ktorou sa projekty na paneli uloh zobrazia. Ak nie je zadany, pouzije sa nazov
     ///     v jazyku nastavenom v aplikacii.
     /// </param>
-    public static void RegisterJumpList(string categoryName = null)
+    public static void RegisterJumpList(string? categoryName = null)
     {
         _jumpListCategory = categoryName ?? GlobalResources.RRecentProjects;
         RefreshJumpList();
@@ -152,8 +152,8 @@ public static class AppRegistry
         //zoznam odkazov sa vytvara len v aplikaciach, ktore o to poziadali metodou RegisterJumpList
         if (_jumpListCategory is null || _jumpListFailed || !TaskbarManager.IsPlatformSupported)
             return;
-
-        var exePath = Assembly.GetEntryAssembly()?.Location;
+        
+        var exePath = Environment.ProcessPath;
         if (string.IsNullOrEmpty(exePath))
             return;
 
@@ -267,7 +267,7 @@ public static class AppRegistry
     /// </summary>
     /// <param name="path">Cesta k projektu.</param>
     /// <returns><see langword="true"/>, ak sa projekt v zozname nachadzal.</returns>
-    private static bool RemoveProject(string path)
+    private static bool RemoveProject(string? path)
     {
         if (string.IsNullOrWhiteSpace(path))
             return false;
