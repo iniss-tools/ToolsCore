@@ -32,18 +32,18 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     }
 
     /// <inheritdoc />
-    public int IndexOf(object item) => StyleList.IndexOf(item as T);
+    public int IndexOf(object? item) => StyleList.IndexOf((item as T)!);
 
     /// <inheritdoc />
-    public void Insert(int index, object item) => StyleList.Insert(index, item as T);
+    public void Insert(int index, object? item) => StyleList.Insert(index, (item as T)!);
 
     /// <inheritdoc />
     public void RemoveAt(int index) => StyleList.RemoveAt(index);
 
-    object IList.this[int index]
+    object? IList.this[int index]
     {
         get => StyleList[index];
-        set => StyleList[index] = value as T;
+        set => StyleList[index] = (value as T)!;
     }
 
     /// <summary>
@@ -63,7 +63,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     public T this[string key] => StyleList.First(i => i.Name == key);
 
     /// <inheritdoc />
-    public void Remove(object item) => StyleList.Remove(item as T);
+    public void Remove(object? item) => StyleList.Remove((item as T)!);
 
     /// <inheritdoc />
     public void CopyTo(Array array, int index)
@@ -95,9 +95,9 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     public void Add(T style) => StyleList.Add(style);
 
     /// <inheritdoc />
-    int IList.Add(object value)
+    int IList.Add(object? value)
     {
-        StyleList.Add(value as T);
+        StyleList.Add((value as T)!);
         return Count;
     }
 
@@ -105,7 +105,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     public void Clear() => StyleList.Clear();
 
     /// <inheritdoc />
-    public bool Contains(object item) => StyleList.Contains(item);
+    public bool Contains(object? item) => item is T t && StyleList.Contains(t);
 
     /// <summary>
     ///     Nacitava data z konfiguracneho suboru
@@ -115,13 +115,13 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     /// <exception cref="ArgumentException">Ak konfiguacny subor obsahoval nelatnu hodnotu</exception>
     public static Styles<T> ReadData(string fileName)
     {
-        Styles<T> styles = null;
+        Styles<T>? styles = null;
         try
         {
             var text = File.ReadAllText(fileName, Encodings.Win1250);
             if (!string.IsNullOrEmpty(text))
             {
-                styles = (Styles<T>)XmlSerialization.Deserialize(text, typeof(Styles<T>));
+                styles = (Styles<T>)XmlSerialization.Deserialize(text, typeof(Styles<T>))!;
 
                 var ids = new List<string>(styles.StyleList.Count);
                 ids.AddRange(styles.StyleList.Select(style => style.Name));
@@ -203,7 +203,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
         var type = typeof(T);
         var property = type.GetProperty(dark ? nameof(Style.DefaultDarkStyle) : nameof(Style.DefaultLightStyle),
             BindingFlags.Public | BindingFlags.Static);
-        return property?.GetValue(null) as T;
+        return (property?.GetValue(null) as T)!;
     }
 
     /// <inheritdoc />

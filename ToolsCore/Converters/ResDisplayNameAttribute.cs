@@ -15,6 +15,6 @@ public class ResDisplayNameAttribute : DisplayNameAttribute
     private static string Init(Type type, string key)
     {
         var manager = new ResourceManager(type);
-        return manager.GetString(key);
+        return manager.GetString(key) ?? key;
     }
 }

@@ -49,7 +49,7 @@ public class XlsReader : TableFileReader
         {
             for (var c = 1; c <= ColumnCount; c++)
             {
-                Data[r - 1, c - 1] = (range.Cells[r, c] as Microsoft.Office.Interop.Excel.Range)?.Value2.ToString();
+                Data[r - 1, c - 1] = (range.Cells[r, c] as Microsoft.Office.Interop.Excel.Range)?.Value2.ToString() ?? "";
             }
         }
     }

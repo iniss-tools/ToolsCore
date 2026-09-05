@@ -13,7 +13,7 @@ public record ControlsColorScheme() : IColorScheme
 
     /// <inheritdoc />
     [XmlIgnore] 
-    public Font Font { get; set; } = null;
+    public Font Font { get; set; } = null!;
 
     /// <inheritdoc />
     [XmlIgnore] 
@@ -31,18 +31,6 @@ public record ControlsColorScheme() : IColorScheme
         [nameof(Highlight)] = new(SystemColors.Highlight, SystemColors.HighlightText, true) { Name = GlobalResources.NameColorSettings_Highlight },
     };
 
-    #region Fields
-
-    private ColorSetting _button = InitProperty(nameof(Button));
-    private ColorSetting _label = InitProperty(nameof(Label));
-    private ColorSetting _box = InitProperty(nameof(Box));
-    private ColorSetting _border = InitProperty(nameof(Border));
-    private ColorSetting _panel = InitProperty(nameof(Panel));
-    private ColorSetting _mark = InitProperty(nameof(Mark));
-    private ColorSetting _highlight = InitProperty(nameof(Highlight));
-
-    #endregion
-    
     #region Properties
 
     /// <summary>
@@ -51,13 +39,13 @@ public record ControlsColorScheme() : IColorScheme
     [XmlElement("Button")]
     public ColorSetting Button
     {
-        get => _button ??= InitProperty(nameof(Button));
+        get => field ??= InitProperty(nameof(Button));
         set
         {
-            _button = value;
-            AssignProperty(ref _button, nameof(Button));
+            field = value;
+            AssignProperty(ref field, nameof(Button));
         }
-    }
+    } = InitProperty(nameof(Button));
 
     /// <summary>
     ///     Styl pre všetky štítky.
@@ -65,13 +53,13 @@ public record ControlsColorScheme() : IColorScheme
     [XmlElement("Label")]
     public ColorSetting Label
     {
-        get => _label ??= InitProperty(nameof(Label));
+        get => field ??= InitProperty(nameof(Label));
         set
         {
-            _label = value;
-            AssignProperty(ref _label, nameof(Label));
+            field = value;
+            AssignProperty(ref field, nameof(Label));
         }
-    }
+    } = InitProperty(nameof(Label));
 
     /// <summary>
     ///     Styl pre boxy - ComboBox, ListBox....
@@ -79,13 +67,13 @@ public record ControlsColorScheme() : IColorScheme
     [XmlElement("Box")]
     public ColorSetting Box
     {
-        get => _box ??= InitProperty(nameof(Box));
+        get => field ??= InitProperty(nameof(Box));
         set
         {
-            _box = value;
-            AssignProperty(ref _box, nameof(Box));
+            field = value;
+            AssignProperty(ref field, nameof(Box));
         }
-    }
+    } = InitProperty(nameof(Box));
 
     /// <summary>
     ///     Farba okrajov ovladacich prvkov (nastavovat iba ForeColor).
@@ -93,13 +81,13 @@ public record ControlsColorScheme() : IColorScheme
     [XmlElement("Border")]
     public ColorSetting Border
     {
-        get => _border ??= InitProperty(nameof(Border));
+        get => field ??= InitProperty(nameof(Border));
         set
         {
-            _border = value;
-            AssignProperty(ref _border, nameof(Border));
+            field = value;
+            AssignProperty(ref field, nameof(Border));
         }
-    }
+    } = InitProperty(nameof(Border));
 
     /// <summary>
     ///     Styl panelu.
@@ -107,13 +95,13 @@ public record ControlsColorScheme() : IColorScheme
     [XmlElement("Panel")]
     public ColorSetting Panel
     {
-        get => _panel ??= InitProperty(nameof(Panel));
+        get => field ??= InitProperty(nameof(Panel));
         set
         {
-            _panel = value;
-            AssignProperty(ref _panel, nameof(Panel));
+            field = value;
+            AssignProperty(ref field, nameof(Panel));
         }
-    }
+    } = InitProperty(nameof(Panel));
 
     /// <summary>
     ///     Farba značiek - pouzite ako značka vo vnutri RadioButton a CheckBox (nastavovat iba ForeColor).
@@ -121,13 +109,13 @@ public record ControlsColorScheme() : IColorScheme
     [XmlElement("Mark")]
     public ColorSetting Mark
     {
-        get => _mark ??= InitProperty(nameof(Mark));
+        get => field ??= InitProperty(nameof(Mark));
         set
         {
-            _mark = value;
-            AssignProperty(ref _mark, nameof(Mark));
+            field = value;
+            AssignProperty(ref field, nameof(Mark));
         }
-    }
+    } = InitProperty(nameof(Mark));
 
     /// <summary>
     ///     Styl pre oznacenie prave aktivneho ovladacieho prvku resp. jeho casti.
@@ -135,13 +123,13 @@ public record ControlsColorScheme() : IColorScheme
     [XmlElement("Highlight")]
     public ColorSetting Highlight
     {
-        get => _highlight ??= InitProperty(nameof(Highlight));
+        get => field ??= InitProperty(nameof(Highlight));
         set
         {
-            _highlight = value;
-            AssignProperty(ref _highlight, nameof(Highlight));
+            field = value;
+            AssignProperty(ref field, nameof(Highlight));
         }
-    }
+    } = InitProperty(nameof(Highlight));
 
     private static ColorSetting InitProperty(string propname) => Props[propname] with { };
 
@@ -157,6 +145,11 @@ public record ControlsColorScheme() : IColorScheme
         }
     }
 
+    // The backing fields (_button, _label, ...) are indirectly assigned here through the property
+    // setters (which also apply AssignProperty's Name/DisableXxx side effect) - Roslyn's definite-assignment
+    // analysis for record copy constructors doesn't credit assignment through a property setter, nor does
+    // it apply the fields' own declaration-site initializers here (both run for the primary constructor only).
+#pragma warning disable CS8618
     protected ControlsColorScheme(ControlsColorScheme original)
     {
         Button = original.Button with { };
@@ -167,6 +160,7 @@ public record ControlsColorScheme() : IColorScheme
         Mark = original.Mark with { };
         Highlight = original.Highlight with { };
     }
+#pragma warning restore CS8618
 
     #endregion
 }

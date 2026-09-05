@@ -79,7 +79,7 @@ public static class Utils
     /// </summary>
     /// <param name="paths">pole retazcov s cestami k suborom/priecinkom.</param>
     /// <returns>skombinovanú cestu.</returns>
-    public static string CombinePath(params string[] paths)
+    public static string? CombinePath(params string[] paths)
     {
         if (paths.Length == 0) return null;
 
@@ -99,9 +99,9 @@ public static class Utils
     /// </summary>
     /// <returns>cesta k projektu alebo <see langword="null"/>, ak nebola zadana.</returns>
     [ExcludeFromCodeCoverage]
-    public static string GetProjectPathFromArgs()
+    public static string? GetProjectPathFromArgs()
     {
-        string path = null;
+        string? path = null;
         foreach (var arg in Environment.GetCommandLineArgs().Skip(1))
             if (!arg.StartsWith("/") && !arg.StartsWith("-"))
                 path = arg;
@@ -171,7 +171,7 @@ public static class Utils
     /// <param name="buttons">Tlacidla, ktore sa zobrazia v dialógu.</param>
     /// <returns>vysledok dialogu.</returns>
     [ExcludeFromCodeCoverage]
-    public static DialogResult ShowInfo([Localizable(true)] string text, string title = null, MessageBoxButtons buttons = MessageBoxButtons.OK)
+    public static DialogResult ShowInfo([Localizable(true)] string text, string? title = null, MessageBoxButtons buttons = MessageBoxButtons.OK)
     {
         return ExMessageBox.Show(text, title ?? GlobalResources.RInfo, buttons, MessageBoxIcon.Information);
     }
@@ -241,7 +241,7 @@ public static class Utils
     /// <param name="nums">Retazec s moznym cislom.</param>
     /// <param name="def">Predvolena hodnota.</param>
     /// <returns>skonverovane cislo alebo predvolenu hodnotu.</returns>
-    public static int ParseIntOrDefault(string nums, int def = 0) => int.TryParse(nums, out var numi) ? numi : def;
+    public static int ParseIntOrDefault(string? nums, int def = 0) => int.TryParse(nums, out var numi) ? numi : def;
 
     /// <summary>
     ///     Vráti skonvertované číslo z retazca,
@@ -250,7 +250,7 @@ public static class Utils
     /// <param name="nums">Retazec s moznym cislom.</param>
     /// <param name="def">Predvolena hodnota.</param>
     /// <returns>skonverovane cislo alebo predvolenu hodnotu.</returns>
-    public static int? ParseIntOrNull(string nums, int? def = null) => int.TryParse(nums, out var numi) ? numi : def;
+    public static int? ParseIntOrNull(string? nums, int? def = null) => int.TryParse(nums, out var numi) ? numi : def;
 
     /// <summary>
     ///     Vrati retazec, ak je retazec <see langword="null" />, vrati predvoleny retazec.
@@ -258,7 +258,7 @@ public static class Utils
     /// <param name="str">Retazec.</param>
     /// <param name="def">Predvoleny retazec.</param>
     /// <returns></returns>
-    public static string ParseStringOrDefault(string str, string def = "") => str ?? def;
+    public static string ParseStringOrDefault(string? str, string def = "") => str ?? def;
 
     /// <summary>
     ///     Vrati pole bitov ako <see cref="string"/>.
@@ -340,7 +340,7 @@ public static class Utils
     /// </summary>
     /// <param name="hex">Farba v hexadecimalnom tvare.</param>
     /// <returns>farbu <see cref="Color"/> alebo <see langword="null"/>, ak konvertovanie neprebehlo uspesne.</returns>
-    public static Color? TryParseHex(string hex)
+    public static Color? TryParseHex(string? hex)
     {
         if (hex == null) return null;
         try { return ParseHex(hex); } catch { return null; }
@@ -421,7 +421,7 @@ public static class Utils
     ///     Vrati nazov priecinka.
     /// </summary>
     /// <returns>nazov priecinka alebo <see langword="null"/> ak je vstup <see langword="null"/> alebo <see cref="string.Empty"/>.</returns>
-    public static string GetDirectoryName(string path)
+    public static string? GetDirectoryName(string path)
     {
         if (string.IsNullOrEmpty(path)) return null;
         var dir = new DirectoryInfo(path);
@@ -481,7 +481,7 @@ public static class Utils
     /// </summary>
     /// <param name="text">Retazec s datumom.</param>
     /// <returns>datum vo forme objektu typu <see cref="DateTime"/>.</returns>
-    public static DateTime ParseDateAlts(string text)
+    public static DateTime ParseDateAlts(string? text)
     {
         if (string.IsNullOrEmpty(text))
             return DateTime.MinValue;

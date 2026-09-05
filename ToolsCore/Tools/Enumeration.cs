@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
@@ -8,6 +9,7 @@ namespace ToolsCore.Tools;
 /// <summary>
 ///     Base class for extended enumeration types. This class is abstract.
 /// </summary>
+[SuppressMessage("Design", "CA1000:Do not declare static members on generic types")]
 public abstract class Enumeration<T> : IComparable, IComparable<Enumeration<T>> where T : Enumeration<T>
 {
     private readonly bool _useKey;
@@ -74,7 +76,7 @@ public abstract class Enumeration<T> : IComparable, IComparable<Enumeration<T>> 
     /// <summary>
     ///     Identifikator prvku ako kluc v tvare retazca.
     /// </summary>
-    public string Key { get; }
+    public string? Key { get; }
 
     /// <summary>
     ///     Viditelny nazov prvku.
@@ -98,10 +100,10 @@ public abstract class Enumeration<T> : IComparable, IComparable<Enumeration<T>> 
     ///     occurs in the same position in the sort order as <paramref name="obj" />. Greater than zero This instance follows
     ///     <paramref name="obj" /> in the sort order.
     /// </returns>
-    /// <exception cref="T:System.ArgumentException">
+    /// <exception cref="System.ArgumentException">
     ///     <paramref name="obj" /> is not the same type as this instance.
     /// </exception>
-    public int CompareTo(object obj)
+    public int CompareTo(object? obj)
     {
         if (obj is Enumeration<T> en)
             return CompareTo(en);
@@ -120,7 +122,7 @@ public abstract class Enumeration<T> : IComparable, IComparable<Enumeration<T>> 
     ///     instance occurs in the same position in the sort order as <paramref name="other" />. Greater than zero This
     ///     instance follows <paramref name="other" /> in the sort order.
     /// </returns>
-    public int CompareTo(Enumeration<T> other)
+    public int CompareTo(Enumeration<T>? other)
     {
         if (ReferenceEquals(this, other)) return 0;
         return other is null ? 1 : Id.CompareTo(other.Id);
@@ -139,7 +141,7 @@ public abstract class Enumeration<T> : IComparable, IComparable<Enumeration<T>> 
     }
 
     /// <inheritdoc />
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is not Enumeration<T> otherValue) 
             return false;
@@ -157,7 +159,7 @@ public abstract class Enumeration<T> : IComparable, IComparable<Enumeration<T>> 
 
     /// <summary>Serves as the default hash function.</summary>
     /// <returns>A hash code for the current object.</returns>
-    public override int GetHashCode() => _useKey ? Key.GetHashCode() : Id;
+    public override int GetHashCode() => _useKey ? Key!.GetHashCode() : Id;
 
     /// <summary>
     ///     Compares two enumeration types.
@@ -165,7 +167,7 @@ public abstract class Enumeration<T> : IComparable, IComparable<Enumeration<T>> 
     /// <param name="e1">First enumeration item.</param>
     /// <param name="e2">Second enumeration item.</param>
     /// <returns></returns>
-    public static bool operator ==(Enumeration<T> e1, Enumeration<T> e2) => Equals(e1, e2);
+    public static bool operator ==(Enumeration<T>? e1, Enumeration<T>? e2) => Equals(e1, e2);
 
     /// <summary>
     ///     Compares two enumeration types.
@@ -173,7 +175,7 @@ public abstract class Enumeration<T> : IComparable, IComparable<Enumeration<T>> 
     /// <param name="e1">First enumeration item.</param>
     /// <param name="e2">Second enumeration item.</param>
     /// <returns></returns>
-    public static bool operator !=(Enumeration<T> e1, Enumeration<T> e2) => !(e1 == e2);
+    public static bool operator !=(Enumeration<T>? e1, Enumeration<T>? e2) => !(e1 == e2);
 
     /// <summary>Returns a string that represents the current object.</summary>
     /// <returns>A string that represents the current object.</returns>
@@ -184,7 +186,7 @@ public abstract class Enumeration<T> : IComparable, IComparable<Enumeration<T>> 
     /// </summary>
     /// <param name="name">vstupny retazec</param>
     /// <returns>prvok enumeracie</returns>
-    public static T Parse(string name) => GetValues().FirstOrDefault(val => val.Name == name);
+    public static T? Parse(string name) => GetValues().FirstOrDefault(val => val.Name == name);
 
     /// <summary>
     ///     Pokusi sa konvertovat retazec na prvok enumeracie podla mena prvku.<br></br>
@@ -194,9 +196,29 @@ public abstract class Enumeration<T> : IComparable, IComparable<Enumeration<T>> 
     /// <param name="name"></param>
     /// <param name="result"></param>
     /// <returns></returns>
-    public static bool TryParse(string name, out T result) 
+    public static bool TryParse(string name, out T? result)
     {
         result = Parse(name);
         return result != null;
+    }
+
+    public static bool operator <(Enumeration<T>? left, Enumeration<T>? right)
+    {
+        return left is null ? right is not null : left.CompareTo(right) < 0;
+    }
+
+    public static bool operator <=(Enumeration<T>? left, Enumeration<T>? right)
+    {
+        return left is null || left.CompareTo(right) <= 0;
+    }
+
+    public static bool operator >(Enumeration<T>? left, Enumeration<T>? right)
+    {
+        return left is not null && left.CompareTo(right) > 0;
+    }
+
+    public static bool operator >=(Enumeration<T>? left, Enumeration<T>? right)
+    {
+        return left is null ? right is null : left.CompareTo(right) >= 0;
     }
 }

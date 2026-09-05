@@ -14,7 +14,7 @@ public static class AppRegistry
     private static string? _productName;
     private static ProjectInfo[]? _projects;
 
-    private static string ProductName => _productName ??= Assembly.GetEntryAssembly()?.GetName().Name;
+    private static string ProductName => (_productName ??= Assembly.GetEntryAssembly()?.GetName().Name)!;
 
     private static string? _jumpListCategory;
     private static bool _jumpListFailed;
@@ -218,7 +218,7 @@ public static class AppRegistry
     ///     Odstrani zo zoznamu poslednych pouzivanych projektov polozky, ktore pouzivatel odstranil
     ///     zo zoznamu odkazov na paneli uloh.
     /// </summary>
-    private static void JumpList_ItemsRemoved(object sender, UserRemovedJumpListItemsEventArgs e)
+    private static void JumpList_ItemsRemoved(object? sender, UserRemovedJumpListItemsEventArgs e)
     {
         foreach (var item in e.RemovedItems)
         {
@@ -246,7 +246,7 @@ public static class AppRegistry
             return;
 
         var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
-        if (key == null)
+        if (key == null!)
             return;
 
         var projects = (_projects ?? GetOpenedProjects()).ToList();
@@ -273,7 +273,7 @@ public static class AppRegistry
             return false;
 
         var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
-        if (key is null)
+        if (key == null!)
             return false;
 
         var projects = _projects ?? GetOpenedProjects();
@@ -309,7 +309,7 @@ public static class AppRegistry
     {
         var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
         var value = key?.GetValue(RegLastProject);
-        return value is null ? "" : value.ToString();
+        return value is null ? "" : value.ToString() ?? "";
     }
 
     public static void SetLastProject(string path)
@@ -330,7 +330,7 @@ public class ProjectInfo
         LastAccess = lastAccess;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         return obj is ProjectInfo pi && Equals(pi);
     }

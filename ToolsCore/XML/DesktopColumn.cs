@@ -21,13 +21,13 @@ public record DesktopColumn()
     ///     Nazov property.
     /// </summary>
     [XmlIgnore]
-    public string PropertyName { get; set; }
+    public string PropertyName { get; set; } = null!;
 
     /// <summary>
     ///     Nazov stlpca, ktory sa zobrazuje v hlavicke stlpca.
     /// </summary>
     [XmlIgnore]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     ///     Aktualne poradove cislo umiestnenia tohto stlpca v tabulke.

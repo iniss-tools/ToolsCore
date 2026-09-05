@@ -8,7 +8,7 @@ public abstract class TableFileReader : IDisposable
     /// <summary>
     ///     Data.
     /// </summary>
-    protected string[,] Data;
+    protected string[,] Data = null!;
 
     /// <summary>
     ///     Pocet riadkov.

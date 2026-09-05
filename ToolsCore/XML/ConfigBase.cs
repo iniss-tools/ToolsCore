@@ -77,7 +77,7 @@ public record ConfigBase()
     public bool LoggingError { get; set; } = true;
 
     [XmlIgnore]
-    public virtual string LinkAppSettingsGuide { get; }
+    public virtual string? LinkAppSettingsGuide { get; }
 
     protected ConfigBase(ConfigBase original)
     {

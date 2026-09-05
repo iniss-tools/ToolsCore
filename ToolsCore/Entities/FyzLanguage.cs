@@ -1,4 +1,6 @@
-﻿namespace ToolsCore.Entities;
+﻿using JetBrains.Annotations;
+
+namespace ToolsCore.Entities;
 
 public class FyzLanguage
 {
@@ -51,17 +53,18 @@ public class FyzLanguage
     /// <summary>
     ///     This (kvoli GUI).
     /// </summary>
+    [UsedImplicitly]
     public FyzLanguage This => this;
 
     /// <summary>
     ///     Zoznam skupin zvukov.
     /// </summary>
-    public IList<FyzGroup> Groups { get; set; }
+    public IList<FyzGroup> Groups { get; set; } = null!;
 
     /// <summary>
     ///     Odkaz na fyzicky priecinok banky zvukov.
     /// </summary>
-    public DirectoryElement Directory { get; set; }
+    public DirectoryElement Directory { get; set; } = null!;
 
     /// <summary>Returns a string that represents the current object.</summary>
     /// <returns>A string that represents the current object.</returns>
@@ -69,8 +72,7 @@ public class FyzLanguage
 
     public string GetAbsPath(string pathToBank)
     {
-        if (pathToBank is null)
-            throw new ArgumentNullException(nameof(pathToBank));
+        ArgumentNullException.ThrowIfNull(pathToBank);
 
         var path = new StringBuilder(pathToBank);
 
@@ -85,14 +87,14 @@ public class FyzLanguage
     /// <param name="langs">list zvukov</param>
     /// <param name="key">kľúč jazyka</param>
     /// <returns>jazyk z listu, resp. <see langword="null" /> ak nebola nájdená zhoda.</returns>
-    public static FyzLanguage GetLanguageFromKey(IEnumerable<FyzLanguage> langs, string key) => langs.FirstOrDefault(jazyk => jazyk.Key == key);
+    public static FyzLanguage? GetLanguageFromKey(IEnumerable<FyzLanguage> langs, string key) => langs.FirstOrDefault(jazyk => jazyk.Key == key);
 
     /// <summary>
     ///     Vráti hlavný jazyk z listu zvukov.
     /// </summary>
     /// <param name="langs">list jazykov</param>
     /// <returns>hlavný jazyk alebo <see langword="null" /> ak zadaný list neobsahuje hlavný jazyk</returns>
-    public static FyzLanguage GetBasicLanguage(IEnumerable<FyzLanguage> langs) => langs.FirstOrDefault(jazyk => jazyk.IsBasic);
+    public static FyzLanguage? GetBasicLanguage(IEnumerable<FyzLanguage> langs) => langs.FirstOrDefault(jazyk => jazyk.IsBasic);
 
     /// <summary>
     ///     Zistí, či v zadanom poli jazykov sa nachádza prvok s rovnakým kľúčom ako zadaný kľúč.
@@ -103,7 +105,7 @@ public class FyzLanguage
     ///     <see langword="true" /> ak sa v poli nachádza prvok s rovnakým kľučom ako zadaný kľúč, inak
     ///     <see langword="false" />.
     /// </returns>
-    public static bool ContainsKey(ICollection<FyzLanguage> languages, string key)
+    public static bool ContainsKey(ICollection<FyzLanguage>? languages, string? key)
     {
         if (key == null || languages == null || languages.Count == 0) 
             return false;

@@ -1,5 +1,6 @@
 ﻿using System.Drawing.Design;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using ToolsCore.Converters;
 
 namespace ToolsCore.XML;
@@ -26,19 +27,20 @@ public record AppFont()
     ///     Názov použitia písma pre program.
     /// </summary>
     [XmlIgnore, Localizable(true), Browsable(false)]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     ///     Písmo.
     /// </summary>
     [XmlIgnore]
-    public Font Font { get; set; }
+    public Font Font { get; private set; } = null!;
 
     /// <summary>
-    ///     Príkad pre vizualizáciu písma.
+    ///     Príklad pre vizualizáciu písma.
     /// </summary>
     [XmlIgnore]
     [Browsable(false)]
+    [UsedImplicitly]
     public string Example => "OK1932Šč./jkl";
 
     /// <summary>

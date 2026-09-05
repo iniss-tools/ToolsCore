@@ -17,8 +17,8 @@ public static class XmlSerialization
         try
         {
             var text = File.ReadAllText(fileName, Encodings.Win1250);
-            if (!string.IsNullOrEmpty(text)) 
-                config = (T) Deserialize(text, typeof(T));
+            if (!string.IsNullOrEmpty(text))
+                config = (T) Deserialize(text, typeof(T))!;
         }
         catch (FileNotFoundException)
         {
@@ -39,9 +39,9 @@ public static class XmlSerialization
     /// </summary>
     /// <param name="file">Cesta k suboru</param>
     /// <param name="obj">Data.</param>
-    public static void WriteData<T>(string file, T obj) => SerializeToFile(file, obj);
+    public static void WriteData<T>(string file, T obj) => SerializeToFile(file, obj!);
 
-    private static string Serialize(object obj, bool indent, XmlSerializer serializer = null)
+    private static string Serialize(object obj, bool indent, XmlSerializer? serializer = null)
     {
         serializer ??= new XmlSerializer(obj.GetType());
 
@@ -61,7 +61,7 @@ public static class XmlSerialization
         return text.Trim(" \r\n".ToCharArray());
     }
 
-    internal static void SerializeToFile(string fileName, object obj, Encoding encoding = null, XmlSerializer serializer = null)
+    internal static void SerializeToFile(string fileName, object obj, Encoding? encoding = null, XmlSerializer? serializer = null)
     {
         var text = Serialize(obj, true, serializer);
 
@@ -71,7 +71,7 @@ public static class XmlSerialization
         File.WriteAllText(fileName, text, encoding);
     }
 
-    internal static object Deserialize(string text, Type type)
+    internal static object? Deserialize(string text, Type type)
     {
         if (string.IsNullOrEmpty(text)) 
             throw new ArgumentException("XML text is empty.");

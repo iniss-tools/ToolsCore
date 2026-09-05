@@ -36,13 +36,13 @@ public record CmdShortcut
     }
 
     [XmlIgnore]
-    public string PropertyName { get; set; }
+    public string PropertyName { get; set; } = null!;
 
     /// <summary>
     ///     Názov použitia klávesovej skratky.
     /// </summary>
     [XmlIgnore, Localizable(true)]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     ///     Klávesová skratka ako štruktúra <see cref="ShortcutName"/>.
@@ -60,7 +60,7 @@ public record CmdShortcut
         set => Shortcut = new ShortcutName(XmlEnum<Shortcut>.StringToEnum(value));
     }
 
-    public static implicit operator Keys(CmdShortcut cmd)
+    public static implicit operator Keys(CmdShortcut? cmd)
     {
         if (cmd is null)
             return (Keys)System.Windows.Forms.Shortcut.None;
@@ -74,21 +74,16 @@ public record CmdShortcut
 ///     reprezentáciu klávesovej skratky vo formáte: X+Y.
 ///     Ak je <see cref="Value" /> <see cref="Shortcut.None" />, vráti "(Žiadna)".
 /// </summary>
-public readonly struct ShortcutName
+/// <remarks>
+///     Vytvori novu instanciu struktury <see cref="ShortcutName"/> podla enumeracie <see cref="Shortcut"/>.
+/// </remarks>
+/// <param name="shortcut"></param>
+public readonly struct ShortcutName(Shortcut shortcut)
 {
     /// <summary>
     ///     Klávesová skratka ako štruktúra.
     /// </summary>
-    public readonly Shortcut Value;
-
-    /// <summary>
-    ///     Vytvori novu instanciu struktury <see cref="ShortcutName"/> podla enumeracie <see cref="Shortcut"/>.
-    /// </summary>
-    /// <param name="shortcut"></param>
-    public ShortcutName(Shortcut shortcut)
-    {
-        Value = shortcut;
-    }
+    public Shortcut Value { get; } = shortcut;
 
     public static implicit operator Shortcut(ShortcutName sn) => sn.Value;
 

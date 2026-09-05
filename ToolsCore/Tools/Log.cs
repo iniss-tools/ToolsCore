@@ -7,23 +7,23 @@ namespace ToolsCore.Tools;
 /// </summary>
 public static class Log
 {
-    private static LogFile _logApp;
-    private static LogFile _logError;
+    private static LogFile? _logApp;
+    private static LogFile? _logError;
 
     /// <summary>
     ///     Nazov logovacieho suboru Info.log.
     /// </summary>
-    private const string LOG_APP_NAME = "info.log";
+    private const string LogAppName = "info.log";
 
     /// <summary>
     ///     Nazov logovacieho suboru Error.log.
     /// </summary>
-    private const string LOG_ERROR_NAME = "error.log";
+    private const string LogErrorName = "error.log";
 
     /// <summary>
     ///     Cesta k priecinku s logmi.
     /// </summary>
-    private const string LOG_PATH = "\\logs";
+    private const string LogPath = "\\logs";
 
     /// <summary>
     ///     Cesta k priecinku s programom.
@@ -40,17 +40,17 @@ public static class Log
     /// </summary>
     public static bool DoErrorLogs { get; set; } = true;
 
-    private static void LogString(LogFile logFile, string text) => logFile.SaveToFile(text);
+    private static void LogString(LogFile logFile, string? text) => logFile.SaveToFile(text);
 
     /// <summary>
     ///     Zapise chybu do logovacieho suboru.
     /// </summary>
     /// <param name="s">text chybovej hlasky</param>
-    public static void Error(string s)
+    public static void Error(string? s)
     {
         if (DoErrorLogs)
         {
-            _logError ??= new LogFile(LOG_ERROR_NAME, LogFile.DateType.Datetime);
+            _logError ??= new LogFile(LogErrorName, LogFile.DateType.Datetime);
             LogString(_logError, s);
         }
     }
@@ -60,7 +60,7 @@ public static class Log
     /// </summary>
     /// <param name="e">Vynimka.</param>
     /// <param name="s">Dobrovodna informacia o vynimke (dobrovolna).</param>
-    public static void Exception(Exception e, string s = null)
+    public static void Exception(Exception? e, string? s = null)
     {
         if (e != null)
         {
@@ -79,7 +79,7 @@ public static class Log
         if (!DoAppLogs) 
             return;
 
-        _logApp ??= new LogFile(LOG_APP_NAME, LogFile.DateType.Datetime);
+        _logApp ??= new LogFile(LogAppName, LogFile.DateType.Datetime);
         LogString(_logApp, s);
     }
 
@@ -98,8 +98,8 @@ public static class Log
             _dateSeparator = dateSeparator;
             _locker = RuntimeHelpers.GetObjectValue(new object());
 
-            FullFileDir = Utils.CombinePath(AppDirPath, LOG_PATH);
-            FullFilePath = Utils.CombinePath(AppDirPath, LOG_PATH, fileName);
+            FullFileDir = Utils.CombinePath(AppDirPath, LogPath)!;
+            FullFilePath = Utils.CombinePath(AppDirPath, LogPath, fileName)!;
 
             if (!Directory.Exists(FullFileDir)) 
                 Directory.CreateDirectory(FullFileDir);
@@ -111,7 +111,7 @@ public static class Log
         private string FullFilePath { get; }
         private string FullFileDir { get; }
 
-        public void SaveToFile(string text)
+        public void SaveToFile(string? text)
         {
             if (text == null) 
                 return;
@@ -123,7 +123,7 @@ public static class Log
                 if (_maxSize > 0 && File.Exists(FullFilePath) && _maxSize < new FileInfo(FullFilePath).Length)
                 {
                     var newFile = Path.GetFileNameWithoutExtension(FileName) + "_" + now.ToString("dd-MM") + ".log.bak";
-                    File.Move(FullFilePath, Utils.CombinePath(FullFileDir, newFile));
+                    File.Move(FullFilePath, Utils.CombinePath(FullFileDir, newFile)!);
                 }
 
                 switch (_dateTypeStamp)

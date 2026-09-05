@@ -11,7 +11,7 @@ public record Style
     ///     Nazov stylu
     /// </summary>
     [XmlAttribute("name")] 
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     ///     Ci je tento styl nastaveny ako aktivny (pouzivany).
