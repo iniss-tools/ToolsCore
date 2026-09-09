@@ -26,9 +26,13 @@ public static class Log
     private const string LogPath = "\\logs";
 
     /// <summary>
-    ///     Cesta k priecinku s programom.
+    ///     Cesta k priecinku, do ktoreho sa zapisuju logy (podpriecinok <c>logs</c>).
     /// </summary>
-    public static string AppDirPath { get; set; } = Application.StartupPath;
+    /// <remarks>
+    ///     Nastavuje ju <c>AppInit.Initialization</c> na <c>AppPaths.DataDir</c>, a to hned
+    ///     na zaciatku - inak by prve zalogovanie zalozilo <c>logs</c> vedla programu.
+    /// </remarks>
+    public static string DataDirPath { get; set; } = Application.StartupPath;
 
     /// <summary>
     ///     Vykonavaj logy informacii.
@@ -59,7 +63,7 @@ public static class Log
     ///     Zapise vynimku do logovacieho suboru.
     /// </summary>
     /// <param name="e">Vynimka.</param>
-    /// <param name="s">Dobrovodna informacia o vynimke (dobrovolna).</param>
+    /// <param name="s">Dobrovodna informacia o vynimke.</param>
     public static void Exception(Exception? e, string? s = null)
     {
         if (e != null)
@@ -98,8 +102,8 @@ public static class Log
             _dateSeparator = dateSeparator;
             _locker = RuntimeHelpers.GetObjectValue(new object());
 
-            FullFileDir = Utils.CombinePath(AppDirPath, LogPath)!;
-            FullFilePath = Utils.CombinePath(AppDirPath, LogPath, fileName)!;
+            FullFileDir = Utils.CombinePath(DataDirPath, LogPath)!;
+            FullFilePath = Utils.CombinePath(DataDirPath, LogPath, fileName)!;
 
             if (!Directory.Exists(FullFileDir)) 
                 Directory.CreateDirectory(FullFileDir);

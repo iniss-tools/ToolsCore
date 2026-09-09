@@ -16,11 +16,12 @@ public static class AppInit
     public static void Initialization<TC,TS>(out TC config, out Styles<TS> styles, out TS usingStyle) 
         where TC: ConfigBase, new() where TS : Style
     {
-        //Nastavenie cesty, kde sa budu ukladat logovacie subory
-        Log.AppDirPath = Application.StartupPath;
+        //Nastavenie cesty, kde sa budu ukladat logovacie subory - musi byt prve,
+        //aby uz aj chyba pri nacitani konfiguracie mala kam zapisat
+        Log.DataDirPath = AppPaths.DataDir;
 
         //Nastavenie cesty, kde sa maju ukladat konfiguracne subory
-        var configsDir = Utils.CombinePath(Application.StartupPath, FileConsts.CONFIG_PATH)!;
+        var configsDir = AppPaths.ConfigDir;
         if (!Directory.Exists(configsDir))
             Directory.CreateDirectory(configsDir);
 

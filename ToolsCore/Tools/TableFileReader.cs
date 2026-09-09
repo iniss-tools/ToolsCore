@@ -25,16 +25,17 @@ public abstract class TableFileReader : IDisposable
     /// </summary>
     /// <param name="row">Riadok tabulky.</param>
     /// <param name="column">Stlpec tabulky.</param>
-    /// <exception cref="IndexOutOfRangeException">Ak zadany index riadku alebo stlpca je vacsi ako pocet riadkov resp. stlpcov.</exception>
+    /// <returns>Prvok na specifikovanom riadku a stlpci.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Ak zadany index riadku alebo stlpca je vacsi ako pocet riadkov resp. stlpcov.</exception>
     public string this[int row, int column]
     {
         get
         {
             if (column >= ColumnCount)
-                throw new IndexOutOfRangeException($"Column index {column} is out out of range. Column count = {ColumnCount}.");
+                throw new ArgumentOutOfRangeException($"Column index {column} is out out of range. Column count = {ColumnCount}.");
 
             if (row >= RowCount)
-                throw new IndexOutOfRangeException($"Row index {row} is out out of range. Row count = {RowCount}.");
+                throw new ArgumentOutOfRangeException($"Row index {row} is out out of range. Row count = {RowCount}.");
 
             return Data[row, column];
         }
