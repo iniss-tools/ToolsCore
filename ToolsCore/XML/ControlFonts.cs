@@ -12,10 +12,10 @@ public record ControlFonts()
 
     private static AppFont DefaultLabelsFont { get; } = new(SystemFonts.DefaultFont);
     private static AppFont DefaultButtonsFont { get; } = new(SystemFonts.DefaultFont);
-    private static AppFont DefaultMenuFont { get; } = new(SystemFonts.MenuFont);
-    private static AppFont DefaultColsHeaderFont { get; } = new(SystemFonts.MenuFont);
+    private static AppFont DefaultMenuFont { get; } = new(SystemFonts.MenuFont!);
+    private static AppFont DefaultColsHeaderFont { get; } = new(SystemFonts.MenuFont!);
     private static AppFont DefaultTableCellsFont { get; } = new(SystemFonts.DefaultFont);
-    private static AppFont DefaultStateRowFont { get; } = new(SystemFonts.MenuFont); //new(new Font(SystemFonts.MenuFont.FontFamily, 10, FontStyle.Bold));
+    private static AppFont DefaultStateRowFont { get; } = new(SystemFonts.MenuFont!); //new(new Font(SystemFonts.MenuFont.FontFamily, 10, FontStyle.Bold));
 
     /// <summary>
     ///     Nastavenie písma pre Labels.

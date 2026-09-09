@@ -128,7 +128,7 @@ public static class FormUtils
                         grid.Controls[2].Controls[0].SetTheme(WindowsTheme.DarkExplorer);
                     if (grid is ExPropertyGrid ex && !style.ControlsDefaultStyle)
                     {
-                        ex.InnerToolStrip.RenderMode = ToolStripRenderMode.Professional;
+                        ex.InnerToolStrip!.RenderMode = ToolStripRenderMode.Professional;
                         ex.InnerToolStrip.Renderer = new MyMenuRenderer(new MyColorTable(), false);
                     }
                     break;
@@ -756,7 +756,7 @@ public static class FormUtils
 
         protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
         {
-            if (e.Item.Enabled) 
+            if (e.Item?.Enabled == true)
                 e.ArrowColor = GlobSettings.UsingStyle.ControlsColorScheme.Button.ForeColor;
 
             base.OnRenderArrow(e);
@@ -764,7 +764,7 @@ public static class FormUtils
 
         protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
         {
-            var bitmap = new Bitmap(e.Image);
+            var bitmap = new Bitmap(e.Image!);
 
             // Set the image attribute's color mappings
             var colorMap = new ColorMap[1];

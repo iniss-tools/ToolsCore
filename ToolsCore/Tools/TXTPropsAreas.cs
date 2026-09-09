@@ -28,7 +28,7 @@ public class TxtPropsAreas
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <returns></returns>
-    public string Get(string area) => _dictionary.ContainsKey(area) ? _dictionary[area] : null;
+    public string? Get(string area) => _dictionary.ContainsKey(area) ? _dictionary[area] : null;
 
     /// <summary>
     ///     Vrati zoznam vsetkych nazvov poli, ktore sa nachadzaju v slovniku.
@@ -45,9 +45,9 @@ public class TxtPropsAreas
     public void Set(string area, object value)
     {
         if (_dictionary.ContainsKey(area))
-            _dictionary[area] = value.ToString();
+            _dictionary[area] = value.ToString() ?? "";
         else
-            _dictionary.Add(area, value.ToString());
+            _dictionary.Add(area, value.ToString() ?? "");
     }
 
     /// <summary>
@@ -72,7 +72,7 @@ public class TxtPropsAreas
     /// </summary>
     private void LoadFromFile(string file)
     {
-        string actualArea = null;
+        string? actualArea = null;
         var sb = new StringBuilder();
 
         foreach (var line in File.ReadAllLines(file, Encodings.Win1250))

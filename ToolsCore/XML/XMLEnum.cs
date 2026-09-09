@@ -11,12 +11,12 @@ public static class XmlEnum<T> where T : Enum
     /// </summary>
     /// <param name="s">Retazec reprezentujuci prvok enumeracie.</param>
     /// <returns>prvok enumeracie typu <see cref="T"/>.</returns>
-    public static T StringToEnum(string s) => string.IsNullOrEmpty(s) ? default : (T)Enum.Parse(typeof(T), s);
+    public static T StringToEnum(string s) => (string.IsNullOrEmpty(s) ? default : (T)Enum.Parse(typeof(T), s))!;
 
     /// <summary>
     ///     Konvertuje prvok enumeracie typu <see cref="T"/> na <see cref="string"/>.
     /// </summary>
     /// <param name="e">Prvok enumeracie typu <see cref="T"/>.</param>
     /// <returns>retazec reprezentujuci prvok enumeracie.</returns>
-    public static string EnumToString(T e) => Enum.GetName(typeof(T), e);
+    public static string EnumToString(T e) => Enum.GetName(typeof(T), e) ?? e.ToString();
 }

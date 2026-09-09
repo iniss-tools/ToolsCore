@@ -11,12 +11,12 @@ namespace ToolsCore.Tools;
 /// </summary>
 public static class AppRegistry
 {
-    private static string _productName;
-    private static ProjectInfo[] _projects;
+    private static string? _productName;
+    private static ProjectInfo[]? _projects;
 
-    private static string ProductName => _productName ??= Assembly.GetEntryAssembly()?.GetName().Name;
+    private static string ProductName => (_productName ??= Assembly.GetEntryAssembly()?.GetName().Name)!;
 
-    private static string _jumpListCategory;
+    private static string? _jumpListCategory;
     private static bool _jumpListFailed;
     private static bool _jumpListItemRemoved;
     
@@ -56,7 +56,7 @@ public static class AppRegistry
             return dirs.ToList();
 
         var itemsString = value.ToString();
-        var items = itemsString.Split(';');
+        var items = itemsString!.Split(';');
 
         foreach (var item in items)
             if (!string.IsNullOrWhiteSpace(item))
@@ -92,7 +92,7 @@ public static class AppRegistry
         else
         {
             var itemsString = regValue.ToString();
-            var items = itemsString.Split('|');
+            var items = itemsString!.Split('|');
             foreach (var item in items)
             {
                 if (string.IsNullOrWhiteSpace(item))
@@ -135,7 +135,7 @@ public static class AppRegistry
     ///     Nazov kategorie, pod ktorou sa projekty na paneli uloh zobrazia. Ak nie je zadany, pouzije sa nazov
     ///     v jazyku nastavenom v aplikacii.
     /// </param>
-    public static void RegisterJumpList(string categoryName = null)
+    public static void RegisterJumpList(string? categoryName = null)
     {
         _jumpListCategory = categoryName ?? GlobalResources.RRecentProjects;
         RefreshJumpList();
@@ -152,8 +152,8 @@ public static class AppRegistry
         //zoznam odkazov sa vytvara len v aplikaciach, ktore o to poziadali metodou RegisterJumpList
         if (_jumpListCategory is null || _jumpListFailed || !TaskbarManager.IsPlatformSupported)
             return;
-
-        var exePath = Assembly.GetEntryAssembly()?.Location;
+        
+        var exePath = Environment.ProcessPath;
         if (string.IsNullOrEmpty(exePath))
             return;
 
@@ -218,7 +218,7 @@ public static class AppRegistry
     ///     Odstrani zo zoznamu poslednych pouzivanych projektov polozky, ktore pouzivatel odstranil
     ///     zo zoznamu odkazov na paneli uloh.
     /// </summary>
-    private static void JumpList_ItemsRemoved(object sender, UserRemovedJumpListItemsEventArgs e)
+    private static void JumpList_ItemsRemoved(object? sender, UserRemovedJumpListItemsEventArgs e)
     {
         foreach (var item in e.RemovedItems)
         {
@@ -246,7 +246,7 @@ public static class AppRegistry
             return;
 
         var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
-        if (key == null)
+        if (key == null!)
             return;
 
         var projects = (_projects ?? GetOpenedProjects()).ToList();
@@ -267,13 +267,13 @@ public static class AppRegistry
     /// </summary>
     /// <param name="path">Cesta k projektu.</param>
     /// <returns><see langword="true"/>, ak sa projekt v zozname nachadzal.</returns>
-    private static bool RemoveProject(string path)
+    private static bool RemoveProject(string? path)
     {
         if (string.IsNullOrWhiteSpace(path))
             return false;
 
         var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
-        if (key is null)
+        if (key == null!)
             return false;
 
         var projects = _projects ?? GetOpenedProjects();
@@ -309,7 +309,7 @@ public static class AppRegistry
     {
         var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
         var value = key?.GetValue(RegLastProject);
-        return value is null ? "" : value.ToString();
+        return value is null ? "" : value.ToString() ?? "";
     }
 
     public static void SetLastProject(string path)
@@ -330,7 +330,7 @@ public class ProjectInfo
         LastAccess = lastAccess;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         return obj is ProjectInfo pi && Equals(pi);
     }

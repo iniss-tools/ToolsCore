@@ -36,13 +36,22 @@ public class TxtProps
 
     /// <summary>
     ///     Vrati hodnotu vlastnosti. Ak zadany nazov vlastnosti <paramref name="field"/> nenajde v slovniku vlastnosti,
+    ///     vyvola vynimku.
+    /// </summary>
+    /// <param name="field">Nazov vlastnosti.</param>
+    /// <returns>hodnotu vlastnosti.</returns>
+    /// <exception cref="ArgumentNullException">Ak nebola najdena vlastnost v slovniku.</exception>
+    public string Get(string field) => Get(field, true)!;
+
+    /// <summary>
+    ///     Vrati hodnotu vlastnosti. Ak zadany nazov vlastnosti <paramref name="field"/> nenajde v slovniku vlastnosti,
     ///     vrati <see langword="null"/>, alebo vyvola vynimku podla parametra <paramref name="nullSensitive"/>.
     /// </summary>
     /// <param name="field">Nazov vlastnosti.</param>
     /// <param name="nullSensitive"><see langword="true"/>, ak sa pri nenajdenej vlastnosti ma vyvolat vynimka, pri <see langword="false"/> vrati v tomto pripade <see langword="null"/>.</param>
     /// <returns>hodnotu vlastnosti, alebo <see langword="null"/> ak parameter nullSensitive bol nastaveny na <see langword="false"/>.</returns>
     /// <exception cref="ArgumentNullException">Ak nebola najdena vlastnost v slovniku a zaroven parameter <paramref name="nullSensitive"/> bol nastaveny na <see langword="true"/>.</exception>
-    public string Get(string field, bool nullSensitive = true)
+    public string? Get(string field, bool nullSensitive = true)
     {
         if (nullSensitive)
             return _dictionary.ContainsKey(field) 
@@ -60,9 +69,9 @@ public class TxtProps
     public void Set(string field, object value)
     {
         if (!_dictionary.ContainsKey(field))
-            _dictionary.Add(field, value.ToString());
+            _dictionary.Add(field, value.ToString() ?? "");
         else
-            _dictionary[field] = value.ToString();
+            _dictionary[field] = value.ToString() ?? "";
     }
 
     /// <summary>

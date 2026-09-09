@@ -43,7 +43,7 @@ public record ColorSetting
     ///     Lokalizovateľná
     /// </summary>
     [XmlIgnore, Localizable(true)]  
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     ///     Farba pozadia.

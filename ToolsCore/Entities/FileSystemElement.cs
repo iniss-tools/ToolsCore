@@ -1,4 +1,5 @@
-﻿using ToolsCore.Tools;
+﻿using System.Globalization;
+using ToolsCore.Tools;
 
 namespace ToolsCore.Entities;
 
@@ -8,7 +9,7 @@ public abstract class FileSystemElement
 
     public string Name { get; set; }
 
-    public DirectoryElement Parent { get; set; }
+    public DirectoryElement? Parent { get; set; }
 
     public static implicit operator FileSystemElement(FileSystemInfo fsi)
     {
@@ -17,11 +18,11 @@ public abstract class FileSystemElement
             case DirectoryInfo di:
                 return new DirectoryElement(di);
             case FileInfo fi:
-                if (fi.Extension.ToUpper() is SoundFileElement.WAV_EXT or SoundFileElement.EWA_EXT)
+                if (fi.Extension.ToUpper(CultureInfo.CurrentCulture) is SoundFileElement.WAVExt or SoundFileElement.EWAExt)
                     return new SoundFileElement(fi);
                 return new OtherFileElement(fi);
             default:
-                return null;
+                return null!;
         }
     }
 
@@ -58,7 +59,7 @@ public class DirectoryElement : FileSystemElement
 
     public List<FileSystemElement> Children { get; }
 
-    public FyzGroup Group { get; set; }
+    public FyzGroup Group { get; set; } = null!;
 }
 
 public abstract class FileElement : FileSystemElement
@@ -72,8 +73,8 @@ public abstract class FileElement : FileSystemElement
 
 public class SoundFileElement : FileElement
 {
-    public const string WAV_EXT = ".WAV";
-    public const string EWA_EXT = ".EWA";
+    public const string WAVExt = ".WAV";
+    public const string EWAExt = ".EWA";
 
     public SoundFileElement(FileInfo fileinfo) : base(fileinfo) => Duration = -1;
 
@@ -83,7 +84,7 @@ public class SoundFileElement : FileElement
 
     public string DurationText => Utils.LengthIntToString(Duration);
 
-    public FyzSound Sound { get; set; }
+    public FyzSound Sound { get; set; } = null!;
 }
 
 public class OtherFileElement : FileElement

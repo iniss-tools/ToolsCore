@@ -48,7 +48,7 @@ public class FyzGroup
     /// <summary>
     ///     Odkaz na fyzicky priecinok skupiny zvukov.
     /// </summary>
-    public DirectoryElement Directory { get; set; }
+    public DirectoryElement Directory { get; set; } = null!;
 
     /// <summary>
     ///     Typ priečinka podľa zvukov, ktoré obsahuje.
@@ -61,10 +61,7 @@ public class FyzGroup
 
     public string GetAbsPath(string pathToBank)
     {
-        if (Language == null)
-            throw new ArgumentNullException(nameof(Language));
-        if (pathToBank is null)
-            throw new ArgumentNullException(nameof(pathToBank));
+        ArgumentNullException.ThrowIfNull(pathToBank);
 
         var path = new StringBuilder(pathToBank);
 

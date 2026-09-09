@@ -11,7 +11,7 @@ public class CsvRow : List<string>
     }
 
     /// <summary>
-    ///     Initializes a new instance of the <see cref="T:System.Collections.Generic.List`1" /> class that is empty and
+    ///     Initializes a new instance of the <see cref="CsvRow" /> class that is empty and
     ///     has the default initial capacity.
     /// </summary>
     public CsvRow(int initCount) : base(initCount)
@@ -21,7 +21,7 @@ public class CsvRow : List<string>
     /// <summary>
     ///     Nespracovany text riadku.
     /// </summary>
-    public string LineText { get; set; }
+    public string? LineText { get; set; }
 }
 
 /// <summary>
@@ -90,9 +90,9 @@ public class CsvFileReader : StreamReader
             return ReadStartChar.Eof;
         if (row.LineText == "" || string.IsNullOrWhiteSpace(row.LineText)) 
             return ReadStartChar.Empty;
-        if (row.LineText.StartsWith(";")) 
+        if (row.LineText.StartsWith(';')) 
             return ReadStartChar.Semicolon;
-        if (row.LineText.StartsWith("/")) 
+        if (row.LineText.StartsWith('/')) 
             return ReadStartChar.Slash;
 
         var pos = 0;

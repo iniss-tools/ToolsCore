@@ -38,7 +38,13 @@ public class TxtPropsAreasFields
     /// <returns>hodnotu vlastnosti, alebo <paramref name="defValue"/> ak zadany nazov vlastnosti nebol najdeny v slovniku vlastnosti.</returns>
     public string Get(string area, string field, string defValue) => Get(area, field, false) ?? defValue;
 
-    public string Get(string area, string field, bool throwIfNull = true)
+    /// <summary>
+    ///     Vrati hodnotu vlastnosti s nazvom <paramref name="field"/> v poli <paramref name="area"/>. Vyvola vynimku,
+    ///     ak zadany nazov vlastnosti nebol najdeny.
+    /// </summary>
+    public string Get(string area, string field) => Get(area, field, true)!;
+
+    public string? Get(string area, string field, bool throwIfNull = true)
     {
         if (throwIfNull)
             if (_areas.ContainsKey(area) && _areas[area].ContainsKey(field))
@@ -55,7 +61,7 @@ public class TxtPropsAreasFields
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <returns>slovnik vlastnosti alebo <see langword="null"/>, ak pole s nazov <paramref name="area"/> v sloniku poli nenajde.</returns>
-    public Dictionary<string, string> Get(string area) => _areas.ContainsKey(area) ? _areas[area] : null;
+    public Dictionary<string, string>? Get(string area) => _areas.ContainsKey(area) ? _areas[area] : null;
 
     /// <summary>
     ///     Vrati cely slovnik s poliami a ich vlastnostami.
@@ -79,7 +85,7 @@ public class TxtPropsAreasFields
     /// <param name="value">Hodnota vlastnosti.</param>
     /// <param name="type">Urcuje, ako sa ma metoda spravat k hodnote vlastnosti <paramref name="value"/>.</param>
     /// <exception cref="ArgumentNullException"></exception>
-    public void Set(string area, string field, object value, WriteType type = WriteType.WriteNumber)
+    public void Set(string area, string field, object? value, WriteType type = WriteType.WriteNumber)
     {
         if (type != WriteType.WriteNumber)
         {
@@ -94,22 +100,22 @@ public class TxtPropsAreasFields
             {
                 var vals = value as string;
 
-                value = type is WriteType.WriteStringANSI or WriteType.WriteStringANSINullable ? 
-                    vals.Quote().UTFtoANSI() : 
-                    vals.Quote();
+                value = type is WriteType.WriteStringANSI or WriteType.WriteStringANSINullable ?
+                    vals!.Quote().UTFtoANSI() :
+                    vals!.Quote();
             }
         }
 
         if (_areas.ContainsKey(area))
         {
             if (!_areas[area].ContainsKey(field))
-                _areas[area].Add(field, value.ToString());
+                _areas[area].Add(field, value?.ToString() ?? "");
             else
-                _areas[area][field] = value.ToString();
+                _areas[area][field] = value?.ToString() ?? "";
         }
         else
         {
-            var keys = new Dictionary<string, string> { { field, value.ToString() } };
+            var keys = new Dictionary<string, string> { { field, value?.ToString() ?? "" } };
             _areas.Add(area, keys);
         }
     }
@@ -126,15 +132,15 @@ public class TxtPropsAreasFields
             if (_areas.ContainsKey(area))
             {
                 if (!_areas[area].ContainsKey(field))
-                    _areas[area].Add(field, fields[field].ToString());
+                    _areas[area].Add(field, fields[field].ToString() ?? "");
                 else
-                    _areas[area][field] = fields[field].ToString();
+                    _areas[area][field] = fields[field].ToString() ?? "";
             }
             else
             {
                 var keys = new Dictionary<string, string>
                 {
-                    { field, fields[field].ToString() }
+                    { field, fields[field].ToString() ?? "" }
                 };
                 _areas.Add(area, keys);
             }

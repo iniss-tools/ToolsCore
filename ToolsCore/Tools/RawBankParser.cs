@@ -38,7 +38,7 @@ public static class RawBankParser
     /// </summary>
     public static void WriteFyzBankFile(string pathToBank, List<FyzLanguage> languages)
     {
-        var file = Utils.CombinePath(pathToBank, FileConsts.FILE_FYZBANK);
+        var file = Utils.CombinePath(pathToBank, FileConsts.FILE_FYZBANK)!;
 
         using var writer = new BinaryWriter(File.Open(file, FileMode.Create), Encodings.Win1250);
         writer.Write(languages.Count);
@@ -67,12 +67,11 @@ public static class RawBankParser
     /// <param name="pathToBank"></param>
     /// <param name="language">informacia o jazyku zvukovej banky, do ktorej sa budu vkladat informacie o skupinach a zvukoch.</param>
     /// <param name="worker">background worker pre asynchronnost</param>
-    public static List<FyzSound> ReadFyzZvukFile(string pathToBank, FyzLanguage language, BackgroundWorker worker = null)
+    public static List<FyzSound> ReadFyzZvukFile(string pathToBank, FyzLanguage language, BackgroundWorker? worker = null)
     {
-        if (language == null)
-            throw new ArgumentNullException(nameof(language));
+        ArgumentNullException.ThrowIfNull(language);
 
-        var file = Utils.CombinePath(pathToBank, language.RelativePath, language.FileDefName);
+        var file = Utils.CombinePath(pathToBank, language.RelativePath, language.FileDefName)!;
 
         if (!File.Exists(file))
             throw new FileNotFoundException($"Súbor s definíciou zvukov sa na zvolenej ceste nenašiel: {file}");
@@ -104,10 +103,10 @@ public static class RawBankParser
                 var fileName = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
                 
                 var relativePath = "";
-                if (fileName.Contains("\\"))
+                if (fileName.Contains('\\'))
                 {
                     var index = fileName.LastIndexOf('\\');
-                    relativePath = fileName.Substring(0, index + 1);
+                    relativePath = fileName[..(index + 1)];
                     fileName = fileName.Replace(relativePath, "");
                 }
 
@@ -132,10 +131,9 @@ public static class RawBankParser
     /// <param name="language">informacia o jazyku zvukovej banky, z ktorej sa budu vytvarat informacie o skupinach a zvukoch.</param>
     public static void WriteFyzZvukFile(string pathToBank, FyzLanguage language)
     {
-        if (language == null)
-            throw new ArgumentNullException(nameof(language));
+        ArgumentNullException.ThrowIfNull(language);
 
-        var file = Utils.CombinePath(pathToBank, language.RelativePath, language.FileDefName);
+        var file = Utils.CombinePath(pathToBank, language.RelativePath, language.FileDefName)!;
 
         using var writer = new BinaryWriter(File.Open(file, FileMode.Create), Encodings.Win1250);
         writer.Write(language.Groups.Count);

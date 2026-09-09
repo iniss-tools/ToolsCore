@@ -26,27 +26,27 @@ public class FyzSound
     /// <summary>
     ///     Kluc zvuku (v ZvukBase sa neda menit).
     /// </summary>
-    public string Key { get; set; }
+    public string Key { get; set; } = null!;
 
     /// <summary>
     ///     Nazov zvuku (v ZvukBase sa da menit).
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     ///     Nazov suboru zvuku (s priponou).
     /// </summary>
-    public string FileName { get; set; }
+    public string FileName { get; set; } = null!;
 
     /// <summary>
     ///     Doplnkova relativna cesta k suboru, ak sa subor nenachadza.
     /// </summary>
-    public string AdditionalRelativePath { get; set; }
+    public string AdditionalRelativePath { get; set; } = null!;
 
     /// <summary>
     ///     Text hlasenia.
     /// </summary>
-    public string Text { get; set; }
+    public string Text { get; set; } = null!;
 
     /// <summary>
     ///     Dlzka zvuku v milisekundach (ms).
@@ -61,7 +61,7 @@ public class FyzSound
     /// <summary>
     ///     Skupina zvukov, do ktorej patri tento zvuk.
     /// </summary>
-    public FyzGroup Group { get; set; }
+    public FyzGroup Group { get; set; } = null!;
 
     /// <summary>
     ///     Jazyk, do ktoreho patri tento zvuk.
@@ -71,7 +71,7 @@ public class FyzSound
     /// <summary>
     ///     Odkaz na fyzicky subor zvuku.
     /// </summary>
-    public SoundFileElement File { get; set; }
+    public SoundFileElement File { get; set; } = null!;
 
     /// <summary>Returns a string that represents the current object.</summary>
     /// <returns>A string that represents the current object.</returns>
@@ -79,12 +79,9 @@ public class FyzSound
 
     public string GetAbsPath(string pathToBank)
     {
-        if (Group == null)
-            throw new ArgumentNullException(nameof(Group));
-        if (Group.Language == null)
-            throw new ArgumentNullException(nameof(Group.Language));
-        if (pathToBank is null)
-            throw new ArgumentNullException(nameof(pathToBank));
+        ArgumentNullException.ThrowIfNull(Group);
+        ArgumentNullException.ThrowIfNull(Group.Language);
+        ArgumentNullException.ThrowIfNull(pathToBank);
 
         var path = new StringBuilder(pathToBank);
 

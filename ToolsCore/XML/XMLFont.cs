@@ -7,8 +7,8 @@ namespace ToolsCore.XML;
 /// </summary>
 public class XmlFont
 {
-    [XmlIgnore] 
-    private readonly Font _font;
+    [XmlIgnore]
+    private readonly Font _font = null!;
 
     /// <summary>
     ///     Vytvori novu instanciu triedy <see cref="XmlFont"/>.
@@ -36,7 +36,7 @@ public class XmlFont
     ///     Rodina písma.
     /// </summary>
     [XmlAttribute("family")]
-    public string FontFamily { get; set; }
+    public string FontFamily { get; set; } = null!;
 
     /// <summary>
     ///     Jednotka veľkosti písma.

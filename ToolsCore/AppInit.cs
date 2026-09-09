@@ -1,9 +1,7 @@
 ﻿using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Threading;
 using ExControls;
-using Microsoft.Office.Interop.Excel;
 using ToolsCore.Tools;
 using ToolsCore.XML;
 using Application = System.Windows.Forms.Application;
@@ -22,14 +20,14 @@ public static class AppInit
         Log.AppDirPath = Application.StartupPath;
 
         //Nastavenie cesty, kde sa maju ukladat konfiguracne subory
-        var configsDir = Utils.CombinePath(Application.StartupPath, FileConsts.CONFIG_PATH);
+        var configsDir = Utils.CombinePath(Application.StartupPath, FileConsts.CONFIG_PATH)!;
         if (!Directory.Exists(configsDir))
             Directory.CreateDirectory(configsDir);
 
         //nacitanie konfiguracneho suboru CONFIG.XML
         try
         {
-            config = XmlSerialization.ReadData<TC>(Utils.CombinePath(configsDir, FileConsts.FILE_CONFIG));
+            config = XmlSerialization.ReadData<TC>(Utils.CombinePath(configsDir, FileConsts.FILE_CONFIG)!);
             GlobSettings.Fonts = config.Fonts;
         }
         catch (Exception e)
@@ -45,7 +43,7 @@ public static class AppInit
         //nacitanie suboru so stylmi STYLES.XML
         try
         {
-            styles = Styles<TS>.ReadData(Utils.CombinePath(configsDir, FileConsts.FILE_STYLES));
+            styles = Styles<TS>.ReadData(Utils.CombinePath(configsDir, FileConsts.FILE_STYLES)!);
             usingStyle = styles.FirstOrDefault(s => s.Used) ?? styles.First();
             GlobSettings.UsingStyle = usingStyle;
         }

@@ -5,7 +5,7 @@ namespace ToolsCore.Forms;
 
 public partial class FInputBox : Form
 {
-    public string NewValue { get; private set; }
+    public string NewValue { get; private set; } = "";
 
     private readonly IEnumerable _listToCheck;
     private readonly Func<object, string, bool> _comparator;
