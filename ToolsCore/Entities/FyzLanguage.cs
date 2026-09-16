@@ -97,6 +97,20 @@ public class FyzLanguage
     public static FyzLanguage? GetBasicLanguage(IEnumerable<FyzLanguage> langs) => langs.FirstOrDefault(jazyk => jazyk.IsBasic);
 
     /// <summary>
+    ///     Vrati nazov jazyka, ktory ma INISS zabudovany pre dany kluc (pouzije sa, ked v Categori.TXT chyba NAME).
+    ///     Pre neznamy kluc vrati samotny kluc.
+    /// </summary>
+    /// <param name="key">Kluc jazyka (SK, CZ, GB, D).</param>
+    public static string BuiltInName(string key) => key switch
+    {
+        "SK" => "Slovensky",
+        "CZ" => "Česky",
+        "GB" => "Anglicky",
+        "D" => "Německy",
+        _ => key
+    };
+
+    /// <summary>
     ///     Zistí, či v zadanom poli jazykov sa nachádza prvok s rovnakým kľúčom ako zadaný kľúč.
     /// </summary>
     /// <param name="languages">list jazykov</param>

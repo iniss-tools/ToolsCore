@@ -75,6 +75,13 @@ public static class Log
     }
 
     /// <summary>
+    ///     Zapise varovanie do logovacieho suboru informacii (s predponou <c>Warn:</c>). Pouziva sa na nezrovnalosti
+    ///     v datach, ktore program prekona, ale pouzivatel by o nich mal vediet.
+    /// </summary>
+    /// <param name="s">Text varovania.</param>
+    public static void Warning(string s) => Info("Warn: " + s);
+
+    /// <summary>
     ///     Zapise informaciu do logovacieho suboru.
     /// </summary>
     /// <param name="s">Text informacie.</param>

@@ -16,6 +16,12 @@ public static class AppInit
     public static void Initialization<TC,TS>(out TC config, out Styles<TS> styles, out TS usingStyle) 
         where TC: ConfigBase, new() where TS : Style
     {
+        // .NET (Core) WinForms ma predvolene pismo Segoe UI 9 (7x15), ale formulare su navrhnute s Microsoft Sans
+        // Serif 8.25 (AutoScaleDimensions 6x13) ako v .NET Framework. Bez tohto by sa kazdy formular pri vytvoreni
+        // najprv zvacsil o 7/6 a po nastaveni pisma z konfiguracie zase zmensil - ContainerControl (NumericUpDown)
+        // pritom druhy krok vynecha a ostane posunuty a zvacseny. Musi sa volat pred vytvorenim prveho okna.
+        Application.SetDefaultFont(SystemFonts.DefaultFont);
+
         //Nastavenie cesty, kde sa budu ukladat logovacie subory - musi byt prve,
         //aby uz aj chyba pri nacitani konfiguracie mala kam zapisat
         Log.DataDirPath = AppPaths.DataDir;
