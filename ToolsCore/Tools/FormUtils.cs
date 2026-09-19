@@ -606,6 +606,15 @@ public static class FormUtils
 
                     break;
                 }
+                case UserControl:
+                {
+                    ChangeStyleOfControls(style, control.Controls);
+                    control.BackColor = scheme.Panel.BackColor;
+                    control.ForeColor = scheme.Panel.ForeColor;
+                    if (style.DarkScrollBar)
+                        control.SetTheme(WindowsTheme.DarkExplorer);
+                    break;
+                }
             }
 
             if (control.ContextMenuStrip is not null)
