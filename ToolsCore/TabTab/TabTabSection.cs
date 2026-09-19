@@ -232,6 +232,85 @@ public readonly record struct TabTabText(string Text, int? Font)
         while (j < s.Length && char.IsWhiteSpace(s[j])) j++;
         return j >= s.Length;
     }
+
+    /// <summary>
+    ///     Druh nedostatku v zapise textu.
+    /// </summary>
+    public enum IssueKind
+    {
+        /// <summary>Neparny pocet uvodzoviek - text od poslednej uvodzovky sa berie doslovne (aj <c>{n}</c>).</summary>
+        UnbalancedQuotes,
+
+        /// <summary><c>{…}</c> mimo uvodzoviek, ktore nie je platny zapis pisma na konci - INISS ho berie ako text.</summary>
+        BadFontCode,
+
+        /// <summary><c>{n}</c> je vnutri uvodzoviek - je to text, nie pismo.</summary>
+        FontInsideQuotes
+    }
+
+    /// <summary>Nedostatok v zapise textu: druh a usek v <paramref name="raw"/> (relativne k jeho zaciatku).</summary>
+    public readonly record struct Issue(IssueKind Kind, int Start, int Length);
+
+    /// <summary>
+    ///     Najde v surovom zapise textu (lava strana pravidla, polozka) veci, ktore INISS sice precita,
+    ///     ale skoro urcite inak, nez autor chcel.
+    /// </summary>
+    public static List<Issue> Inspect(string raw)
+    {
+        var issues = new List<Issue>();
+        var quoted = false;
+        var lastQuote = -1;
+
+        for (var i = 0; i < raw.Length; i++)
+        {
+            var c = raw[i];
+            if (c == '\\')
+            {
+                i++;
+                continue;
+            }
+
+            if (c == '"')
+            {
+                if (quoted && i + 1 < raw.Length && raw[i + 1] == '"')
+                {
+                    i++;
+                    continue;
+                }
+                quoted = !quoted;
+                lastQuote = i;
+                continue;
+            }
+
+            if (c != '{') continue;
+
+            if (quoted)
+            {
+                // {cislo} v uvodzovkach - autor asi chcel pismo, ale je to text
+                var close = raw.IndexOf('}', i + 1);
+                if (close > i && close - i - 1 > 0 && TryFontSuffix(raw[..(close + 1)], i, out _))
+                    issues.Add(new Issue(IssueKind.FontInsideQuotes, i, close - i + 1));
+                continue;
+            }
+
+            if (TryFontSuffix(raw, i, out _))
+                break; // platne pismo na konci
+
+            var end = raw.IndexOf('}', i + 1);
+            issues.Add(new Issue(IssueKind.BadFontCode, i, end < 0 ? raw.Length - i : end - i + 1));
+            if (end < 0) break;
+            i = end;
+        }
+
+        if (quoted)
+        {
+            // pri nesparovanych uvodzovkach je zvysok len nasledok - hlasi sa iba pricina
+            issues.RemoveAll(i => i.Kind == IssueKind.FontInsideQuotes);
+            issues.Insert(0, new Issue(IssueKind.UnbalancedQuotes, lastQuote, raw.Length - lastQuote));
+        }
+
+        return issues;
+    }
 }
 
 /// <summary>

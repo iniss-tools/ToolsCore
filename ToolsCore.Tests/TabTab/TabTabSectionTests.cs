@@ -188,4 +188,84 @@ public class TabTabSectionTests
         Assert.AreEqual(TabTabDiagnosticCode.EventCase, e.Code);
         Assert.AreEqual("1, \"a\" = #SWITCH", e.Fix!.Apply(lower));
     }
+    [TestMethod]
+    public void Validator_TextSyntax()
+    {
+        // vzorova sekcia z realneho suboru - bez hlaseni
+        const string ok = "\"CD\"{113}=EC\r\n\"CD\"{113}=EC{34369}\r\n\"AB\"{113}=IC\r\nSC{34369}=SC\r\nZr{34371}=Zr{34371}\r\n{@}=-{@}\r\nBus = #VYLUKA";
+        Assert.AreEqual(0, TabTabValidator.Validate(ok).Diagnostics.Count, string.Join("; ", TabTabValidator.Validate(ok).Diagnostics));
+
+        var d = TabTabValidator.Validate("CD\"{113}=EC").Diagnostics.Single();
+        Assert.AreEqual(TabTabDiagnosticCode.UnbalancedQuotes, d.Code);
+        Assert.AreEqual(2, d.Start);
+
+        d = TabTabValidator.Validate("\"CD{113}\"=EC").Diagnostics.Single();
+        Assert.AreEqual(TabTabDiagnosticCode.FontInsideQuotes, d.Code);
+        Assert.AreEqual(3, d.Start);
+        Assert.AreEqual(5, d.Length);
+
+        d = TabTabValidator.Validate("\"CD\"{113=EC").Diagnostics.Single();
+        Assert.AreEqual(TabTabDiagnosticCode.BadFontCode, d.Code);
+
+        d = TabTabValidator.Validate("{113}CD=EC").Diagnostics.Single();
+        Assert.AreEqual(TabTabDiagnosticCode.BadFontCode, d.Code);
+
+        d = TabTabValidator.Validate("SC{abc}=SC").Diagnostics.Single();
+        Assert.AreEqual(TabTabDiagnosticCode.BadFontCode, d.Code);
+
+        // v polozkach #SWITCH
+        d = TabTabValidator.Validate("1, \"@{146}\" =#SWITCH").Diagnostics.Single();
+        Assert.AreEqual(TabTabDiagnosticCode.FontInsideQuotes, d.Code);
+        Assert.AreEqual(0, TabTabValidator.Validate("1, \"@\"{146} =#SWITCH").Diagnostics.Count);
+    }
+    [TestMethod]
+    public void Validator_BrokenContinuation()
+    {
+        const string ok = "(Typ(Typ_IC)),\"IC\"{34369}, \\\r\n(Typ(Typ_EC)),\"EC\"{34369} = #SWITCH\r\n; komentar \\ v komentari";
+        Assert.AreEqual(0, TabTabValidator.Validate(ok).Diagnostics.Count, string.Join("; ", TabTabValidator.Validate(ok).Diagnostics));
+
+        // komentar za \ na druhom riadku pravidla - oprava ho da pred prvy riadok, nie doprostred pravidla
+        const string mid = "(Typ(Typ_IC)),\"IC\"{34369}, \\\r\n(Typ(Typ_EC)),\"EC\"{34369}, \\ ;ggg\r\n1,\"@\"{34370} = #SWITCH";
+        var midFix = TabTabValidator.Validate(mid).Diagnostics.Single(x => x.Code == TabTabDiagnosticCode.BrokenContinuation).Fix!;
+        var midFixed = midFix.Apply(mid);
+        Assert.AreEqual(";ggg\r\n(Typ(Typ_IC)),\"IC\"{34369}, \\\r\n(Typ(Typ_EC)),\"EC\"{34369}, \\\r\n1,\"@\"{34370} = #SWITCH", midFixed);
+        Assert.AreEqual(0, TabTabValidator.Validate(midFixed).Diagnostics.Count, string.Join("; ", TabTabValidator.Validate(midFixed).Diagnostics));
+
+        // komentar za \ - INISS riadok nespoji
+        const string bad = "(Typ(Typ_IC)),\"IC\"{34369}, \\ ;hhhh\r\n(Typ(Typ_EC)),\"EC\"{34369} = #SWITCH";
+        var r = TabTabValidator.Validate(bad);
+        var d = r.Diagnostics.Single(x => x.Code == TabTabDiagnosticCode.BrokenContinuation);
+        Assert.AreEqual(0, d.LineIndex);
+        Assert.AreEqual(bad.IndexOf('\\'), d.Start);
+        Assert.IsFalse(r.Diagnostics.Any(x => x.Code == TabTabDiagnosticCode.UnknownOption), "volba sekcie je len nasledok");
+        Assert.AreEqual(";hhhh\r\n(Typ(Typ_IC)),\"IC\"{34369}, \\\r\n(Typ(Typ_EC)),\"EC\"{34369} = #SWITCH", d.Fix!.Apply(bad));
+
+        // medzery za \
+        const string spaces = "Odklon,\"a\", \\  \r\n1,\"b\" = #SWITCH";
+        d = TabTabValidator.Validate(spaces).Diagnostics.Single(x => x.Code == TabTabDiagnosticCode.BrokenContinuation);
+        Assert.AreEqual("Odklon,\"a\", \\\r\n1,\"b\" = #SWITCH", d.Fix!.Apply(spaces));
+        Assert.AreEqual(0, TabTabValidator.Validate(d.Fix!.Apply(spaces)).Diagnostics.Count);
+    }
+    [TestMethod]
+    public void Validator_CommentInsideRule()
+    {
+        const string text = "(Typ(Typ_IC)),\"IC\"{34369},\\\r\n;ggg\r\n(Typ(Typ_EC)),\"EC\"{34369},\\\r\n1,\"@\"{34370} = #SWITCH";
+
+        // parser ako INISS: komentar ukonci logicky riadok, zvysok je nove pravidlo
+        var s = TabTabSection.Parse(text);
+        Assert.AreEqual(2, s.Lines.Count);
+        Assert.AreEqual(TabTabLineKind.Options, s.Lines[0].Kind);
+        Assert.AreEqual(TabTabLineKind.Rule, s.Lines[1].Kind);
+        Assert.AreEqual(2, s.Lines[1].LineIndex);
+
+        var r = TabTabValidator.Validate(text);
+        var d = r.Diagnostics.Single(x => x.Code == TabTabDiagnosticCode.CommentInsideRule);
+        Assert.AreEqual(1, d.LineIndex);
+        Assert.AreEqual(text.IndexOf(";ggg", StringComparison.Ordinal), d.Start);
+        Assert.IsFalse(r.Diagnostics.Any(x => x.Code == TabTabDiagnosticCode.UnknownOption));
+
+        var fixedText = d.Fix!.Apply(text);
+        Assert.AreEqual(";ggg\r\n(Typ(Typ_IC)),\"IC\"{34369},\\\r\n(Typ(Typ_EC)),\"EC\"{34369},\\\r\n1,\"@\"{34370} = #SWITCH", fixedText);
+        Assert.AreEqual(0, TabTabValidator.Validate(fixedText).Diagnostics.Count, string.Join("; ", TabTabValidator.Validate(fixedText).Diagnostics));
+    }
 }

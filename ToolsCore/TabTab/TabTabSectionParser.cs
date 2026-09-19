@@ -89,8 +89,10 @@ public static class TabTabSectionParser
             var isNew = cur is null;
             cur ??= new Logical { LineIndex = li, Start = segStart };
 
+            // INISS: riadok zacinajuci ';' sa nikdy nespaja - ako prvy je komentar, ako pokracovanie
+            // ukonci logicky riadok (jeho text sa nan prilepi a ';' ho potom v klasifikacii odreze)
             var continues = false;
-            if (!(isNew && IsCommentLine(text, segStart, segEnd)) && segEnd > segStart && text[segEnd - 1] == '\\')
+            if (!IsCommentLine(text, segStart, segEnd) && segEnd > segStart && text[segEnd - 1] == '\\')
             {
                 segEnd--;
                 continues = true;

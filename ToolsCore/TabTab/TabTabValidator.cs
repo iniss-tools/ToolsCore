@@ -47,7 +47,22 @@ public enum TabTabDiagnosticCode
     EmptyRight,
 
     /// <summary>Udalost zapisana inou velkostou pismen (<c>#switch</c>) - INISS ju nepozna.</summary>
-    EventCase
+    EventCase,
+
+    /// <summary>Neparny pocet uvodzoviek v texte.</summary>
+    UnbalancedQuotes,
+
+    /// <summary><c>{…}</c>, ktore nie je platny zapis pisma na konci textu.</summary>
+    BadFontCode,
+
+    /// <summary><c>{n}</c> vnutri uvodzoviek - je textom, nie pismom.</summary>
+    FontInsideQuotes,
+
+    /// <summary>Za <c>\</c> na konci riadka nieco nasleduje (komentar, medzery) - INISS pokracovanie nerozpozna.</summary>
+    BrokenContinuation,
+
+    /// <summary>Komentarovy riadok vnutri viacriadkoveho pravidla - INISS nim pravidlo ukonci.</summary>
+    CommentInsideRule
 }
 
 /// <summary>
@@ -130,8 +145,15 @@ public static class TabTabValidator
         var list = new List<TabTabDiagnostic>();
         _text = section.Text;
 
+        var brokenLines = CheckContinuations(section.Text, list);
+        brokenLines.UnionWith(CheckCommentsInsideRules(section.Text, list));
+
         foreach (var line in section.Lines)
         {
+            // riadok s pokazenym pokracovanim uz ma svoje hlasenie - "volba sekcie" by bola len nasledok
+            if (line.Kind == TabTabLineKind.Options && brokenLines.Contains(line.LineIndex))
+                continue;
+
             switch (line.Kind)
             {
                 case TabTabLineKind.SectionHeader:
@@ -167,6 +189,155 @@ public static class TabTabValidator
 
     [ThreadStatic] private static string? _text;
 
+    /// <summary>
+    ///     Najde fyzicke riadky, kde za <c>\</c> nasleduje este nieco (medzery, komentar). INISS spaja riadky
+    ///     len vtedy, ked je <c>\</c> uplne posledny znak - inak riadok spracuje samostatne a zvysok pravidla
+    ///     na dalsich riadkoch sa rozpadne.
+    /// </summary>
+    private static HashSet<int> CheckContinuations(string text, List<TabTabDiagnostic> list)
+    {
+        var broken = new HashSet<int>();
+        var newline = text.Contains("\r\n") ? "\r\n" : "\n";
+        var lineIndex = 0;
+        var pos = 0;
+        var ruleStartPos = 0; // zaciatok logickeho riadka (pravidla), do ktoreho aktualny fyzicky riadok patri
+        var inside = false;
+        while (pos < text.Length)
+        {
+            var nl = text.IndexOf('\n', pos);
+            var end = nl < 0 ? text.Length : nl;
+            var contentEnd = end;
+            if (contentEnd > pos && text[contentEnd - 1] == '\r') contentEnd--;
+
+            if (!inside) ruleStartPos = pos;
+
+            var slash = FindDanglingBackslash(text, pos, contentEnd);
+            if (slash >= 0)
+            {
+                var tail = text[(slash + 1)..contentEnd];
+                var comment = tail.TrimStart(' ', '\t');
+                var isComment = comment.StartsWith(';');
+                // komentar patri pred prvy riadok pravidla - vnutri viacriadkoveho pravidla by INISS pravidlo ukoncil
+                var fix = isComment
+                    ? new TextFix("Presunúť komentár na samostatný riadok pred pravidlo", [
+                        new TextEdit(slash + 1, contentEnd - slash - 1, ""),
+                        new TextEdit(ruleStartPos, 0, comment + newline)
+                    ])
+                    : TextFix.Single("Odstrániť medzery za \\", slash + 1, contentEnd - slash - 1, "");
+                list.Add(new TabTabDiagnostic(ExprSeverity.Warning, TabTabDiagnosticCode.BrokenContinuation,
+                    (isComment ? "Komentár za \\" : "Medzery za \\")
+                    + " – INISS spája riadky len vtedy, keď je \\ posledný znak riadka; takto riadok spracuje samostatne a zvyšok pravidla na ďalších riadkoch sa rozpadne",
+                    slash, contentEnd - slash, lineIndex) { Suggestion = fix.Title, Fix = fix });
+                broken.Add(lineIndex);
+                inside = true; // autor pokracovanie chcel - dalsie riadky su stale to iste pravidlo
+            }
+            else
+            {
+                var first = pos;
+                while (first < contentEnd && text[first] is ' ' or '\t') first++;
+                var isCommentLine = first < contentEnd && text[first] == ';';
+                var endsWithBackslash = contentEnd > pos && text[contentEnd - 1] == '\\';
+                inside = !isCommentLine && endsWithBackslash;
+            }
+
+            if (nl < 0) break;
+            pos = nl + 1;
+            lineIndex++;
+        }
+        return broken;
+    }
+
+    /// <summary>
+    ///     Index <c>\</c>, ktore malo byt pokracovanim, ale nie je poslednym znakom riadka (za nim su len
+    ///     medzery alebo medzery a komentar <c>;…</c>); -1, ak taky nie je. Komentarove riadky sa preskocia.
+    /// </summary>
+    private static int FindDanglingBackslash(string text, int start, int end)
+    {
+        var first = start;
+        while (first < end && text[first] is ' ' or '\t') first++;
+        if (first >= end || text[first] == ';') return -1;
+
+        // koniec obsahu bez komentara ;… (neescapovany, mimo uvodzoviek)
+        var quoted = false;
+        var contentEnd = end;
+        for (var i = first; i < end; i++)
+        {
+            var c = text[i];
+            if (c == '\\') { i++; continue; }
+            if (c == '"') quoted = !quoted;
+            else if (c == ';' && !quoted) { contentEnd = i; break; }
+        }
+
+        var last = contentEnd - 1;
+        while (last >= first && text[last] is ' ' or '\t') last--;
+        if (last < first || text[last] != '\\') return -1;
+        if (last == end - 1) return -1; // '\' je naozaj posledny znak - v poriadku
+
+        // escapovane \\ (parny pocet) nie je pokracovanie
+        var run = 0;
+        for (var i = last; i >= first && text[i] == '\\'; i--) run++;
+        return run % 2 == 1 ? last : -1;
+    }
+
+    /// <summary>
+    ///     Najde komentarove riadky vnutri viacriadkoveho pravidla. INISS taky riadok nikdy nespoji -
+    ///     pravidlo nim ukonci (a zvysok na dalsich riadkoch sa rozpadne). Vracia indexy prvych
+    ///     riadkov postihnutych pravidiel.
+    /// </summary>
+    private static HashSet<int> CheckCommentsInsideRules(string text, List<TabTabDiagnostic> list)
+    {
+        var broken = new HashSet<int>();
+        var newline = text.Contains("\r\n") ? "\r\n" : "\n";
+        var lineIndex = 0;
+        var pos = 0;
+        var ruleStartPos = -1;
+        var ruleStartLine = -1;
+        var inside = false;
+
+        while (pos < text.Length)
+        {
+            var nl = text.IndexOf('\n', pos);
+            var end = nl < 0 ? text.Length : nl;
+            var contentEnd = end;
+            if (contentEnd > pos && text[contentEnd - 1] == '\r') contentEnd--;
+
+            var first = pos;
+            while (first < contentEnd && text[first] is ' ' or '\t') first++;
+            var isComment = first < contentEnd && text[first] == ';';
+            var endsWithBackslash = contentEnd > pos && text[contentEnd - 1] == '\\';
+
+            if (inside && isComment)
+            {
+                var comment = text[first..contentEnd];
+                var lineEnd = nl < 0 ? end : nl + 1; // vratane konca riadka
+                var fix = new TextFix("Presunúť komentár pred začiatok pravidla", [
+                    new TextEdit(pos, lineEnd - pos, ""),
+                    new TextEdit(ruleStartPos, 0, comment + newline)
+                ]);
+                list.Add(new TabTabDiagnostic(ExprSeverity.Warning, TabTabDiagnosticCode.CommentInsideRule,
+                    "Komentár vnútri viacriadkového pravidla – INISS ním pravidlo ukončí a riadky pod ním spracuje ako nové pravidlo",
+                    first, contentEnd - first, lineIndex) { Suggestion = fix.Title, Fix = fix });
+                broken.Add(ruleStartLine);
+                inside = false;
+            }
+            else if (!inside && !isComment && endsWithBackslash)
+            {
+                inside = true;
+                ruleStartPos = pos;
+                ruleStartLine = lineIndex;
+            }
+            else if (inside && !endsWithBackslash)
+            {
+                inside = false;
+            }
+
+            if (nl < 0) break;
+            pos = nl + 1;
+            lineIndex++;
+        }
+        return broken;
+    }
+
     /// <summary>Cislo fyzickeho riadka (od 0) pre poziciu v texte sekcie.</summary>
     private static int LineOf(int pos)
     {
@@ -197,6 +368,8 @@ public static class TabTabValidator
         switch (line.Event)
         {
             case TabTabEventKind.None:
+                CheckTextSyntax(line.Left, line.LeftSpan, line, list);
+                CheckTextSyntax(line.Right, line.RightSpan, line, list);
                 CheckColumnRefs(line.Left, line.LeftSpan, line, options, list);
                 return;
 
@@ -215,6 +388,7 @@ public static class TabTabValidator
             }
 
             case TabTabEventKind.Vyluka or TabTabEventKind.Odklon:
+                CheckTextSyntax(line.Left, line.LeftSpan, line, list);
                 CheckColumnRefs(line.Left, line.LeftSpan, line, options, list);
                 return;
 
@@ -267,9 +441,11 @@ public static class TabTabValidator
                 CheckCondition(item, line, options, list, out var alwaysTrue);
                 alwaysTrueSeen |= alwaysTrue;
             }
-            else if (!item.IsSeparator)
+            else
             {
-                CheckColumnRefs(item.Text, item.Span, line, options, list);
+                CheckTextSyntax(item.Text, item.Span, line, list);
+                if (!item.IsSeparator)
+                    CheckColumnRefs(item.Text, item.Span, line, options, list);
             }
         }
     }
@@ -305,6 +481,35 @@ public static class TabTabValidator
 
         if (r.Root is not null && ExprEvaluator.TryFoldConstant(r.Root, out var v) && v != 0)
             alwaysTrue = true;
+    }
+
+    /// <summary>
+    ///     Skontroluje zapis textu (uvodzovky, pismo <c>{n}</c>).
+    /// </summary>
+    private static void CheckTextSyntax(string raw, TabTabSpan span, TabTabLine line, List<TabTabDiagnostic> list)
+    {
+        foreach (var issue in TabTabText.Inspect(raw))
+        {
+            var at = new TabTabSpan(span.Start + issue.Start, issue.Length);
+            switch (issue.Kind)
+            {
+                case TabTabText.IssueKind.UnbalancedQuotes:
+                    list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.UnbalancedQuotes,
+                        "Nepárny počet úvodzoviek – text od poslednej úvodzovky sa berie doslovne, vrátane {n}", at, line,
+                        suggestion: "Doplniť alebo odstrániť úvodzovku"));
+                    break;
+                case TabTabText.IssueKind.BadFontCode:
+                    list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.BadFontCode,
+                        $"{raw.Substring(issue.Start, issue.Length)} nie je zápis písma – písmo sa píše ako {{číslo}} alebo {{@}} až na konci textu; takto je to text", at, line,
+                        suggestion: "Presunúť {n} na koniec textu alebo opraviť číslo"));
+                    break;
+                case TabTabText.IssueKind.FontInsideQuotes:
+                    list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.FontInsideQuotes,
+                        $"{raw.Substring(issue.Start, issue.Length)} je vnútri úvodzoviek, takže je textom, nie písmom", at, line,
+                        suggestion: "Písmo patrí za úvodzovky: \"text\"{n}"));
+                    break;
+            }
+        }
     }
 
     /// <summary>Odporucanie k chybe prekladaca INISSu.</summary>

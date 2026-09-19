@@ -25,3 +25,22 @@ proti dátam sa preskočia.
 Testy (`ToolsCore.Tests/Expressions`) overujú gramatiku, sémantiku a korpus výrazov
 z reálnych súborov (`TestData/expressions.txt`); test `LiveData_AllConditionsCompile`
 prejde všetky `TabTab.txt`/`StateDgm.txt` pod `D:\INISSroot`, ak priečinok existuje.
+
+## StateDgm – stavový diagram vlaku
+
+`ToolsCore.StateDgm` číta a zapisuje `StateDgm.txt` rovnako, ako ho číta INISS 3.39
+(`C:` je komentár do konca riadka, C-escapes v reťazcoch, `strtol(…, 0)`, opakované
+meno skupiny = ďalšia skupina, `Num…` nepovinné). Popis formátu je v
+`iniss-tools-docs/docs/iniss/formaty-suborov/local/statedgm.mdx`.
+
+| Trieda               | Účel                                                                                     |
+|----------------------|------------------------------------------------------------------------------------------|
+| `StateDgmReader`     | text → strom `StateDgmGroup`/`StateDgmValue`; chyby syntaxe ako `StateDgmParseException` |
+| `StateDgmConverter`  | strom → typovaný `StateDgmDiagram` (vzhľady, časové body, kategórie, stavy, akcie, ovládače, štartéry); neznáme kľúče a skupiny ostávajú v `Extras` |
+| `StateDgmWriter`     | `StateDgmDiagram` → kanonický text (tabulátory, komentáre k `Attr`/automatike, dopočítané `Num…`) |
+| `StateDgmValidator`  | kontroly: odkazy (`NextState`, `EventKey`, `DesignKey`, `TimePointKey`, `ReportKey`), rozsahy, triedy akcií, výrazy cez `ExprValidator`, dosiahnuteľnosť stavov |
+
+Hodnoty, ktoré INISS číta ako číslo aj ako výraz (`AutoMode`, `AutoTimePointAdd`, `Wait`…),
+drží `StateDgmDynamic`; číselný `WaitPath` sa pri načítaní prevedie na `Wait=VVC`.
+Test `LiveData_RoundTrip` prejde všetky `StateDgm.txt` pod `D:\INISSroot` a overí, že
+zápis a opätovné načítanie dajú rovnaký význam.
