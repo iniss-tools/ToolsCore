@@ -1,4 +1,4 @@
-﻿namespace ToolsCore.Tools;
+namespace ToolsCore.Tools;
 
 /// <summary>
 ///     Trieda reprezentujuca zoznam poli s obsahom bez vlastnosti.
@@ -18,7 +18,7 @@ public class TxtPropsAreas
         _fileName = file;
         _dictionary = new Dictionary<string, string>();
 
-        if (!write) 
+        if (!write)
             LoadFromFile(file);
     }
 
@@ -51,49 +51,70 @@ public class TxtPropsAreas
     }
 
     /// <summary>
+    ///     Text pred prvou sekciou (uvodne komentare suboru); pri ulozeni sa zapise spat.
+    /// </summary>
+    public string Preamble { get; set; } = "";
+
+    /// <summary>
     ///     Ulozi zoznam poli do suboru.
     /// </summary>
     public void Save()
     {
-        var file = new StreamWriter(_fileName, false, Encodings.Win1250);
+        using var file = new StreamWriter(_fileName, false, Encodings.Win1250);
+
+        if (!string.IsNullOrEmpty(Preamble))
+        {
+            file.WriteLine(Preamble);
+            file.WriteLine();
+        }
 
         foreach (var area in _dictionary.Keys)
         {
             file.WriteLine("[" + area + "]");
-            file.WriteLine(_dictionary[area]);
-            file.WriteLine(Environment.NewLine);
+            file.WriteLine(_dictionary[area].TrimEnd('\r', '\n'));
+            file.WriteLine();
         }
-
-        file.Close();
     }
 
     /// <summary>
-    ///     Nacita zoznam poli zo suboru.
+    ///     Nacita zoznam poli zo suboru tak, ako ho cita INISS: hlavicka je riadok, ktoreho prvy neprazdny znak
+    ///     je <c>[</c>, nazov siaha po prve <c>]</c>; vsetko ostatne (aj komentare a prazdne riadky) patri
+    ///     do textu aktualnej sekcie. Pri opakovanom nazve sekcie plati posledna (ako v INISSe).
     /// </summary>
     private void LoadFromFile(string file)
     {
         string? actualArea = null;
         var sb = new StringBuilder();
 
+        void Flush()
+        {
+            var text = sb.ToString().TrimEnd('\r', '\n');
+            if (actualArea is null)
+            {
+                Preamble = text;
+            }
+            else
+            {
+                if (_dictionary.ContainsKey(actualArea))
+                    Log.Warning($"{Path.GetFileName(file)}: sekcia [{actualArea}] je v súbore viackrát – použije sa posledná (ako v INISSe).");
+                _dictionary[actualArea] = text;
+            }
+            sb.Clear();
+        }
+
         foreach (var line in File.ReadAllLines(file, Encodings.Win1250))
         {
-            if (!string.IsNullOrEmpty(line) && !line.StartsWith(";") && line.StartsWith("[") && line.EndsWith("]"))
+            var trimmed = line.TrimStart(' ', '\t');
+            if (trimmed.StartsWith('[') && trimmed.IndexOf(']', 1) is var close and > 0)
             {
-                if (sb.Length != 0 || !string.IsNullOrEmpty(actualArea)) 
-                    _dictionary.Add(actualArea!, sb.ToString());
-
-                sb = new StringBuilder();
-                var s = line.Replace("[", "");
-                actualArea = s.Replace("]", "");
+                Flush();
+                actualArea = trimmed[1..close];
+                continue;
             }
 
-            if (!string.IsNullOrEmpty(line) && !line.StartsWith(";") && !line.StartsWith("[") && !line.EndsWith("]"))
-                sb.AppendLine(line);
+            sb.AppendLine(line);
         }
 
-        if (actualArea is not null)
-        {
-            _dictionary.Add(actualArea, sb.ToString());
-        }
+        Flush();
     }
 }
