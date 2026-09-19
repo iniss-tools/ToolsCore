@@ -1,7 +1,7 @@
 namespace ToolsCore.Expressions;
 
 /// <summary>
-///     Lexikalny analyzator jazyka vyrazov - verna kopia spravania INISSu (FUN_004a7b34 v 3.39).
+///     Lexikalny analyzator jazyka vyrazov - verna kopia spravania INISSu.
 /// </summary>
 public sealed class ExprLexer
 {

@@ -1,7 +1,7 @@
 namespace ToolsCore.TabTab;
 
 /// <summary>
-///     Druh logickeho riadka sekcie TabTab (klasifikacia INISSu, FUN_004c39b5).
+///     Druh logickeho riadka sekcie TabTab (klasifikacia INISSu).
 /// </summary>
 public enum TabTabLineKind
 {
@@ -138,7 +138,7 @@ public sealed class TabTabLine
 }
 
 /// <summary>
-///     Text polozky/pravidla po dekodovani INISSom (FUN_004ee3bb): bez uvodzoviek, s vyriesenymi
+///     Text polozky/pravidla po dekodovani INISSom - bez uvodzoviek, s vyriesenymi
 ///     <c>\x</c> a s pismom z koncoveho <c>{n}</c>.
 /// </summary>
 /// <param name="Text">Dekodovany text.</param>
@@ -255,7 +255,7 @@ public sealed class TabTabSection
     public IEnumerable<TabTabLine> Rules => Lines.Where(l => l.Kind == TabTabLineKind.Rule);
 
     /// <summary>
-    ///     Rozoberie text sekcie tak, ako ho cita INISS (FUN_004c36eb): spojenie riadkov s <c>\</c>,
+    ///     Rozoberie text sekcie tak, ako ho cita INISS - spojenie riadkov s <c>\</c>,
     ///     komentare, posledne neescapovane <c>=</c> ako oddelovac, <c>;</c> ako koniec riadka.
     /// </summary>
     public static TabTabSection Parse(string text) => TabTabSectionParser.Parse(text ?? "");

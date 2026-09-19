@@ -116,7 +116,7 @@ public sealed record TabTabValidationResult(TabTabSection Section, IReadOnlyList
 }
 
 /// <summary>
-///     Kontrola sekcie TabTab: to, co hlasi INISS pri nacitani (FUN_004e9648), plus kontroly GVDEditora.
+///     Kontrola sekcie TabTab: to, co hlasi INISS pri nacitani, plus kontroly GVDEditora.
 /// </summary>
 public static class TabTabValidator
 {
@@ -234,7 +234,7 @@ public static class TabTabValidator
         var items = line.Items;
         var step = line.Event == TabTabEventKind.Switch ? 2 : 3;
 
-        if (items.Count == 1 && items[0].Text.Length == 0)
+        if (items is [{ Text.Length: 0 }])
         {
             list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.EmptyEventList,
                 $"{line.Right} bez položiek", line.RightSpan, line, suggestion: "Doplniť položky pred = alebo pravidlo odstrániť"));

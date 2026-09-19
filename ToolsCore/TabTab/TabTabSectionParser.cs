@@ -63,7 +63,7 @@ public static class TabTabSectionParser
     }
 
     /// <summary>
-    ///     Rozdeli text na logicke riadky ako INISS (FUN_004c3b50): riadok konciaci <c>\</c> pokracuje
+    ///     Rozdeli text na logicke riadky ako INISS - riadok konciaci <c>\</c> pokracuje
     ///     dalsim riadkom (bez oddelovaca); komentar sa nikdy nespaja.
     /// </summary>
     private static IEnumerable<Logical> LogicalLines(string text)
@@ -119,7 +119,7 @@ public static class TabTabSectionParser
     }
 
     /// <summary>
-    ///     Klasifikacia logickeho riadka ako INISS (FUN_004c39b5).
+    ///     Klasifikacia logickeho riadka ako INISS.
     /// </summary>
     private static TabTabLine Classify(Logical lg)
     {

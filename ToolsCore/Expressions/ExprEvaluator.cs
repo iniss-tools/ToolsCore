@@ -113,7 +113,7 @@ public sealed class ExprEvaluationException(string message, ExprNode node) : Exc
 }
 
 /// <summary>
-///     Vyhodnocovac vyrazov - verna kopia INISSu (FUN_004a6a3e v 3.39).
+///     Vyhodnocovac vyrazov - verna kopia INISSu.
 /// </summary>
 public sealed class ExprEvaluator
 {
