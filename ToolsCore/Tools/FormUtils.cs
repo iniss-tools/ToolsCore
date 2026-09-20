@@ -10,6 +10,9 @@ namespace ToolsCore.Tools;
 /// </summary>
 public static class FormUtils
 {
+    private static readonly System.Reflection.PropertyInfo? DgvDoubleBuffered =
+        typeof(DataGridView).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
     /// <summary>
     ///     Zmena farebnej schémy dialogu alebo ovladacieho prvku.
     /// </summary>
@@ -486,6 +489,9 @@ public static class FormUtils
                     break;
                 case DataGridView dgv:
                 {
+                    // DoubleBuffered je u DataGridView protected a predvolene vypnute
+                    DgvDoubleBuffered?.SetValue(dgv, true);
+
                     dgv.EnableHeadersVisualStyles = style.ControlsDefaultStyle;
                     dgv.DefaultCellStyle.SelectionBackColor = scheme.Highlight.BackColor;
                     dgv.DefaultCellStyle.SelectionForeColor = scheme.Highlight.ForeColor;
