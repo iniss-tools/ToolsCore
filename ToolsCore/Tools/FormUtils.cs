@@ -266,11 +266,43 @@ public static class FormUtils
                 case ExDateTimePicker dtp:
                 {
                     dtp.DefaultStyle = style.ControlsDefaultStyle;
-                    dtp.BackColor = scheme.Button.BackColor;
-                    dtp.ForeColor = scheme.Button.ForeColor;
-                    dtp.BorderColor = scheme.Border.ForeColor;
-                    dtp.ArrowColor = scheme.Box.ForeColor;
-                    dtp.HighlightColor = scheme.Highlight.BackColor;
+                    if (!style.ControlsDefaultStyle)
+                    {
+                        dtp.BackColor = scheme.Box.BackColor;
+                        dtp.ForeColor = scheme.Box.ForeColor;
+                        dtp.BorderColor = scheme.Border.ForeColor;
+                        dtp.ArrowColor = scheme.Box.ForeColor;
+                        dtp.ButtonBackColor = scheme.Box.BackColor;
+                        dtp.HighlightColor = scheme.Highlight.BackColor;
+                        dtp.SelectedFieldBackColor = scheme.Highlight.BackColor;
+                        dtp.SelectedFieldForeColor = scheme.Highlight.ForeColor;
+                        dtp.DisabledBackColor = scheme.Box.BackColor;
+                        dtp.DisabledForeColor = scheme.Border.ForeColor;
+                        ChangeStyleOfControls(style, new[] { dtp.Calendar });
+                    }
+
+                    break;
+                }
+                case ExCalendar cal:
+                {
+                    cal.DefaultStyle = style.ControlsDefaultStyle;
+                    if (!style.ControlsDefaultStyle)
+                    {
+                        cal.BackColor = scheme.Box.BackColor;
+                        cal.ForeColor = scheme.Box.ForeColor;
+                        cal.HeaderForeColor = scheme.Box.ForeColor;
+                        cal.DayOfWeekForeColor = scheme.Box.ForeColor;
+                        cal.ArrowColor = scheme.Box.ForeColor;
+                        cal.BorderColor = scheme.Border.ForeColor;
+                        cal.TrailingForeColor = scheme.Mark.ForeColor;
+                        cal.WeekNumberForeColor = scheme.Mark.ForeColor;
+                        cal.DisabledForeColor = scheme.Border.ForeColor;
+                        cal.HoverBackColor = scheme.Button.BackColor;
+                        cal.HighlightColor = scheme.Highlight.BackColor;
+                        cal.HighlightForeColor = scheme.Highlight.ForeColor;
+                        cal.TodayBorderColor = scheme.Highlight.BackColor;
+                    }
+
                     break;
                 }
                 case DateTimePicker dtp:
