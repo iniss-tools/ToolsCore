@@ -230,8 +230,7 @@ public static class FormUtils
                     tb.DefaultStyle = style.ControlsDefaultStyle;
                     tb.DisabledBorderColor = scheme.Button.BackColor;
                     tb.DisabledBackColor = scheme.Panel.BackColor;
-                    if (style.DarkScrollBar) 
-                        tb.SetTheme(WindowsTheme.DarkExplorer);
+                    tb.UseDarkScrollBar = style.DarkScrollBar;
                     break;
                 }
                 case RichTextBox tb:
