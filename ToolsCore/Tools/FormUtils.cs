@@ -265,6 +265,7 @@ public static class FormUtils
                 }
                 case ExDateTimePicker dtp:
                 {
+                    dtp.Calendar.TodayText = GlobalResources.Global_Today;
                     dtp.DefaultStyle = style.ControlsDefaultStyle;
                     if (!style.ControlsDefaultStyle)
                     {
@@ -285,6 +286,7 @@ public static class FormUtils
                 }
                 case ExCalendar cal:
                 {
+                    cal.TodayText = GlobalResources.Global_Today;
                     cal.DefaultStyle = style.ControlsDefaultStyle;
                     if (!style.ControlsDefaultStyle)
                     {
@@ -303,14 +305,6 @@ public static class FormUtils
                         cal.TodayBorderColor = scheme.Highlight.BackColor;
                     }
 
-                    break;
-                }
-                case DateTimePicker dtp:
-                {
-                    dtp.BackColor = scheme.Box.BackColor;
-                    dtp.ForeColor = scheme.Box.ForeColor;
-                    dtp.CalendarMonthBackground = scheme.Box.BackColor;
-                    dtp.CalendarForeColor = scheme.Box.ForeColor;
                     break;
                 }
                 case LinkLabel ll:

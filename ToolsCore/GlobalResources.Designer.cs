@@ -301,6 +301,15 @@ namespace ToolsCore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dnes:.
+        /// </summary>
+        public static string Global_Today {
+            get {
+                return ResourceManager.GetString("Global_Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zamietnuť.
         /// </summary>
         public static string Global_Abort {
