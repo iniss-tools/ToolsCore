@@ -553,6 +553,7 @@ public static class FormUtils
                     }
 
                     foreach (DataGridViewColumn column in dgv.Columns)
+                    {
                         switch (column)
                         {
                             case DataGridViewButtonColumn cbutton:
@@ -629,6 +630,7 @@ public static class FormUtils
                                 break;
                             }
                         }
+                    }
 
                     if (style.DarkScrollBar)
                         foreach (Control dgvc in dgv.Controls)
