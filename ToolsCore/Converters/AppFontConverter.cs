@@ -29,9 +29,13 @@ public class AppFontConverter : FontConverter
     public override bool GetPropertiesSupported(ITypeDescriptorContext? context) => false;
 
     /// <inheritdoc />
-    public override object ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
     {
-        return value is not string ? base.ConvertFrom(context, culture, value)! : new AppFont((base.ConvertFrom(context, culture, value) as Font)!);
+        if (value is not string)
+            return base.ConvertFrom(context, culture, value);
+
+        // Prazdny text = null; ControlFonts ho nahradi predvolenym pismom polozky
+        return base.ConvertFrom(context, culture, value) is Font font ? new AppFont(font) : null;
     }
 
     /// <inheritdoc />

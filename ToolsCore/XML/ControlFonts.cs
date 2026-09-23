@@ -15,7 +15,7 @@ public record ControlFonts()
     private static AppFont DefaultMenuFont { get; } = new(SystemFonts.MenuFont!);
     private static AppFont DefaultColsHeaderFont { get; } = new(SystemFonts.MenuFont!);
     private static AppFont DefaultTableCellsFont { get; } = new(SystemFonts.DefaultFont);
-    private static AppFont DefaultStateRowFont { get; } = new(SystemFonts.MenuFont!); //new(new Font(SystemFonts.MenuFont.FontFamily, 10, FontStyle.Bold));
+    private static AppFont DefaultStateRowFont { get; } = new(SystemFonts.MenuFont!);
 
     /// <summary>
     ///     Nastavenie písma pre Labels.
@@ -23,7 +23,7 @@ public record ControlFonts()
     [XmlElement("Labels")]
     [DisplayName("Text vo formulároch")]
     [Category(FontsCategory)]
-    public AppFont Labels { get; set; } = DefaultLabelsFont;
+    public AppFont Labels { get; set => field = OrDefault(value, DefaultLabelsFont); } = DefaultLabelsFont;
 
     private bool ShouldSerializeLabels() => !Equals(Labels.Font, DefaultLabelsFont.Font);
 
@@ -33,7 +33,7 @@ public record ControlFonts()
     [XmlElement("Buttons")] 
     [DisplayName("Tlačidlá formulárov")]
     [Category(FontsCategory)]
-    public AppFont Buttons { get; set; } = DefaultButtonsFont;
+    public AppFont Buttons { get; set => field = OrDefault(value, DefaultButtonsFont); } = DefaultButtonsFont;
 
     private bool ShouldSerializeButtons() => !Equals(Buttons.Font, DefaultButtonsFont.Font);
 
@@ -43,7 +43,7 @@ public record ControlFonts()
     [XmlElement("Menu")]
     [DisplayName("Menu")]
     [Category(FontsCategory)]
-    public AppFont Menu { get; set; } = DefaultMenuFont;
+    public AppFont Menu { get; set => field = OrDefault(value, DefaultMenuFont); } = DefaultMenuFont;
 
     private bool ShouldSerializeMenu() => !Equals(Menu.Font, DefaultMenuFont.Font);
 
@@ -53,7 +53,7 @@ public record ControlFonts()
     [XmlElement("ColsHeaders")]
     [DisplayName("Hlavičky tabuliek")]
     [Category(FontsCategory)]
-    public AppFont ColsHeader { get; set; } = DefaultColsHeaderFont;
+    public AppFont ColsHeader { get; set => field = OrDefault(value, DefaultColsHeaderFont); } = DefaultColsHeaderFont;
 
     private bool ShouldSerializeColsHeader() => !Equals(ColsHeader.Font, DefaultColsHeaderFont.Font);
 
@@ -63,7 +63,7 @@ public record ControlFonts()
     [XmlElement("TableCells")]
     [DisplayName("Bunky tabuliek")]
     [Category(FontsCategory)]
-    public AppFont TableCells { get; set; } = DefaultTableCellsFont;
+    public AppFont TableCells { get; set => field = OrDefault(value, DefaultTableCellsFont); } = DefaultTableCellsFont;
 
     private bool ShouldSerializeTableCells() => !Equals(TableCells.Font, DefaultTableCellsFont.Font);
 
@@ -73,9 +73,15 @@ public record ControlFonts()
     [XmlElement("StateRow")]
     [DisplayName("Stavový riadok")]
     [Category(FontsCategory)]
-    public AppFont StateRow { get; set; } = DefaultStateRowFont;
+    public AppFont StateRow { get; set => field = OrDefault(value, DefaultStateRowFont); } = DefaultStateRowFont;
 
     private bool ShouldSerializeStateRow() => !Equals(StateRow.Font, DefaultStateRowFont.Font);
+
+    /// <summary>
+    ///     Prázdne písmo (napr. po vymazaní textu v PropertyGrid, alebo chýbajúce v súbore) nahradí predvoleným
+    ///     písmom položky - null by inak zlyhal pri ukladaní konfigurácie aj pri kopírovaní nastavení.
+    /// </summary>
+    private static AppFont OrDefault(AppFont? value, AppFont defaultFont) => value?.Font is null ? defaultFont : value;
 
     /// <summary>
     ///     Vráti zoznam všetkých nastaviteľných komponentov, pre ktoré sa nastavuje ich písmo.
