@@ -19,4 +19,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\ExControls\ExControls\ExControls.csproj" />
 	</ItemGroup>
+	<!-- Rozsirenie navrhara ExControls pre VS (editor kolekcie ExOptionsView.Panels) -->
+	<Import Project="..\..\ExControls\ExControls.Designer.targets" />
 </Project>

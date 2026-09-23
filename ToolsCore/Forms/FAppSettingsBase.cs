@@ -63,17 +63,6 @@ public partial class FAppSettingsBase : Form
         UsingStyle = usingStyle;
     }
 
-    protected override CreateParams CreateParams
-    {
-        get
-        {
-            var handleParam = base.CreateParams;
-            if (!DesignMode) 
-                handleParam.ExStyle |= 0x02000000; // WS_EX_COMPOSITED 
-            return handleParam;
-        }
-    }
-
     private void LoadComponents()
     {
         switch (Config.DesktopMenuMode)
