@@ -26,7 +26,9 @@ public record AppFont()
     /// <summary>
     ///     Názov použitia písma pre program.
     /// </summary>
-    [XmlIgnore, Localizable(true), Browsable(false)]
+    [XmlIgnore]
+    [Localizable(true)]
+    [Browsable(false)]
     public string Name { get; set; } = null!;
 
     /// <summary>
@@ -54,7 +56,8 @@ public record AppFont()
     /// <summary>
     ///     XML reprezentácia písma.
     /// </summary>
-    [XmlElement(Type = typeof(XmlFont), ElementName = "f"),Browsable(false)]
+    [XmlElement(Type = typeof(XmlFont), ElementName = "f")]
+    [Browsable(false)]
     public XmlFont FontXML
     {
         get => XmlFont.FromFont(Font);
