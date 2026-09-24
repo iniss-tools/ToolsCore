@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using System.Text.RegularExpressions;
 using ToolsCore.StateDgm;
 
 namespace ToolsCore.Tests.StateDgm;
@@ -58,5 +59,27 @@ public class StateDgmTemplateTests
         CollectionAssert.AreEquivalent(new[] { "OVC", "Odj", "VVC", "Vj", "OVC", "VVC", "Vj", "Odj" }, waits);
         Assert.AreEqual(15, iltis.Categories.SelectMany(c => c.States).Count(s => s.HasAutomation));
         Assert.IsTrue(iltis.Categories.SelectMany(c => c.States).Where(s => s.HasAutomation).All(s => s.AutoMode!.Number == 2 && s.AutoTimePoint != null));
+    }
+
+    [TestMethod]
+    public void Templates_ReportKeysMatchDefaultCategori()
+    {
+        var dir = ResourcesDir();
+        if (dir == null) Assert.Inconclusive("priecinok GVDEditor/Resources sa nenasiel");
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        // novy grafikon dostane Categori.txt z ReportType.GetDefaultValuesSK(); KEY je prvy argument konstruktora
+        var src = File.ReadAllText(Path.Combine(dir, "..", "Entities", "ReportType.cs"));
+        var keys = Regex.Matches(src, @"public static readonly ReportType \w+ = new\(""([^""]*)"", ""([^""]*)""")
+            .ToDictionary(m => m.Groups[1].Value, m => m.Groups[2].Value);
+        Assert.AreEqual(5, keys.Count);
+        Assert.AreEqual("Ukončit nástup", keys["Odjede"], "KEY=Odjede, NAME=Ukončit nástup podla categori.mdx");
+
+        foreach (var file in new[] { "statedgm.txt", "statedgmCZ.txt", "statedgmILTIS.txt" })
+        {
+            var d = StateDgmDiagram.Load(Path.Combine(dir, file));
+            var diags = StateDgmValidator.Validate(d, new StateDgmValidationOptions { ReportKeys = keys.Keys.ToList() });
+            Assert.IsFalse(diags.Any(x => x.IsError), $"{file}: {string.Join("\n", diags.Where(x => x.IsError))}");
+        }
     }
 }
