@@ -92,7 +92,10 @@ public enum StateDgmDiagnosticCode
     WaitWithoutIltis,
 
     /// <summary>Upozornenie z nacitania (napr. nesediaci <c>Num…</c>).</summary>
-    LoadWarning
+    LoadWarning,
+
+    /// <summary>Text suboru sa neda rozlozit (<see cref="StateDgmParseException" />) - hlasi editor textu, nie validator.</summary>
+    Syntax
 }
 
 /// <summary>
