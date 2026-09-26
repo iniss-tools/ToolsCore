@@ -11,7 +11,21 @@ namespace ToolsCore;
 
 public static class AppInit
 {
-    private static readonly string AppGuid = ((GuidAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(GuidAttribute), true)[0]).Value;
+    // mutex musi zit cely beh programu - inak ho druha instancia hned ziska a duplicitu nezisti
+    private static Mutex? _instanceMutex;
+
+    /// <summary>
+    ///     Kluc instancie podla spusteneho programu (nie ToolsCore) - kazdy nastroj ma vlastny.
+    /// </summary>
+    private static string InstanceKey
+    {
+        get
+        {
+            var entry = Assembly.GetEntryAssembly();
+            var guid = entry?.GetCustomAttribute<GuidAttribute>()?.Value;
+            return guid ?? entry?.GetName().Name ?? Application.ProductName ?? "ToolsCore";
+        }
+    }
 
     public static void Initialization<TC,TS>(out TC config, out Styles<TS> styles, out TS usingStyle) 
         where TC: ConfigBase, new() where TS : Style
@@ -59,14 +73,6 @@ public static class AppInit
             throw;
         }
 
-        //Zistenie duplicitnej instancie programu (a ak je to v konfiguracii zakazane, ukoncit duplicitnu instanciu)
-        using var mutex = new Mutex(false, "Global\\" + AppGuid);
-        if (!mutex.WaitOne(0, false) && !config.MoreInstance)
-        {
-            Log.Info("Duplicitná inštancia ukončená");
-            return;
-        }
-
         //Nastavenie dizajnu ovladacich prvkov
         if (config.ClassicGUI)
         {
@@ -96,6 +102,27 @@ public static class AppInit
 
         //Nastavenie vizualu MessageBoxov
         MsgBoxStyleInit(usingStyle, config);
+
+        //Zistenie duplicitnej instancie programu - ak je v konfiguracii zakazana, program sa ukonci
+        //(az po nastaveni jazyka a MessageBoxov, aby sa dala zobrazit sprava)
+        _instanceMutex = new Mutex(false, "Global\\" + InstanceKey);
+        bool owned;
+        try
+        {
+            owned = _instanceMutex.WaitOne(0, false);
+        }
+        catch (AbandonedMutexException)
+        {
+            // predchadzajuca instancia spadla bez uvolnenia - mutex teraz patri tejto
+            owned = true;
+        }
+
+        if (!owned && !config.MoreInstance)
+        {
+            Log.Info("Duplicitná inštancia ukončená");
+            Utils.ShowInfo(string.Format(GlobalResources.Global_AppAlreadyRunning, Application.ProductName));
+            Environment.Exit(0);
+        }
 
         //Konfiguracia ukoncena
         Log.Info($"Program spustený - v.{Application.ProductVersion} - \"{Application.ExecutablePath}\"");

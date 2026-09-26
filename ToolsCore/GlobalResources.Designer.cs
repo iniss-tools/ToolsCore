@@ -374,6 +374,15 @@ namespace ToolsCore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Program {0} je už spustený.
+        /// </summary>
+        public static string Global_AppAlreadyRunning {
+            get {
+                return ResourceManager.GetString("Global_AppAlreadyRunning", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Áno.
         /// </summary>
         public static string Global_Yes {

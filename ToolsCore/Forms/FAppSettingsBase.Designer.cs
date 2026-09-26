@@ -1375,9 +1375,9 @@ namespace ToolsCore.Forms
             optionsNode10.ImageKey = "debugging.png";
             optionsNode10.Name = "";
             optionsNode10.SelectedImageKey = "debugging.png";
-            optionsNode10.Text = "Logovanie a dubugging";
+            optionsNode10.Text = "Logovanie a debugging";
             pLogging.Node = optionsNode10;
-            pLogging.NodeText = "Logovanie a dubugging";
+            pLogging.NodeText = "Logovanie a debugging";
             pLogging.ParentNode = null;
             // 
             // ppLogging

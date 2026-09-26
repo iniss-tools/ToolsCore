@@ -38,6 +38,9 @@
   <data name="Global_Retry" xml:space="preserve">
     <value>Opakovat</value>
   </data>
+  <data name="Global_AppAlreadyRunning" xml:space="preserve">
+    <value>Program {0} je už spuštěn. Pokud ho chcete spouštět vícekrát najednou, zapněte v nastavení programu volbu Povolit duplicitní instance programu.</value>
+  </data>
   <data name="Global_Yes" xml:space="preserve">
     <value>Ano</value>
   </data>
