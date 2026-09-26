@@ -12,7 +12,6 @@ public class FyzGroup
         Name = name;
         RelativePath = relativePath;
         Sounds = new ExBindingList<FyzSound>();
-        Type = FyzGroupType.Parse(key);
     }
 
     /// <summary>
@@ -53,7 +52,7 @@ public class FyzGroup
     /// <summary>
     ///     Typ priečinka podľa zvukov, ktoré obsahuje.
     /// </summary>
-    public FyzGroupType Type { get; }
+    public FyzGroupType Type => FyzGroupType.Parse(Key);
 
     /// <summary>Returns a string that represents the current object.</summary>
     /// <returns>A string that represents the current object.</returns>
