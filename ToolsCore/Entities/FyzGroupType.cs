@@ -20,9 +20,9 @@ public sealed class FyzGroupType : Enumeration<FyzGroupType>
     public override string ToString() => $"{Name} - {Description}";
 
     /// <summary>
-    ///     Prevedie názov priečinka na jeho typ, ak je názov priečinka neznámy, vráti <see cref="UNCATEGORIZED"/>.
+    ///     Prevedie kľúč skupiny na jej typ, ak je kľúč neznámy, vráti <see cref="UNCATEGORIZED"/>.
     /// </summary>
-    /// <param name="name">Názov priečinka.</param>
+    /// <param name="name">Kľúč skupiny (názov sa môže líšiť, napr. kľúč VlakNum s názvom "Číslovky").</param>
     /// <returns>typ priečinka</returns>
     public new static FyzGroupType Parse(string name)
     {

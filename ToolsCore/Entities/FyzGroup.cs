@@ -12,7 +12,7 @@ public class FyzGroup
         Name = name;
         RelativePath = relativePath;
         Sounds = new ExBindingList<FyzSound>();
-        Type = FyzGroupType.Parse(name);
+        Type = FyzGroupType.Parse(key);
     }
 
     /// <summary>

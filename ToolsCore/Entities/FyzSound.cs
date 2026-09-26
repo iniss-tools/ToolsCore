@@ -77,6 +77,15 @@ public class FyzSound
     /// <returns>A string that represents the current object.</returns>
     public override string ToString() => Name;
 
+    /// <summary>
+    ///     Cesta k suboru zvuku: banka + priecinok jazyka + priecinok skupiny + pridavna cesta + nazov suboru.
+    /// </summary>
+    /// <remarks>
+    ///     Pridavna cesta je relativna k priecinku skupiny - realne banky maju napr. v skupine N5\ subor
+    ///     ..\N5\01.WAV alebo v R1\ subor ..\C9\..\Poz7\..\Poz1\ZALOK.WAV a subory lezia v CZ\N5\ a SK\Poz1\.
+    ///     Pri absolutnej ceste sa ".." vyhodnotia, aby sa cesta dala porovnat s cestami suborov na disku.
+    /// </remarks>
+    /// <param name="pathToBank">priecinok banky (RAWBANK\) alebo "" pre cestu relativnu k banke.</param>
     public string GetAbsPath(string pathToBank)
     {
         ArgumentNullException.ThrowIfNull(Group);
@@ -86,9 +95,12 @@ public class FyzSound
         var path = new StringBuilder(pathToBank);
 
         path.Append(Group.Language.RelativePath);
-        path.Append(RawBankParser.AdditionalPathIsEmpty(AdditionalRelativePath) ? Group.RelativePath : AdditionalRelativePath);
+        path.Append(Group.RelativePath);
+        if (!RawBankParser.AdditionalPathIsEmpty(AdditionalRelativePath))
+            path.Append(AdditionalRelativePath);
         path.Append(FileName);
 
-        return path.ToString();
+        var result = path.ToString();
+        return Path.IsPathRooted(result) ? Path.GetFullPath(result) : result;
     }
 }
