@@ -46,9 +46,17 @@ public static class FormUtils
         {
             f.BackColor = style.ControlsColorScheme.Panel.BackColor;
             f.SetImmersiveDarkMode(style.DarkTitleBar);
+            f.HandleCreated -= ReapplyTitleBar;
+            f.HandleCreated += ReapplyTitleBar;
         }
 
         ChangeStyleOfControls(style, c.Controls);
+    }
+
+    private static void ReapplyTitleBar(object? sender, EventArgs e)
+    {
+        if (sender is Form f)
+            f.SetImmersiveDarkMode(GlobSettings.UsingStyle.DarkTitleBar);
     }
 
     public static void ChangeColorContextMenu(Style style, ContextMenuStrip strip)
