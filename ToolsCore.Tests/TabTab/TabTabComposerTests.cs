@@ -155,6 +155,6 @@ public class TabTabComposerTests
         Assert.AreEqual(new TabTabValue("Os", 81), r.Value);
         Assert.IsTrue(r.Steps.Any(s => s.Source == "#SWITCH"));
         Assert.IsTrue(r.Steps.Any(s => s.Source == "vlastná hodnota"));
-        Assert.AreEqual("DIVTYPE 3", r.Steps[^1].Source);
+        Assert.AreEqual("spôsob plnenia 3", r.Steps[^1].Source);
     }
 }

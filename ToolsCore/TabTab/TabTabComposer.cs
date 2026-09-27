@@ -67,7 +67,7 @@ public sealed class TabTabColumnInput
 /// <summary>
 ///     Jeden krok skladania - na zobrazenie postupu v nahlade.
 /// </summary>
-/// <param name="Source">Zdroj (napr. <c>#SWITCH</c>, <c>TTexts</c>, <c>vlastná hodnota</c>, <c>DIVTYPE 3</c>).</param>
+/// <param name="Source">Zdroj (napr. <c>#SWITCH</c>, <c>TTexts</c>, <c>vlastná hodnota</c>, <c>spôsob plnenia 3</c>).</param>
 /// <param name="Value">Vysledok zdroja.</param>
 /// <param name="Note">Poznamka (ktora polozka platila, ci sa odlozilo …).</param>
 public sealed record TabTabComposeStep(string Source, TabTabValue Value, string Note = "");
@@ -283,11 +283,11 @@ public static class TabTabComposer
 
             default:
                 result = value;
-                note = input.DivType == 0 ? "bez prekódovania" : $"neznámy DIVTYPE {input.DivType}";
+                note = input.DivType == 0 ? "bez prekódovania" : $"neznámy spôsob plnenia {input.DivType}";
                 break;
         }
 
-        steps?.Add(new TabTabComposeStep($"DIVTYPE {input.DivType}", result, note));
+        steps?.Add(new TabTabComposeStep($"spôsob plnenia {input.DivType}", result, note));
         return result;
 
         static TabTabValue Apply(TabTabValue rule, TabTabValue original) =>
