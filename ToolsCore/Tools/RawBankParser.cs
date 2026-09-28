@@ -10,12 +10,12 @@ public static class RawBankParser
     /// <returns>list jazykov zvukovej banky.</returns>
     public static List<FyzLanguage> ReadFyzBankFile(string pathToBank, out int maxCountLangs)
     {
-        var file = Utils.CombinePath(pathToBank, FileConsts.FILE_FYZBANK);
+        var file = FyzBankFile(pathToBank);
 
         if (!File.Exists(file))
             throw new FileNotFoundException($"Súbor s definíciou priečinkov zvukov sa na zvolenej ceste nenašiel: {file}");
 
-        using var reader = new BinaryReader(File.Open(file, FileMode.Open), Encodings.Win1250);
+        using var reader = new BinaryReader(File.OpenRead(file), Encodings.Win1250);
         var countLangs = reader.ReadInt32();
         maxCountLangs = countLangs;
         var languages = new List<FyzLanguage>(countLangs);
@@ -38,9 +38,13 @@ public static class RawBankParser
     /// </summary>
     public static void WriteFyzBankFile(string pathToBank, List<FyzLanguage> languages)
     {
-        var file = Utils.CombinePath(pathToBank, FileConsts.FILE_FYZBANK)!;
+        ArgumentNullException.ThrowIfNull(languages);
 
-        using var writer = new BinaryWriter(File.Open(file, FileMode.Create), Encodings.Win1250);
+        WriteAtomically(FyzBankFile(pathToBank), writer => WriteFyzBank(writer, languages));
+    }
+
+    private static void WriteFyzBank(BinaryWriter writer, List<FyzLanguage> languages)
+    {
         writer.Write(languages.Count);
 
         foreach (var language in languages)
@@ -71,7 +75,7 @@ public static class RawBankParser
     {
         ArgumentNullException.ThrowIfNull(language);
 
-        var file = Utils.CombinePath(pathToBank, language.RelativePath, language.FileDefName)!;
+        var file = FyzZvukFile(pathToBank, language);
 
         if (!File.Exists(file))
             throw new FileNotFoundException($"Súbor s definíciou zvukov sa na zvolenej ceste nenašiel: {file}");
@@ -80,7 +84,7 @@ public static class RawBankParser
 
         language.Groups = new List<FyzGroup>();
 
-        using var reader = new BinaryReader(File.Open(file, FileMode.Open), Encodings.Win1250);
+        using var reader = new BinaryReader(File.OpenRead(file), Encodings.Win1250);
         var countGroups = reader.ReadInt32();
 
         var progress = new ProgressStatus("Analyzovanie súboru banky zvukov", countGroups);
@@ -107,7 +111,7 @@ public static class RawBankParser
                 {
                     var index = fileName.LastIndexOf('\\');
                     relativePath = fileName[..(index + 1)];
-                    fileName = fileName.Replace(relativePath, "");
+                    fileName = fileName[(index + 1)..];
                 }
 
                 var duration = reader.ReadInt32();
@@ -133,9 +137,11 @@ public static class RawBankParser
     {
         ArgumentNullException.ThrowIfNull(language);
 
-        var file = Utils.CombinePath(pathToBank, language.RelativePath, language.FileDefName)!;
+        WriteAtomically(FyzZvukFile(pathToBank, language), writer => WriteFyzZvuk(writer, language));
+    }
 
-        using var writer = new BinaryWriter(File.Open(file, FileMode.Create), Encodings.Win1250);
+    private static void WriteFyzZvuk(BinaryWriter writer, FyzLanguage language)
+    {
         writer.Write(language.Groups.Count);
 
         foreach (var grp in language.Groups)
@@ -171,6 +177,54 @@ public static class RawBankParser
         }
     }
     
+    /// <summary>
+    ///     Cesta k súboru FYZBANK.DAT banky.
+    /// </summary>
+    public static string FyzBankFile(string pathToBank) => Utils.CombinePath(pathToBank, FileConsts.FILE_FYZBANK)!;
+
+    /// <summary>
+    ///     Cesta k súboru so zvukmi jazyka (väčšinou FYZZVUK.DAT v priečinku jazyka).
+    /// </summary>
+    public static string FyzZvukFile(string pathToBank, FyzLanguage language)
+    {
+        ArgumentNullException.ThrowIfNull(language);
+        return Utils.CombinePath(pathToBank, language.RelativePath, language.FileDefName)!;
+    }
+
+    /// <summary>
+    ///     Zapíše súbor najprv vedľa s príponou .tmp a až celý ho presunie na miesto pôvodného -
+    ///     chyba počas zápisu tak nenechá na disku napoly zapísaný súbor, ktorý by INISS odmietol.
+    /// </summary>
+    private static void WriteAtomically(string file, Action<BinaryWriter> write)
+    {
+        var tempFile = file + ".tmp";
+        try
+        {
+            using (var writer = new BinaryWriter(File.Create(tempFile), Encodings.Win1250))
+                write(writer);
+
+            File.Move(tempFile, file, true);
+        }
+        catch
+        {
+            TryDelete(tempFile);
+            throw;
+        }
+    }
+
+    private static void TryDelete(string file)
+    {
+        try
+        {
+            File.Delete(file);
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            // zabudnuty .tmp nic nerozbije, podstatna je povodna chyba zapisu
+            Log.Exception(e);
+        }
+    }
+
     private static int ReadNumWithVarLength(this BinaryReader reader)
     {
         var b = reader.ReadByte();
