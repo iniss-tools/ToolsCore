@@ -3,7 +3,7 @@
 namespace ToolsCore.Entities;
 
 /// <summary>
-///     Trieda reprezentujúca typ priečinka v zvukovej banke.
+/// Trieda reprezentujúca typ priečinka v zvukovej banke.
 /// </summary>
 public sealed class FyzGroupType : Enumeration<FyzGroupType>
 {
@@ -12,7 +12,7 @@ public sealed class FyzGroupType : Enumeration<FyzGroupType>
     }
 
     /// <summary>
-    ///     Vráti tuto inštanciu triedy (používané pre GUI).
+    /// Vráti tuto inštanciu triedy (používané pre GUI).
     /// </summary>
     public FyzGroupType This => this;
 
@@ -20,7 +20,7 @@ public sealed class FyzGroupType : Enumeration<FyzGroupType>
     public override string ToString() => $"{Name} - {Description}";
 
     /// <summary>
-    ///     Prevedie kľúč skupiny na jej typ, ak je kľúč neznámy, vráti <see cref="UNCATEGORIZED"/>.
+    /// Prevedie kľúč skupiny na jej typ, ak je kľúč neznámy, vráti <see cref="UNCATEGORIZED"/>.
     /// </summary>
     /// <param name="name">Kľúč skupiny (názov sa môže líšiť, napr. kľúč VlakNum s názvom "Číslovky").</param>
     /// <returns>typ priečinka</returns>

@@ -3,7 +3,7 @@
 namespace ToolsCore.Tools;
 
 /// <summary>
-///     Trieda sluziaca na logovanie do suborov.
+/// Trieda sluziaca na logovanie do suborov.
 /// </summary>
 public static class Log
 {
@@ -11,43 +11,43 @@ public static class Log
     private static LogFile? _logError;
 
     /// <summary>
-    ///     Nazov logovacieho suboru Info.log.
+    /// Nazov logovacieho suboru Info.log.
     /// </summary>
     private const string LogAppName = "info.log";
 
     /// <summary>
-    ///     Nazov logovacieho suboru Error.log.
+    /// Nazov logovacieho suboru Error.log.
     /// </summary>
     private const string LogErrorName = "error.log";
 
     /// <summary>
-    ///     Cesta k priecinku s logmi.
+    /// Cesta k priecinku s logmi.
     /// </summary>
     private const string LogPath = "\\logs";
 
     /// <summary>
-    ///     Cesta k priecinku, do ktoreho sa zapisuju logy (podpriecinok <c>logs</c>).
+    /// Cesta k priecinku, do ktoreho sa zapisuju logy (podpriecinok <c>logs</c>).
     /// </summary>
     /// <remarks>
-    ///     Nastavuje ju <c>AppInit.Initialization</c> na <c>AppPaths.DataDir</c>, a to hned
-    ///     na zaciatku - inak by prve zalogovanie zalozilo <c>logs</c> vedla programu.
+    /// Nastavuje ju <c>AppInit.Initialization</c> na <c>AppPaths.DataDir</c>, a to hned
+    /// na zaciatku - inak by prve zalogovanie zalozilo <c>logs</c> vedla programu.
     /// </remarks>
     public static string DataDirPath { get; set; } = Application.StartupPath;
 
     /// <summary>
-    ///     Vykonavaj logy informacii.
+    /// Vykonavaj logy informacii.
     /// </summary>
     public static bool DoAppLogs { get; set; }  = true;
 
     /// <summary>
-    ///     Vykonavaj logy chyb a vynimiek.
+    /// Vykonavaj logy chyb a vynimiek.
     /// </summary>
     public static bool DoErrorLogs { get; set; } = true;
 
     private static void LogString(LogFile logFile, string? text) => logFile.SaveToFile(text);
 
     /// <summary>
-    ///     Zapise chybu do logovacieho suboru.
+    /// Zapise chybu do logovacieho suboru.
     /// </summary>
     /// <param name="s">text chybovej hlasky</param>
     public static void Error(string? s)
@@ -60,7 +60,7 @@ public static class Log
     }
 
     /// <summary>
-    ///     Zapise vynimku do logovacieho suboru.
+    /// Zapise vynimku do logovacieho suboru.
     /// </summary>
     /// <param name="e">Vynimka.</param>
     /// <param name="s">Dobrovodna informacia o vynimke.</param>
@@ -75,14 +75,14 @@ public static class Log
     }
 
     /// <summary>
-    ///     Zapise varovanie do logovacieho suboru informacii (s predponou <c>Warn:</c>). Pouziva sa na nezrovnalosti
-    ///     v datach, ktore program prekona, ale pouzivatel by o nich mal vediet.
+    /// Zapise varovanie do logovacieho suboru informacii (s predponou <c>Warn:</c>). Pouziva sa na nezrovnalosti
+    /// v datach, ktore program prekona, ale pouzivatel by o nich mal vediet.
     /// </summary>
     /// <param name="s">Text varovania.</param>
     public static void Warning(string s) => Info("Warn: " + s);
 
     /// <summary>
-    ///     Zapise informaciu do logovacieho suboru.
+    /// Zapise informaciu do logovacieho suboru.
     /// </summary>
     /// <param name="s">Text informacie.</param>
     public static void Info(string s)

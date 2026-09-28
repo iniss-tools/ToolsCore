@@ -1,7 +1,7 @@
 namespace ToolsCore.Tools;
 
 /// <summary>
-///     Trieda reprezentujuca zoznam poli s obsahom bez vlastnosti.
+/// Trieda reprezentujuca zoznam poli s obsahom bez vlastnosti.
 /// </summary>
 public class TxtPropsAreas
 {
@@ -9,7 +9,7 @@ public class TxtPropsAreas
     private readonly Dictionary<string, string> _dictionary;
 
     /// <summary>
-    ///     Vytvori novu instanciu triedy <see cref="TxtPropsAreas"/>.
+    /// Vytvori novu instanciu triedy <see cref="TxtPropsAreas"/>.
     /// </summary>
     /// <param name="file">Cesta k suboru do/z ktore sa budu ukladat/nacitat subory.</param>
     /// <param name="write">Ak je false, zoznam vlastnosti a hodnot sa nacita zo suboru.</param>
@@ -23,22 +23,22 @@ public class TxtPropsAreas
     }
 
     /// <summary>
-    ///     Vrati obsah pola zadaneho nazvom pola <paramref name="area"/>.
-    ///     Ak pole s takymto nazvom nenajde, vrati <see langword="null"/>.
+    /// Vrati obsah pola zadaneho nazvom pola <paramref name="area"/>.
+    /// Ak pole s takymto nazvom nenajde, vrati <see langword="null"/>.
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <returns></returns>
     public string? Get(string area) => _dictionary.ContainsKey(area) ? _dictionary[area] : null;
 
     /// <summary>
-    ///     Vrati zoznam vsetkych nazvov poli, ktore sa nachadzaju v slovniku.
+    /// Vrati zoznam vsetkych nazvov poli, ktore sa nachadzaju v slovniku.
     /// </summary>
     /// <returns>zoznam vsetkych nazvov poli, ktore sa nachadzaju v slovniku.</returns>
     public IEnumerable<string> GetAreas() => _dictionary.Keys.ToList();
 
     /// <summary>
-    ///     Nastavi obsah pola. Ak zadany nazov pola <paramref name="area"/> nenajde v slovniku poli,
-    ///     vytvori nove pole s tymto nazvom a nastavi jej zadany obsah specifikovany v parametri <paramref name="value"/>.
+    /// Nastavi obsah pola. Ak zadany nazov pola <paramref name="area"/> nenajde v slovniku poli,
+    /// vytvori nove pole s tymto nazvom a nastavi jej zadany obsah specifikovany v parametri <paramref name="value"/>.
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <param name="value">Obsah pola.</param>
@@ -51,12 +51,12 @@ public class TxtPropsAreas
     }
 
     /// <summary>
-    ///     Text pred prvou sekciou (uvodne komentare suboru); pri ulozeni sa zapise spat.
+    /// Text pred prvou sekciou (uvodne komentare suboru); pri ulozeni sa zapise spat.
     /// </summary>
     public string Preamble { get; set; } = "";
 
     /// <summary>
-    ///     Ulozi zoznam poli do suboru.
+    /// Ulozi zoznam poli do suboru.
     /// </summary>
     public void Save()
     {
@@ -77,9 +77,9 @@ public class TxtPropsAreas
     }
 
     /// <summary>
-    ///     Nacita zoznam poli zo suboru tak, ako ho cita INISS: hlavicka je riadok, ktoreho prvy neprazdny znak
-    ///     je <c>[</c>, nazov siaha po prve <c>]</c>; vsetko ostatne (aj komentare a prazdne riadky) patri
-    ///     do textu aktualnej sekcie. Pri opakovanom nazve sekcie plati posledna (ako v INISSe).
+    /// Nacita zoznam poli zo suboru tak, ako ho cita INISS: hlavicka je riadok, ktoreho prvy neprazdny znak
+    /// je <c>[</c>, nazov siaha po prve <c>]</c>; vsetko ostatne (aj komentare a prazdne riadky) patri
+    /// do textu aktualnej sekcie. Pri opakovanom nazve sekcie plati posledna (ako v INISSe).
     /// </summary>
     private void LoadFromFile(string file)
     {

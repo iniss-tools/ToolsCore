@@ -7,7 +7,7 @@ namespace ToolsCore.XML;
 public static class XmlSerialization
 {
     /// <summary>
-    ///     Nacita data z XML suboru.
+    /// Nacita data z XML suboru.
     /// </summary>
     /// <param name="fileName">Cesta k suboru.</param>
     /// <returns></returns>
@@ -35,7 +35,7 @@ public static class XmlSerialization
     }
 
     /// <summary>
-    ///     Zapise data do XML suboru.
+    /// Zapise data do XML suboru.
     /// </summary>
     /// <param name="file">Cesta k suboru</param>
     /// <param name="obj">Data.</param>

@@ -17,7 +17,7 @@ public static class AppInit
     private static Mutex? _instanceMutex;
 
     /// <summary>
-    ///     Kluc instancie podla spusteneho programu (nie ToolsCore) - kazdy nastroj ma vlastny.
+    /// Kluc instancie podla spusteneho programu (nie ToolsCore) - kazdy nastroj ma vlastny.
     /// </summary>
     private static string InstanceKey
     {
@@ -124,9 +124,9 @@ public static class AppInit
     private static List<string> _resetFiles = [];
 
     /// <summary>
-    ///     Spusti hlavne okno programu. Neosetrene vynimky (aj z obsluh udalosti a inych vlakien) zaloguje a podla
-    ///     <see cref="ConfigBase.DebugModeGUI" /> zobrazi; pri <see cref="DebugMode.AppCrash" /> program spadne.
-    ///     Volat po <see cref="Initialization{TC,TS}" />.
+    /// Spusti hlavne okno programu. Neosetrene vynimky (aj z obsluh udalosti a inych vlakien) zaloguje a podla
+    /// <see cref="ConfigBase.DebugModeGUI" /> zobrazi; pri <see cref="DebugMode.AppCrash" /> program spadne.
+    /// Volat po <see cref="Initialization{TC,TS}" />.
     /// </summary>
     /// <param name="config">konfiguracia programu</param>
     /// <param name="createMainForm">vytvori hlavne okno - az po nastaveni spracovania vynimiek</param>
@@ -187,7 +187,7 @@ public static class AppInit
     }
 
     /// <summary>
-    ///     Nacita konfiguracny subor. Ak je poskodeny, odlozi ho vedla ako <c>.bad</c> a nacita predvoleny.
+    /// Nacita konfiguracny subor. Ak je poskodeny, odlozi ho vedla ako <c>.bad</c> a nacita predvoleny.
     /// </summary>
     private static T ReadOrReset<T>(string fileName, Func<string, T> read, List<string> resetFiles)
     {

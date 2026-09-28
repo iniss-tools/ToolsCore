@@ -1,13 +1,13 @@
 namespace ToolsCore.StateDgm;
 
 /// <summary>
-///     Prevod stromu suboru StateDgm.txt na typovany diagram. Kluce a skupiny, ktore model nepozna,
-///     konci v <c>Extras</c> prislusneho prvku, aby sa pri zapise nestratili.
+/// Prevod stromu suboru StateDgm.txt na typovany diagram. Kluce a skupiny, ktore model nepozna,
+/// konci v <c>Extras</c> prislusneho prvku, aby sa pri zapise nestratili.
 /// </summary>
 public static class StateDgmConverter
 {
     /// <summary>
-    ///     Prevedie strom na typovany diagram.
+    /// Prevedie strom na typovany diagram.
     /// </summary>
     public static StateDgmDiagram FromTree(StateDgmTextFile file)
     {
@@ -241,7 +241,7 @@ public static class StateDgmConverter
     }
 
     /// <summary>
-    ///     INISS pouzije mensie z dvojice (kluc Num…, pocet skupin) a nesulad zapise do logu; editor nacita vsetky skupiny.
+    /// INISS pouzije mensie z dvojice (kluc Num…, pocet skupin) a nesulad zapise do logu; editor nacita vsetky skupiny.
     /// </summary>
     private static void CheckCount(StateDgmDiagram d, int? declared, int actual, string key, string what, int line)
     {
@@ -253,7 +253,7 @@ public static class StateDgmConverter
     }
 
     /// <summary>
-    ///     Citanie skupiny so sledovanim spotrebovanych poloziek.
+    /// Citanie skupiny so sledovanim spotrebovanych poloziek.
     /// </summary>
     private sealed class GroupReader(StateDgmGroup group)
     {

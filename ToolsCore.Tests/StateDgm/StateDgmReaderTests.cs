@@ -4,7 +4,7 @@ using ToolsCore.StateDgm;
 namespace ToolsCore.Tests.StateDgm;
 
 /// <summary>
-///     Citac stromu StateDgm.txt - syntax podla INISSu 3.39.
+/// Citac stromu StateDgm.txt - syntax podla INISSu 3.39.
 /// </summary>
 [TestClass]
 [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]

@@ -4,7 +4,7 @@ using System.Globalization;
 namespace ToolsCore.Expressions;
 
 /// <summary>
-///     Kontext, v ktorom sa vyraz preklada. Urcuje, ktore konstanty prekladac prijme.
+/// Kontext, v ktorom sa vyraz preklada. Urcuje, ktore konstanty prekladac prijme.
 /// </summary>
 public enum ExprContext
 {
@@ -16,7 +16,7 @@ public enum ExprContext
 }
 
 /// <summary>
-///     Skupina konstanty.
+/// Skupina konstanty.
 /// </summary>
 public enum ExprConstantGroup
 {
@@ -27,7 +27,7 @@ public enum ExprConstantGroup
 }
 
 /// <summary>
-///     Pomenovana konstanta jazyka vyrazov.
+/// Pomenovana konstanta jazyka vyrazov.
 /// </summary>
 /// <param name="Name">Meno.</param>
 /// <param name="Value">Hodnota.</param>
@@ -36,7 +36,7 @@ public enum ExprConstantGroup
 public sealed record ExprConstantInfo(string Name, int Value, ExprConstantGroup Group, bool IsEnglish = false);
 
 /// <summary>
-///     Vysledok rozpoznania konstanty.
+/// Vysledok rozpoznania konstanty.
 /// </summary>
 /// <param name="Value">Hodnota.</param>
 /// <param name="Constant">Popis konstanty, ak islo o pomenovanu konstantu.</param>
@@ -44,7 +44,7 @@ public sealed record ExprConstantInfo(string Name, int Value, ExprConstantGroup 
 public readonly record struct ExprConstantMatch(int Value, ExprConstantInfo? Constant, ExprTrainTypeMatch? TrainType);
 
 /// <summary>
-///     Vysledok rozpoznania <c>Typ_…</c>.
+/// Vysledok rozpoznania <c>Typ_…</c>.
 /// </summary>
 /// <param name="Index">Index v zabudovanej tabulke (0-94).</param>
 /// <param name="Key">Kluc za predponou.</param>
@@ -53,14 +53,14 @@ public readonly record struct ExprConstantMatch(int Value, ExprConstantInfo? Con
 public readonly record struct ExprTrainTypeMatch(int Index, string Key, bool FromTrTypes, bool Exact);
 
 /// <summary>
-///     Symboly z dat grafikonu, ktore prekladac a validator potrebuju. Vsetky cleny su nepovinne -
-///     predvolene implementacie znamenaju "neviem".
+/// Symboly z dat grafikonu, ktore prekladac a validator potrebuju. Vsetky cleny su nepovinne -
+/// predvolene implementacie znamenaju "neviem".
 /// </summary>
 public interface IExprSymbolProvider
 {
     /// <summary>
-    ///     Kluce druhov vlakov z TrTypes.txt (2. stlpec) s indexom v zabudovanej tabulke.
-    ///     <see langword="null"/>, ak nie su dostupne.
+    /// Kluce druhov vlakov z TrTypes.txt (2. stlpec) s indexom v zabudovanej tabulke.
+    /// <see langword="null"/>, ak nie su dostupne.
     /// </summary>
     IReadOnlyDictionary<string, int>? TrainTypeKeys => null;
 
@@ -75,7 +75,7 @@ public interface IExprSymbolProvider
 }
 
 /// <summary>
-///     Konstanty jazyka vyrazov a ich rozpoznavanie.
+/// Konstanty jazyka vyrazov a ich rozpoznavanie.
 /// </summary>
 public static class ExprConstants
 {
@@ -132,7 +132,7 @@ public static class ExprConstants
         IltisEvents.ToDictionary(c => c.Name, c => c, StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
-    ///     Rozpozna identifikator ako konstantu.
+    /// Rozpozna identifikator ako konstantu.
     /// </summary>
     /// <param name="name">Identifikator.</param>
     /// <param name="context">Kontext prekladu.</param>
@@ -161,7 +161,7 @@ public static class ExprConstants
 }
 
 /// <summary>
-///     Zabudovana tabulka druhov vlakov INISSu (95 miest) a hladanie <c>Typ_…</c>.
+/// Zabudovana tabulka druhov vlakov INISSu (95 miest) a hladanie <c>Typ_…</c>.
 /// </summary>
 public static class ExprTrainTypes
 {
@@ -177,28 +177,28 @@ public static class ExprTrainTypes
     private static readonly string?[] Names = BuildNames();
 
     /// <summary>
-    ///     Nazvy druhov podla indexu; prazdne miesta su <see langword="null"/>.
+    /// Nazvy druhov podla indexu; prazdne miesta su <see langword="null"/>.
     /// </summary>
     public static IReadOnlyList<string?> BuiltIn => Names;
 
     /// <summary>
-    ///     Vrati zabudovany nazov druhu na indexe, alebo <see langword="null"/>.
+    /// Vrati zabudovany nazov druhu na indexe, alebo <see langword="null"/>.
     /// </summary>
     public static string? NameOf(int index) => index is >= 0 and < Count ? Names[index] : null;
 
     /// <summary>
-    ///     Index zabudovaneho druhu podla presneho nazvu, alebo -1.
+    /// Index zabudovaneho druhu podla presneho nazvu, alebo -1.
     /// </summary>
     public static int IndexOf(string name) => Array.IndexOf(Names, name);
 
     /// <summary>
-    ///     Ci je druh na indexe nakladny alebo sluzobny (<c>NAKLTYP</c>).
+    /// Ci je druh na indexe nakladny alebo sluzobny (<c>NAKLTYP</c>).
     /// </summary>
     public static bool IsCargo(int index) => index is >= CargoFirst and <= CargoLast;
 
     /// <summary>
-    ///     Najde druh vlaku ako INISS: najprv medzi klucmi TrTypes.txt, potom medzi zabudovanymi nazvami;
-    ///     v oboch presne, potom bez ohladu na velkost pismen, potom aj bez diakritiky.
+    /// Najde druh vlaku ako INISS: najprv medzi klucmi TrTypes.txt, potom medzi zabudovanymi nazvami;
+    /// v oboch presne, potom bez ohladu na velkost pismen, potom aj bez diakritiky.
     /// </summary>
     /// <param name="key">Text za predponou <c>Typ_</c>.</param>
     /// <param name="trTypesKeys">Kluce z TrTypes.txt s indexmi; <see langword="null"/>, ak nie su k dispozicii.</param>

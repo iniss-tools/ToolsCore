@@ -3,7 +3,7 @@
 namespace ToolsCore.XML;
 
 /// <summary>
-///     Obsahuje zoznam všetkých nastaviteľných komponentov, pre ktoré sa nastavuje ich písmo.
+/// Obsahuje zoznam všetkých nastaviteľných komponentov, pre ktoré sa nastavuje ich písmo.
 /// </summary>
 [DefaultProperty(nameof(Labels))]
 public record ControlFonts()
@@ -18,7 +18,7 @@ public record ControlFonts()
     private static AppFont DefaultStateRowFont { get; } = new(SystemFonts.MenuFont!);
 
     /// <summary>
-    ///     Nastavenie písma pre Labels.
+    /// Nastavenie písma pre Labels.
     /// </summary>
     [XmlElement("Labels")]
     [DisplayName("Text vo formulároch")]
@@ -28,7 +28,7 @@ public record ControlFonts()
     private bool ShouldSerializeLabels() => !Equals(Labels.Font, DefaultLabelsFont.Font);
 
     /// <summary>
-    ///     Nastavenie písma pre Buttons.
+    /// Nastavenie písma pre Buttons.
     /// </summary>
     [XmlElement("Buttons")] 
     [DisplayName("Tlačidlá formulárov")]
@@ -38,7 +38,7 @@ public record ControlFonts()
     private bool ShouldSerializeButtons() => !Equals(Buttons.Font, DefaultButtonsFont.Font);
 
     /// <summary>
-    ///     Nastavenie písma pre Menu.
+    /// Nastavenie písma pre Menu.
     /// </summary>
     [XmlElement("Menu")]
     [DisplayName("Menu")]
@@ -48,7 +48,7 @@ public record ControlFonts()
     private bool ShouldSerializeMenu() => !Equals(Menu.Font, DefaultMenuFont.Font);
 
     /// <summary>
-    ///     Nastavenie písma pre hlavičku śtĺpcov v DataGridView.
+    /// Nastavenie písma pre hlavičku śtĺpcov v DataGridView.
     /// </summary>
     [XmlElement("ColsHeaders")]
     [DisplayName("Hlavičky tabuliek")]
@@ -58,7 +58,7 @@ public record ControlFonts()
     private bool ShouldSerializeColsHeader() => !Equals(ColsHeader.Font, DefaultColsHeaderFont.Font);
 
     /// <summary>
-    ///     Nastavenie písma pre obsah v DataGridView.
+    /// Nastavenie písma pre obsah v DataGridView.
     /// </summary>
     [XmlElement("TableCells")]
     [DisplayName("Bunky tabuliek")]
@@ -68,7 +68,7 @@ public record ControlFonts()
     private bool ShouldSerializeTableCells() => !Equals(TableCells.Font, DefaultTableCellsFont.Font);
 
     /// <summary>
-    ///     Nastavenie písma pre stavový riadok v dolnej časti pracovnej plochy programu.
+    /// Nastavenie písma pre stavový riadok v dolnej časti pracovnej plochy programu.
     /// </summary>
     [XmlElement("StateRow")]
     [DisplayName("Stavový riadok")]
@@ -78,13 +78,13 @@ public record ControlFonts()
     private bool ShouldSerializeStateRow() => !Equals(StateRow.Font, DefaultStateRowFont.Font);
 
     /// <summary>
-    ///     Prázdne písmo (napr. po vymazaní textu v PropertyGrid, alebo chýbajúce v súbore) nahradí predvoleným
-    ///     písmom položky - null by inak zlyhal pri ukladaní konfigurácie aj pri kopírovaní nastavení.
+    /// Prázdne písmo (napr. po vymazaní textu v PropertyGrid, alebo chýbajúce v súbore) nahradí predvoleným
+    /// písmom položky - null by inak zlyhal pri ukladaní konfigurácie aj pri kopírovaní nastavení.
     /// </summary>
     private static AppFont OrDefault(AppFont? value, AppFont defaultFont) => value?.Font is null ? defaultFont : value;
 
     /// <summary>
-    ///     Vráti zoznam všetkých nastaviteľných komponentov, pre ktoré sa nastavuje ich písmo.
+    /// Vráti zoznam všetkých nastaviteľných komponentov, pre ktoré sa nastavuje ich písmo.
     /// </summary>
     /// <returns>zoznam komponentov.</returns>
     public List<AppFont> GetValues() => new() { Labels, Buttons, Menu, ColsHeader, TableCells, StateRow };

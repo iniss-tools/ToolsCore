@@ -5,7 +5,7 @@ using ToolsCore.StateDgm;
 namespace ToolsCore.Tests.StateDgm;
 
 /// <summary>
-///     Prenos premenovaneho kluca do odkazov (stav, vzhlad, casovy bod, akcia) a odmietnutie nejednoznacnych premenovani.
+/// Prenos premenovaneho kluca do odkazov (stav, vzhlad, casovy bod, akcia) a odmietnutie nejednoznacnych premenovani.
 /// </summary>
 [TestClass]
 [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]

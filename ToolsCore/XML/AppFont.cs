@@ -6,7 +6,7 @@ using ToolsCore.Converters;
 namespace ToolsCore.XML;
 
 /// <summary>
-///     Trieda reprezentujuca nastavenie pisma pre určity ovladaci prvok programu.
+/// Trieda reprezentujuca nastavenie pisma pre určity ovladaci prvok programu.
 /// </summary>
 [TypeConverter(typeof(AppFontConverter))]
 [Editor(typeof(AppFontEditor), typeof (UITypeEditor))]
@@ -24,7 +24,7 @@ public record AppFont()
     }
 
     /// <summary>
-    ///     Názov použitia písma pre program.
+    /// Názov použitia písma pre program.
     /// </summary>
     [XmlIgnore]
     [Localizable(true)]
@@ -32,13 +32,13 @@ public record AppFont()
     public string Name { get; set; } = null!;
 
     /// <summary>
-    ///     Písmo.
+    /// Písmo.
     /// </summary>
     [XmlIgnore]
     public Font Font { get; private set; } = null!;
 
     /// <summary>
-    ///     Príklad pre vizualizáciu písma.
+    /// Príklad pre vizualizáciu písma.
     /// </summary>
     [XmlIgnore]
     [Browsable(false)]
@@ -46,7 +46,7 @@ public record AppFont()
     public string Example => "OK1932Šč./jkl";
 
     /// <summary>
-    ///     Textový komentár k vlastnostiam tohto písma.
+    /// Textový komentár k vlastnostiam tohto písma.
     /// </summary>
     [XmlIgnore]
     [Browsable(false)]
@@ -54,7 +54,7 @@ public record AppFont()
         $"{Font.Name}, {Math.Round(Font.SizeInPoints)}{(Font.Bold ? ", tučné " : "")}{(Font.Italic ? ", kurzíva " : "")}{(Font.Strikeout ? ", prečiarknuté " : "")}{(Font.Underline ? ",podčiarkuté " : "")}";
 
     /// <summary>
-    ///     XML reprezentácia písma.
+    /// XML reprezentácia písma.
     /// </summary>
     [XmlElement(Type = typeof(XmlFont), ElementName = "f")]
     [Browsable(false)]
@@ -65,7 +65,7 @@ public record AppFont()
     }
 
     /// <summary>
-    ///     Returns Font object from this AppFont instance.
+    /// Returns Font object from this AppFont instance.
     /// </summary>
     /// <param name="f"></param>
     /// <returns></returns>

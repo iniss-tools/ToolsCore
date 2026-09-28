@@ -3,7 +3,7 @@ using ToolsCore.Entities;
 namespace ToolsCore.Tests.Entities;
 
 /// <summary>
-///     Cesta k suboru zvuku - pridavna cesta je v INISS relativna k priecinku skupiny.
+/// Cesta k suboru zvuku - pridavna cesta je v INISS relativna k priecinku skupiny.
 /// </summary>
 [TestClass]
 public class FyzSoundTests

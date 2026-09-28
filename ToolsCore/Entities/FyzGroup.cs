@@ -15,42 +15,42 @@ public class FyzGroup
     }
 
     /// <summary>
-    ///     Kluc skupiny (v programe ZvukBase sa neda menit).
+    /// Kluc skupiny (v programe ZvukBase sa neda menit).
     /// </summary>
     public string Key { get; set; }
 
     /// <summary>
-    ///     Nazov skupiny (v programe ZvukBase sa da menit).
+    /// Nazov skupiny (v programe ZvukBase sa da menit).
     /// </summary>
     public string Name { get; set; }
 
     /// <summary>
-    ///     Relativna cesta k skupine zvukov.
+    /// Relativna cesta k skupine zvukov.
     /// </summary>
     public string RelativePath { get; set; }
 
     /// <summary>
-    ///     Pocet zvukov v danej skupine.
+    /// Pocet zvukov v danej skupine.
     /// </summary>
     public int CountSounds => Sounds.Count;
 
     /// <summary>
-    ///     Zvuky skupiny.
+    /// Zvuky skupiny.
     /// </summary>
     public IList<FyzSound> Sounds { get; }
 
     /// <summary>
-    ///     Jazyk, ku ktoremu tato skupina zvukov patri.
+    /// Jazyk, ku ktoremu tato skupina zvukov patri.
     /// </summary>
     public FyzLanguage Language { get; set; }
 
     /// <summary>
-    ///     Odkaz na fyzicky priecinok skupiny zvukov.
+    /// Odkaz na fyzicky priecinok skupiny zvukov.
     /// </summary>
     public DirectoryElement Directory { get; set; } = null!;
 
     /// <summary>
-    ///     Typ priečinka podľa zvukov, ktoré obsahuje.
+    /// Typ priečinka podľa zvukov, ktoré obsahuje.
     /// </summary>
     public FyzGroupType Type => FyzGroupType.Parse(Key);
 

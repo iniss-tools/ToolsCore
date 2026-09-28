@@ -1,8 +1,8 @@
 namespace ToolsCore.TabTab;
 
 /// <summary>
-///     Rozklad textu sekcie TabTab na logicke riadky, pravidla a polozky - so zachovanim fyzickych pozicii
-///     pre editor.
+/// Rozklad textu sekcie TabTab na logicke riadky, pravidla a polozky - so zachovanim fyzickych pozicii
+/// pre editor.
 /// </summary>
 public static class TabTabSectionParser
 {
@@ -20,7 +20,7 @@ public static class TabTabSectionParser
     private const string EvMerge2 = "#MERGE2";
 
     /// <summary>
-    ///     Rozoberie text sekcie.
+    /// Rozoberie text sekcie.
     /// </summary>
     public static TabTabSection Parse(string text)
     {
@@ -46,7 +46,7 @@ public static class TabTabSectionParser
     }
 
     /// <summary>
-    ///     Logicky riadok: spojeny text a mapa logicky index → fyzicky index.
+    /// Logicky riadok: spojeny text a mapa logicky index → fyzicky index.
     /// </summary>
     private sealed class Logical
     {
@@ -63,8 +63,8 @@ public static class TabTabSectionParser
     }
 
     /// <summary>
-    ///     Rozdeli text na logicke riadky ako INISS - riadok konciaci <c>\</c> pokracuje
-    ///     dalsim riadkom (bez oddelovaca); komentar sa nikdy nespaja.
+    /// Rozdeli text na logicke riadky ako INISS - riadok konciaci <c>\</c> pokracuje
+    /// dalsim riadkom (bez oddelovaca); komentar sa nikdy nespaja.
     /// </summary>
     private static IEnumerable<Logical> LogicalLines(string text)
     {
@@ -121,7 +121,7 @@ public static class TabTabSectionParser
     }
 
     /// <summary>
-    ///     Klasifikacia logickeho riadka ako INISS.
+    /// Klasifikacia logickeho riadka ako INISS.
     /// </summary>
     private static TabTabLine Classify(Logical lg)
     {
@@ -212,7 +212,7 @@ public static class TabTabSectionParser
     }
 
     /// <summary>
-    ///     Rozpozna udalost na pravej strane - INISS porovnava presne (s ohladom na velkost pismen).
+    /// Rozpozna udalost na pravej strane - INISS porovnava presne (s ohladom na velkost pismen).
     /// </summary>
     private static (TabTabEventKind, string?) ClassifyEvent(string right)
     {
@@ -227,8 +227,8 @@ public static class TabTabSectionParser
     }
 
     /// <summary>
-    ///     Rozdeli lavu stranu na polozky: ciarka mimo uvodzoviek oddeluje, <c>\</c> chrani nasledujuci znak.
-    ///     Polozky sa orezu o okolite medzery.
+    /// Rozdeli lavu stranu na polozky: ciarka mimo uvodzoviek oddeluje, <c>\</c> chrani nasledujuci znak.
+    /// Polozky sa orezu o okolite medzery.
     /// </summary>
     private static List<TabTabItem> SplitItems(string left, int leftLogStart, Logical lg, TabTabEventKind ev)
     {

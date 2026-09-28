@@ -1,7 +1,7 @@
 namespace ToolsCore.StateDgm;
 
 /// <summary>
-///     Priznaky stavu (kluc <c>Attr</c>); mena bitov su z komentarov v suboroch INISSu.
+/// Priznaky stavu (kluc <c>Attr</c>); mena bitov su z komentarov v suboroch INISSu.
 /// </summary>
 [Flags]
 public enum StateDgmAttr
@@ -26,7 +26,7 @@ public enum StateDgmAttr
 }
 
 /// <summary>
-///     Udalosti ILTISu, na ktore moze automaticka akcia cakat (kluc <c>Wait</c>); hodnoty su konstanty jazyka vyrazov.
+/// Udalosti ILTISu, na ktore moze automaticka akcia cakat (kluc <c>Wait</c>); hodnoty su konstanty jazyka vyrazov.
 /// </summary>
 [Flags]
 public enum StateDgmWaitEvent : uint
@@ -51,7 +51,7 @@ public enum StateDgmWaitEvent : uint
 }
 
 /// <summary>
-///     Rezim automatiky stavu (kluc <c>AutoMode</c>).
+/// Rezim automatiky stavu (kluc <c>AutoMode</c>).
 /// </summary>
 public enum StateDgmAutoMode
 {
@@ -66,7 +66,7 @@ public enum StateDgmAutoMode
 }
 
 /// <summary>
-///     Casovy bod automatiky (kluc <c>AutoTimePoint</c>).
+/// Casovy bod automatiky (kluc <c>AutoTimePoint</c>).
 /// </summary>
 public enum StateDgmAutoTimePoint
 {
@@ -78,7 +78,7 @@ public enum StateDgmAutoTimePoint
 }
 
 /// <summary>
-///     Hodnota, ktoru INISS cita dvakrat - ako cislo (<c>I:</c>) alebo ako vyraz (<c>S:</c>) vyhodnocovany pre kazdy vlak.
+/// Hodnota, ktoru INISS cita dvakrat - ako cislo (<c>I:</c>) alebo ako vyraz (<c>S:</c>) vyhodnocovany pre kazdy vlak.
 /// </summary>
 public sealed class StateDgmDynamic : IEquatable<StateDgmDynamic>
 {
@@ -131,7 +131,7 @@ public sealed class StateDgmDynamic : IEquatable<StateDgmDynamic>
 }
 
 /// <summary>
-///     Mena klucov a skupin suboru StateDgm.txt a zabudovane hodnoty.
+/// Mena klucov a skupin suboru StateDgm.txt a zabudovane hodnoty.
 /// </summary>
 public static class StateDgmKeys
 {
@@ -242,8 +242,8 @@ public static class StateDgmKeys
     public const string START_STATE = "#Start";
 
     /// <summary>
-    ///     Casovy bod stavu, ktory INISS nastavi na cas vstupu vlaku do stavu - stav ho musi deklarovat
-    ///     skupinou <c>TimePoint</c> s tymto klucom (bez zdrojovych bodov).
+    /// Casovy bod stavu, ktory INISS nastavi na cas vstupu vlaku do stavu - stav ho musi deklarovat
+    /// skupinou <c>TimePoint</c> s tymto klucom (bez zdrojovych bodov).
     /// </summary>
     public const string START_TIME = "#StartTime";
 
@@ -284,7 +284,7 @@ public static class StateDgmKeys
 }
 
 /// <summary>
-///     Obrazky tlacidla - hodnota kluca <c>Bitmaps</c> v tvare <c>posun-normalny,so zameranim,stlaceny</c>.
+/// Obrazky tlacidla - hodnota kluca <c>Bitmaps</c> v tvare <c>posun-normalny,so zameranim,stlaceny</c>.
 /// </summary>
 /// <param name="Offset">Posun v pase obrazkov.</param>
 /// <param name="Normal">Obrazok pre bezny stav.</param>
@@ -318,7 +318,7 @@ public readonly record struct StateDgmBitmaps(int Offset, int Normal, int Focuse
 }
 
 /// <summary>
-///     Spolocny zaklad typovanych prvkov - drzi polozky, ktorym model nerozumie, aby sa pri zapise zachovali.
+/// Spolocny zaklad typovanych prvkov - drzi polozky, ktorym model nerozumie, aby sa pri zapise zachovali.
 /// </summary>
 public abstract class StateDgmElement
 {
@@ -330,7 +330,7 @@ public abstract class StateDgmElement
 }
 
 /// <summary>
-///     Vzhlad tlacidla (<c>StateDgmCtrls\CtrlDesign</c>, skupina <c>Design</c>).
+/// Vzhlad tlacidla (<c>StateDgmCtrls\CtrlDesign</c>, skupina <c>Design</c>).
 /// </summary>
 public sealed class StateDgmDesign : StateDgmElement
 {
@@ -354,7 +354,7 @@ public sealed class StateDgmDesign : StateDgmElement
 }
 
 /// <summary>
-///     Vlastny casovy bod odvodeny z dvoch inych (<c>TimePoint</c> v hlavicke).
+/// Vlastny casovy bod odvodeny z dvoch inych (<c>TimePoint</c> v hlavicke).
 /// </summary>
 public sealed class StateDgmTimePoint : StateDgmElement
 {
@@ -384,7 +384,7 @@ public sealed class StateDgmTimePoint : StateDgmElement
 }
 
 /// <summary>
-///     Co stav robi s tabulami (<c>DoState</c> / <c>UndoState</c>, trieda <c>SVFTableSet</c>).
+/// Co stav robi s tabulami (<c>DoState</c> / <c>UndoState</c>, trieda <c>SVFTableSet</c>).
 /// </summary>
 public sealed class StateDgmTableSet : StateDgmElement
 {
@@ -420,7 +420,7 @@ public sealed class StateDgmTableSet : StateDgmElement
 }
 
 /// <summary>
-///     Akcia stavu (skupina <c>Event</c>).
+/// Akcia stavu (skupina <c>Event</c>).
 /// </summary>
 public sealed class StateDgmEvent : StateDgmElement
 {
@@ -486,7 +486,7 @@ public sealed class StateDgmEvent : StateDgmElement
 }
 
 /// <summary>
-///     Tlacidlo v paneli stavu (skupina <c>Control</c>).
+/// Tlacidlo v paneli stavu (skupina <c>Control</c>).
 /// </summary>
 public sealed class StateDgmControl : StateDgmElement
 {
@@ -504,7 +504,7 @@ public sealed class StateDgmControl : StateDgmElement
 }
 
 /// <summary>
-///     Starter - opakovane spustanie akcie podla casu (skupina <c>Starter</c>).
+/// Starter - opakovane spustanie akcie podla casu (skupina <c>Starter</c>).
 /// </summary>
 public sealed class StateDgmStarter : StateDgmElement
 {
@@ -540,7 +540,7 @@ public sealed class StateDgmStarter : StateDgmElement
 }
 
 /// <summary>
-///     Stav vlaku v kategorii (skupina <c>State</c>).
+/// Stav vlaku v kategorii (skupina <c>State</c>).
 /// </summary>
 public sealed class StateDgmState : StateDgmElement
 {
@@ -609,7 +609,7 @@ public sealed class StateDgmState : StateDgmElement
 }
 
 /// <summary>
-///     Kategoria vlaku (<c>StateDgmCtrls\StateDgm\CategorieN</c>).
+/// Kategoria vlaku (<c>StateDgmCtrls\StateDgm\CategorieN</c>).
 /// </summary>
 public sealed class StateDgmCategory : StateDgmElement
 {
@@ -636,14 +636,14 @@ public sealed class StateDgmCategory : StateDgmElement
 }
 
 /// <summary>
-///     Upozornenie z nacitania (subor je platny, ale INISS by sa zachoval inak, nez autor cakal).
+/// Upozornenie z nacitania (subor je platny, ale INISS by sa zachoval inak, nez autor cakal).
 /// </summary>
 /// <param name="Message">Text upozornenia.</param>
 /// <param name="Line">Riadok (0-based), -1 ak sa neda urcit.</param>
 public sealed record StateDgmLoadWarning(string Message, int Line);
 
 /// <summary>
-///     Typovany stavovy diagram - obsah suboru StateDgm.txt.
+/// Typovany stavovy diagram - obsah suboru StateDgm.txt.
 /// </summary>
 public sealed class StateDgmDiagram
 {

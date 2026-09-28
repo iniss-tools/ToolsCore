@@ -1,7 +1,7 @@
 ﻿namespace ToolsCore.Expressions;
 
 /// <summary>
-///     Zavaznost hlasenia.
+/// Zavaznost hlasenia.
 /// </summary>
 public enum ExprSeverity
 {
@@ -16,8 +16,8 @@ public enum ExprSeverity
 }
 
 /// <summary>
-///     Kod hlasenia. Kody <c>Iniss*</c> zodpovedaju chybam prekladaca INISSu (RCIniss.dll 8001-8012),
-///     ostatne su kontroly GVDEditora nad ramec INISSu.
+/// Kod hlasenia. Kody <c>Iniss*</c> zodpovedaju chybam prekladaca INISSu (RCIniss.dll 8001-8012),
+/// ostatne su kontroly GVDEditora nad ramec INISSu.
 /// </summary>
 public enum ExprDiagnosticCode
 {
@@ -75,7 +75,7 @@ public enum ExprDiagnosticCode
 }
 
 /// <summary>
-///     Hlasenie o vyraze.
+/// Hlasenie o vyraze.
 /// </summary>
 /// <param name="Severity">Zavaznost.</param>
 /// <param name="Code">Kod.</param>
@@ -101,7 +101,7 @@ public sealed record ExprDiagnostic(ExprSeverity Severity, ExprDiagnosticCode Co
 }
 
 /// <summary>
-///     Jedna uprava textu: nahradenie useku <paramref name="Start"/>..<paramref name="Start"/>+<paramref name="Length"/> textom <paramref name="NewText"/>.
+/// Jedna uprava textu: nahradenie useku <paramref name="Start"/>..<paramref name="Start"/>+<paramref name="Length"/> textom <paramref name="NewText"/>.
 /// </summary>
 public sealed record TextEdit(int Start, int Length, string NewText)
 {
@@ -110,7 +110,7 @@ public sealed record TextEdit(int Start, int Length, string NewText)
 }
 
 /// <summary>
-///     Navrhovana oprava - nazov a zoznam uprav (neprekryvajucich sa, v lubovolnom poradi).
+/// Navrhovana oprava - nazov a zoznam uprav (neprekryvajucich sa, v lubovolnom poradi).
 /// </summary>
 public sealed record TextFix(string Title, IReadOnlyList<TextEdit> Edits)
 {
@@ -121,7 +121,7 @@ public sealed record TextFix(string Title, IReadOnlyList<TextEdit> Edits)
     public TextFix Shift(int offset) => new(Title, Edits.Select(e => e.Shift(offset)).ToList());
 
     /// <summary>
-    ///     Pouzije upravy na text (od konca, aby sa pozicie neposuvali).
+    /// Pouzije upravy na text (od konca, aby sa pozicie neposuvali).
     /// </summary>
     public string Apply(string text)
     {
@@ -136,8 +136,8 @@ public sealed record TextFix(string Title, IReadOnlyList<TextEdit> Edits)
 }
 
 /// <summary>
-///     Texty hlaseni. Chyby prekladaca sa zhoduju s textami INISSu, aby sa v editore dalo hladat to,
-///     co vypisal log.
+/// Texty hlaseni. Chyby prekladaca sa zhoduju s textami INISSu, aby sa v editore dalo hladat to,
+/// co vypisal log.
 /// </summary>
 public static class ExprMessages
 {
@@ -172,7 +172,7 @@ public static class ExprMessages
     public const string TokenString = "reťazec v úvodzovkách";
 
     /// <summary>
-    ///     Meno tokenu v hlaseniach INISSu.
+    /// Meno tokenu v hlaseniach INISSu.
     /// </summary>
     public static string TokenName(ExprTokenKind kind, string text) => kind switch
     {
@@ -184,7 +184,7 @@ public static class ExprMessages
     };
 
     /// <summary>
-    ///     Zapis operatora podla druhu tokenu.
+    /// Zapis operatora podla druhu tokenu.
     /// </summary>
     public static string Operator(ExprTokenKind kind) => kind switch
     {

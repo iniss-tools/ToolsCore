@@ -3,8 +3,8 @@ using System.Globalization;
 namespace ToolsCore.Expressions;
 
 /// <summary>
-///     Miesto, z ktoreho sa vyraz vyhodnocuje - rozhoduje o vysledku <c>VYLUKAZDE</c> a <c>ZPOZDENI</c>
-///     (INISS: globalna premenna DAT_00559178).
+/// Miesto, z ktoreho sa vyraz vyhodnocuje - rozhoduje o vysledku <c>VYLUKAZDE</c> a <c>ZPOZDENI</c>
+/// (INISS: globalna premenna DAT_00559178).
 /// </summary>
 public enum ExprEvalSite
 {
@@ -19,8 +19,8 @@ public enum ExprEvalSite
 }
 
 /// <summary>
-///     Udaje o vlaku, ktore evaluator potrebuje. Casy a meskania su v sekundach; funkcie jazyka
-///     ich prevadzaju na minuty rovnako ako INISS (celociselne delenie 60).
+/// Udaje o vlaku, ktore evaluator potrebuje. Casy a meskania su v sekundach; funkcie jazyka
+/// ich prevadzaju na minuty rovnako ako INISS (celociselne delenie 60).
 /// </summary>
 public interface IExprTrainContext
 {
@@ -104,7 +104,7 @@ public interface IExprTrainContext
 }
 
 /// <summary>
-///     Chyba pri vyhodnoteni vyrazu (v INISSe by znamenala pad programu).
+/// Chyba pri vyhodnoteni vyrazu (v INISSe by znamenala pad programu).
 /// </summary>
 public sealed class ExprEvaluationException(string message, ExprNode node) : Exception(message)
 {
@@ -113,7 +113,7 @@ public sealed class ExprEvaluationException(string message, ExprNode node) : Exc
 }
 
 /// <summary>
-///     Vyhodnocovac vyrazov - verna kopia INISSu.
+/// Vyhodnocovac vyrazov - verna kopia INISSu.
 /// </summary>
 public sealed class ExprEvaluator
 {
@@ -124,7 +124,7 @@ public sealed class ExprEvaluator
     private readonly DateTime _now;
 
     /// <summary>
-    ///     Vytvori evaluator.
+    /// Vytvori evaluator.
     /// </summary>
     /// <param name="train">Vlak; <see langword="null"/> dovoluje vyhodnotit len vyrazy bez funkcii.</param>
     /// <param name="site">Miesto vyhodnotenia.</param>
@@ -137,7 +137,7 @@ public sealed class ExprEvaluator
     }
 
     /// <summary>
-    ///     Pokusi sa vycislit vyraz, ktory neobsahuje funkcie.
+    /// Pokusi sa vycislit vyraz, ktory neobsahuje funkcie.
     /// </summary>
     public static bool TryFoldConstant(ExprNode node, out int value)
     {
@@ -156,7 +156,7 @@ public sealed class ExprEvaluator
     }
 
     /// <summary>
-    ///     Vyhodnoti vyraz. Vysledok je 32-bitove cislo; pravda = nenulove.
+    /// Vyhodnoti vyraz. Vysledok je 32-bitove cislo; pravda = nenulove.
     /// </summary>
     public int Evaluate(ExprNode node)
     {
@@ -371,8 +371,8 @@ public sealed class ExprEvaluator
         f.Argument is ExprStringNode s ? s.Value : throw new ExprEvaluationException("Interní chyba překladu", f);
 
     /// <summary>
-    ///     Kategoria pre sestkategoriovy diagram: 1 V, 2 P, 3 K; 4 V s vylukou odchodu,
-    ///     5 P s akoukolvek vylukou, 6 K s vylukou prichodu; -1 pri neznamej pozicii.
+    /// Kategoria pre sestkategoriovy diagram: 1 V, 2 P, 3 K; 4 V s vylukou odchodu,
+    /// 5 P s akoukolvek vylukou, 6 K s vylukou prichodu; -1 pri neznamej pozicii.
     /// </summary>
     public static int IndCat6(int position, uint flags) => position switch
     {
@@ -383,8 +383,8 @@ public sealed class ExprEvaluator
     };
 
     /// <summary>
-    ///     Kategoria pre osemkategoriovy diagram: ako <see cref="IndCat6"/>, ale prechadzajuci vlak
-    ///     rozlisuje vyluku len prichodu (5), oboch (6) a len odchodu (7); K s vylukou prichodu je 8.
+    /// Kategoria pre osemkategoriovy diagram: ako <see cref="IndCat6"/>, ale prechadzajuci vlak
+    /// rozlisuje vyluku len prichodu (5), oboch (6) a len odchodu (7); K s vylukou prichodu je 8.
     /// </summary>
     public static int IndCat8(int position, uint flags) => position switch
     {
@@ -422,7 +422,7 @@ public sealed class ExprEvaluator
     }
 
     /// <summary>
-    ///     Porovnanie ako v INISS: ceske triedenie bez ohladu na velkost pismen.
+    /// Porovnanie ako v INISS: ceske triedenie bez ohladu na velkost pismen.
     /// </summary>
     public static bool CzechEquals(string a, string b) =>
         Czech.Compare(a, b, CompareOptions.IgnoreCase) == 0;

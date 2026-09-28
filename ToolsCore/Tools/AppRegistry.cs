@@ -7,7 +7,7 @@ using Microsoft.WindowsAPICodePack.Taskbar;
 namespace ToolsCore.Tools;
 
 /// <summary>
-///     Trieda spracujuca zoznam poslednych pouzivanych projektov.
+/// Trieda spracujuca zoznam poslednych pouzivanych projektov.
 /// </summary>
 public static class AppRegistry
 {
@@ -21,27 +21,27 @@ public static class AppRegistry
     private static bool _jumpListItemRemoved;
     
     /// <summary>
-    ///     Maximalny pocet projektov zobrazenych v zozname odkazov na paneli uloh.
+    /// Maximalny pocet projektov zobrazenych v zozname odkazov na paneli uloh.
     /// </summary>
     private const int MaxJumplistItems = 10;
 
     /// <summary>
-    ///     Nazov kluca v Registy so zoznamom poslednych pouzivanych priecinkov s datami.
+    /// Nazov kluca v Registy so zoznamom poslednych pouzivanych priecinkov s datami.
     /// </summary>
     private const string RegRecentDirs = "RecentDirs";
 
     /// <summary>
-    ///     Nazov kluca v Registy so zoznamom poslednych pouzivanych suborov.
+    /// Nazov kluca v Registy so zoznamom poslednych pouzivanych suborov.
     /// </summary>
     private const string RegRecentFiles = "RecentFiles";
 
     /// <summary>
-    ///     Nazov kluca v Registy s posledne otvorenehym projektom.
+    /// Nazov kluca v Registy s posledne otvorenehym projektom.
     /// </summary>
     private const string RegLastProject = "LastProject";
 
     /// <summary>
-    ///     Nazov kluca v Registy so zoznamom posledne pouzivanych projektu.
+    /// Nazov kluca v Registy so zoznamom posledne pouzivanych projektu.
     /// </summary>
     private const string RegOpenedProjects = "OpenedProjects";
 
@@ -66,9 +66,9 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Vrati zoznam vsetkych ciest poslednych pouzivanych priecinkov s datami zoradeny od naposledy
-    ///     otvoreneho projektu.<br></br>
-    ///     Ak kluc v Registri s tymto zoznamom neexistuje, metoda vrati prazdny list.
+    /// Vrati zoznam vsetkych ciest poslednych pouzivanych priecinkov s datami zoradeny od naposledy
+    /// otvoreneho projektu.<br></br>
+    /// Ak kluc v Registri s tymto zoznamom neexistuje, metoda vrati prazdny list.
     /// </summary>
     /// <returns>zoznam ciest.</returns>
     public static ProjectInfo[] GetOpenedProjects()
@@ -119,7 +119,7 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Zoradi projekty od naposledy otvoreneho po najstarsi.
+    /// Zoradi projekty od naposledy otvoreneho po najstarsi.
     /// </summary>
     /// <param name="projects">Zoznam projektov.</param>
     /// <returns>zoradene pole projektov.</returns>
@@ -127,13 +127,13 @@ public static class AppRegistry
         projects.OrderByDescending(project => project.LastAccess).ToArray();
 
     /// <summary>
-    ///     Vytvori zoznam odkazov (jump list) na paneli uloh so zoznamom poslednych pouzivanych projektov.<br/>
-    ///     Metodu treba zavolat pri starte aplikacie po vytvoreni hlavneho okna, dalej sa zoznam aktualizuje sam
-    ///     pri kazdom otvoreni projektu.
+    /// Vytvori zoznam odkazov (jump list) na paneli uloh so zoznamom poslednych pouzivanych projektov.<br/>
+    /// Metodu treba zavolat pri starte aplikacie po vytvoreni hlavneho okna, dalej sa zoznam aktualizuje sam
+    /// pri kazdom otvoreni projektu.
     /// </summary>
     /// <param name="categoryName">
-    ///     Nazov kategorie, pod ktorou sa projekty na paneli uloh zobrazia. Ak nie je zadany, pouzije sa nazov
-    ///     v jazyku nastavenom v aplikacii.
+    /// Nazov kategorie, pod ktorou sa projekty na paneli uloh zobrazia. Ak nie je zadany, pouzije sa nazov
+    /// v jazyku nastavenom v aplikacii.
     /// </param>
     public static void RegisterJumpList(string? categoryName = null)
     {
@@ -142,10 +142,10 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Nanovo vytvori a zapise zoznam odkazov na paneli uloh.
+    /// Nanovo vytvori a zapise zoznam odkazov na paneli uloh.
     /// </summary>
     /// <param name="retryOnError">
-    ///     Ak <see langword="true"/>, po chybe sposobenej polozkou odstranenou pouzivatelom sa zapis zopakuje.
+    /// Ak <see langword="true"/>, po chybe sposobenej polozkou odstranenou pouzivatelom sa zapis zopakuje.
     /// </param>
     private static void RefreshJumpList(bool retryOnError = true)
     {
@@ -200,7 +200,7 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Vytvori polozku zoznamu odkazov, ktora spusti aplikaciu s cestou k projektu ako argumentom.
+    /// Vytvori polozku zoznamu odkazov, ktora spusti aplikaciu s cestou k projektu ako argumentom.
     /// </summary>
     /// <param name="path">Cesta k projektu.</param>
     /// <param name="exePath">Cesta k spustitelnemu suboru aplikacie.</param>
@@ -215,8 +215,8 @@ public static class AppRegistry
         };
 
     /// <summary>
-    ///     Odstrani zo zoznamu poslednych pouzivanych projektov polozky, ktore pouzivatel odstranil
-    ///     zo zoznamu odkazov na paneli uloh.
+    /// Odstrani zo zoznamu poslednych pouzivanych projektov polozky, ktore pouzivatel odstranil
+    /// zo zoznamu odkazov na paneli uloh.
     /// </summary>
     private static void JumpList_ItemsRemoved(object? sender, UserRemovedJumpListItemsEventArgs e)
     {
@@ -235,9 +235,9 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Prida novu cestu na zaciatok zoznamu poslednych pouzivanych projektov, pripadne aktualizuje datum
-    ///     otvorenia uz existujuceho projektu.<br/>
-    ///     Ak kluc v Registry neexistuje, vytvori sa a prida zadanu cestu path.
+    /// Prida novu cestu na zaciatok zoznamu poslednych pouzivanych projektov, pripadne aktualizuje datum
+    /// otvorenia uz existujuceho projektu.<br/>
+    /// Ak kluc v Registry neexistuje, vytvori sa a prida zadanu cestu path.
     /// </summary>
     /// <param name="path">Cesta k projektu.</param>
     public static void SetUsageOfProject(string path)
@@ -263,7 +263,7 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Odstrani projekt zo zoznamu poslednych pouzivanych projektov.
+    /// Odstrani projekt zo zoznamu poslednych pouzivanych projektov.
     /// </summary>
     /// <param name="path">Cesta k projektu.</param>
     /// <returns><see langword="true"/>, ak sa projekt v zozname nachadzal.</returns>
@@ -287,7 +287,7 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Skonvertuje zoznam projektov na retazec zapisovany do Registry.
+    /// Skonvertuje zoznam projektov na retazec zapisovany do Registry.
     /// </summary>
     /// <param name="projects">Zoznam projektov.</param>
     /// <returns>retazec v tvare cesta*datum|cesta*datum|...</returns>

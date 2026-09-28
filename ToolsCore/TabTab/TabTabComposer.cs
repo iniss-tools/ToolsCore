@@ -3,7 +3,7 @@
 namespace ToolsCore.TabTab;
 
 /// <summary>
-///     Text s pismom - medzivysledok skladania textu stlpca.
+/// Text s pismom - medzivysledok skladania textu stlpca.
 /// </summary>
 /// <param name="Text">Text.</param>
 /// <param name="Font">Cislo pisma; <see langword="null"/> = nezmenene, <see cref="TabTabText.DefaultFont"/> = predvolene.</param>
@@ -20,7 +20,7 @@ public readonly record struct TabTabValue(string Text, int? Font)
 }
 
 /// <summary>
-///     Vstup skladania textu jedneho stlpca katalogovej tabule.
+/// Vstup skladania textu jedneho stlpca katalogovej tabule.
 /// </summary>
 public sealed class TabTabColumnInput
 {
@@ -65,7 +65,7 @@ public sealed class TabTabColumnInput
 }
 
 /// <summary>
-///     Jeden krok skladania - na zobrazenie postupu v nahlade.
+/// Jeden krok skladania - na zobrazenie postupu v nahlade.
 /// </summary>
 /// <param name="Source">Zdroj (napr. <c>#SWITCH</c>, <c>TTexts</c>, <c>vlastná hodnota</c>, <c>spôsob plnenia 3</c>).</param>
 /// <param name="Value">Vysledok zdroja.</param>
@@ -73,7 +73,7 @@ public sealed class TabTabColumnInput
 public sealed record TabTabComposeStep(string Source, TabTabValue Value, string Note = "");
 
 /// <summary>
-///     Vysledok skladania textu stlpca.
+/// Vysledok skladania textu stlpca.
 /// </summary>
 /// <param name="Value">Vysledny text a pismo.</param>
 /// <param name="Steps">Postup po krokoch.</param>
@@ -84,15 +84,15 @@ public sealed record TabTabComposeResult(TabTabValue Value, IReadOnlyList<TabTab
 }
 
 /// <summary>
-///     Sklada text stlpca tak, ako INISS - pevne poradie zdrojov
-///     <c>#VYLUKA</c> → <c>#ODKLON</c> → <c>#POZODJ_</c> → <c>#SWITCH</c> → <c>#MERGE</c> → <c>#MERGE2</c> →
-///     nahradny text programu → TTexts → vlastna hodnota; text s <c>@</c> sa odlozi a <c>@</c> vyplni dalsi
-///     zdroj. Na hotovy text sa uplatnia jednoduche pravidla podla DIVTYPE.
+/// Sklada text stlpca tak, ako INISS - pevne poradie zdrojov
+/// <c>#VYLUKA</c> → <c>#ODKLON</c> → <c>#POZODJ_</c> → <c>#SWITCH</c> → <c>#MERGE</c> → <c>#MERGE2</c> →
+/// nahradny text programu → TTexts → vlastna hodnota; text s <c>@</c> sa odlozi a <c>@</c> vyplni dalsi
+/// zdroj. Na hotovy text sa uplatnia jednoduche pravidla podla DIVTYPE.
 /// </summary>
 public static class TabTabComposer
 {
     /// <summary>
-    ///     Zlozi text stlpca.
+    /// Zlozi text stlpca.
     /// </summary>
     public static TabTabComposeResult Compose(TabTabColumnInput input)
     {
@@ -188,7 +188,7 @@ public static class TabTabComposer
     }
 
     /// <summary>
-    ///     Uplatni jednoduche pravidla podla DIVTYPE na hotovy text.
+    /// Uplatni jednoduche pravidla podla DIVTYPE na hotovy text.
     /// </summary>
     private static TabTabComposeResult Finish(TabTabColumnInput input, TabTabValue value, List<TabTabComposeStep> steps, string? error)
     {
@@ -197,7 +197,7 @@ public static class TabTabComposer
     }
 
     /// <summary>
-    ///     Prekodovanie hotoveho textu tabulkami TAB1/TAB2 podla DIVTYPE (0-4).
+    /// Prekodovanie hotoveho textu tabulkami TAB1/TAB2 podla DIVTYPE (0-4).
     /// </summary>
     public static TabTabValue ApplyDivType(TabTabColumnInput input, TabTabValue value, List<TabTabComposeStep>? steps = null)
     {
@@ -295,7 +295,7 @@ public static class TabTabComposer
     }
 
     /// <summary>
-    ///     Vyhodnoti pravidlo <c>#SWITCH</c>: text prvej splnenej podmienky; <see langword="null"/>, ak ziadna neplati.
+    /// Vyhodnoti pravidlo <c>#SWITCH</c>: text prvej splnenej podmienky; <see langword="null"/>, ak ziadna neplati.
     /// </summary>
     private static TabTabValue? EvaluateSwitch(TabTabLine rule, ExprEvaluator evaluator, TabTabColumnInput input, out string note, ref string? error)
     {
@@ -314,7 +314,7 @@ public static class TabTabComposer
     }
 
     /// <summary>
-    ///     Vyhodnoti pravidlo <c>#MERGE</c>/<c>#MERGE2</c>: pripoji texty vsetkych splnenych podmienok.
+    /// Vyhodnoti pravidlo <c>#MERGE</c>/<c>#MERGE2</c>: pripoji texty vsetkych splnenych podmienok.
     /// </summary>
     private static TabTabValue? EvaluateMerge(TabTabLine rule, bool byParts, ExprEvaluator evaluator, TabTabColumnInput input, out string note, ref string? error)
     {
@@ -383,7 +383,7 @@ public static class TabTabComposer
     }
 
     /// <summary>
-    ///     Text polozky: dekodovany, <c>%meno%</c> nahradene hodnotou ineho stlpca.
+    /// Text polozky: dekodovany, <c>%meno%</c> nahradene hodnotou ineho stlpca.
     /// </summary>
     private static TabTabValue ResolveText(TabTabItem item, TabTabColumnInput input)
     {
@@ -398,7 +398,7 @@ public static class TabTabComposer
     }
 
     /// <summary>
-    ///     Tabulka jednoduchych pravidiel sekcie: prava strana (dekodovana) → lava strana s pismom.
+    /// Tabulka jednoduchych pravidiel sekcie: prava strana (dekodovana) → lava strana s pismom.
     /// </summary>
     private sealed class SimpleRuleTable
     {

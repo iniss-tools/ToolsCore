@@ -3,7 +3,7 @@ using ToolsCore.Expressions;
 namespace ToolsCore.Tests.Expressions;
 
 /// <summary>
-///     Vyrazy z realnych suborov INISSu - vsetko, co INISS nacita, sa musi prelozit.
+/// Vyrazy z realnych suborov INISSu - vsetko, co INISS nacita, sa musi prelozit.
 /// </summary>
 [TestClass]
 public class ExprCorpusTests

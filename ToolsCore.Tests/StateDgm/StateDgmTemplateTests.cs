@@ -6,7 +6,7 @@ using ToolsCore.StateDgm;
 namespace ToolsCore.Tests.StateDgm;
 
 /// <summary>
-///     Predlohy StateDgm.txt, ktore GVDEditor zapisuje do noveho grafikonu (SK, CZ, SK s automatikou ILTIS).
+/// Predlohy StateDgm.txt, ktore GVDEditor zapisuje do noveho grafikonu (SK, CZ, SK s automatikou ILTIS).
 /// </summary>
 [TestClass]
 [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]

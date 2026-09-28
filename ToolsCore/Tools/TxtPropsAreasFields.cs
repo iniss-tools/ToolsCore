@@ -1,8 +1,8 @@
 ﻿namespace ToolsCore.Tools;
 
 /// <summary>
-///     Trieda reprezentujuca zoznam vlastnosti zorganyzovanych v poliach.
-///     Kazde pole moze obsahovat este sekciu s komentarom.
+/// Trieda reprezentujuca zoznam vlastnosti zorganyzovanych v poliach.
+/// Kazde pole moze obsahovat este sekciu s komentarom.
 /// </summary>
 public class TxtPropsAreasFields
 {
@@ -13,7 +13,7 @@ public class TxtPropsAreasFields
     private readonly Dictionary<string, string> _areasComments;
 
     /// <summary>
-    ///     Vytvori novu instanciu triedy <see cref="TxtPropsAreasFields"/>.
+    /// Vytvori novu instanciu triedy <see cref="TxtPropsAreasFields"/>.
     /// </summary>
     /// <param name="file">Cesta k suboru do/z ktore sa budu ukladat/nacitat subory.</param>
     /// <param name="write">Ak je false, zoznam vlastnosti a hodnot sa nacita zo suboru.</param>
@@ -28,9 +28,9 @@ public class TxtPropsAreasFields
     }
 
     /// <summary>
-    ///     Vrati hodnotu vlastnosti s nazvom <paramref name="field"/>, ktora sa ma nachadzat v poli <paramref name="area"/>,
-    ///     alebo <paramref name="defValue"/> ak zadany nazov vlastnosti <paramref name="field"/> nebol najdeny v slovniku vlastnosti pre dane pole,
-    ///     pricom sa nevyvola ziadna vynimka.
+    /// Vrati hodnotu vlastnosti s nazvom <paramref name="field"/>, ktora sa ma nachadzat v poli <paramref name="area"/>,
+    /// alebo <paramref name="defValue"/> ak zadany nazov vlastnosti <paramref name="field"/> nebol najdeny v slovniku vlastnosti pre dane pole,
+    /// pricom sa nevyvola ziadna vynimka.
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <param name="field">Nazov vlastnosti.</param>
@@ -39,8 +39,8 @@ public class TxtPropsAreasFields
     public string Get(string area, string field, string defValue) => Get(area, field, false) ?? defValue;
 
     /// <summary>
-    ///     Vrati hodnotu vlastnosti s nazvom <paramref name="field"/> v poli <paramref name="area"/>. Vyvola vynimku,
-    ///     ak zadany nazov vlastnosti nebol najdeny.
+    /// Vrati hodnotu vlastnosti s nazvom <paramref name="field"/> v poli <paramref name="area"/>. Vyvola vynimku,
+    /// ak zadany nazov vlastnosti nebol najdeny.
     /// </summary>
     public string Get(string area, string field) => Get(area, field, true)!;
 
@@ -56,29 +56,29 @@ public class TxtPropsAreasFields
     }
 
     /// <summary>
-    ///     Vrati slovnik vsetkych vlastnosti s ich hodnotami pola s nazvom <paramref name="area"/>.
-    ///     Ak pole s tymto nazvom nenajde vrati <see langword="null"/>.
+    /// Vrati slovnik vsetkych vlastnosti s ich hodnotami pola s nazvom <paramref name="area"/>.
+    /// Ak pole s tymto nazvom nenajde vrati <see langword="null"/>.
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <returns>slovnik vlastnosti alebo <see langword="null"/>, ak pole s nazov <paramref name="area"/> v sloniku poli nenajde.</returns>
     public Dictionary<string, string>? Get(string area) => _areas.ContainsKey(area) ? _areas[area] : null;
 
     /// <summary>
-    ///     Vrati cely slovnik s poliami a ich vlastnostami.
+    /// Vrati cely slovnik s poliami a ich vlastnostami.
     /// </summary>
     /// <returns></returns>
     public Dictionary<string, Dictionary<string, string>> GetAll() => _areas;
 
     /// <summary>
-    ///     Vrati zoznam poli.
+    /// Vrati zoznam poli.
     /// </summary>
     /// <returns></returns>
     public List<string> GetAreas() => _areas.Keys.ToList();
 
     /// <summary>
-    ///     Nastavi hodnotu <paramref name="value"/> vlastnosti s nazvom <paramref name="field"/> do pola s nazvom <paramref name="area"/>.
-    ///     Ak zadany nazov pola alebo vlastnosti nenajde,
-    ///     vytvori nove pole resp. vlastnost s tymto nazvom a nastavi jej hodnotu specifikovanu v parametri <paramref name="value"/>.
+    /// Nastavi hodnotu <paramref name="value"/> vlastnosti s nazvom <paramref name="field"/> do pola s nazvom <paramref name="area"/>.
+    /// Ak zadany nazov pola alebo vlastnosti nenajde,
+    /// vytvori nove pole resp. vlastnost s tymto nazvom a nastavi jej hodnotu specifikovanu v parametri <paramref name="value"/>.
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <param name="field">Nazov vlastnosti.</param>
@@ -121,8 +121,8 @@ public class TxtPropsAreasFields
     }
 
     /// <summary>
-    ///     Nastavi zoznam vlastnosti pre pole s nazvom area.
-    ///     Ak pole s tymto nazvom nenajde, vytvori nove pole s tymto nazvom a nastavi jej tieto vlastnosti.
+    /// Nastavi zoznam vlastnosti pre pole s nazvom area.
+    /// Ak pole s tymto nazvom nenajde, vytvori nove pole s tymto nazvom a nastavi jej tieto vlastnosti.
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <param name="fields">Slovnik vlastnisti a ich hodnot.</param>
@@ -147,16 +147,16 @@ public class TxtPropsAreasFields
     }
 
     /// <summary>
-    ///     Vrati komentar, ktory sa ma nachadzat v poli s nazvom <paramref name="area"/>.
-    ///     Ak pole s tymto nazvom nenajde, vrati <see cref="string.Empty"/>.
+    /// Vrati komentar, ktory sa ma nachadzat v poli s nazvom <paramref name="area"/>.
+    /// Ak pole s tymto nazvom nenajde, vrati <see cref="string.Empty"/>.
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <returns>text komentaru, alebo <see cref="string.Empty"/> ak pole s nazvom <paramref name="area"/> nenajde v slovniku poli.</returns>
     public string GetComment(string area) => _areasComments.ContainsKey(area) ? _areasComments[area] : "";
 
     /// <summary>
-    ///     Nastavi komentar pre dane pole. Ak zadany nazov pola <paramref name="area"/> nenajde v slovniku poli,
-    ///     vytvori novu pole s tymto nazvom a nastavi mu zadany komentar.
+    /// Nastavi komentar pre dane pole. Ak zadany nazov pola <paramref name="area"/> nenajde v slovniku poli,
+    /// vytvori novu pole s tymto nazvom a nastavi mu zadany komentar.
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <param name="comment">Komentár.</param>
@@ -169,7 +169,7 @@ public class TxtPropsAreasFields
     }
 
     /// <summary>
-    ///     Ulozi zoznam poli s vlastnostami do suboru.
+    /// Ulozi zoznam poli s vlastnostami do suboru.
     /// </summary>
     public void Save()
     {
@@ -200,7 +200,7 @@ public class TxtPropsAreasFields
     }
 
     /// <summary>
-    ///     Nacita zoznam poli s vlastnostami zo suboru.
+    /// Nacita zoznam poli s vlastnostami zo suboru.
     /// </summary>
     private void LoadFromFile(string file)
     {

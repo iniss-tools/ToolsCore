@@ -4,7 +4,7 @@ using ToolsCore.StateDgm;
 namespace ToolsCore.Tests.StateDgm;
 
 /// <summary>
-///     Zapisovac - kanonicky tvar a zachovanie neznamych poloziek.
+/// Zapisovac - kanonicky tvar a zachovanie neznamych poloziek.
 /// </summary>
 [TestClass]
 [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]

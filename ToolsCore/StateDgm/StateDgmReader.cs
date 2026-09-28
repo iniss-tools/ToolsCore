@@ -3,7 +3,7 @@ using ToolsCore.Tools;
 namespace ToolsCore.StateDgm;
 
 /// <summary>
-///     Chyba syntaxe suboru StateDgm.txt (INISS by nacitanie diagramu prerusil).
+/// Chyba syntaxe suboru StateDgm.txt (INISS by nacitanie diagramu prerusil).
 /// </summary>
 public sealed class StateDgmParseException(string message, int line) : Exception(message)
 {
@@ -12,7 +12,7 @@ public sealed class StateDgmParseException(string message, int line) : Exception
 }
 
 /// <summary>
-///     Vysledok nacitania suboru StateDgm.txt do stromu.
+/// Vysledok nacitania suboru StateDgm.txt do stromu.
 /// </summary>
 public sealed class StateDgmTextFile
 {
@@ -27,19 +27,19 @@ public sealed class StateDgmTextFile
 }
 
 /// <summary>
-///     Citac suboru StateDgm.txt verny INISSu 3.39:
-///     <list type="bullet">
-///         <item>prvy token musi byt verzia <c>0001</c>, zvysok riadka sa ignoruje;</item>
-///         <item><c>;</c> a <c>C:</c> su komentare po koniec riadka (aj neukonceny retazec za <c>C:</c> je v poriadku);</item>
-///         <item>za pismenom typu musi nasledovat <c>:</c>; typy <c>P</c>, <c>G</c> (skupina, cesta cez <c>\</c> alebo <c>/</c>),
-///         <c>S</c>, <c>I</c>, <c>B</c>; <c>A</c> INISS pozna, ale v grafikonoch sa nevyskytuje a citac ho odmietne;</item>
-///         <item>retazce v uvodzovkach s C-escapes (<c>\n \t \r \a \b \f \v \xHH \\ \"</c>), mozu presahovat cez riadok, max. 1024 znakov;</item>
-///         <item>cislo: znaky <c>+-0-9xA-Fa-f</c> a strtol so zakladom 0 (<c>0x08</c>, <c>010</c> = 8);</item>
-///         <item>pravdivostna hodnota: <c>Ano</c>/<c>Yes</c> = ano, <c>Ne</c>/<c>No</c> = nie (rozlisuju sa velke pismena);</item>
-///         <item>hodnota <c>#</c> namiesto textu/cisla kluc odstrani;</item>
-///         <item>opakovane meno skupiny vytvori dalsiu skupinu (nie zlucenie) - preto funguje <c>G:"Event"</c> bez cisla;
-///         medzilanky cesty <c>P:"A\\B\\C"</c> sa hladaju a vytvoria len ked chybaju.</item>
-///     </list>
+/// Citac suboru StateDgm.txt verny INISSu 3.39:
+/// <list type="bullet">
+/// <item>prvy token musi byt verzia <c>0001</c>, zvysok riadka sa ignoruje;</item>
+/// <item><c>;</c> a <c>C:</c> su komentare po koniec riadka (aj neukonceny retazec za <c>C:</c> je v poriadku);</item>
+/// <item>za pismenom typu musi nasledovat <c>:</c>; typy <c>P</c>, <c>G</c> (skupina, cesta cez <c>\</c> alebo <c>/</c>),
+/// <c>S</c>, <c>I</c>, <c>B</c>; <c>A</c> INISS pozna, ale v grafikonoch sa nevyskytuje a citac ho odmietne;</item>
+/// <item>retazce v uvodzovkach s C-escapes (<c>\n \t \r \a \b \f \v \xHH \\ \"</c>), mozu presahovat cez riadok, max. 1024 znakov;</item>
+/// <item>cislo: znaky <c>+-0-9xA-Fa-f</c> a strtol so zakladom 0 (<c>0x08</c>, <c>010</c> = 8);</item>
+/// <item>pravdivostna hodnota: <c>Ano</c>/<c>Yes</c> = ano, <c>Ne</c>/<c>No</c> = nie (rozlisuju sa velke pismena);</item>
+/// <item>hodnota <c>#</c> namiesto textu/cisla kluc odstrani;</item>
+/// <item>opakovane meno skupiny vytvori dalsiu skupinu (nie zlucenie) - preto funguje <c>G:"Event"</c> bez cisla;
+/// medzilanky cesty <c>P:"A\\B\\C"</c> sa hladaju a vytvoria len ked chybaju.</item>
+/// </list>
 /// </summary>
 public static class StateDgmReader
 {
@@ -49,7 +49,7 @@ public static class StateDgmReader
     private const int MAX_STRING = 0x400;
 
     /// <summary>
-    ///     Nacita text suboru do stromu. Pri chybe syntaxe vyhodi <see cref="StateDgmParseException" />.
+    /// Nacita text suboru do stromu. Pri chybe syntaxe vyhodi <see cref="StateDgmParseException" />.
     /// </summary>
     public static StateDgmTextFile Read(string text)
     {
@@ -68,7 +68,7 @@ public static class StateDgmReader
     }
 
     /// <summary>
-    ///     Nacita subor v kodovani INISSu (windows-1250).
+    /// Nacita subor v kodovani INISSu (windows-1250).
     /// </summary>
     public static StateDgmTextFile ReadFile(string path) => Read(File.ReadAllText(path, Encodings.Win1250));
 
@@ -223,8 +223,8 @@ public static class StateDgmReader
     }
 
     /// <summary>
-    ///     Vytvori skupinu podla cesty (<c>A\B\C</c>): medzilanky sa pouziju, ak uz existuju, posledny clanok
-    ///     sa vzdy vytvori novy (ako INISS).
+    /// Vytvori skupinu podla cesty (<c>A\B\C</c>): medzilanky sa pouziju, ak uz existuju, posledny clanok
+    /// sa vzdy vytvori novy (ako INISS).
     /// </summary>
     private static StateDgmGroup CreateGroup(StateDgmGroup parent, string path, int line)
     {
@@ -246,7 +246,7 @@ public static class StateDgmReader
     }
 
     /// <summary>
-    ///     Pohyb po texte s pocitanim riadkov.
+    /// Pohyb po texte s pocitanim riadkov.
     /// </summary>
     private sealed class Cursor(string text)
     {

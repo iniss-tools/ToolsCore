@@ -6,7 +6,7 @@ using ToolsCore.XML;
 namespace ToolsCore.Tools;
 
 /// <summary>
-///     Trieda obsahujúca metódy na správu formularov.
+/// Trieda obsahujúca metódy na správu formularov.
 /// </summary>
 public static class FormUtils
 {
@@ -14,7 +14,7 @@ public static class FormUtils
         typeof(DataGridView).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 
     /// <summary>
-    ///     Zmena farebnej schémy dialogu alebo ovladacieho prvku.
+    /// Zmena farebnej schémy dialogu alebo ovladacieho prvku.
     /// </summary>
     /// <param name="form">formular</param>
     public static void ApplyThemeAndFonts(this Form form)
@@ -26,8 +26,8 @@ public static class FormUtils
     }
 
     /// <summary>
-    ///     Nastaví farby a písmo podľa aktuálneho štýlu položke menu, ktorá vznikla až za behu aplikácie
-    ///     (napr. položka v zozname posledných projektov).
+    /// Nastaví farby a písmo podľa aktuálneho štýlu položke menu, ktorá vznikla až za behu aplikácie
+    /// (napr. položka v zozname posledných projektov).
     /// </summary>
     /// <param name="item">položka menu</param>
     public static void ApplyThemeAndFont(this ToolStripItem item)
@@ -666,7 +666,7 @@ public static class FormUtils
     }
 
     /// <summary>
-    ///     Zmení písmo Formu
+    /// Zmení písmo Formu
     /// </summary>
     /// <param name="form">upravovaný Form</param>
     public static void SetFormFont(this Form form)

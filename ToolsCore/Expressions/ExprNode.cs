@@ -1,7 +1,7 @@
 namespace ToolsCore.Expressions;
 
 /// <summary>
-///     Uzol syntaktickeho stromu vyrazu.
+/// Uzol syntaktickeho stromu vyrazu.
 /// </summary>
 /// <param name="Start">Index prveho znaku uzla v texte.</param>
 /// <param name="Length">Dlzka uzla v znakoch.</param>
@@ -14,7 +14,7 @@ public abstract record ExprNode(int Start, int Length)
     public abstract IEnumerable<ExprNode> Children { get; }
 
     /// <summary>
-    ///     Prejde uzol a vsetkych potomkov do hlbky.
+    /// Prejde uzol a vsetkych potomkov do hlbky.
     /// </summary>
     public IEnumerable<ExprNode> Descendants()
     {
@@ -26,7 +26,7 @@ public abstract record ExprNode(int Start, int Length)
 }
 
 /// <summary>
-///     Cislo - literal, literal datumu/casu alebo pomenovana konstanta.
+/// Cislo - literal, literal datumu/casu alebo pomenovana konstanta.
 /// </summary>
 public sealed record ExprNumberNode(int Start, int Length, int Value, ExprToken Token) : ExprNode(Start, Length)
 {
@@ -38,7 +38,7 @@ public sealed record ExprNumberNode(int Start, int Length, int Value, ExprToken 
 }
 
 /// <summary>
-///     Retazec v uvodzovkach (len ako argument funkcie).
+/// Retazec v uvodzovkach (len ako argument funkcie).
 /// </summary>
 public sealed record ExprStringNode(int Start, int Length, string Value) : ExprNode(Start, Length)
 {
@@ -47,7 +47,7 @@ public sealed record ExprStringNode(int Start, int Length, string Value) : ExprN
 }
 
 /// <summary>
-///     Unarny operator: <c>~</c>, <c>!</c>/<c>NOT</c>, znamienko <c>+</c>/<c>-</c>, <c>ODD</c>.
+/// Unarny operator: <c>~</c>, <c>!</c>/<c>NOT</c>, znamienko <c>+</c>/<c>-</c>, <c>ODD</c>.
 /// </summary>
 public sealed record ExprUnaryNode(int Start, int Length, ExprTokenKind Operator, ExprNode Operand) : ExprNode(Start, Length)
 {
@@ -56,7 +56,7 @@ public sealed record ExprUnaryNode(int Start, int Length, ExprTokenKind Operator
 }
 
 /// <summary>
-///     Binarny operator.
+/// Binarny operator.
 /// </summary>
 public sealed record ExprBinaryNode(int Start, int Length, ExprTokenKind Operator, ExprNode Left, ExprNode Right, int OperatorStart)
     : ExprNode(Start, Length)
@@ -73,7 +73,7 @@ public sealed record ExprBinaryNode(int Start, int Length, ExprTokenKind Operato
 }
 
 /// <summary>
-///     Podmieneny operator <c>p ? a : b</c>.
+/// Podmieneny operator <c>p ? a : b</c>.
 /// </summary>
 public sealed record ExprConditionalNode(int Start, int Length, ExprNode Condition, ExprNode WhenTrue, ExprNode WhenFalse)
     : ExprNode(Start, Length)
@@ -83,7 +83,7 @@ public sealed record ExprConditionalNode(int Start, int Length, ExprNode Conditi
 }
 
 /// <summary>
-///     Volanie funkcie; <see cref="Argument"/> je <see langword="null"/> pri funkcii bez argumentu.
+/// Volanie funkcie; <see cref="Argument"/> je <see langword="null"/> pri funkcii bez argumentu.
 /// </summary>
 public sealed record ExprFunctionNode(int Start, int Length, ExprFunctionInfo Function, ExprNode? Argument, ExprToken Token)
     : ExprNode(Start, Length)
@@ -96,7 +96,7 @@ public sealed record ExprFunctionNode(int Start, int Length, ExprFunctionInfo Fu
 }
 
 /// <summary>
-///     Vyraz v zatvorkach - v strome sa drzi kvoli presnym poziciam a formatovaniu.
+/// Vyraz v zatvorkach - v strome sa drzi kvoli presnym poziciam a formatovaniu.
 /// </summary>
 public sealed record ExprParenNode(int Start, int Length, ExprNode Inner) : ExprNode(Start, Length)
 {

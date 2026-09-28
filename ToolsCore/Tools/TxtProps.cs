@@ -1,7 +1,7 @@
 ﻿namespace ToolsCore.Tools;
 
 /// <summary>
-///     Trieda reprezentujuca zoznam vlastnosti bez polí.
+/// Trieda reprezentujuca zoznam vlastnosti bez polí.
 /// </summary>
 public class TxtProps
 {
@@ -11,7 +11,7 @@ public class TxtProps
     private readonly Dictionary<string, string> _dictionary;
 
     /// <summary>
-    ///     Vytvori novu instanciu triedy <see cref="TxtProps"/>.
+    /// Vytvori novu instanciu triedy <see cref="TxtProps"/>.
     /// </summary>
     /// <param name="file">Cesta k suboru do/z ktore sa budu ukladat/nacitat subory.</param>
     /// <param name="write">Ak je false, zoznam vlastnosti a hodnot sa nacita zo suboru.</param>
@@ -25,9 +25,9 @@ public class TxtProps
     }
 
     /// <summary>
-    ///     Vrati hodnotu vlastnosti, alebo <paramref name="defValue"/> ak
-    ///     zadany nazov vlastnosti <paramref name="field"/> nebol najdeny v slovniku vlastnosti,
-    ///     pricom sa nevyvola ziadna vynimka.
+    /// Vrati hodnotu vlastnosti, alebo <paramref name="defValue"/> ak
+    /// zadany nazov vlastnosti <paramref name="field"/> nebol najdeny v slovniku vlastnosti,
+    /// pricom sa nevyvola ziadna vynimka.
     /// </summary>
     /// <param name="field">Nazov vlastnosti.</param>
     /// <param name="defValue">Predvolena hodnota.</param>
@@ -35,8 +35,8 @@ public class TxtProps
     public string Get(string field, string defValue) => Get(field, false) ?? defValue;
 
     /// <summary>
-    ///     Vrati hodnotu vlastnosti. Ak zadany nazov vlastnosti <paramref name="field"/> nenajde v slovniku vlastnosti,
-    ///     vyvola vynimku.
+    /// Vrati hodnotu vlastnosti. Ak zadany nazov vlastnosti <paramref name="field"/> nenajde v slovniku vlastnosti,
+    /// vyvola vynimku.
     /// </summary>
     /// <param name="field">Nazov vlastnosti.</param>
     /// <returns>hodnotu vlastnosti.</returns>
@@ -44,8 +44,8 @@ public class TxtProps
     public string Get(string field) => Get(field, true)!;
 
     /// <summary>
-    ///     Vrati hodnotu vlastnosti. Ak zadany nazov vlastnosti <paramref name="field"/> nenajde v slovniku vlastnosti,
-    ///     vrati <see langword="null"/>, alebo vyvola vynimku podla parametra <paramref name="nullSensitive"/>.
+    /// Vrati hodnotu vlastnosti. Ak zadany nazov vlastnosti <paramref name="field"/> nenajde v slovniku vlastnosti,
+    /// vrati <see langword="null"/>, alebo vyvola vynimku podla parametra <paramref name="nullSensitive"/>.
     /// </summary>
     /// <param name="field">Nazov vlastnosti.</param>
     /// <param name="nullSensitive"><see langword="true"/>, ak sa pri nenajdenej vlastnosti ma vyvolat vynimka, pri <see langword="false"/> vrati v tomto pripade <see langword="null"/>.</param>
@@ -61,8 +61,8 @@ public class TxtProps
     }
 
     /// <summary>
-    ///     Nastavi hodnotu vlastnosti. Ak zadany nazov vlastnosti <paramref name="field"/> nenajde v slovniku vlastnosti,
-    ///     vytvori novu vlastnost s tymto nazvom a nastavi jej zadanu hodnotu specifikovanu v parametri <paramref name="value"/>.
+    /// Nastavi hodnotu vlastnosti. Ak zadany nazov vlastnosti <paramref name="field"/> nenajde v slovniku vlastnosti,
+    /// vytvori novu vlastnost s tymto nazvom a nastavi jej zadanu hodnotu specifikovanu v parametri <paramref name="value"/>.
     /// </summary>
     /// <param name="field">Nazov vlastnosti.</param>
     /// <param name="value">Hodnota vlastnosti.</param>
@@ -75,7 +75,7 @@ public class TxtProps
     }
 
     /// <summary>
-    ///     Ulozi zoznam vlastnosti do suboru.
+    /// Ulozi zoznam vlastnosti do suboru.
     /// </summary>
     public void Save()
     {
@@ -89,7 +89,7 @@ public class TxtProps
     }
 
     /// <summary>
-    ///     Nacita zoznam vlastnosti zo suboru.
+    /// Nacita zoznam vlastnosti zo suboru.
     /// </summary>
     private void LoadFromFile(string file)
     {

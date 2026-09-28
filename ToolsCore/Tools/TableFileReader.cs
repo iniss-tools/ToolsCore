@@ -1,27 +1,27 @@
 ﻿namespace ToolsCore.Tools;
 
 /// <summary>
-///     Podkladova trieda pre spracovanie tabuliek hodnot (stlpce a riadky).
+/// Podkladova trieda pre spracovanie tabuliek hodnot (stlpce a riadky).
 /// </summary>
 public abstract class TableFileReader : IDisposable
 {
     /// <summary>
-    ///     Data.
+    /// Data.
     /// </summary>
     protected string[,] Data = null!;
 
     /// <summary>
-    ///     Pocet riadkov.
+    /// Pocet riadkov.
     /// </summary>
     public int RowCount { get; protected set; }
 
     /// <summary>
-    ///     Pocet stlpcov.
+    /// Pocet stlpcov.
     /// </summary>
     public int ColumnCount { get; protected set; }
 
     /// <summary>
-    ///     Vrati prvok na specifikovanom riadku a stlpci.
+    /// Vrati prvok na specifikovanom riadku a stlpci.
     /// </summary>
     /// <param name="row">Riadok tabulky.</param>
     /// <param name="column">Stlpec tabulky.</param>

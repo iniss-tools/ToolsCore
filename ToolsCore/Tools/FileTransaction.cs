@@ -1,12 +1,12 @@
 ﻿namespace ToolsCore.Tools;
 
 /// <summary>
-///     Zabezpečí, že sa skupina súborov zmení buď celá, alebo vôbec.
+/// Zabezpečí, že sa skupina súborov zmení buď celá, alebo vôbec.
 /// </summary>
 /// <remarks>
-///     Ukladanie grafikonu aj banky zvukov zapisuje viac súborov po sebe. Keď niektorý zápis zlyhá,
-///     časť súborov je nová a časť pôvodná - INISS ich potom pri štarte odmietne.
-///     Táto trieda si pred zápisom odloží kópiu pôvodných súborov a pri chybe ich vráti späť.
+/// Ukladanie grafikonu aj banky zvukov zapisuje viac súborov po sebe. Keď niektorý zápis zlyhá,
+/// časť súborov je nová a časť pôvodná - INISS ich potom pri štarte odmietne.
+/// Táto trieda si pred zápisom odloží kópiu pôvodných súborov a pri chybe ich vráti späť.
 /// </remarks>
 public sealed class FileTransaction
 {
@@ -20,11 +20,11 @@ public sealed class FileTransaction
     private readonly string? _directory;
 
     /// <summary>
-    ///     Odloží si kópiu súborov priamo v priečinku.
+    /// Odloží si kópiu súborov priamo v priečinku.
     /// </summary>
     /// <remarks>
-    ///     Podpriečinky (napr. písma tabúľ) sa nezálohujú - do tých ukladanie nezasahuje.
-    ///     Súbory, ktoré v priečinku pribudnú, sa pri návrate zmažú.
+    /// Podpriečinky (napr. písma tabúľ) sa nezálohujú - do tých ukladanie nezasahuje.
+    /// Súbory, ktoré v priečinku pribudnú, sa pri návrate zmažú.
     /// </remarks>
     /// <param name="directory">Priečinok, ktorého obsah sa bude meniť.</param>
     /// <exception cref="IOException">ak sa zálohu nepodarí vytvoriť - vtedy sa nesmie začať zapisovať</exception>
@@ -33,10 +33,10 @@ public sealed class FileTransaction
         _directory = directory;
 
     /// <summary>
-    ///     Odloží si kópiu vymenovaných súborov.
+    /// Odloží si kópiu vymenovaných súborov.
     /// </summary>
     /// <remarks>
-    ///     Súbory môžu byť v rôznych priečinkoch. Tie, ktoré ešte neexistujú, sa pri návrate zmažú.
+    /// Súbory môžu byť v rôznych priečinkoch. Tie, ktoré ešte neexistujú, sa pri návrate zmažú.
     /// </remarks>
     /// <param name="files">Súbory, ktoré sa budú zapisovať.</param>
     /// <exception cref="IOException">ak sa zálohu nepodarí vytvoriť - vtedy sa nesmie začať zapisovať</exception>
@@ -61,21 +61,21 @@ public sealed class FileTransaction
     }
 
     /// <summary>
-    ///     Priečinok so zálohou pôvodných súborov.
+    /// Priečinok so zálohou pôvodných súborov.
     /// </summary>
     public string BackupPath { get; }
 
     /// <summary>
-    ///     Potvrdí zmeny - záloha sa zahodí.
+    /// Potvrdí zmeny - záloha sa zahodí.
     /// </summary>
     public void Commit() => TryDeleteBackup();
 
     /// <summary>
-    ///     Vráti súbory do stavu spred zápisu.
+    /// Vráti súbory do stavu spred zápisu.
     /// </summary>
     /// <remarks>
-    ///     Volá sa z bloku catch, preto nikdy nevyhadzuje výnimku - keby to spravila,
-    ///     nahradila by pôvodnú chybu a tá by sa k používateľovi nedostala.
+    /// Volá sa z bloku catch, preto nikdy nevyhadzuje výnimku - keby to spravila,
+    /// nahradila by pôvodnú chybu a tá by sa k používateľovi nedostala.
     /// </remarks>
     /// <returns><see langword="false" />, ak sa obnovenie nepodarilo; záloha vtedy zostáva zachovaná.</returns>
     public bool TryRollback()

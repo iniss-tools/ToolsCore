@@ -1,9 +1,9 @@
 namespace ToolsCore.StateDgm;
 
 /// <summary>
-///     Polozka stromu suboru StateDgm.txt - hodnota (<c>S:</c>, <c>I:</c>, <c>B:</c>) alebo skupina (<c>G:</c>, <c>P:</c>).
-///     Strom je verny zapisu INISSu (okrem komentarov, ktore parser zahadzuje) a sluzi na zachovanie
-///     klucov a skupin, ktorym typovany model nerozumie.
+/// Polozka stromu suboru StateDgm.txt - hodnota (<c>S:</c>, <c>I:</c>, <c>B:</c>) alebo skupina (<c>G:</c>, <c>P:</c>).
+/// Strom je verny zapisu INISSu (okrem komentarov, ktore parser zahadzuje) a sluzi na zachovanie
+/// klucov a skupin, ktorym typovany model nerozumie.
 /// </summary>
 public abstract class StateDgmItem
 {
@@ -15,7 +15,7 @@ public abstract class StateDgmItem
 }
 
 /// <summary>
-///     Druh hodnoty v subore StateDgm.txt.
+/// Druh hodnoty v subore StateDgm.txt.
 /// </summary>
 public enum StateDgmValueKind
 {
@@ -30,7 +30,7 @@ public enum StateDgmValueKind
 }
 
 /// <summary>
-///     Hodnota v strome StateDgm.
+/// Hodnota v strome StateDgm.
 /// </summary>
 public sealed class StateDgmValue : StateDgmItem
 {
@@ -84,8 +84,8 @@ public sealed class StateDgmValue : StateDgmItem
     public bool Flag { get; set; }
 
     /// <summary>
-    ///     Zapis <c>S:"kluc"=#</c> (bez hodnoty) - INISS nim kluc zo skupiny odstrani. V suboroch grafikonov sa nepouziva,
-    ///     ale parser ho prijme a zapisovac zachova.
+    /// Zapis <c>S:"kluc"=#</c> (bez hodnoty) - INISS nim kluc zo skupiny odstrani. V suboroch grafikonov sa nepouziva,
+    /// ale parser ho prijme a zapisovac zachova.
     /// </summary>
     public bool IsRemoval { get; private init; }
 
@@ -109,7 +109,7 @@ public sealed class StateDgmValue : StateDgmItem
 }
 
 /// <summary>
-///     Skupina v strome StateDgm (<c>G:"meno" { … }</c> alebo blok <c>P:"cesta" { … }</c>).
+/// Skupina v strome StateDgm (<c>G:"meno" { … }</c> alebo blok <c>P:"cesta" { … }</c>).
 /// </summary>
 public sealed class StateDgmGroup : StateDgmItem
 {
@@ -132,8 +132,8 @@ public sealed class StateDgmGroup : StateDgmItem
     public IEnumerable<StateDgmGroup> Groups => Items.OfType<StateDgmGroup>();
 
     /// <summary>
-    ///     Meno skupiny bez poradoveho cisla (<c>State12</c> → <c>State</c>). INISS vyhladava skupiny podla
-    ///     zakladneho mena; cislo za nim je nepovinne.
+    /// Meno skupiny bez poradoveho cisla (<c>State12</c> → <c>State</c>). INISS vyhladava skupiny podla
+    /// zakladneho mena; cislo za nim je nepovinne.
     /// </summary>
     public static string BaseName(string name)
     {

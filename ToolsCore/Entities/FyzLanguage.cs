@@ -26,43 +26,43 @@ public class FyzLanguage
     }
 
     /// <summary>
-    ///     Kluc jazyka, napr. SK.
+    /// Kluc jazyka, napr. SK.
     /// </summary>
     public string Key { get; set; }
 
     /// <summary>
-    ///     Nazov zvukovej banky, napr. Slovencina.
+    /// Nazov zvukovej banky, napr. Slovencina.
     /// </summary>
     public string Name { get; set; }
 
     /// <summary>
-    ///     Nazov suboru s definovanymi zvukmi jazyka. Vacsinou FYZZVUK.DAT.
+    /// Nazov suboru s definovanymi zvukmi jazyka. Vacsinou FYZZVUK.DAT.
     /// </summary>
     public string FileDefName { get; set; }
 
     /// <summary>
-    ///     Relativna cesta k jazyku, napr. SK\.
+    /// Relativna cesta k jazyku, napr. SK\.
     /// </summary>
     public string RelativePath { get; set; }
 
     /// <summary>
-    ///     Ci je jazyk v banke nastaveny ako hlavny (predvoleny).
+    /// Ci je jazyk v banke nastaveny ako hlavny (predvoleny).
     /// </summary>
     public bool IsBasic { get; set; }
 
     /// <summary>
-    ///     This (kvoli GUI).
+    /// This (kvoli GUI).
     /// </summary>
     [UsedImplicitly]
     public FyzLanguage This => this;
 
     /// <summary>
-    ///     Zoznam skupin zvukov.
+    /// Zoznam skupin zvukov.
     /// </summary>
     public IList<FyzGroup> Groups { get; set; } = null!;
 
     /// <summary>
-    ///     Odkaz na fyzicky priecinok banky zvukov.
+    /// Odkaz na fyzicky priecinok banky zvukov.
     /// </summary>
     public DirectoryElement Directory { get; set; } = null!;
 
@@ -82,7 +82,7 @@ public class FyzLanguage
     }
 
     /// <summary>
-    ///     Vráti jazyk z listujazyk z listu podľa kľúča jazyka.
+    /// Vráti jazyk z listujazyk z listu podľa kľúča jazyka.
     /// </summary>
     /// <param name="langs">list zvukov</param>
     /// <param name="key">kľúč jazyka</param>
@@ -90,15 +90,15 @@ public class FyzLanguage
     public static FyzLanguage? GetLanguageFromKey(IEnumerable<FyzLanguage> langs, string key) => langs.FirstOrDefault(jazyk => jazyk.Key == key);
 
     /// <summary>
-    ///     Vráti hlavný jazyk z listu zvukov.
+    /// Vráti hlavný jazyk z listu zvukov.
     /// </summary>
     /// <param name="langs">list jazykov</param>
     /// <returns>hlavný jazyk alebo <see langword="null" /> ak zadaný list neobsahuje hlavný jazyk</returns>
     public static FyzLanguage? GetBasicLanguage(IEnumerable<FyzLanguage> langs) => langs.FirstOrDefault(jazyk => jazyk.IsBasic);
 
     /// <summary>
-    ///     Vrati nazov jazyka, ktory ma INISS zabudovany pre dany kluc (pouzije sa, ked v Categori.TXT chyba NAME).
-    ///     Pre neznamy kluc vrati samotny kluc.
+    /// Vrati nazov jazyka, ktory ma INISS zabudovany pre dany kluc (pouzije sa, ked v Categori.TXT chyba NAME).
+    /// Pre neznamy kluc vrati samotny kluc.
     /// </summary>
     /// <param name="key">Kluc jazyka (SK, CZ, GB, D).</param>
     public static string BuiltInName(string key) => key switch
@@ -111,13 +111,13 @@ public class FyzLanguage
     };
 
     /// <summary>
-    ///     Zistí, či v zadanom poli jazykov sa nachádza prvok s rovnakým kľúčom ako zadaný kľúč.
+    /// Zistí, či v zadanom poli jazykov sa nachádza prvok s rovnakým kľúčom ako zadaný kľúč.
     /// </summary>
     /// <param name="languages">list jazykov</param>
     /// <param name="key">kľúč jazyka</param>
     /// <returns>
-    ///     <see langword="true" /> ak sa v poli nachádza prvok s rovnakým kľučom ako zadaný kľúč, inak
-    ///     <see langword="false" />.
+    /// <see langword="true" /> ak sa v poli nachádza prvok s rovnakým kľučom ako zadaný kľúč, inak
+    /// <see langword="false" />.
     /// </returns>
     public static bool ContainsKey(ICollection<FyzLanguage>? languages, string? key)
     {

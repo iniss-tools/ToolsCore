@@ -5,7 +5,7 @@ namespace ToolsCore.Tools;
 public static class RawBankParser
 {
     /// <summary>
-    ///     Precita subor FyzBank.dat, ktory obsahuje informacie o jazykoch zvukovej banky.
+    /// Precita subor FyzBank.dat, ktory obsahuje informacie o jazykoch zvukovej banky.
     /// </summary>
     /// <returns>list jazykov zvukovej banky.</returns>
     public static List<FyzLanguage> ReadFyzBankFile(string pathToBank, out int maxCountLangs)
@@ -34,7 +34,7 @@ public static class RawBankParser
     }
 
     /// <summary>
-    ///     Zapise subor FyzBank.dat, ktory obsahuje informacie o jazykoch zvukovej banky.
+    /// Zapise subor FyzBank.dat, ktory obsahuje informacie o jazykoch zvukovej banky.
     /// </summary>
     public static void WriteFyzBankFile(string pathToBank, List<FyzLanguage> languages)
     {
@@ -66,7 +66,7 @@ public static class RawBankParser
     }
 
     /// <summary>
-    ///     Precita subor FyzZvuk.dat, ktory obsahuje informacie o skupinach zvukov a zvukoch samotnych.
+    /// Precita subor FyzZvuk.dat, ktory obsahuje informacie o skupinach zvukov a zvukoch samotnych.
     /// </summary>
     /// <param name="pathToBank"></param>
     /// <param name="language">informacia o jazyku zvukovej banky, do ktorej sa budu vkladat informacie o skupinach a zvukoch.</param>
@@ -129,7 +129,7 @@ public static class RawBankParser
     }
 
     /// <summary>
-    ///     Zapise subor FyzZvuk.dat, ktory obsahuje informacie o skupinach zvukov a zvukoch samotnych.
+    /// Zapise subor FyzZvuk.dat, ktory obsahuje informacie o skupinach zvukov a zvukoch samotnych.
     /// </summary>
     /// <param name="pathToBank"></param>
     /// <param name="language">informacia o jazyku zvukovej banky, z ktorej sa budu vytvarat informacie o skupinach a zvukoch.</param>
@@ -178,12 +178,12 @@ public static class RawBankParser
     }
     
     /// <summary>
-    ///     Cesta k súboru FYZBANK.DAT banky.
+    /// Cesta k súboru FYZBANK.DAT banky.
     /// </summary>
     public static string FyzBankFile(string pathToBank) => Utils.CombinePath(pathToBank, FileConsts.FILE_FYZBANK)!;
 
     /// <summary>
-    ///     Cesta k súboru so zvukmi jazyka (väčšinou FYZZVUK.DAT v priečinku jazyka).
+    /// Cesta k súboru so zvukmi jazyka (väčšinou FYZZVUK.DAT v priečinku jazyka).
     /// </summary>
     public static string FyzZvukFile(string pathToBank, FyzLanguage language)
     {
@@ -192,8 +192,8 @@ public static class RawBankParser
     }
 
     /// <summary>
-    ///     Zapíše súbor najprv vedľa s príponou .tmp a až celý ho presunie na miesto pôvodného -
-    ///     chyba počas zápisu tak nenechá na disku napoly zapísaný súbor, ktorý by INISS odmietol.
+    /// Zapíše súbor najprv vedľa s príponou .tmp a až celý ho presunie na miesto pôvodného -
+    /// chyba počas zápisu tak nenechá na disku napoly zapísaný súbor, ktorý by INISS odmietol.
     /// </summary>
     private static void WriteAtomically(string file, Action<BinaryWriter> write)
     {

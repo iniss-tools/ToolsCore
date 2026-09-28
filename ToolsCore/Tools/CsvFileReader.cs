@@ -1,7 +1,7 @@
 ﻿namespace ToolsCore.Tools;
 
 /// <summary>
-///     Trieda pre citanie dat z textoveho suboru.
+/// Trieda pre citanie dat z textoveho suboru.
 /// </summary>
 public class CsvFileReader : StreamReader
 {
@@ -11,7 +11,7 @@ public class CsvFileReader : StreamReader
     }
 
     /// <summary>
-    ///     Precita jeden riadok zo suboru.
+    /// Precita jeden riadok zo suboru.
     /// </summary>
     /// <param name="row"></param>
     /// <returns></returns>

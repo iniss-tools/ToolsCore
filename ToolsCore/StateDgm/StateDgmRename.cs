@@ -1,23 +1,23 @@
 namespace ToolsCore.StateDgm;
 
 /// <summary>
-///     Prenos noveho kluca do odkazov po premenovani prvku diagramu. Prvok uz ma novy kluc, metody dostanu stary.
-///     <list type="bullet">
-///         <item>stav → <c>NextState</c> akcii vo vsetkych stavoch tej istej kategorie,</item>
-///         <item>vzhlad → <c>DesignKey</c> tlacidiel celeho diagramu,</item>
-///         <item>casovy bod hlavicky → <c>TimePointKey1/2</c> bodov a <c>TimePointKey(Last)</c> starterov celeho diagramu
-///             (okrem stavov, ktore maju vlastny bod s rovnakym klucom),</item>
-///         <item>casovy bod stavu → body a startery toho stavu,</item>
-///         <item>akcia → <c>EventKey</c> tlacidiel a starterov toho stavu.</item>
-///     </list>
-///     Premenovanie sa odmietne (odkazy ostanu), ked by bolo nejednoznacne: prazdny stary alebo novy kluc, stary kluc
-///     ma aj iny prvok v rozsahu (odkazy teda patria aj jemu), novy kluc uz ma iny prvok v rozsahu alebo sa nan
-///     v rozsahu uz nieco odkazuje (spojili by sa s cudzimi odkazmi). Duplicitu potom ohlasi validator.
+/// Prenos noveho kluca do odkazov po premenovani prvku diagramu. Prvok uz ma novy kluc, metody dostanu stary.
+/// <list type="bullet">
+/// <item>stav → <c>NextState</c> akcii vo vsetkych stavoch tej istej kategorie,</item>
+/// <item>vzhlad → <c>DesignKey</c> tlacidiel celeho diagramu,</item>
+/// <item>casovy bod hlavicky → <c>TimePointKey1/2</c> bodov a <c>TimePointKey(Last)</c> starterov celeho diagramu
+/// (okrem stavov, ktore maju vlastny bod s rovnakym klucom),</item>
+/// <item>casovy bod stavu → body a startery toho stavu,</item>
+/// <item>akcia → <c>EventKey</c> tlacidiel a starterov toho stavu.</item>
+/// </list>
+/// Premenovanie sa odmietne (odkazy ostanu), ked by bolo nejednoznacne: prazdny stary alebo novy kluc, stary kluc
+/// ma aj iny prvok v rozsahu (odkazy teda patria aj jemu), novy kluc uz ma iny prvok v rozsahu alebo sa nan
+/// v rozsahu uz nieco odkazuje (spojili by sa s cudzimi odkazmi). Duplicitu potom ohlasi validator.
 /// </summary>
 public static class StateDgmRename
 {
     /// <summary>
-    ///     Prenesie novy kluc prvku (stav, vzhlad, casovy bod, akcia) do odkazov nan.
+    /// Prenesie novy kluc prvku (stav, vzhlad, casovy bod, akcia) do odkazov nan.
     /// </summary>
     /// <param name="d">Diagram, v ktorom prvok je.</param>
     /// <param name="element">Premenovany prvok (uz s novym klucom).</param>

@@ -3,7 +3,7 @@
 namespace ToolsCore.XML;
 
 /// <summary>
-///     Trieda definujuca farby pre ovladacie prvky GUI.
+/// Trieda definujuca farby pre ovladacie prvky GUI.
 /// </summary>
 public record ControlsColorScheme() : IColorScheme
 {
@@ -34,7 +34,7 @@ public record ControlsColorScheme() : IColorScheme
     #region Properties
 
     /// <summary>
-    ///     Styl pre tlacidla.
+    /// Styl pre tlacidla.
     /// </summary>
     [XmlElement("Button")]
     public ColorSetting Button
@@ -48,7 +48,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Button));
 
     /// <summary>
-    ///     Styl pre všetky štítky.
+    /// Styl pre všetky štítky.
     /// </summary>
     [XmlElement("Label")]
     public ColorSetting Label
@@ -62,7 +62,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Label));
 
     /// <summary>
-    ///     Styl pre boxy - ComboBox, ListBox....
+    /// Styl pre boxy - ComboBox, ListBox....
     /// </summary>
     [XmlElement("Box")]
     public ColorSetting Box
@@ -76,7 +76,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Box));
 
     /// <summary>
-    ///     Farba okrajov ovladacich prvkov (nastavovat iba ForeColor).
+    /// Farba okrajov ovladacich prvkov (nastavovat iba ForeColor).
     /// </summary>
     [XmlElement("Border")]
     public ColorSetting Border
@@ -90,7 +90,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Border));
 
     /// <summary>
-    ///     Styl panelu.
+    /// Styl panelu.
     /// </summary>
     [XmlElement("Panel")]
     public ColorSetting Panel
@@ -104,7 +104,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Panel));
 
     /// <summary>
-    ///     Farba značiek - pouzite ako značka vo vnutri RadioButton a CheckBox (nastavovat iba ForeColor).
+    /// Farba značiek - pouzite ako značka vo vnutri RadioButton a CheckBox (nastavovat iba ForeColor).
     /// </summary>
     [XmlElement("Mark")]
     public ColorSetting Mark
@@ -118,7 +118,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Mark));
 
     /// <summary>
-    ///     Styl pre oznacenie prave aktivneho ovladacieho prvku resp. jeho casti.
+    /// Styl pre oznacenie prave aktivneho ovladacieho prvku resp. jeho casti.
     /// </summary>
     [XmlElement("Highlight")]
     public ColorSetting Highlight

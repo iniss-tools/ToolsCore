@@ -3,7 +3,7 @@
 namespace ToolsCore.XML;
 
 /// <summary>
-///     Trieda opisujúca font, serializovateľná do XML.
+/// Trieda opisujúca font, serializovateľná do XML.
 /// </summary>
 public class XmlFont
 {
@@ -11,14 +11,14 @@ public class XmlFont
     private readonly Font _font = null!;
 
     /// <summary>
-    ///     Vytvori novu instanciu triedy <see cref="XmlFont"/>.
+    /// Vytvori novu instanciu triedy <see cref="XmlFont"/>.
     /// </summary>
     private XmlFont()
     {
     }
 
     /// <summary>
-    ///     Vytvori novu instanciu triedy <see cref="XmlFont"/> podla zadefinovaneho pisma.
+    /// Vytvori novu instanciu triedy <see cref="XmlFont"/> podla zadefinovaneho pisma.
     /// </summary>
     /// <param name="f">Pismo typu <see cref="Font"/>.</param>
     public XmlFont(Font f)
@@ -33,59 +33,59 @@ public class XmlFont
     }
 
     /// <summary>
-    ///     Rodina písma.
+    /// Rodina písma.
     /// </summary>
     [XmlAttribute("family")]
     public string FontFamily { get; set; } = null!;
 
     /// <summary>
-    ///     Jednotka veľkosti písma.
+    /// Jednotka veľkosti písma.
     /// </summary>
     [XmlAttribute("gunit")]
     public XmlGraphicsUnit Unit { get; set; }
 
     /// <summary>
-    ///     Veľkosť písma.
+    /// Veľkosť písma.
     /// </summary>
     [XmlAttribute("size")]
     public float Size { get; set; }
 
     /// <summary>
-    ///     Štýl písma.
+    /// Štýl písma.
     /// </summary>
     [XmlAttribute("style")]
     public XmlFontStyle Style { get; set; }
 
     /// <summary>
-    ///     Char set písma.
+    /// Char set písma.
     /// </summary>
     [XmlAttribute("set")]
     [DefaultValue(1)]
     public byte GdiCharSet { get; set; } = 1;
 
     /// <summary>
-    ///     Implicitny operator sluziaci na konvertovanie <see cref="XmlFont"/> na <see cref="Font"/>.
+    /// Implicitny operator sluziaci na konvertovanie <see cref="XmlFont"/> na <see cref="Font"/>.
     /// </summary>
     /// <param name="x">Pismo ako <see cref="XmlFont"/>.</param>
     /// <returns>pismo ako <see cref="Font"/>.</returns>
     public static implicit operator Font(XmlFont x) => x._font;
 
     /// <summary>
-    ///     Implicitny operator sluziaci na konvertovanie <see cref="Font"/> na <see cref="XmlFont"/>.
+    /// Implicitny operator sluziaci na konvertovanie <see cref="Font"/> na <see cref="XmlFont"/>.
     /// </summary>
     /// <param name="f">Pismo ako <see cref="Font"/>.</param>
     /// <returns>pismo ako <see cref="XmlFont"/>.</returns>
     public static implicit operator XmlFont(Font f) => new(f);
 
     /// <summary>
-    ///     Konvertuje <see cref="Font"/> na <see cref="XmlFont"/>.
+    /// Konvertuje <see cref="Font"/> na <see cref="XmlFont"/>.
     /// </summary>
     /// <param name="font"></param>
     /// <returns></returns>
     public static XmlFont FromFont(Font font) => new(font);
 
     /// <summary>
-    ///     Konvertuje <see cref="XmlFont"/> na <see cref="Font"/>.
+    /// Konvertuje <see cref="XmlFont"/> na <see cref="Font"/>.
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
@@ -93,39 +93,39 @@ public class XmlFont
         new(x.FontFamily, x.Size, (FontStyle)(int)x.Style, (GraphicsUnit)(int)x.Unit, x.GdiCharSet);
 
     /// <summary>
-    ///     Štýl písma (hodnoty <see cref="FontStyle" /> so skratkami do XML).
+    /// Štýl písma (hodnoty <see cref="FontStyle" /> so skratkami do XML).
     /// </summary>
     [Flags]
     public enum XmlFontStyle
     {
         /// <summary>
-        ///     Obyčajné písmo.
+        /// Obyčajné písmo.
         /// </summary>
         [XmlEnum(Name = "r")] Regular = 0,
 
         /// <summary>
-        ///     Tučné písmo.
+        /// Tučné písmo.
         /// </summary>
         [XmlEnum(Name = "b")] Bold = 1,
 
         /// <summary>
-        ///     Kurzíva.
+        /// Kurzíva.
         /// </summary>
         [XmlEnum(Name = "i")] Italic = 2,
 
         /// <summary>
-        ///     Podčiarnutý text.
+        /// Podčiarnutý text.
         /// </summary>
         [XmlEnum(Name = "u")] Underline = 4,
 
         /// <summary>
-        ///     Prečiarknutý text.
+        /// Prečiarknutý text.
         /// </summary>
         [XmlEnum(Name = "s")] Strikeout = 8
     }
 
     /// <summary>
-    ///     Jednotka veľkosti písma (hodnoty <see cref="GraphicsUnit" /> so skratkami do XML).
+    /// Jednotka veľkosti písma (hodnoty <see cref="GraphicsUnit" /> so skratkami do XML).
     /// </summary>
     public enum XmlGraphicsUnit
     {
@@ -133,8 +133,8 @@ public class XmlFont
         [XmlEnum(Name = "world")] World,
 
         /// <summary>
-        ///     Specifies the unit of measure of the display device.
-        ///     Typically pixels for video displays, and 1/100 inch for printers.
+        /// Specifies the unit of measure of the display device.
+        /// Typically pixels for video displays, and 1/100 inch for printers.
         /// </summary>
         [XmlEnum(Name = "display")] Display,
 

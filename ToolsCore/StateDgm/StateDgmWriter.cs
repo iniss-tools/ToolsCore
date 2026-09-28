@@ -1,16 +1,16 @@
 namespace ToolsCore.StateDgm;
 
 /// <summary>
-///     Zapisovac suboru StateDgm.txt. Vytvara kanonicky tvar s tabulatormi a orientacnymi komentarmi
-///     (rovnaky styl ako povodne subory INISSu); komentare z povodneho suboru sa nezachovavaju,
-///     okrem hlavickovych <c>C:"…"</c>. Kluce <c>Num…</c> sa vzdy dopocitaju.
+/// Zapisovac suboru StateDgm.txt. Vytvara kanonicky tvar s tabulatormi a orientacnymi komentarmi
+/// (rovnaky styl ako povodne subory INISSu); komentare z povodneho suboru sa nezachovavaju,
+/// okrem hlavickovych <c>C:"…"</c>. Kluce <c>Num…</c> sa vzdy dopocitaju.
 /// </summary>
 public static class StateDgmWriter
 {
     private const string NL = "\r\n";
 
     /// <summary>
-    ///     Zapise diagram do textu.
+    /// Zapise diagram do textu.
     /// </summary>
     public static string Write(StateDgmDiagram d)
     {

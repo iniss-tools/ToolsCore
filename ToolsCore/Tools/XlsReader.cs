@@ -5,7 +5,7 @@ using Application = Microsoft.Office.Interop.Excel.Application;
 namespace ToolsCore.Tools;
 
 /// <summary>
-///     Nacitava udaje zo .XLS a .XLSX suborov.
+/// Nacitava udaje zo .XLS a .XLSX suborov.
 /// </summary>
 public class XlsReader : TableFileReader
 {
@@ -14,7 +14,7 @@ public class XlsReader : TableFileReader
     private readonly Worksheet _worksheet;
 
     /// <summary>
-    ///     Vytvori novu instanciu triedy <see cref="XlsReader"/>.
+    /// Vytvori novu instanciu triedy <see cref="XlsReader"/>.
     /// </summary>
     /// <param name="fileName">Cesta k suboru.</param>
     /// <param name="worksheetID">Identifikator sheetu.</param>

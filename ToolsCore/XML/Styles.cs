@@ -6,7 +6,7 @@ using ToolsCore.Tools;
 namespace ToolsCore.XML;
 
 /// <summary>
-///     Trieda reprezentujuca zoznam stylov definovanych pre GUI programu
+/// Trieda reprezentujuca zoznam stylov definovanych pre GUI programu
 /// </summary>
 [XmlRoot("STYLES")]
 public class Styles<T> : IEnumerable<T>, IList where T : Style
@@ -14,13 +14,13 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     private readonly object _sync = new();
 
     /// <summary>
-    ///     Zoznam vsetkych stylov s vlastnostami
+    /// Zoznam vsetkych stylov s vlastnostami
     /// </summary>
     [XmlIgnore] 
     public List<T> StyleList { get; set; }
 
     /// <summary>
-    ///     Konstruktor
+    /// Konstruktor
     /// </summary>
     public Styles() : this(new List<T>())
     {
@@ -47,7 +47,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     }
 
     /// <summary>
-    ///     Indexer pre jednoduchsi vyber z listu stylov
+    /// Indexer pre jednoduchsi vyber z listu stylov
     /// </summary>
     /// <param name="index">index prvku</param>
     public T this[int index]
@@ -57,7 +57,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     }
 
     /// <summary>
-    ///     Indexer pre jednoduchsi vyber z listu stylov. Vrati styl podla nazvu stylu
+    /// Indexer pre jednoduchsi vyber z listu stylov. Vrati styl podla nazvu stylu
     /// </summary>
     /// <param name="key"></param>
     public T this[string key] => StyleList.First(i => i.Name == key);
@@ -72,7 +72,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     }
 
     /// <summary>
-    ///     Vrati pocet stylov v zozname
+    /// Vrati pocet stylov v zozname
     /// </summary>
     public int Count => StyleList.Count;
 
@@ -89,7 +89,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     public bool IsFixedSize => false;
 
     /// <summary>
-    ///     Prida styl do zoznamu stylov
+    /// Prida styl do zoznamu stylov
     /// </summary>
     /// <param name="style"></param>
     public void Add(T style) => StyleList.Add(style);
@@ -108,7 +108,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     public bool Contains(object? item) => item is T t && StyleList.Contains(t);
 
     /// <summary>
-    ///     Nacitava data z konfiguracneho suboru
+    /// Nacitava data z konfiguracneho suboru
     /// </summary>
     /// <param name="fileName">cesta k suboru</param>
     /// <returns></returns>
@@ -192,7 +192,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     }
 
     /// <summary>
-    ///     Zapise data do konfiguracneho suboru
+    /// Zapise data do konfiguracneho suboru
     /// </summary>
     /// <param name="fileName">cesta k suboru</param>
     /// <param name="obj">data</param>

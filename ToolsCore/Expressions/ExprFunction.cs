@@ -3,8 +3,8 @@
 namespace ToolsCore.Expressions;
 
 /// <summary>
-///     Funkcie jazyka vyrazov INISS. Ciselna hodnota je index tokenu v tabulke prekladaca INISSu
-///     (1-based, pozri docs/iniss/formaty-suborov/local/vyrazy.mdx).
+/// Funkcie jazyka vyrazov INISS. Ciselna hodnota je index tokenu v tabulke prekladaca INISSu
+/// (1-based, pozri docs/iniss/formaty-suborov/local/vyrazy.mdx).
 /// </summary>
 public enum ExprFunction
 {
@@ -72,7 +72,7 @@ public enum ExprFunction
 }
 
 /// <summary>
-///     Tvar argumentov funkcie.
+/// Tvar argumentov funkcie.
 /// </summary>
 public enum ExprArgKind
 {
@@ -93,7 +93,7 @@ public enum ExprArgKind
 }
 
 /// <summary>
-///     Vyznam argumentu funkcie - pouziva sa pri semantickej kontrole a napovede.
+/// Vyznam argumentu funkcie - pouziva sa pri semantickej kontrole a napovede.
 /// </summary>
 public enum ExprArgMeaning
 {
@@ -111,7 +111,7 @@ public enum ExprArgMeaning
 }
 
 /// <summary>
-///     Druh hodnoty, ktoru funkcia vracia.
+/// Druh hodnoty, ktoru funkcia vracia.
 /// </summary>
 public enum ExprValueKind
 {
@@ -147,7 +147,7 @@ public enum ExprValueKind
 }
 
 /// <summary>
-///     Popis funkcie jazyka vyrazov.
+/// Popis funkcie jazyka vyrazov.
 /// </summary>
 /// <param name="Function">Funkcia.</param>
 /// <param name="Name">Meno (ceske/slovenske alebo anglicke - kazdy alias ma vlastny zaznam).</param>
@@ -176,7 +176,7 @@ public sealed record ExprFunctionInfo(
 }
 
 /// <summary>
-///     Register funkcii jazyka vyrazov.
+/// Register funkcii jazyka vyrazov.
 /// </summary>
 public static class ExprFunctions
 {
@@ -253,17 +253,17 @@ public static class ExprFunctions
         Infos.ToDictionary(i => i.Function, i => i);
 
     /// <summary>
-    ///     Vsetky funkcie v poradi tabulky INISSu (ceske mena, potom anglicke aliasy).
+    /// Vsetky funkcie v poradi tabulky INISSu (ceske mena, potom anglicke aliasy).
     /// </summary>
     public static IReadOnlyList<ExprFunctionInfo> All => Infos;
 
     /// <summary>
-    ///     Najde funkciu podla mena (bez ohladu na velkost pismen).
+    /// Najde funkciu podla mena (bez ohladu na velkost pismen).
     /// </summary>
     public static ExprFunctionInfo? Find(string name) => ByName.GetValueOrDefault(name);
 
     /// <summary>
-    ///     Vrati popis funkcie.
+    /// Vrati popis funkcie.
     /// </summary>
     public static ExprFunctionInfo Get(ExprFunction function) => ByFunction[function];
 }

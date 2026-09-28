@@ -3,54 +3,54 @@
 namespace ToolsCore.XML;
 
 /// <summary>
-///     Trieda definujuca farby a pisma pre viacere prvky programu
+/// Trieda definujuca farby a pisma pre viacere prvky programu
 /// </summary>
 public record Style
 {
     /// <summary>
-    ///     Nazov stylu
+    /// Nazov stylu
     /// </summary>
     [XmlAttribute("name")] 
     public string Name { get; set; } = null!;
 
     /// <summary>
-    ///     Ci je tento styl nastaveny ako aktivny (pouzivany).
+    /// Ci je tento styl nastaveny ako aktivny (pouzivany).
     /// </summary>
     [XmlAttribute("used")]
     public bool Used { get; set; }
 
     /// <summary>
-    ///     Ci ovladacie prvky v GUI pouzivaju predvoleny vzhlad.
+    /// Ci ovladacie prvky v GUI pouzivaju predvoleny vzhlad.
     /// </summary>
     [XmlElement("DefaultStyle"), DefaultValue(true)]
     public bool ControlsDefaultStyle { get; set; } = true;
 
     /// <summary>
-    ///     Ci okna v GUI maju mat tmavy TitleBar (funguje len vo Windows 10).
+    /// Ci okna v GUI maju mat tmavy TitleBar (funguje len vo Windows 10).
     /// </summary>
     [XmlElement("DarkTitlebar"), DefaultValue(false)] 
     public bool DarkTitleBar { get; set; }
 
     /// <summary>
-    ///     Ci ovladacie prvky v GUI maju mat tmavy ScrollBar (funguje len vo Windows 10).
+    /// Ci ovladacie prvky v GUI maju mat tmavy ScrollBar (funguje len vo Windows 10).
     /// </summary>
     [XmlElement("DarkScrollBar"), DefaultValue(false)]
     public bool DarkScrollBar { get; set; }
 
     /// <summary>
-    ///     Ci sa ma stavovy riadok zafarbit podla farby zafarbenia daneho stylu.
+    /// Ci sa ma stavovy riadok zafarbit podla farby zafarbenia daneho stylu.
     /// </summary>
     [XmlElement("HighlightStatusBar"), DefaultValue(true)]
     public bool HighlightStatusBar { get; set; } = true;
 
     /// <summary>
-    ///     Farebna schema pre ovladacie prvky v GUI
+    /// Farebna schema pre ovladacie prvky v GUI
     /// </summary>
     [XmlElement("ControlsColorScheme")] 
     public ControlsColorScheme ControlsColorScheme { get; set; } = new();
 
     /// <summary>
-    ///     Vyvori novu instanciu triedy <see cref="Style"/>.
+    /// Vyvori novu instanciu triedy <see cref="Style"/>.
     /// </summary>
     public Style()
     {
@@ -65,7 +65,7 @@ public record Style
     public override string ToString() => Name;
 
     /// <summary>
-    ///     Nastavi nastavenia farieb pre ovladacie prvky na predvolene hodnoty pre tmavy rezim
+    /// Nastavi nastavenia farieb pre ovladacie prvky na predvolene hodnoty pre tmavy rezim
     /// </summary>
     public static ControlsColorScheme SetDefaultDarkControlsScheme()
     {

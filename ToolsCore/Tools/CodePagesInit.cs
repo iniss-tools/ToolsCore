@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace ToolsCore.Tools;
 
 /// <summary>
-///     Registruje poskytovateľa legacy code-page kódovaní (napr. Windows-1250 používané v <see cref="Encodings"/>).
-///     Od .NET 5 už nie sú tieto kódovania súčasťou runtime a bez registrácie <see cref="Encoding.GetEncoding(int)"/>
-///     vyhadzuje <see cref="NotSupportedException"/>. <see cref="ModuleInitializerAttribute"/> zaručuje spustenie
-///     pred prvým použitím čohokoľvek z tejto zostavy (aj pred statickým konštruktorom <see cref="Encodings"/>).
+/// Registruje poskytovateľa legacy code-page kódovaní (napr. Windows-1250 používané v <see cref="Encodings"/>).
+/// Od .NET 5 už nie sú tieto kódovania súčasťou runtime a bez registrácie <see cref="Encoding.GetEncoding(int)"/>
+/// vyhadzuje <see cref="NotSupportedException"/>. <see cref="ModuleInitializerAttribute"/> zaručuje spustenie
+/// pred prvým použitím čohokoľvek z tejto zostavy (aj pred statickým konštruktorom <see cref="Encodings"/>).
 /// </summary>
 internal static class CodePagesInit
 {

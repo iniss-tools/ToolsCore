@@ -1,7 +1,7 @@
 namespace ToolsCore.TabTab;
 
 /// <summary>
-///     Druh logickeho riadka sekcie TabTab (klasifikacia INISSu).
+/// Druh logickeho riadka sekcie TabTab (klasifikacia INISSu).
 /// </summary>
 public enum TabTabLineKind
 {
@@ -25,7 +25,7 @@ public enum TabTabLineKind
 }
 
 /// <summary>
-///     Udalost na pravej strane pravidla.
+/// Udalost na pravej strane pravidla.
 /// </summary>
 public enum TabTabEventKind
 {
@@ -55,7 +55,7 @@ public enum TabTabEventKind
 }
 
 /// <summary>
-///     Usek textu sekcie (fyzicke pozicie v texte, ako ho drzi editor).
+/// Usek textu sekcie (fyzicke pozicie v texte, ako ho drzi editor).
 /// </summary>
 /// <param name="Start">Index prveho znaku.</param>
 /// <param name="Length">Dlzka.</param>
@@ -69,7 +69,7 @@ public readonly record struct TabTabSpan(int Start, int Length)
 }
 
 /// <summary>
-///     Polozka lavej strany pravidla s udalostou (<c>#SWITCH</c>, <c>#MERGE</c>, <c>#MERGE2</c>).
+/// Polozka lavej strany pravidla s udalostou (<c>#SWITCH</c>, <c>#MERGE</c>, <c>#MERGE2</c>).
 /// </summary>
 public sealed class TabTabItem
 {
@@ -93,7 +93,7 @@ public sealed class TabTabItem
 }
 
 /// <summary>
-///     Jeden logicky riadok sekcie (po spojeni pokracovani <c>\</c>).
+/// Jeden logicky riadok sekcie (po spojeni pokracovani <c>\</c>).
 /// </summary>
 public sealed class TabTabLine
 {
@@ -138,8 +138,8 @@ public sealed class TabTabLine
 }
 
 /// <summary>
-///     Text polozky/pravidla po dekodovani INISSom - bez uvodzoviek, s vyriesenymi
-///     <c>\x</c> a s pismom z koncoveho <c>{n}</c>.
+/// Text polozky/pravidla po dekodovani INISSom - bez uvodzoviek, s vyriesenymi
+/// <c>\x</c> a s pismom z koncoveho <c>{n}</c>.
 /// </summary>
 /// <param name="Text">Dekodovany text.</param>
 /// <param name="Font">Cislo pisma z koncoveho <c>{n}</c>; <see langword="null"/>, ak nebolo, -1 pri <c>{@}</c> (predvolene pismo).</param>
@@ -149,9 +149,9 @@ public readonly record struct TabTabText(string Text, int? Font)
     public const int DefaultFont = -1;
 
     /// <summary>
-    ///     Dekoduje text ako INISS: preskoci vedúce medzery, <c>\x</c> je doslovne <c>x</c>, <c>"</c> zapina
-    ///     a vypina uvodzovky (<c>""</c> vnutri je <c>"</c>), mimo uvodzoviek sa koncove medzery zahodia
-    ///     a <c>{n}</c> alebo <c>{@}</c> uplne na konci je cislo pisma, nie text.
+    /// Dekoduje text ako INISS: preskoci vedúce medzery, <c>\x</c> je doslovne <c>x</c>, <c>"</c> zapina
+    /// a vypina uvodzovky (<c>""</c> vnutri je <c>"</c>), mimo uvodzoviek sa koncove medzery zahodia
+    /// a <c>{n}</c> alebo <c>{@}</c> uplne na konci je cislo pisma, nie text.
     /// </summary>
     public static TabTabText Decode(string raw)
     {
@@ -200,7 +200,7 @@ public readonly record struct TabTabText(string Text, int? Font)
     }
 
     /// <summary>
-    ///     Ci od pozicie <paramref name="i"/> (na <c>{</c>) nasleduje <c>{n}</c> alebo <c>{@}</c> a za nim uz len medzery.
+    /// Ci od pozicie <paramref name="i"/> (na <c>{</c>) nasleduje <c>{n}</c> alebo <c>{@}</c> a za nim uz len medzery.
     /// </summary>
     private static bool TryFontSuffix(string s, int i, out int font)
     {
@@ -234,7 +234,7 @@ public readonly record struct TabTabText(string Text, int? Font)
     }
 
     /// <summary>
-    ///     Druh nedostatku v zapise textu.
+    /// Druh nedostatku v zapise textu.
     /// </summary>
     public enum IssueKind
     {
@@ -252,8 +252,8 @@ public readonly record struct TabTabText(string Text, int? Font)
     public readonly record struct Issue(IssueKind Kind, int Start, int Length);
 
     /// <summary>
-    ///     Najde v surovom zapise textu (lava strana pravidla, polozka) veci, ktore INISS sice precita,
-    ///     ale skoro urcite inak, nez autor chcel.
+    /// Najde v surovom zapise textu (lava strana pravidla, polozka) veci, ktore INISS sice precita,
+    /// ale skoro urcite inak, nez autor chcel.
     /// </summary>
     public static List<Issue> Inspect(string raw)
     {
@@ -314,7 +314,7 @@ public readonly record struct TabTabText(string Text, int? Font)
 }
 
 /// <summary>
-///     Rozobrany text jednej sekcie TabTab.
+/// Rozobrany text jednej sekcie TabTab.
 /// </summary>
 public sealed class TabTabSection
 {
@@ -334,8 +334,8 @@ public sealed class TabTabSection
     public IEnumerable<TabTabLine> Rules => Lines.Where(l => l.Kind == TabTabLineKind.Rule);
 
     /// <summary>
-    ///     Rozoberie text sekcie tak, ako ho cita INISS - spojenie riadkov s <c>\</c>,
-    ///     komentare, posledne neescapovane <c>=</c> ako oddelovac, <c>;</c> ako koniec riadka.
+    /// Rozoberie text sekcie tak, ako ho cita INISS - spojenie riadkov s <c>\</c>,
+    /// komentare, posledne neescapovane <c>=</c> ako oddelovac, <c>;</c> ako koniec riadka.
     /// </summary>
     public static TabTabSection Parse(string text) => TabTabSectionParser.Parse(text ?? "");
 }

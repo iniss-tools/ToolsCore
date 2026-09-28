@@ -1,12 +1,12 @@
 ﻿namespace ToolsCore.Tools;
 
 /// <summary>
-///     Class to read data from a CSV string.
+/// Class to read data from a CSV string.
 /// </summary>
 public class CsvStringReader : TableFileReader
 {
     /// <summary>
-    ///     Vytvori novu instanciu triedy <see cref="CsvStringReader"/>.
+    /// Vytvori novu instanciu triedy <see cref="CsvStringReader"/>.
     /// </summary>
     /// <param name="text">Text v tvare .CSV suboru.</param>
     /// <param name="linesep">Separator riadkov.</param>

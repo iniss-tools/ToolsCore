@@ -5,19 +5,19 @@
 namespace ToolsCore.XML;
 
 /// <summary>
-///     Reprezentuje klavesovu skratku pouzivanu na hlavnej pracovnej ploche programu.
+/// Reprezentuje klavesovu skratku pouzivanu na hlavnej pracovnej ploche programu.
 /// </summary>
 public record CmdShortcut
 {
     /// <summary>
-    ///     Vytvori novu instanciu triedy <see cref="CmdShortcut"/>.
+    /// Vytvori novu instanciu triedy <see cref="CmdShortcut"/>.
     /// </summary>
     public CmdShortcut()
     {
     }
 
     /// <summary>
-    ///     Vytvori novu instanciu triedy <see cref="CmdShortcut"/> podla struktury <see cref="ShortcutName"/>.
+    /// Vytvori novu instanciu triedy <see cref="CmdShortcut"/> podla struktury <see cref="ShortcutName"/>.
     /// </summary>
     /// <param name="shortcut"></param>
     public CmdShortcut(ShortcutName shortcut)
@@ -26,7 +26,7 @@ public record CmdShortcut
     }
 
     /// <summary>
-    ///     Vytvori novu instanciu triedy <see cref="CmdShortcut"/>.
+    /// Vytvori novu instanciu triedy <see cref="CmdShortcut"/>.
     /// </summary>
     public CmdShortcut(ShortcutName shortcut, string name, string propertyName)
     {
@@ -39,19 +39,19 @@ public record CmdShortcut
     public string PropertyName { get; set; } = null!;
 
     /// <summary>
-    ///     Názov použitia klávesovej skratky.
+    /// Názov použitia klávesovej skratky.
     /// </summary>
     [XmlIgnore, Localizable(true)]
     public string Name { get; set; } = null!;
 
     /// <summary>
-    ///     Klávesová skratka ako štruktúra <see cref="ShortcutName"/>.
+    /// Klávesová skratka ako štruktúra <see cref="ShortcutName"/>.
     /// </summary>
     [XmlIgnore]
     public ShortcutName Shortcut { get; set; }
 
     /// <summary>
-    ///     XML reprezentácia klávesovej skratky.
+    /// XML reprezentácia klávesovej skratky.
     /// </summary>
     [XmlAttribute("sc"), Browsable(false)]
     public string ShortcutXML
@@ -70,18 +70,18 @@ public record CmdShortcut
 }
 
 /// <summary>
-///     Štruktúra <see cref="Shortcut" /> pridaná o predefinovanie metódy <see cref="ToString" />, ktorá vracia
-///     reprezentáciu klávesovej skratky vo formáte: X+Y.
-///     Ak je <see cref="Value" /> <see cref="Shortcut.None" />, vráti "(Žiadna)".
+/// Štruktúra <see cref="Shortcut" /> pridaná o predefinovanie metódy <see cref="ToString" />, ktorá vracia
+/// reprezentáciu klávesovej skratky vo formáte: X+Y.
+/// Ak je <see cref="Value" /> <see cref="Shortcut.None" />, vráti "(Žiadna)".
 /// </summary>
 /// <remarks>
-///     Vytvori novu instanciu struktury <see cref="ShortcutName"/> podla enumeracie <see cref="Shortcut"/>.
+/// Vytvori novu instanciu struktury <see cref="ShortcutName"/> podla enumeracie <see cref="Shortcut"/>.
 /// </remarks>
 /// <param name="shortcut"></param>
 public readonly struct ShortcutName(Shortcut shortcut)
 {
     /// <summary>
-    ///     Klávesová skratka ako štruktúra.
+    /// Klávesová skratka ako štruktúra.
     /// </summary>
     public Shortcut Value { get; } = shortcut;
 

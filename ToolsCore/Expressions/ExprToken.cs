@@ -3,8 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 namespace ToolsCore.Expressions;
 
 /// <summary>
-///     Druhy tokenov jazyka vyrazov. Ciselne hodnoty 1-26 su indexy v tabulke prekladaca INISSu,
-///     <see cref="Number"/>, <see cref="String"/> a <see cref="End"/> su jeho vnutorne kody 0x58-0x5a.
+/// Druhy tokenov jazyka vyrazov. Ciselne hodnoty 1-26 su indexy v tabulke prekladaca INISSu,
+/// <see cref="Number"/>, <see cref="String"/> a <see cref="End"/> su jeho vnutorne kody 0x58-0x5a.
 /// </summary>
 public enum ExprTokenKind
 {
@@ -51,7 +51,7 @@ public enum ExprTokenKind
 }
 
 /// <summary>
-///     Ako vznikol token <see cref="ExprTokenKind.Number"/>.
+/// Ako vznikol token <see cref="ExprTokenKind.Number"/>.
 /// </summary>
 public enum ExprNumberSource
 {
@@ -63,7 +63,7 @@ public enum ExprNumberSource
 }
 
 /// <summary>
-///     Token vyrazu.
+/// Token vyrazu.
 /// </summary>
 /// <param name="Kind">Druh.</param>
 /// <param name="Start">Index prveho znaku v texte.</param>
@@ -90,7 +90,7 @@ public sealed record ExprToken(ExprTokenKind Kind, int Start, int Length, string
     public int End => Start + Length;
 
     /// <summary>
-    ///     Meno tokenu tak, ako ho pise INISS v hlaseniach (<c>konštanta</c>, <c>koniec</c>, text operatora …).
+    /// Meno tokenu tak, ako ho pise INISS v hlaseniach (<c>konštanta</c>, <c>koniec</c>, text operatora …).
     /// </summary>
     public string DisplayName => ExprMessages.TokenName(Kind, Text);
 }

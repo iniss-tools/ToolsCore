@@ -4,7 +4,7 @@ using ToolsCore.Tools;
 namespace ToolsCore.Tests.Tools;
 
 /// <summary>
-///     Zapis a citanie FYZBANK.DAT a FYZZVUK.DAT (banka zvukov INISS).
+/// Zapis a citanie FYZBANK.DAT a FYZZVUK.DAT (banka zvukov INISS).
 /// </summary>
 [TestClass]
 public class RawBankParserTests

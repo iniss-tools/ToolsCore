@@ -1,7 +1,7 @@
 namespace ToolsCore.Expressions;
 
 /// <summary>
-///     Lexikalny analyzator jazyka vyrazov - verna kopia spravania INISSu.
+/// Lexikalny analyzator jazyka vyrazov - verna kopia spravania INISSu.
 /// </summary>
 public sealed class ExprLexer
 {
@@ -27,7 +27,7 @@ public sealed class ExprLexer
     private int _pos;
 
     /// <summary>
-    ///     Vytvori lexer nad textom vyrazu.
+    /// Vytvori lexer nad textom vyrazu.
     /// </summary>
     /// <param name="text">Text vyrazu (jeden riadok).</param>
     /// <param name="context">Kontext prekladu.</param>
@@ -40,12 +40,12 @@ public sealed class ExprLexer
     }
 
     /// <summary>
-    ///     Chyba, na ktorej lexer skoncil; <see langword="null"/>, kym k nej nedoslo.
+    /// Chyba, na ktorej lexer skoncil; <see langword="null"/>, kym k nej nedoslo.
     /// </summary>
     public ExprDiagnostic? Error { get; private set; }
 
     /// <summary>
-    ///     Aktualna pozicia v texte.
+    /// Aktualna pozicia v texte.
     /// </summary>
     public int Position => _pos;
 
@@ -54,8 +54,8 @@ public sealed class ExprLexer
     private char Peek(int offset = 1) => _pos + offset < _text.Length ? _text[_pos + offset] : '\0';
 
     /// <summary>
-    ///     Rozlozi cely text na tokeny (vratane koncoveho <see cref="ExprTokenKind.End"/>).
-    ///     Pri chybe sa zoznam konci tokenom <see cref="ExprTokenKind.None"/> a <see cref="Error"/> je nastavene.
+    /// Rozlozi cely text na tokeny (vratane koncoveho <see cref="ExprTokenKind.End"/>).
+    /// Pri chybe sa zoznam konci tokenom <see cref="ExprTokenKind.None"/> a <see cref="Error"/> je nastavene.
     /// </summary>
     public List<ExprToken> Tokenize()
     {
@@ -70,7 +70,7 @@ public sealed class ExprLexer
     }
 
     /// <summary>
-    ///     Precita dalsi token.
+    /// Precita dalsi token.
     /// </summary>
     public ExprToken Next()
     {
@@ -159,8 +159,8 @@ public sealed class ExprLexer
     }
 
     /// <summary>
-    ///     Precita text medzi dvoma vyskytmi <paramref name="delim"/>; bez koncoveho vrati <see langword="null"/>
-    ///     a nastavi chybu. Koniec riadka retazec ukonci ako chybu.
+    /// Precita text medzi dvoma vyskytmi <paramref name="delim"/>; bez koncoveho vrati <see langword="null"/>
+    /// a nastavi chybu. Koniec riadka retazec ukonci ako chybu.
     /// </summary>
     private string? ReadDelimited(char delim, int start)
     {
@@ -202,7 +202,7 @@ public sealed class ExprLexer
     }
 
     /// <summary>
-    ///     <c>strtol(text, &amp;end, 0)</c> s podmienkou, ze sa spracuje cely text a hodnota sa zmesti do 32 bitov.
+    /// <c>strtol(text, &amp;end, 0)</c> s podmienkou, ze sa spracuje cely text a hodnota sa zmesti do 32 bitov.
     /// </summary>
     public static bool TryStrtol(string text, out int value)
     {

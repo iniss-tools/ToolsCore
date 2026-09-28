@@ -24,52 +24,52 @@ public class FyzSound
     }
 
     /// <summary>
-    ///     Kluc zvuku (v ZvukBase sa neda menit).
+    /// Kluc zvuku (v ZvukBase sa neda menit).
     /// </summary>
     public string Key { get; set; } = null!;
 
     /// <summary>
-    ///     Nazov zvuku (v ZvukBase sa da menit).
+    /// Nazov zvuku (v ZvukBase sa da menit).
     /// </summary>
     public string Name { get; set; } = null!;
 
     /// <summary>
-    ///     Nazov suboru zvuku (s priponou).
+    /// Nazov suboru zvuku (s priponou).
     /// </summary>
     public string FileName { get; set; } = null!;
 
     /// <summary>
-    ///     Doplnkova relativna cesta k suboru, ak sa subor nenachadza.
+    /// Doplnkova relativna cesta k suboru, ak sa subor nenachadza.
     /// </summary>
     public string AdditionalRelativePath { get; set; } = null!;
 
     /// <summary>
-    ///     Text hlasenia.
+    /// Text hlasenia.
     /// </summary>
     public string Text { get; set; } = null!;
 
     /// <summary>
-    ///     Dlzka zvuku v milisekundach (ms).
+    /// Dlzka zvuku v milisekundach (ms).
     /// </summary>
     public int Duration { get; set; }
 
     /// <summary>
-    ///     Dlzka zvuku ako retazec v tvare mm:ss.
+    /// Dlzka zvuku ako retazec v tvare mm:ss.
     /// </summary>
     public string DurationText => Utils.LengthIntToString(Duration);
 
     /// <summary>
-    ///     Skupina zvukov, do ktorej patri tento zvuk.
+    /// Skupina zvukov, do ktorej patri tento zvuk.
     /// </summary>
     public FyzGroup Group { get; set; } = null!;
 
     /// <summary>
-    ///     Jazyk, do ktoreho patri tento zvuk.
+    /// Jazyk, do ktoreho patri tento zvuk.
     /// </summary>
     public FyzLanguage Language => Group.Language;
 
     /// <summary>
-    ///     Odkaz na fyzicky subor zvuku.
+    /// Odkaz na fyzicky subor zvuku.
     /// </summary>
     public SoundFileElement File { get; set; } = null!;
 
@@ -78,12 +78,12 @@ public class FyzSound
     public override string ToString() => Name;
 
     /// <summary>
-    ///     Cesta k suboru zvuku: banka + priecinok jazyka + priecinok skupiny + pridavna cesta + nazov suboru.
+    /// Cesta k suboru zvuku: banka + priecinok jazyka + priecinok skupiny + pridavna cesta + nazov suboru.
     /// </summary>
     /// <remarks>
-    ///     Pridavna cesta je relativna k priecinku skupiny - realne banky maju napr. v skupine N5\ subor
-    ///     ..\N5\01.WAV alebo v R1\ subor ..\C9\..\Poz7\..\Poz1\ZALOK.WAV a subory lezia v CZ\N5\ a SK\Poz1\.
-    ///     Pri absolutnej ceste sa ".." vyhodnotia, aby sa cesta dala porovnat s cestami suborov na disku.
+    /// Pridavna cesta je relativna k priecinku skupiny - realne banky maju napr. v skupine N5\ subor
+    /// ..\N5\01.WAV alebo v R1\ subor ..\C9\..\Poz7\..\Poz1\ZALOK.WAV a subory lezia v CZ\N5\ a SK\Poz1\.
+    /// Pri absolutnej ceste sa ".." vyhodnotia, aby sa cesta dala porovnat s cestami suborov na disku.
     /// </remarks>
     /// <param name="pathToBank">priecinok banky (RAWBANK\) alebo "" pre cestu relativnu k banke.</param>
     public string GetAbsPath(string pathToBank)

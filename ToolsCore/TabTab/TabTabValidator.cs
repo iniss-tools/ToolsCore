@@ -3,7 +3,7 @@ using ToolsCore.Expressions;
 namespace ToolsCore.TabTab;
 
 /// <summary>
-///     Kod hlasenia kontroly sekcie TabTab. Kody <c>Iniss*</c> zodpovedaju chybam, ktore INISS zapisuje do logu.
+/// Kod hlasenia kontroly sekcie TabTab. Kody <c>Iniss*</c> zodpovedaju chybam, ktore INISS zapisuje do logu.
 /// </summary>
 public enum TabTabDiagnosticCode
 {
@@ -66,7 +66,7 @@ public enum TabTabDiagnosticCode
 }
 
 /// <summary>
-///     Hlasenie kontroly sekcie TabTab; pozicie su v texte sekcie.
+/// Hlasenie kontroly sekcie TabTab; pozicie su v texte sekcie.
 /// </summary>
 /// <param name="Severity">Zavaznost.</param>
 /// <param name="Code">Kod.</param>
@@ -99,7 +99,7 @@ public sealed record TabTabDiagnostic(ExprSeverity Severity, TabTabDiagnosticCod
 }
 
 /// <summary>
-///     Nastavenia kontroly sekcie.
+/// Nastavenia kontroly sekcie.
 /// </summary>
 public sealed class TabTabValidationOptions
 {
@@ -107,8 +107,8 @@ public sealed class TabTabValidationOptions
     public IExprSymbolProvider? Symbols { get; init; }
 
     /// <summary>
-    ///     Mena stlpcov katalogovych tabul, ktore sekciu pouzivaju (pre <c>%meno%</c>);
-    ///     <see langword="null"/> kontrolu vypne.
+    /// Mena stlpcov katalogovych tabul, ktore sekciu pouzivaju (pre <c>%meno%</c>);
+    /// <see langword="null"/> kontrolu vypne.
     /// </summary>
     public IReadOnlyCollection<string>? ColumnNames { get; init; }
 
@@ -117,7 +117,7 @@ public sealed class TabTabValidationOptions
 }
 
 /// <summary>
-///     Vysledok kontroly sekcie.
+/// Vysledok kontroly sekcie.
 /// </summary>
 /// <param name="Section">Rozobrana sekcia.</param>
 /// <param name="Diagnostics">Hlasenia zoradene podla pozicie.</param>
@@ -131,12 +131,12 @@ public sealed record TabTabValidationResult(TabTabSection Section, IReadOnlyList
 }
 
 /// <summary>
-///     Kontrola sekcie TabTab: to, co hlasi INISS pri nacitani, plus kontroly GVDEditora.
+/// Kontrola sekcie TabTab: to, co hlasi INISS pri nacitani, plus kontroly GVDEditora.
 /// </summary>
 public static class TabTabValidator
 {
     /// <summary>
-    ///     Rozoberie a skontroluje text sekcie.
+    /// Rozoberie a skontroluje text sekcie.
     /// </summary>
     public static TabTabValidationResult Validate(string text, TabTabValidationOptions? options = null)
     {
@@ -190,9 +190,9 @@ public static class TabTabValidator
     [ThreadStatic] private static string? _text;
 
     /// <summary>
-    ///     Najde fyzicke riadky, kde za <c>\</c> nasleduje este nieco (medzery, komentar). INISS spaja riadky
-    ///     len vtedy, ked je <c>\</c> uplne posledny znak - inak riadok spracuje samostatne a zvysok pravidla
-    ///     na dalsich riadkoch sa rozpadne.
+    /// Najde fyzicke riadky, kde za <c>\</c> nasleduje este nieco (medzery, komentar). INISS spaja riadky
+    /// len vtedy, ked je <c>\</c> uplne posledny znak - inak riadok spracuje samostatne a zvysok pravidla
+    /// na dalsich riadkoch sa rozpadne.
     /// </summary>
     private static HashSet<int> CheckContinuations(string text, List<TabTabDiagnostic> list)
     {
@@ -248,8 +248,8 @@ public static class TabTabValidator
     }
 
     /// <summary>
-    ///     Index <c>\</c>, ktore malo byt pokracovanim, ale nie je poslednym znakom riadka (za nim su len
-    ///     medzery alebo medzery a komentar <c>;…</c>); -1, ak taky nie je. Komentarove riadky sa preskocia.
+    /// Index <c>\</c>, ktore malo byt pokracovanim, ale nie je poslednym znakom riadka (za nim su len
+    /// medzery alebo medzery a komentar <c>;…</c>); -1, ak taky nie je. Komentarove riadky sa preskocia.
     /// </summary>
     private static int FindDanglingBackslash(string text, int start, int end)
     {
@@ -280,9 +280,9 @@ public static class TabTabValidator
     }
 
     /// <summary>
-    ///     Najde komentarove riadky vnutri viacriadkoveho pravidla. INISS taky riadok nikdy nespoji -
-    ///     pravidlo nim ukonci (a zvysok na dalsich riadkoch sa rozpadne). Vracia indexy prvych
-    ///     riadkov postihnutych pravidiel.
+    /// Najde komentarove riadky vnutri viacriadkoveho pravidla. INISS taky riadok nikdy nespoji -
+    /// pravidlo nim ukonci (a zvysok na dalsich riadkoch sa rozpadne). Vracia indexy prvych
+    /// riadkov postihnutych pravidiel.
     /// </summary>
     private static HashSet<int> CheckCommentsInsideRules(string text, List<TabTabDiagnostic> list)
     {
@@ -484,7 +484,7 @@ public static class TabTabValidator
     }
 
     /// <summary>
-    ///     Skontroluje zapis textu (uvodzovky, pismo <c>{n}</c>).
+    /// Skontroluje zapis textu (uvodzovky, pismo <c>{n}</c>).
     /// </summary>
     private static void CheckTextSyntax(string raw, TabTabSpan span, TabTabLine line, List<TabTabDiagnostic> list)
     {
@@ -526,7 +526,7 @@ public static class TabTabValidator
     };
 
     /// <summary>
-    ///     Skontroluje odkazy <c>%meno%</c> na stlpce tabule.
+    /// Skontroluje odkazy <c>%meno%</c> na stlpce tabule.
     /// </summary>
     private static void CheckColumnRefs(string text, TabTabSpan span, TabTabLine line, TabTabValidationOptions options, List<TabTabDiagnostic> list)
     {

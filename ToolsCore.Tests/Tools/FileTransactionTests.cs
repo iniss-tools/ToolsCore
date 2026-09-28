@@ -3,7 +3,7 @@ using ToolsCore.Tools;
 namespace ToolsCore.Tests.Tools;
 
 /// <summary>
-///     Transakcne ukladanie (grafikon, banka zvukov) - pri chybe sa subory vratia do povodneho stavu.
+/// Transakcne ukladanie (grafikon, banka zvukov) - pri chybe sa subory vratia do povodneho stavu.
 /// </summary>
 [TestClass]
 public class FileTransactionTests

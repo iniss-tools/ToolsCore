@@ -1,7 +1,7 @@
 namespace ToolsCore.Expressions;
 
 /// <summary>
-///     Vysledok prekladu vyrazu.
+/// Vysledok prekladu vyrazu.
 /// </summary>
 /// <param name="Text">Prekladany text.</param>
 /// <param name="Root">Koren stromu; <see langword="null"/> pri chybe prekladu.</param>
@@ -17,7 +17,7 @@ public sealed record ExprParseResult(string Text, ExprNode? Root, IReadOnlyList<
 }
 
 /// <summary>
-///     Rekurzivny zostupny prekladac jazyka vyrazov - verna kopia gramatiky INISSu.
+/// Rekurzivny zostupny prekladac jazyka vyrazov - verna kopia gramatiky INISSu.
 /// </summary>
 public sealed class ExprParser
 {
@@ -31,7 +31,7 @@ public sealed class ExprParser
     }
 
     /// <summary>
-    ///     Prelozi vyraz.
+    /// Prelozi vyraz.
     /// </summary>
     /// <param name="text">Text vyrazu.</param>
     /// <param name="context">Kontext prekladu (urcuje prijimane konstanty).</param>

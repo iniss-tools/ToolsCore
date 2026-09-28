@@ -15,7 +15,7 @@ namespace ToolsCore.Tools;
 public static class Utils
 {
     /// <summary>
-    ///     Skonveruje pole bytov kodovany v ANSI (Windows 1250) na UTF8.
+    /// Skonveruje pole bytov kodovany v ANSI (Windows 1250) na UTF8.
     /// </summary>
     /// <param name="data">Pole bytov.</param>
     /// <returns>skonverovane pole bytov.</returns>
@@ -30,7 +30,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Skonvertuje retazec kodovany v ANSI (Windows 1250) na UTF8.
+    /// Skonvertuje retazec kodovany v ANSI (Windows 1250) na UTF8.
     /// </summary>
     /// <param name="data">Retazec.</param>
     /// <returns>skonvetovany retazec.</returns>
@@ -45,7 +45,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Skonveruje pole bytov kodovany v UTF8 na ANSI (Windows 1250).
+    /// Skonveruje pole bytov kodovany v UTF8 na ANSI (Windows 1250).
     /// </summary>
     /// <param name="data">Pole bytov.</param>
     /// <returns>skonverovane pole bytov.</returns>
@@ -60,7 +60,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Skonvertuje retazec kódovaný v UTF8 na ANSI (Windows 1250).
+    /// Skonvertuje retazec kódovaný v UTF8 na ANSI (Windows 1250).
     /// </summary>
     /// <param name="data">Retazec.</param>
     /// <returns>skonvetovany retazec.</returns>
@@ -75,7 +75,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Skombinuje cestu k suborom/priecinkom.
+    /// Skombinuje cestu k suborom/priecinkom.
     /// </summary>
     /// <param name="paths">pole retazcov s cestami k suborom/priecinkom.</param>
     /// <returns>skombinovanú cestu.</returns>
@@ -94,8 +94,8 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Vrati cestu k projektu zadanu ako argument prikazoveho riadka (napr. pri spusteni zo zoznamu odkazov
-    ///     na paneli uloh). Prepinace zacinajuce znakom / alebo - sa preskakuju.
+    /// Vrati cestu k projektu zadanu ako argument prikazoveho riadka (napr. pri spusteni zo zoznamu odkazov
+    /// na paneli uloh). Prepinace zacinajuce znakom / alebo - sa preskakuju.
     /// </summary>
     /// <returns>cesta k projektu alebo <see langword="null"/>, ak nebola zadana.</returns>
     [ExcludeFromCodeCoverage]
@@ -110,14 +110,14 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Otvorí URL, mailto odkaz, súbor alebo priečinok cez asociovaný shell handler (predvolený prehliadač,
-    ///     poštový klient, Prieskumník...).
+    /// Otvorí URL, mailto odkaz, súbor alebo priečinok cez asociovaný shell handler (predvolený prehliadač,
+    /// poštový klient, Prieskumník...).
     /// </summary>
     /// <param name="target">URL, mailto: odkaz, cesta k súboru alebo priečinku.</param>
     public static void OpenShell(string target) => Process.Start(new ProcessStartInfo(target) { UseShellExecute = true });
 
     /// <summary>
-    ///     Reštartuje program.
+    /// Reštartuje program.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public static void RestartApp()
@@ -128,7 +128,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Zobrazi chybovu hlasku s tlacidlom OK a ikonou cerveneho kriza.
+    /// Zobrazi chybovu hlasku s tlacidlom OK a ikonou cerveneho kriza.
     /// </summary>
     /// <param name="text">Text spravy.</param>
     /// <param name="buttons">Tlacidla, ktore sa zobrazia v dialogu.</param>
@@ -140,7 +140,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Zobrazi dialog s otazkou a ikonou bieleho otaznika v modrom kruhu.
+    /// Zobrazi dialog s otazkou a ikonou bieleho otaznika v modrom kruhu.
     /// </summary>
     /// <param name="text">Text spravy.</param>
     /// <param name="buttons">Tlacidla, ktore sa zobrazia v dialogu.</param>
@@ -152,7 +152,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Zobrazi dialog s varovanim a ikonou cierneho vykricnika v zltom trojuholniku.
+    /// Zobrazi dialog s varovanim a ikonou cierneho vykricnika v zltom trojuholniku.
     /// </summary>
     /// <param name="text">Text spravy.</param>
     /// <param name="buttons">Tlacidla, ktore sa zobrazia v dialogu.</param>
@@ -164,7 +164,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Zobrazí dialog s informaciou a ikonou bieleho pismena 'i' v modrom kruhu.
+    /// Zobrazí dialog s informaciou a ikonou bieleho pismena 'i' v modrom kruhu.
     /// </summary>
     /// <param name="text">Text spravy.</param>
     /// <param name="title">Titulok dialogu.</param>
@@ -177,7 +177,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Konvertuje dlzku zvuku v milisekundach (ms) to textovej podoby "mm:ss".
+    /// Konvertuje dlzku zvuku v milisekundach (ms) to textovej podoby "mm:ss".
     /// </summary>
     /// <param name="len">Dlzka zvuku v ms.</param>
     /// <returns>textovu podobu dlzky zvuku vo formate "mm:ss".</returns>
@@ -193,7 +193,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Konvertuje dlzku zvuku v textovej podobe "m:ss"/"mm:ss"/"h:mm:ss" do trvania ako cislo v milisekundach (ms).
+    /// Konvertuje dlzku zvuku v textovej podobe "m:ss"/"mm:ss"/"h:mm:ss" do trvania ako cislo v milisekundach (ms).
     /// </summary>
     /// <param name="text">textovu podobu dlzky zvuku vo formate "mm:ss".</param>
     /// <returns>Dlzka zvuku v ms.</returns>
@@ -212,8 +212,8 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Vráti čislo ako reťazec doplnené o určitý počet 0 na začiatok. <br></br>
-    ///     Ak je pocet cifier menší ako 1, vráti číslo ako reťazec (bez žiadnych 0 pred začiatkom).
+    /// Vráti čislo ako reťazec doplnené o určitý počet 0 na začiatok. <br></br>
+    /// Ak je pocet cifier menší ako 1, vráti číslo ako reťazec (bez žiadnych 0 pred začiatkom).
     /// </summary>
     /// <param name="num">Cislo.</param>
     /// <param name="pocetCifier">Pocet cifier.</param>
@@ -229,14 +229,14 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Zistí, či je zadaná hodnota v reťazci celé číslo (<see cref="int"/>).
+    /// Zistí, či je zadaná hodnota v reťazci celé číslo (<see cref="int"/>).
     /// </summary>
     /// <param name="num">Retazec s moznym cislom.</param>
     /// <returns>ci sa retazec da konverovat na cislo.</returns>
     public static bool IsInt(string num) => int.TryParse(num, out _);
 
     /// <summary>
-    ///     Vrati skonverované číslo z retazca, alebo ak sa nedal retazec skonvertovat vrati nastavenu predvolenu hodnotu.
+    /// Vrati skonverované číslo z retazca, alebo ak sa nedal retazec skonvertovat vrati nastavenu predvolenu hodnotu.
     /// </summary>
     /// <param name="nums">Retazec s moznym cislom.</param>
     /// <param name="def">Predvolena hodnota.</param>
@@ -244,8 +244,8 @@ public static class Utils
     public static int ParseIntOrDefault(string? nums, int def = 0) => int.TryParse(nums, out var numi) ? numi : def;
 
     /// <summary>
-    ///     Vráti skonvertované číslo z retazca,
-    ///     alebo ak sa nedal retazec skonvertovat vrati nastavenu predvolenu hodnotu (<see langword="null"/>).
+    /// Vráti skonvertované číslo z retazca,
+    /// alebo ak sa nedal retazec skonvertovat vrati nastavenu predvolenu hodnotu (<see langword="null"/>).
     /// </summary>
     /// <param name="nums">Retazec s moznym cislom.</param>
     /// <param name="def">Predvolena hodnota.</param>
@@ -253,7 +253,7 @@ public static class Utils
     public static int? ParseIntOrNull(string? nums, int? def = null) => int.TryParse(nums, out var numi) ? numi : def;
 
     /// <summary>
-    ///     Vrati retazec, ak je retazec <see langword="null" />, vrati predvoleny retazec.
+    /// Vrati retazec, ak je retazec <see langword="null" />, vrati predvoleny retazec.
     /// </summary>
     /// <param name="str">Retazec.</param>
     /// <param name="def">Predvoleny retazec.</param>
@@ -261,7 +261,7 @@ public static class Utils
     public static string ParseStringOrDefault(string? str, string def = "") => str ?? def;
 
     /// <summary>
-    ///     Vrati pole bitov ako <see cref="string"/>.
+    /// Vrati pole bitov ako <see cref="string"/>.
     /// </summary>
     /// <param name="bits">Pole bitov.</param>
     /// <returns>pole bitov ako <see cref="string"/>.</returns>
@@ -279,7 +279,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Konvertuje pole bitov (ako <see cref="string"/>) ako pole bitov <see cref="BitArray"/>.
+    /// Konvertuje pole bitov (ako <see cref="string"/>) ako pole bitov <see cref="BitArray"/>.
     /// </summary>
     /// <param name="bits">Pole bitov.</param>
     /// <returns>pole bitov ako <see cref="BitArray"/>.</returns>
@@ -292,35 +292,35 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Vrati retazec v uvodzovkach. Ak je text <see langword="null"/>, vrati "\"\"".
+    /// Vrati retazec v uvodzovkach. Ak je text <see langword="null"/>, vrati "\"\"".
     /// </summary>
     /// <param name="text">Povodny retazec.</param>
     /// <returns>retazec v uvodzovkach.</returns>
     public static string Quote(this string text) => text == null ? "\"\"" : $"\"{text}\"";
 
     /// <summary>
-    ///     Vrati 1 pre <see langword="true"/>, 0 pre <see langword="false"/>.
+    /// Vrati 1 pre <see langword="true"/>, 0 pre <see langword="false"/>.
     /// </summary>
     /// <param name="hodnota">Hodnota <see langword="true"/> alebo <see langword="false"/>.</param>
     /// <returns>0 alebo 1.</returns>
     public static int ToNumber(this bool hodnota) => hodnota ? 1 : 0;
 
     /// <summary>
-    ///     Vrati <see langword="false"/> pre 0, inak vrati 1.
+    /// Vrati <see langword="false"/> pre 0, inak vrati 1.
     /// </summary>
     /// <param name="hodnota">Hodnota ako cislo.</param>
     /// <returns><see langword="true"/> alebo <see langword="false"/>.</returns>
     public static bool ToBool(this int hodnota) => hodnota != 0;
 
     /// <summary>
-    ///     Vrati farbu zadanu v hexadecimalnom tvare (BGR) z objektu <see cref="Color"/>.
+    /// Vrati farbu zadanu v hexadecimalnom tvare (BGR) z objektu <see cref="Color"/>.
     /// </summary>
     /// <param name="c">Farbu <see cref="Color"/>.</param>
     /// <returns>farba v hexadecimalnom tvare.</returns>
     public static string ToHex(this Color c) => "0x" + c.B.ToString("X2") + c.G.ToString("X2") + c.R.ToString("X2");
 
     /// <summary>
-    ///     Vrati objekt Color z farby zadanej hexadecimalnou hodnotou (BGR).
+    /// Vrati objekt Color z farby zadanej hexadecimalnou hodnotou (BGR).
     /// </summary>
     /// <param name="hex">Farba v hexadecimalnom tvare.</param>
     /// <returns>farbu <see cref="Color"/>.</returns>
@@ -336,7 +336,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Vrati objekt Color z farby zadanej hexadecimalnou hodnotou (BGR) alebo <see langword="null"/>.
+    /// Vrati objekt Color z farby zadanej hexadecimalnou hodnotou (BGR) alebo <see langword="null"/>.
     /// </summary>
     /// <param name="hex">Farba v hexadecimalnom tvare.</param>
     /// <returns>farbu <see cref="Color"/> alebo <see langword="null"/>, ak konvertovanie neprebehlo uspesne.</returns>
@@ -347,7 +347,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Vrati zoznam vsetkych systemovych fontov.
+    /// Vrati zoznam vsetkych systemovych fontov.
     /// </summary>
     /// <returns>zoznam systemovych fontov.</returns>
     public static List<string> GetSystemFontNames()
@@ -361,7 +361,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Zisti, ci je <see cref="Font"/> <paramref name="ft"/> neproporcionalny.
+    /// Zisti, ci je <see cref="Font"/> <paramref name="ft"/> neproporcionalny.
     /// </summary>
     /// <param name="g">Grafika, na ktorej sa bude testovat proporcialnost.</param>
     /// <param name="ft">Pismo na otestovanie.</param>
@@ -381,7 +381,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Zisti, ci zoznam obsahuje vsetky prvky ineho zoznamu.
+    /// Zisti, ci zoznam obsahuje vsetky prvky ineho zoznamu.
     /// </summary>
     /// <param name="containingList">Vacsi zoznam, ktory kontrolujeme.</param>
     /// <param name="lookupList">Zoznam, ktory treba vyhladat v zozname.</param>
@@ -389,9 +389,9 @@ public static class Utils
     public static bool ContainsAllItems<T>(this IEnumerable<T> containingList, IEnumerable<T> lookupList) => !lookupList.Except(containingList).Any();
 
     /// <summary>
-    ///     Vrati retazec, ktory sa nachadza na pozicii <paramref name="index"/> pola/listu <paramref name="source"/>.<br></br>
-    ///     Ak je <paramref name="index"/> mimo rozsahu pola alebo je retazec na indexe
-    ///     <see langword="null"/>, vrati predvoleny retazec urceny parametrom <paramref name="def"/>.
+    /// Vrati retazec, ktory sa nachadza na pozicii <paramref name="index"/> pola/listu <paramref name="source"/>.<br></br>
+    /// Ak je <paramref name="index"/> mimo rozsahu pola alebo je retazec na indexe
+    /// <see langword="null"/>, vrati predvoleny retazec urceny parametrom <paramref name="def"/>.
     /// </summary>
     /// <param name="source">Pole/list retazcov.</param>
     /// <param name="index">Pozicia prvku.</param>
@@ -400,7 +400,7 @@ public static class Utils
     public static string ElementAtOrDefaultStr(this IEnumerable<string> source, int index, string def = "") => source.ElementAtOrDefault(index) ?? def;
 
     /// <summary>
-    ///     Kopiruje obsah priecinka, ak je aspon 1 z parametov <see cref="string.Empty"/> alebo <see langword="null"/>, nic sa nevykona.
+    /// Kopiruje obsah priecinka, ak je aspon 1 z parametov <see cref="string.Empty"/> alebo <see langword="null"/>, nic sa nevykona.
     /// </summary>
     /// <param name="sourcePath">zdrojovy priecinok</param>
     /// <param name="destinationPath">cielovy priecinok</param>
@@ -418,7 +418,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Vrati nazov priecinka.
+    /// Vrati nazov priecinka.
     /// </summary>
     /// <returns>nazov priecinka alebo <see langword="null"/> ak je vstup <see langword="null"/> alebo <see cref="string.Empty"/>.</returns>
     public static string? GetDirectoryName(string path)
@@ -429,7 +429,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Skontroluje, či zadaná klávesová stkratka je správna.
+    /// Skontroluje, či zadaná klávesová stkratka je správna.
     /// </summary>
     /// <param name="keys">klávesy</param>
     /// <returns></returns>
@@ -440,8 +440,8 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Odstrani diakritiku z retazca text. <br></br>
-    ///     Source: https://stackoverflow.com/a/37070320/14438039
+    /// Odstrani diakritiku z retazca text. <br></br>
+    /// Source: https://stackoverflow.com/a/37070320/14438039
     /// </summary>
     /// <param name="text">Text.</param>
     /// <returns>text bez diakritiky.</returns>
@@ -464,7 +464,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Prevedie reťazec <paramref name="text"/>, ktorý je vo formáte dátumu (dd.MM.yyyy) na <see cref="DateTime"/>.
+    /// Prevedie reťazec <paramref name="text"/>, ktorý je vo formáte dátumu (dd.MM.yyyy) na <see cref="DateTime"/>.
     /// </summary>
     /// <param name="text">Retazec s datumom.</param>
     /// <returns>datum vo forme objektu typu <see cref="DateTime"/>.</returns>
@@ -476,8 +476,8 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Prevedie reťazec <paramref name="text"/> na <see cref="DateTime"/>, pričom reťazec musí byť vo formáte:
-    ///     dd.MM.yyyy / d.MM.yyyy / d.M.yyyy / dd.M.yyyy .
+    /// Prevedie reťazec <paramref name="text"/> na <see cref="DateTime"/>, pričom reťazec musí byť vo formáte:
+    /// dd.MM.yyyy / d.MM.yyyy / d.M.yyyy / dd.M.yyyy .
     /// </summary>
     /// <param name="text">Retazec s datumom.</param>
     /// <returns>datum vo forme objektu typu <see cref="DateTime"/>.</returns>
@@ -490,7 +490,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Prevedie reťazec <paramref name="text"/>, ktorý je vo formáte času (HH:mm / H:mm) na <see cref="DateTime"/>.
+    /// Prevedie reťazec <paramref name="text"/>, ktorý je vo formáte času (HH:mm / H:mm) na <see cref="DateTime"/>.
     /// </summary>
     /// <param name="text">Retazec s casom.</param>
     /// <returns>cas vo forme objektu typu <see cref="DateTime"/>.</returns>
@@ -505,7 +505,7 @@ public static class Utils
     private static readonly string[] TimeFormats = ["HH:mm", "H:mm"];
 
     /// <summary>
-    ///     Skúsi previesť reťazec <paramref name="text"/>, ktorý je vo formáte času (HH:mm / H:mm) na <see cref="DateTime"/>.
+    /// Skúsi previesť reťazec <paramref name="text"/>, ktorý je vo formáte času (HH:mm / H:mm) na <see cref="DateTime"/>.
     /// </summary>
     /// <param name="text">Retazec s casom.</param>
     /// <param name="time">Cas vo forme objektu typu <see cref="DateTime"/> ak sa prevod podari, inak obsahuje <see cref="DateTime.MinValue"/>.</param>
@@ -523,8 +523,8 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Skúsi previesť reťazec na DateTime, pričom reťazec musí byť vo formáte:
-    ///     dd.MM.yyyy / d.MM.yyyy / d.M.yyyy / dd.M.yyyy .
+    /// Skúsi previesť reťazec na DateTime, pričom reťazec musí byť vo formáte:
+    /// dd.MM.yyyy / d.MM.yyyy / d.M.yyyy / dd.M.yyyy .
     /// </summary>
     /// <param name="text">Retazec s datumom.</param>
     /// <param name="date">Datum vo forme objektu typu <see cref="DateTime"/> ak sa prevod podari, inak obsahuje <see cref="DateTime.MinValue"/>.</param>
@@ -542,7 +542,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Zisti, ci zadanany retazec <paramref name="str"/> je vo formate casu.
+    /// Zisti, ci zadanany retazec <paramref name="str"/> je vo formate casu.
     /// </summary>
     /// <param name="str">Retazec na testovanie.</param>
     /// <returns></returns>
@@ -561,7 +561,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Porovna retazce, pricom ignoruje velkost pismen (VELKE/male).
+    /// Porovna retazce, pricom ignoruje velkost pismen (VELKE/male).
     /// </summary>
     /// <param name="str1">Prvy retazec na porovnavanie.</param>
     /// <param name="str2">Druhy retazec na porovnavanie.</param>
@@ -569,7 +569,7 @@ public static class Utils
     public static bool EqualsIgnoreCase(this string str1, string str2) => str1 != null && str1.Equals(str2, StringComparison.CurrentCultureIgnoreCase);
 
     /// <summary>
-    ///     Zisti, ci je riadok prazdny alebo obsahuje komentar alebo zacina mriezkou (#) (pouzitie v: <see cref="CsvRow"/>).
+    /// Zisti, ci je riadok prazdny alebo obsahuje komentar alebo zacina mriezkou (#) (pouzitie v: <see cref="CsvRow"/>).
     /// </summary>
     /// <param name="ch">Typ zaciatku riadku.</param>
     /// <returns>Ci je riadok prazdny alebo obsahuje komentar alebo zacina mriezkou (#).</returns>
@@ -577,7 +577,7 @@ public static class Utils
     public static bool LineIsEmpty(ReadStartChar ch) => ch is ReadStartChar.Semicolon or ReadStartChar.Empty or ReadStartChar.Slash;
 
     /// <summary>
-    ///     Zisti, ci je riadok posledny (pouzitie v: <see cref="CsvRow"/>)
+    /// Zisti, ci je riadok posledny (pouzitie v: <see cref="CsvRow"/>)
     /// </summary>
     /// <param name="ch">Typ zaciatku riadku.</param>
     /// <returns>Ci riadok obsahuje koniec suboru (EOF).</returns>
@@ -585,24 +585,24 @@ public static class Utils
     public static bool LineIsEOF(ReadStartChar ch) => ch == ReadStartChar.Eof;
 
     /// <summary>
-    ///     Returns a new string in which all occurrences of a specified string in the current instance are replaced with
-    ///     another
-    ///     specified string according the type of search to use for the specified string.<br></br>
-    ///     Source: https://stackoverflow.com/questions/6275980/string-replace-ignoring-case
+    /// Returns a new string in which all occurrences of a specified string in the current instance are replaced with
+    /// another
+    /// specified string according the type of search to use for the specified string.<br></br>
+    /// Source: https://stackoverflow.com/questions/6275980/string-replace-ignoring-case
     /// </summary>
     /// <param name="str">The string performing the replace method.</param>
     /// <param name="oldValue">The string to be replaced.</param>
     /// <param name="newValue">
-    ///     The string replace all occurrences of <paramref name="oldValue" />.
-    ///     If value is equal to <c>null</c>, than all occurrences of <paramref name="oldValue" /> will be removed from the
-    ///     <paramref name="str" />.
+    /// The string replace all occurrences of <paramref name="oldValue" />.
+    /// If value is equal to <c>null</c>, than all occurrences of <paramref name="oldValue" /> will be removed from the
+    /// <paramref name="str" />.
     /// </param>
     /// <param name="comparisonType">One of the enumeration values that specifies the rules for the search.</param>
     /// <returns>
-    ///     A string that is equivalent to the current string except that all instances of <paramref name="oldValue" /> are
-    ///     replaced with <paramref name="newValue" />.
-    ///     If <paramref name="oldValue" /> is not found in the current instance, the method returns the current instance
-    ///     unchanged.
+    /// A string that is equivalent to the current string except that all instances of <paramref name="oldValue" /> are
+    /// replaced with <paramref name="newValue" />.
+    /// If <paramref name="oldValue" /> is not found in the current instance, the method returns the current instance
+    /// unchanged.
     /// </returns>
     public static string Replace(this string str, string oldValue, string newValue, StringComparison comparisonType)
     {
@@ -660,7 +660,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Vytvori relativnu cestu k suboru <paramref name="filePath"/> podla absolutnej cesty <paramref name="folderPath"/>.
+    /// Vytvori relativnu cestu k suboru <paramref name="filePath"/> podla absolutnej cesty <paramref name="folderPath"/>.
     /// </summary>
     /// <param name="filePath">Absolutna cesta k suboru.</param>
     /// <param name="folderPath">Cesta k priecinku, od ktoreho sa bude brat cesta k suboru ako relativna.</param>
@@ -678,7 +678,7 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Odstrani subor a premiestni ho do kosa (recycle bin).
+    /// Odstrani subor a premiestni ho do kosa (recycle bin).
     /// </summary>
     /// <param name="path">cesta k suboru</param>
     /// /// <param name="allDialogs"></param>
@@ -686,7 +686,7 @@ public static class Utils
         => FileSystem.DeleteFile(path, allDialogs ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
 
     /// <summary>
-    ///     Odstrani priecinok a premiestni ho do kosa (recycle bin).
+    /// Odstrani priecinok a premiestni ho do kosa (recycle bin).
     /// </summary>
     /// <param name="path">cesta k suboru</param>
     /// <param name="allDialogs"></param>
@@ -694,7 +694,7 @@ public static class Utils
         => FileSystem.DeleteDirectory(path, allDialogs ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
 
     /// <summary>
-    ///     Pokusi sa obnovit subor/priecinok, ktory bol premiestneneny do kosa (recycle bin).
+    /// Pokusi sa obnovit subor/priecinok, ktory bol premiestneneny do kosa (recycle bin).
     /// </summary>
     /// <param name="fullPath">povodna cesta k suboru</param>
     /// <returns>ci sa podarilo obnovit subor/priecinok</returns>
@@ -709,14 +709,14 @@ public static class Utils
     }
 
     /// <summary>
-    ///     Zisti, ci je v DGV vybrany aspon 1 riadok.
+    /// Zisti, ci je v DGV vybrany aspon 1 riadok.
     /// </summary>
     /// <param name="dgv"></param>
     /// <returns></returns>
     public static bool IsSelectionEmpty(this DataGridView dgv) => dgv.SelectedRows.Count == 0;
 
     /// <summary>
-    ///     Zisti, ci zadany nazov suboru/priecinka je platny.
+    /// Zisti, ci zadany nazov suboru/priecinka je platny.
     /// </summary>
     /// <param name="fullPath"></param>
     /// <param name="fileName"></param>
@@ -744,32 +744,32 @@ public static class Utils
 }
 
 /// <summary>
-///     Typ znaku na zaciatku riadku.
+/// Typ znaku na zaciatku riadku.
 /// </summary>
 public enum ReadStartChar
 {
     /// <summary>
-    ///     Neprazdny riadok.
+    /// Neprazdny riadok.
     /// </summary>
     NonEmpty,
 
     /// <summary>
-    ///     Prazdny riadok.
+    /// Prazdny riadok.
     /// </summary>
     Empty,
 
     /// <summary>
-    ///     Bodkociarka.
+    /// Bodkociarka.
     /// </summary>
     Semicolon,
 
     /// <summary>
-    ///     Mriezka (#).
+    /// Mriezka (#).
     /// </summary>
     Slash,
 
     /// <summary>
-    ///     Znak konca suboru.
+    /// Znak konca suboru.
     /// </summary>
     Eof
 }

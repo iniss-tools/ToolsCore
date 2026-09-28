@@ -1,7 +1,7 @@
 namespace ToolsCore.Expressions;
 
 /// <summary>
-///     Nastavenia semantickej kontroly.
+/// Nastavenia semantickej kontroly.
 /// </summary>
 public sealed class ExprValidationOptions
 {
@@ -19,7 +19,7 @@ public sealed class ExprValidationOptions
 }
 
 /// <summary>
-///     Vysledok prekladu a kontroly.
+/// Vysledok prekladu a kontroly.
 /// </summary>
 /// <param name="Parse">Vysledok prekladu.</param>
 /// <param name="Diagnostics">Vsetky hlasenia - chyba prekladu alebo semanticke kontroly.</param>
@@ -39,13 +39,13 @@ public sealed record ExprValidationResult(ExprParseResult Parse, IReadOnlyList<E
 }
 
 /// <summary>
-///     Prelozi vyraz a nad stromom vykona kontroly, ktore INISS nerobi, ale ktore odhalia
-///     typicke omyly (preklepy v ID stanic, porovnanie masky s cislom, priorita spojok …).
+/// Prelozi vyraz a nad stromom vykona kontroly, ktore INISS nerobi, ale ktore odhalia
+/// typicke omyly (preklepy v ID stanic, porovnanie masky s cislom, priorita spojok …).
 /// </summary>
 public static class ExprValidator
 {
     /// <summary>
-    ///     Prelozi a skontroluje vyraz.
+    /// Prelozi a skontroluje vyraz.
     /// </summary>
     public static ExprValidationResult Validate(string text, ExprValidationOptions? options = null)
     {
@@ -237,7 +237,7 @@ public static class ExprValidator
         }
 
         /// <summary>
-        ///     Ci pri <c>a op1 (b op2 c)</c> zalezi na tom, ze INISS viaze sprava (lava asociativita by dala iny vysledok).
+        /// Ci pri <c>a op1 (b op2 c)</c> zalezi na tom, ze INISS viaze sprava (lava asociativita by dala iny vysledok).
         /// </summary>
         private static bool IsOrderSensitive(ExprTokenKind outer, ExprTokenKind inner) => outer switch
         {

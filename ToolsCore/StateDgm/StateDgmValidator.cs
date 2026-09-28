@@ -3,7 +3,7 @@ using ToolsCore.Expressions;
 namespace ToolsCore.StateDgm;
 
 /// <summary>
-///     Kody kontrol stavoveho diagramu.
+/// Kody kontrol stavoveho diagramu.
 /// </summary>
 public enum StateDgmDiagnosticCode
 {
@@ -99,7 +99,7 @@ public enum StateDgmDiagnosticCode
 }
 
 /// <summary>
-///     Druh prvku, na ktory sa hlasenie viaze.
+/// Druh prvku, na ktory sa hlasenie viaze.
 /// </summary>
 public enum StateDgmElementKind
 {
@@ -114,7 +114,7 @@ public enum StateDgmElementKind
 }
 
 /// <summary>
-///     Umiestnenie hlasenia v diagrame (indexy do zoznamov modelu), aby sa dalo v editore preskocit na prvok.
+/// Umiestnenie hlasenia v diagrame (indexy do zoznamov modelu), aby sa dalo v editore preskocit na prvok.
 /// </summary>
 /// <param name="Kind">Druh prvku.</param>
 /// <param name="Category">Index kategorie alebo -1.</param>
@@ -127,7 +127,7 @@ public readonly record struct StateDgmLocation(StateDgmElementKind Kind, int Cat
 }
 
 /// <summary>
-///     Hlasenie kontroly diagramu.
+/// Hlasenie kontroly diagramu.
 /// </summary>
 public sealed record StateDgmDiagnostic(ExprSeverity Severity, StateDgmDiagnosticCode Code, string Message, StateDgmLocation Location)
 {
@@ -148,7 +148,7 @@ public sealed record StateDgmDiagnostic(ExprSeverity Severity, StateDgmDiagnosti
 }
 
 /// <summary>
-///     Nastavenie kontroly.
+/// Nastavenie kontroly.
 /// </summary>
 public sealed class StateDgmValidationOptions
 {
@@ -166,13 +166,13 @@ public sealed class StateDgmValidationOptions
 }
 
 /// <summary>
-///     Kontrola stavoveho diagramu - to, co by INISS pri nacitani odmietol (chyby), a to, co by sa spravalo
-///     inak, nez autor zrejme chcel (upozornenia).
+/// Kontrola stavoveho diagramu - to, co by INISS pri nacitani odmietol (chyby), a to, co by sa spravalo
+/// inak, nez autor zrejme chcel (upozornenia).
 /// </summary>
 public static class StateDgmValidator
 {
     /// <summary>
-    ///     Skontroluje diagram.
+    /// Skontroluje diagram.
     /// </summary>
     public static List<StateDgmDiagnostic> Validate(StateDgmDiagram d, StateDgmValidationOptions? options = null)
     {

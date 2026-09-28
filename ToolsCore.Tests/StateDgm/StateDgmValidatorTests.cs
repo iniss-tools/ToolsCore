@@ -7,7 +7,7 @@ using ToolsCore.Tests.Expressions;
 namespace ToolsCore.Tests.StateDgm;
 
 /// <summary>
-///     Kontrola diagramu - realne subory bez chyb, umele chyby najdene.
+/// Kontrola diagramu - realne subory bez chyb, umele chyby najdene.
 /// </summary>
 [TestClass]
 [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]

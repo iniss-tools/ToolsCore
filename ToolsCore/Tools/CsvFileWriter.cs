@@ -1,7 +1,7 @@
 ﻿namespace ToolsCore.Tools;
 
 /// <summary>
-///     Trieda pre ulozenie dat do textoveho suboru.
+/// Trieda pre ulozenie dat do textoveho suboru.
 /// </summary>
 public class CsvFileWriter : StreamWriter
 {
@@ -11,7 +11,7 @@ public class CsvFileWriter : StreamWriter
     }
 
     /// <summary>
-    ///     Zapise jeden riadok do suboru.
+    /// Zapise jeden riadok do suboru.
     /// </summary>
     /// <param name="row">Riadok k zapisaniu.</param>
     public void WriteRow(CsvRow row)
@@ -33,7 +33,7 @@ public class CsvFileWriter : StreamWriter
     }
 
     /// <summary>
-    ///     Zapise komentar do suboru.
+    /// Zapise komentar do suboru.
     /// </summary>
     /// <param name="row">Komentar k zapisaniu.</param>
     /// <param name="commentIndicator">Indikator komentaru, ktory sa zadava do suboru pred komentar.</param>
