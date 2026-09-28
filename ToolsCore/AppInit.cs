@@ -29,8 +29,13 @@ public static class AppInit
         }
     }
 
-    public static void Initialization<TC,TS>(out TC config, out Styles<TS> styles, out TS usingStyle) 
-        where TC: ConfigBase, new() where TS : Style
+    /// <summary>
+    /// Pripravi program na spustenie: log, konfiguraciu a styly (poskodene nahradi predvolenymi), jazyk, vzhlad
+    /// MessageBoxov a kontrolu duplicitnej instancie.
+    /// </summary>
+    /// <returns>nastavenia programu platne po cely jeho beh</returns>
+    public static AppSession<TC, TS> Initialization<TC, TS>()
+        where TC : ConfigBase, new() where TS : Style
     {
         //Nastavenie cesty, kde sa budu ukladat logovacie subory - musi byt prve,
         //aby uz aj chyba pri nacitani konfiguracie mala kam zapisat
@@ -45,7 +50,7 @@ public static class AppInit
         var resetFiles = new List<string>();
 
         //nacitanie konfiguracneho suboru CONFIG.XML
-        config = ReadOrReset(Utils.CombinePath(configsDir, FileConsts.FILE_CONFIG)!, XmlSerialization.ReadData<TC>, resetFiles);
+        var config = ReadOrReset(Utils.CombinePath(configsDir, FileConsts.FILE_CONFIG)!, XmlSerialization.ReadData<TC>, resetFiles);
         GlobSettings.Fonts = config.Fonts;
 
         // Predvolene pismo aplikacie = pismo formularov z konfiguracie. Formulare (AutoScaleDimensions podla pisma
@@ -58,8 +63,8 @@ public static class AppInit
         Log.DoErrorLogs = config.LoggingError;
 
         //nacitanie suboru so stylmi STYLES.XML
-        styles = ReadOrReset(Utils.CombinePath(configsDir, FileConsts.FILE_STYLES)!, Styles<TS>.ReadData, resetFiles);
-        usingStyle = styles.FirstOrDefault(s => s.Used) ?? styles.First();
+        var styles = ReadOrReset(Utils.CombinePath(configsDir, FileConsts.FILE_STYLES)!, Styles<TS>.ReadData, resetFiles);
+        var usingStyle = styles.FirstOrDefault(s => s.Used) ?? styles.First();
         GlobSettings.UsingStyle = usingStyle;
 
         //Nastavenie dizajnu ovladacich prvkov
@@ -118,6 +123,7 @@ public static class AppInit
 
         // oznamenie az v Run - okno vytvorene teraz by uz nedovolilo nastavit sposob spracovania vynimiek
         _resetFiles = resetFiles;
+        return new AppSession<TC, TS>(config, styles, usingStyle);
     }
 
     // subory, ktore boli pri spusteni poskodene a nahradili sa predvolenymi
