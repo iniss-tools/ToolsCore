@@ -69,7 +69,7 @@ public class StateDgmTemplateTests
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
         // novy grafikon dostane Categori.txt z ReportType.GetDefaultValuesSK(); KEY je prvy argument konstruktora
-        var src = File.ReadAllText(Path.Combine(dir, "..", "Entities", "ReportType.cs"));
+        var src = File.ReadAllText(Path.Combine(dir, "..", "Domain", "Entities", "ReportType.cs"));
         var keys = Regex.Matches(src, @"public static readonly ReportType \w+ = new\(""([^""]*)"", ""([^""]*)""")
             .ToDictionary(m => m.Groups[1].Value, m => m.Groups[2].Value);
         Assert.AreEqual(5, keys.Count);

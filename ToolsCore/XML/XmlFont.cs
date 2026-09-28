@@ -26,9 +26,9 @@ public class XmlFont
         _font = f;
 
         FontFamily = f.FontFamily.Name;
-        Unit = (GraphicsUnit)(int)f.Unit;
+        Unit = (XmlGraphicsUnit)(int)f.Unit;
         Size = f.Size;
-        Style = (FontStyle)(int)f.Style;
+        Style = (XmlFontStyle)(int)f.Style;
         GdiCharSet = f.GdiCharSet;
     }
 
@@ -42,7 +42,7 @@ public class XmlFont
     ///     Jednotka veľkosti písma.
     /// </summary>
     [XmlAttribute("gunit")]
-    public GraphicsUnit Unit { get; set; }
+    public XmlGraphicsUnit Unit { get; set; }
 
     /// <summary>
     ///     Veľkosť písma.
@@ -54,7 +54,7 @@ public class XmlFont
     ///     Štýl písma.
     /// </summary>
     [XmlAttribute("style")]
-    public FontStyle Style { get; set; }
+    public XmlFontStyle Style { get; set; }
 
     /// <summary>
     ///     Char set písma.
@@ -90,13 +90,13 @@ public class XmlFont
     /// <param name="x"></param>
     /// <returns></returns>
     public static Font ToFont(XmlFont x) =>
-        new(x.FontFamily, x.Size, (System.Drawing.FontStyle)(int)x.Style, (System.Drawing.GraphicsUnit)(int)x.Unit, x.GdiCharSet);
+        new(x.FontFamily, x.Size, (FontStyle)(int)x.Style, (GraphicsUnit)(int)x.Unit, x.GdiCharSet);
 
     /// <summary>
-    ///     Štýl písma.
+    ///     Štýl písma (hodnoty <see cref="FontStyle" /> so skratkami do XML).
     /// </summary>
     [Flags]
-    public enum FontStyle
+    public enum XmlFontStyle
     {
         /// <summary>
         ///     Obyčajné písmo.
@@ -125,9 +125,9 @@ public class XmlFont
     }
 
     /// <summary>
-    ///     Jednotka veľkosti písma.
+    ///     Jednotka veľkosti písma (hodnoty <see cref="GraphicsUnit" /> so skratkami do XML).
     /// </summary>
-    public enum GraphicsUnit
+    public enum XmlGraphicsUnit
     {
         /// <summary>Specifies the world coordinate system unit as the unit of measure.</summary>
         [XmlEnum(Name = "world")] World,
