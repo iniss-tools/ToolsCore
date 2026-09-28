@@ -1,3 +1,5 @@
+﻿using System.Globalization;
+
 namespace ToolsCore.Tools;
 
 /// <summary>
@@ -45,9 +47,9 @@ public class TxtPropsAreas
     public void Set(string area, object value)
     {
         if (_dictionary.ContainsKey(area))
-            _dictionary[area] = value.ToString() ?? "";
+            _dictionary[area] = Convert.ToString(value, CultureInfo.InvariantCulture) ?? "";
         else
-            _dictionary.Add(area, value.ToString() ?? "");
+            _dictionary.Add(area, Convert.ToString(value, CultureInfo.InvariantCulture) ?? "");
     }
 
     /// <summary>

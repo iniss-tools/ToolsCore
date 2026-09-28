@@ -26,7 +26,7 @@ public sealed class FyzGroupType : Enumeration<FyzGroupType>
     /// <returns>typ priečinka</returns>
     public new static FyzGroupType Parse(string name)
     {
-        return name.ToUpper() switch
+        return name.ToUpperInvariant() switch
         {
             "C1" => C1,
             "C2" => C2,

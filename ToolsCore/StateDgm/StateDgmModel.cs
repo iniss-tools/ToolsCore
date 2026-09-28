@@ -1,3 +1,4 @@
+using System.Globalization;
 namespace ToolsCore.StateDgm;
 
 /// <summary>
@@ -98,7 +99,7 @@ public sealed class StateDgmDynamic : IEquatable<StateDgmDynamic>
     public bool IsExpression => Expression != null;
 
     /// <summary>Text hodnoty tak, ako sa zobrazi (cislo alebo vyraz).</summary>
-    public string Text => Expression ?? Number!.Value.ToString();
+    public string Text => Expression ?? Number!.Value.ToString(CultureInfo.InvariantCulture);
 
     /// <summary>Ciselna hodnota.</summary>
     public static StateDgmDynamic FromNumber(int n) => new(n, null);

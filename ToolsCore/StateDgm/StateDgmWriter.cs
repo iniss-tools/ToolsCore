@@ -1,3 +1,4 @@
+using System.Globalization;
 namespace ToolsCore.StateDgm;
 
 /// <summary>
@@ -69,7 +70,7 @@ public static class StateDgmWriter
         for (var i = 0; i < d.Designs.Count; i++)
         {
             var des = d.Designs[i];
-            var name = $"{StateDgmKeys.DESIGN}{i + 1}";
+            var name = string.Create(CultureInfo.InvariantCulture, $"{StateDgmKeys.DESIGN}{i + 1}");
             sb.Append('\t').Append("G:\"").Append(name).Append('"').Append(name.Length < 8 ? " " : "").Append('{');
             sb.Append(Str(StateDgmKeys.KEY, des.Key)).Append(Pad(des.Key.Length, keyWidth));
             sb.Append(Str(StateDgmKeys.BITMAPS, des.Bitmaps)).Append(des.Bitmaps.Length < 8 ? "\t\t" : "\t");
@@ -105,13 +106,13 @@ public static class StateDgmWriter
         // bod bez zdrojov (napr. #StartTime) staci na jeden riadok
         if (tp.TimePointKey1.Length == 0 && tp.TimePointKey2.Length == 0 && tp.Extras.Count == 0)
         {
-            sb.Append(t1).Append("G:\"").Append(StateDgmKeys.TIME_POINT).Append(index).Append("\" {").Append(Str(StateDgmKeys.KEY, tp.Key));
+            sb.Append(t1).Append("G:\"").Append(StateDgmKeys.TIME_POINT).Append(index.ToString(CultureInfo.InvariantCulture)).Append("\" {").Append(Str(StateDgmKeys.KEY, tp.Key));
             if (tp.Name.Length > 0) sb.Append('\t').Append(Str(StateDgmKeys.NAME, tp.Name));
             sb.Append('}').Append(NL);
             return;
         }
 
-        sb.Append(t1).Append("G:\"").Append(StateDgmKeys.TIME_POINT).Append(index).Append('"').Append(NL).Append(t1).Append('{').Append(NL);
+        sb.Append(t1).Append("G:\"").Append(StateDgmKeys.TIME_POINT).Append(index.ToString(CultureInfo.InvariantCulture)).Append('"').Append(NL).Append(t1).Append('{').Append(NL);
         sb.Append(t2).Append(Str(StateDgmKeys.KEY, tp.Key)).Append(NL);
         if (tp.Name.Length > 0) sb.Append(t2).Append(Str(StateDgmKeys.NAME, tp.Name)).Append(NL);
         sb.Append(t2).Append(Str(StateDgmKeys.TIME_POINT_KEY1, tp.TimePointKey1)).Append(NL);
@@ -125,7 +126,7 @@ public static class StateDgmWriter
 
     private static void WriteCategory(StringBuilder sb, StateDgmCategory cat, int index)
     {
-        sb.Append("P:\"").Append(StateDgmKeys.CTRLS).Append("\\\\").Append(StateDgmKeys.STATE_DGM).Append("\\\\").Append(StateDgmKeys.CATEGORIE).Append(index).Append('"').Append(NL);
+        sb.Append("P:\"").Append(StateDgmKeys.CTRLS).Append("\\\\").Append(StateDgmKeys.STATE_DGM).Append("\\\\").Append(StateDgmKeys.CATEGORIE).Append(index.ToString(CultureInfo.InvariantCulture)).Append('"').Append(NL);
         sb.Append('{').Append(NL);
         sb.Append('\t').Append(Str(StateDgmKeys.KEY, cat.Key)).Append(NL);
         sb.Append('\t').Append(Str(StateDgmKeys.NAME, cat.Name)).Append(NL);
@@ -141,7 +142,7 @@ public static class StateDgmWriter
     private static void WriteState(StringBuilder sb, StateDgmState s, int index)
     {
         const string t2 = "\t\t";
-        sb.Append('\t').Append("G:\"").Append(StateDgmKeys.STATE).Append(index).Append('"').Append(NL).Append("\t{").Append(NL);
+        sb.Append('\t').Append("G:\"").Append(StateDgmKeys.STATE).Append(index.ToString(CultureInfo.InvariantCulture)).Append('"').Append(NL).Append("\t{").Append(NL);
         sb.Append(t2).Append(Str(StateDgmKeys.KEY, s.Key)).Append(NL);
         if (s.Name.Length > 0) sb.Append(t2).Append(Str(StateDgmKeys.NAME, s.Name)).Append(NL);
         sb.Append(t2).Append(Int(StateDgmKeys.ICON, s.Icon)).Append(NL);
@@ -219,7 +220,7 @@ public static class StateDgmWriter
 
     private static void WriteEvent(StringBuilder sb, StateDgmEvent e, int index, int keyWidth)
     {
-        sb.Append("\t\t").Append("G:\"").Append(StateDgmKeys.EVENT).Append(index).Append("\" {");
+        sb.Append("\t\t").Append("G:\"").Append(StateDgmKeys.EVENT).Append(index.ToString(CultureInfo.InvariantCulture)).Append("\" {");
         sb.Append(Str(StateDgmKeys.KEY, e.Key)).Append(Pad(e.Key.Length, keyWidth));
         if (e.Name != null) sb.Append(Str(StateDgmKeys.NAME, e.Name)).Append('\t');
         if (e.Icon != null) sb.Append(Int(StateDgmKeys.ICON, e.Icon.Value)).Append('\t');
@@ -245,7 +246,7 @@ public static class StateDgmWriter
     private static void WriteStarter(StringBuilder sb, StateDgmStarter s, int index)
     {
         const string t2 = "\t\t", t3 = "\t\t\t";
-        sb.Append(t2).Append("G:\"").Append(StateDgmKeys.STARTER).Append(index).Append("\" {")
+        sb.Append(t2).Append("G:\"").Append(StateDgmKeys.STARTER).Append(index.ToString(CultureInfo.InvariantCulture)).Append("\" {")
             .Append(Str(StateDgmKeys.KEY, s.Key)).Append('\t').Append(Str(StateDgmKeys.EVENT_KEY, s.EventKey)).Append(NL);
         sb.Append(t3).Append(Str(StateDgmKeys.CLASS, s.Class)).Append(NL);
         sb.Append(t3).Append(Str(StateDgmKeys.TIME_POINT_KEY, s.TimePointKey)).Append(NL);
@@ -326,7 +327,7 @@ public static class StateDgmWriter
     public static string Str(string key, string text) => $"S:\"{Escape(key)}\"=\"{Escape(text)}\"";
 
     /// <summary>Zapis <c>I:"kluc"=cislo</c>.</summary>
-    public static string Int(string key, int number) => $"I:\"{Escape(key)}\"={number}";
+    public static string Int(string key, int number) => string.Create(CultureInfo.InvariantCulture, $"I:\"{Escape(key)}\"={number}");
 
     /// <summary>Zapis <c>B:"kluc"=Ano|Ne</c>.</summary>
     public static string Bool(string key, bool flag) => $"B:\"{Escape(key)}\"={(flag ? "Ano" : "Ne")}";
@@ -353,7 +354,7 @@ public static class StateDgmWriter
                 case '\n': sb.Append("\\n"); break;
                 case '\r': sb.Append("\\r"); break;
                 case '\t': sb.Append("\\t"); break;
-                case < ' ': sb.Append("\\x").Append(((int)c).ToString("x2")); break;
+                case < ' ': sb.Append("\\x").Append(((int)c).ToString("x2", CultureInfo.InvariantCulture)); break;
                 default: sb.Append(c); break;
             }
         }
@@ -410,7 +411,7 @@ public static class StateDgmWriter
     {
         var sign = seconds < 0 ? "-" : "+";
         var abs = Math.Abs(seconds);
-        return abs % 60 == 0 ? $"{sign}{abs / 60} min" : $"{sign}{abs} s";
+        return abs % 60 == 0 ? string.Create(CultureInfo.InvariantCulture, $"{sign}{abs / 60} min") : string.Create(CultureInfo.InvariantCulture, $"{sign}{abs} s");
     }
 
     #endregion

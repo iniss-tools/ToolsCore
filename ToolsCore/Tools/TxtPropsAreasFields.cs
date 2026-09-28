@@ -1,4 +1,5 @@
-﻿namespace ToolsCore.Tools;
+﻿using System.Globalization;
+namespace ToolsCore.Tools;
 
 /// <summary>
 /// Trieda reprezentujuca zoznam vlastnosti zorganyzovanych v poliach.
@@ -50,7 +51,7 @@ public class TxtPropsAreasFields
             if (_areas.ContainsKey(area) && _areas[area].ContainsKey(field))
                 return _areas[area][field];
             else
-                throw new ArgumentNullException(nameof(area), string.Format(EX_MESSAGE, _fileName, area, field));
+                throw new ArgumentNullException(nameof(area), string.Format(CultureInfo.InvariantCulture, EX_MESSAGE, _fileName, area, field));
 
         return _areas.ContainsKey(area) && _areas[area].ContainsKey(field) ? _areas[area][field] : null;
     }
@@ -92,7 +93,7 @@ public class TxtPropsAreasFields
             if (value == null)
             {
                 if (type is WriteType.WriteStringANSI or WriteType.WriteStringUTF8)
-                    throw new ArgumentNullException(nameof(area), string.Format(EX_MESSAGE, _fileName, area, field));
+                    throw new ArgumentNullException(nameof(area), string.Format(CultureInfo.InvariantCulture, EX_MESSAGE, _fileName, area, field));
 
                 value = "".Quote();
             }
@@ -109,13 +110,13 @@ public class TxtPropsAreasFields
         if (_areas.ContainsKey(area))
         {
             if (!_areas[area].ContainsKey(field))
-                _areas[area].Add(field, value?.ToString() ?? "");
+                _areas[area].Add(field, Convert.ToString(value, CultureInfo.InvariantCulture) ?? "");
             else
-                _areas[area][field] = value?.ToString() ?? "";
+                _areas[area][field] = Convert.ToString(value, CultureInfo.InvariantCulture) ?? "";
         }
         else
         {
-            var keys = new Dictionary<string, string> { { field, value?.ToString() ?? "" } };
+            var keys = new Dictionary<string, string> { { field, Convert.ToString(value, CultureInfo.InvariantCulture) ?? "" } };
             _areas.Add(area, keys);
         }
     }
@@ -132,15 +133,15 @@ public class TxtPropsAreasFields
             if (_areas.ContainsKey(area))
             {
                 if (!_areas[area].ContainsKey(field))
-                    _areas[area].Add(field, fields[field].ToString() ?? "");
+                    _areas[area].Add(field, Convert.ToString(fields[field], CultureInfo.InvariantCulture) ?? "");
                 else
-                    _areas[area][field] = fields[field].ToString() ?? "";
+                    _areas[area][field] = Convert.ToString(fields[field], CultureInfo.InvariantCulture) ?? "";
             }
             else
             {
                 var keys = new Dictionary<string, string>
                 {
-                    { field, fields[field].ToString() ?? "" }
+                    { field, Convert.ToString(fields[field], CultureInfo.InvariantCulture) ?? "" }
                 };
                 _areas.Add(area, keys);
             }
@@ -210,7 +211,7 @@ public class TxtPropsAreasFields
 
         foreach (var line in File.ReadAllLines(file, Encodings.Win1250))
         {
-            if (!string.IsNullOrEmpty(line) && !line.StartsWithAny(';','#', '\'') && line.StartsWith("[") && line.EndsWith("]"))
+            if (!string.IsNullOrEmpty(line) && !line.StartsWithAny(';','#', '\'') && line.StartsWith("[", StringComparison.Ordinal) && line.EndsWith("]", StringComparison.Ordinal))
             {
                 if (propInArea.Count != 0 || !string.IsNullOrEmpty(actualArea))
                 {
@@ -223,23 +224,23 @@ public class TxtPropsAreasFields
                 actualArea = s.Replace("]", "");
                 comments = new StringBuilder();
             }
-            else if (!string.IsNullOrEmpty(line) && line.StartsWith(";"))
+            else if (!string.IsNullOrEmpty(line) && line.StartsWith(";", StringComparison.Ordinal))
             {
                 comments.AppendLine(line.Substring(1));
             }
 
             if (!string.IsNullOrEmpty(line) &&
-                !line.StartsWith(";") && 
-                !line.StartsWith("#") &&
-                !line.StartsWith("'") && 
+                !line.StartsWith(";", StringComparison.Ordinal) && 
+                !line.StartsWith("#", StringComparison.Ordinal) &&
+                !line.StartsWith("'", StringComparison.Ordinal) && 
                 line.Contains('='))
             {
                 var index = line.IndexOf('=');
                 var key = line.Substring(0, index).Trim();
                 var value = line.Substring(index + 1).Trim();
 
-                if (value.StartsWith("\"") && value.EndsWith("\"") ||
-                    value.StartsWith("'") && value.EndsWith("'"))
+                if (value.StartsWith("\"", StringComparison.Ordinal) && value.EndsWith("\"", StringComparison.Ordinal) ||
+                    value.StartsWith("'", StringComparison.Ordinal) && value.EndsWith("'", StringComparison.Ordinal))
                     value = value.Substring(1, value.Length - 2);
 
                 try

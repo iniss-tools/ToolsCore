@@ -1,3 +1,4 @@
+using System.Globalization;
 namespace ToolsCore.StateDgm;
 
 /// <summary>
@@ -103,7 +104,7 @@ public sealed class StateDgmValue : StateDgmItem
     public override string ToString() => Kind switch
     {
         StateDgmValueKind.String => $"S:\"{Key}\"=\"{Text}\"",
-        StateDgmValueKind.Int => $"I:\"{Key}\"={Raw ?? Number.ToString()}",
+        StateDgmValueKind.Int => $"I:\"{Key}\"={Raw ?? Number.ToString(CultureInfo.InvariantCulture)}",
         _ => $"B:\"{Key}\"={(Flag ? "Ano" : "Ne")}"
     };
 }
@@ -160,7 +161,7 @@ public sealed class StateDgmGroup : StateDgmItem
         return v?.Kind switch
         {
             StateDgmValueKind.String => v.Text,
-            StateDgmValueKind.Int => v.Raw ?? v.Number.ToString(),
+            StateDgmValueKind.Int => v.Raw ?? v.Number.ToString(CultureInfo.InvariantCulture),
             StateDgmValueKind.Bool => v.Flag ? "Ano" : "Ne",
             _ => null
         };

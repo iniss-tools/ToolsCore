@@ -103,7 +103,7 @@ public static class Utils
     {
         string? path = null;
         foreach (var arg in Environment.GetCommandLineArgs().Skip(1))
-            if (!arg.StartsWith("/") && !arg.StartsWith("-"))
+            if (!arg.StartsWith("/", StringComparison.Ordinal) && !arg.StartsWith("-", StringComparison.Ordinal))
                 path = arg;
 
         return path;
@@ -221,11 +221,11 @@ public static class Utils
     public static string PadZeros(this int num, int pocetCifier = 3)
     {
         if (pocetCifier <= 0) 
-            return num.ToString();
+            return num.ToString(CultureInfo.InvariantCulture);
         var sb = new StringBuilder();
         for (var i = 0; i < pocetCifier; i++) 
             sb.Append('0');
-        return num.ToString(sb.ToString());
+        return num.ToString(sb.ToString(), CultureInfo.InvariantCulture);
     }
 
     /// <summary>
@@ -233,7 +233,7 @@ public static class Utils
     /// </summary>
     /// <param name="num">Retazec s moznym cislom.</param>
     /// <returns>ci sa retazec da konverovat na cislo.</returns>
-    public static bool IsInt(string num) => int.TryParse(num, out _);
+    public static bool IsInt(string num) => int.TryParse(num, NumberStyles.Integer, CultureInfo.InvariantCulture, out _);
 
     /// <summary>
     /// Vrati skonverované číslo z retazca, alebo ak sa nedal retazec skonvertovat vrati nastavenu predvolenu hodnotu.
@@ -241,7 +241,8 @@ public static class Utils
     /// <param name="nums">Retazec s moznym cislom.</param>
     /// <param name="def">Predvolena hodnota.</param>
     /// <returns>skonverovane cislo alebo predvolenu hodnotu.</returns>
-    public static int ParseIntOrDefault(string? nums, int def = 0) => int.TryParse(nums, out var numi) ? numi : def;
+    public static int ParseIntOrDefault(string? nums, int def = 0) =>
+        int.TryParse(nums, NumberStyles.Integer, CultureInfo.InvariantCulture, out var numi) ? numi : def;
 
     /// <summary>
     /// Vráti skonvertované číslo z retazca,
@@ -250,7 +251,8 @@ public static class Utils
     /// <param name="nums">Retazec s moznym cislom.</param>
     /// <param name="def">Predvolena hodnota.</param>
     /// <returns>skonverovane cislo alebo predvolenu hodnotu.</returns>
-    public static int? ParseIntOrNull(string? nums, int? def = null) => int.TryParse(nums, out var numi) ? numi : def;
+    public static int? ParseIntOrNull(string? nums, int? def = null) =>
+        int.TryParse(nums, NumberStyles.Integer, CultureInfo.InvariantCulture, out var numi) ? numi : def;
 
     /// <summary>
     /// Vrati retazec, ak je retazec <see langword="null" />, vrati predvoleny retazec.
@@ -317,7 +319,7 @@ public static class Utils
     /// </summary>
     /// <param name="c">Farbu <see cref="Color"/>.</param>
     /// <returns>farba v hexadecimalnom tvare.</returns>
-    public static string ToHex(this Color c) => "0x" + c.B.ToString("X2") + c.G.ToString("X2") + c.R.ToString("X2");
+    public static string ToHex(this Color c) => "0x" + c.B.ToString("X2", CultureInfo.InvariantCulture) + c.G.ToString("X2", CultureInfo.InvariantCulture) + c.R.ToString("X2", CultureInfo.InvariantCulture);
 
     /// <summary>
     /// Vrati objekt Color z farby zadanej hexadecimalnou hodnotou (BGR).
@@ -549,6 +551,17 @@ public static class Utils
     public static bool IsTime(string str) => TryParseTime(str, out _);
 
     /// <summary>
+    /// Datum ako <see cref="DateTime" /> o polnoci - pre prvky a vypocty, ktore pracuju s <see cref="DateTime" />
+    /// (DateTimePicker, kalendar datumovych obmedzeni).
+    /// </summary>
+    public static DateTime ToDateTime(this DateOnly date) => date.ToDateTime(TimeOnly.MinValue);
+
+    /// <summary>
+    /// Datum v tvare dd.MM.yyyy (subory INISS) - bez ohladu na kulturu.
+    /// </summary>
+    public static DateOnly ParseDateOnlyAlts(string? text) => DateOnly.FromDateTime(ParseDateAlts(text));
+
+    /// <summary>
     /// Zisti, ci zadany datum sa nachadza medzi dvoma datumami start a end.
     /// </summary>
     /// <param name="dt">hladany datum</param>
@@ -566,7 +579,7 @@ public static class Utils
     /// <param name="str1">Prvy retazec na porovnavanie.</param>
     /// <param name="str2">Druhy retazec na porovnavanie.</param>
     /// <returns>ci sa retazce zhoduju.</returns>
-    public static bool EqualsIgnoreCase(this string str1, string str2) => str1 != null && str1.Equals(str2, StringComparison.CurrentCultureIgnoreCase);
+    public static bool EqualsIgnoreCase(this string str1, string str2) => str1 != null && str1.Equals(str2, StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
     /// Zisti, ci je riadok prazdny alebo obsahuje komentar alebo zacina mriezkou (#) (pouzitie v: <see cref="CsvRow"/>).
@@ -669,7 +682,7 @@ public static class Utils
     {
         var pathUri = new Uri(filePath);
         // Folders must end in a slash
-        if (!folderPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+        if (!folderPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
         {
             folderPath += Path.DirectorySeparatorChar;
         }
