@@ -70,8 +70,8 @@ public static class RawBankParser
     /// </summary>
     /// <param name="pathToBank"></param>
     /// <param name="language">informacia o jazyku zvukovej banky, do ktorej sa budu vkladat informacie o skupinach a zvukoch.</param>
-    /// <param name="worker">background worker pre asynchronnost</param>
-    public static List<FyzSound> ReadFyzZvukFile(string pathToBank, FyzLanguage language, BackgroundWorker? worker = null)
+    /// <param name="progress">priebeh citania po skupinach (pri citani na pozadi)</param>
+    public static List<FyzSound> ReadFyzZvukFile(string pathToBank, FyzLanguage language, IProgress<ProgressStatus>? progress = null)
     {
         ArgumentNullException.ThrowIfNull(language);
 
@@ -87,8 +87,8 @@ public static class RawBankParser
         using var reader = new BinaryReader(File.OpenRead(file), Encodings.Win1250);
         var countGroups = reader.ReadInt32();
 
-        var progress = new ProgressStatus("Analyzovanie súboru banky zvukov", countGroups);
-        worker?.ReportProgress(0, progress);
+        const string part = "Analyzovanie súboru banky zvukov";
+        progress?.Report(new ProgressStatus(part, countGroups));
 
         for (var i = 0; i < countGroups; i++)
         {
@@ -122,7 +122,7 @@ public static class RawBankParser
             }
 
             language.Groups.Add(grp);
-            worker?.ReportProgress(i, progress);
+            progress?.Report(new ProgressStatus(part, countGroups, i + 1));
         }
 
         return allSounds.ToList();

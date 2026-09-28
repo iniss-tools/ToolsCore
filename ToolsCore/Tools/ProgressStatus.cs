@@ -1,15 +1,9 @@
 ﻿namespace ToolsCore.Tools;
 
-public class ProgressStatus
-{
-    /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-    public ProgressStatus(string progressPartName, int totalProgress)
-    {
-        ProgressPartName = progressPartName;
-        TotalProgress = totalProgress;
-    }
-
-    public string ProgressPartName { get; }
-
-    public int TotalProgress { get; }
-}
+/// <summary>
+/// Priebeh dlhej operacie na pozadi (napr. citanie banky zvukov).
+/// </summary>
+/// <param name="ProgressPartName">Nazov prave vykonavanej casti.</param>
+/// <param name="TotalProgress">Pocet krokov casti; 0 = neurcity priebeh.</param>
+/// <param name="Value">Pocet hotovych krokov.</param>
+public sealed record ProgressStatus(string ProgressPartName, int TotalProgress, int Value = 0);

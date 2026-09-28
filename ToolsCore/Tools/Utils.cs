@@ -410,13 +410,14 @@ public static class Utils
     {
         if (string.IsNullOrEmpty(sourcePath) || string.IsNullOrEmpty(destinationPath)) return;
 
-        //Now Create all of the directories
+        // cielovy priecinok aj ked zdroj nema podpriecinky
+        Directory.CreateDirectory(destinationPath);
         foreach (var dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
-            Directory.CreateDirectory(dirPath.Replace(sourcePath, destinationPath));
+            Directory.CreateDirectory(Path.Combine(destinationPath, Path.GetRelativePath(sourcePath, dirPath)));
 
-        //Copy all the files & Replaces any files with the same name
-        foreach (var newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
-            File.Copy(newPath, newPath.Replace(sourcePath, destinationPath), true);
+        // subory s rovnakym nazvom sa prepisu
+        foreach (var file in Directory.GetFiles(sourcePath, "*", SearchOption.AllDirectories))
+            File.Copy(file, Path.Combine(destinationPath, Path.GetRelativePath(sourcePath, file)), true);
     }
 
     /// <summary>
