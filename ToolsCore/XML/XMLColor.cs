@@ -66,7 +66,7 @@ public struct XmlColor
         {
             if (value[0] != '#') 
                 return Color.FromName(value);
-            var argb = (value.Length <= 7 ? unchecked((int)0xFF000000) : 0) + int.Parse(value.Substring(1), NumberStyles.HexNumber);
+            var argb = (value.Length <= 7 ? unchecked((int)0xFF000000) : 0) + int.Parse(value.Substring(1), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
             return Color.FromArgb(argb);
         }
         catch (Exception)
