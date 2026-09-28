@@ -374,6 +374,15 @@ namespace ToolsCore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Súbor nastavení {0} bol poškodený, preto sa obnovili predvolené nastavenia.
+        /// </summary>
+        public static string Global_ConfigReset {
+            get {
+                return ResourceManager.GetString("Global_ConfigReset", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Program {0} je už spustený.
         /// </summary>
         public static string Global_AppAlreadyRunning {

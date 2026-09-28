@@ -68,7 +68,10 @@ public static class XmlSerialization
         encoding ??= Encodings.Win1250;
         text = $"<?xml version=\"1.0\" encoding=\"{encoding.WebName}\"?>\r\n{text}";
 
-        File.WriteAllText(fileName, text, encoding);
+        // najprv do docasneho suboru - pad pocas zapisu tak nenecha poskodeny povodny subor
+        var tempFile = fileName + ".tmp";
+        File.WriteAllText(tempFile, text, encoding);
+        File.Move(tempFile, fileName, true);
     }
 
     internal static object? Deserialize(string text, Type type)

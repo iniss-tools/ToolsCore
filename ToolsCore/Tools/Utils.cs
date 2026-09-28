@@ -486,8 +486,7 @@ public static class Utils
         if (string.IsNullOrEmpty(text))
             return DateTime.MinValue;
 
-        string[] types = { "dd.MM.yyyy", "d.MM.yyyy", "d.M.yyyy", "dd.M.yyyy" };
-        return DateTime.ParseExact(text, types, CultureInfo.InvariantCulture, DateTimeStyles.None);
+        return DateTime.ParseExact(text, DateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None);
     }
 
     /// <summary>
@@ -499,8 +498,11 @@ public static class Utils
     {
         return string.IsNullOrEmpty(text) ? 
             DateTime.MinValue : 
-            DateTime.ParseExact(text, new[] { "HH:mm", "H:mm" }, CultureInfo.InvariantCulture, DateTimeStyles.None);
+            DateTime.ParseExact(text, TimeFormats, CultureInfo.InvariantCulture, DateTimeStyles.None);
     }
+
+    private static readonly string[] DateFormats = ["dd.MM.yyyy", "d.MM.yyyy", "d.M.yyyy", "dd.M.yyyy"];
+    private static readonly string[] TimeFormats = ["HH:mm", "H:mm"];
 
     /// <summary>
     ///     Skúsi previesť reťazec <paramref name="text"/>, ktorý je vo formáte času (HH:mm / H:mm) na <see cref="DateTime"/>.
@@ -510,16 +512,14 @@ public static class Utils
     /// <returns><see langword="true" /> ak sa prevod podarí, inak vráti <see langword="false"/>.</returns>
     public static bool TryParseTime(string text, out DateTime time)
     {
-        try
-        {
-            time = ParseTime(text);
-            return true;
-        }
-        catch
+        // prazdny text je platny (bez casu) - rovnako ako v ParseTime
+        if (string.IsNullOrEmpty(text))
         {
             time = DateTime.MinValue;
-            return false;
+            return true;
         }
+
+        return DateTime.TryParseExact(text, TimeFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out time);
     }
 
     /// <summary>
@@ -531,16 +531,14 @@ public static class Utils
     /// <returns><see langword="true"/> ak sa prevod podarí, inak vráti <see langword="false"/>.</returns>
     public static bool TryParseDateAlts(string text, out DateTime date)
     {
-        try
-        {
-            date = ParseDateAlts(text);
-            return true;
-        }
-        catch
+        // prazdny text je platny (bez datumu) - rovnako ako v ParseDateAlts
+        if (string.IsNullOrEmpty(text))
         {
             date = DateTime.MinValue;
-            return false;
+            return true;
         }
+
+        return DateTime.TryParseExact(text, DateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
     }
 
     /// <summary>

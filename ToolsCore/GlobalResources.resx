@@ -138,6 +138,9 @@
   <data name="Global_Retry" xml:space="preserve">
     <value>Opakovať</value>
   </data>
+  <data name="Global_ConfigReset" xml:space="preserve">
+    <value>Súbor nastavení {0} bol poškodený, preto sa obnovili predvolené nastavenia. Pôvodný súbor ostal vedľa s príponou .bad.</value>
+  </data>
   <data name="Global_AppAlreadyRunning" xml:space="preserve">
     <value>Program {0} je už spustený. Ak ho chcete spúšťať viackrát naraz, zapnite v nastaveniach programu voľbu Povoliť duplicitné inštancie programu.</value>
   </data>

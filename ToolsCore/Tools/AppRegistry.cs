@@ -47,7 +47,7 @@ public static class AppRegistry
 
     private static List<string> GetOpenedProjectsOld(bool forFiles = false)
     {
-        var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
+        using var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
         var dirs = new HashSet<string>();
 
         var value = key?.GetValue(forFiles ? RegRecentFiles : RegRecentDirs);
@@ -73,7 +73,7 @@ public static class AppRegistry
     /// <returns>zoznam ciest.</returns>
     public static ProjectInfo[] GetOpenedProjects()
     {
-        var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
+        using var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
         if (key is null)
             return Array.Empty<ProjectInfo>();
 
@@ -245,8 +245,8 @@ public static class AppRegistry
         if (string.IsNullOrWhiteSpace(path))
             return;
 
-        var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
-        if (key == null!)
+        using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
+        if (key is null)
             return;
 
         var projects = (_projects ?? GetOpenedProjects()).ToList();
@@ -272,8 +272,8 @@ public static class AppRegistry
         if (string.IsNullOrWhiteSpace(path))
             return false;
 
-        var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
-        if (key == null!)
+        using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
+        if (key is null)
             return false;
 
         var projects = _projects ?? GetOpenedProjects();
@@ -307,14 +307,14 @@ public static class AppRegistry
 
     public static string GetLastProject()
     {
-        var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
+        using var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
         var value = key?.GetValue(RegLastProject);
         return value is null ? "" : value.ToString() ?? "";
     }
 
     public static void SetLastProject(string path)
     {
-        var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
+        using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
         key?.SetValue(RegLastProject, path);
     }
 }
