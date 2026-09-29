@@ -103,7 +103,6 @@ public sealed class FyzGroupType : Enumeration<FyzGroupType>
 
     #region VALUES
 
-#pragma warning disable 1591
     public static readonly FyzGroupType Uncategorized = new(0, Resources.FyzGroupType_UNCATEGORIZED);
     public static readonly FyzGroupType C1 = new(1, "C1", Resources.FyzGroupType_C1);
     public static readonly FyzGroupType C2 = new(2, "C2", Resources.FyzGroupType_C2);
@@ -171,7 +170,6 @@ public sealed class FyzGroupType : Enumeration<FyzGroupType>
     public static readonly FyzGroupType Vozy8 = new(64, "VOZY8", Resources.FyzGroupType_VOZY8);
     public static readonly FyzGroupType Vozy8M = new(65, "VOZY8M", Resources.FyzGroupType_VOZY8M);
     public static readonly FyzGroupType Znelky = new(66, "ZNELKY", Resources.FyzGroupType_ZNELKY);
-#pragma warning restore 1591
 
     #endregion
 }
