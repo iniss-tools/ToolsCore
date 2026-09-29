@@ -59,610 +59,309 @@ public static class FormUtils
             f.SetImmersiveDarkMode(GlobSettings.UsingStyle.DarkTitleBar);
     }
 
-    public static void ChangeColorContextMenu(Style style, ContextMenuStrip strip)
+    public static void ChangeColorContextMenu(Style style, ContextMenuStrip strip) => ApplyContextMenu(strip, style.ToExTheme());
+
+    /// <summary>
+    /// Tema ExControls podla stylu programu.
+    /// </summary>
+    public static ExTheme ToExTheme(this Style style)
     {
-        if (style.ControlsDefaultStyle)
+        var scheme = style.ControlsColorScheme;
+        return new ExTheme
         {
-            strip.RenderMode = ToolStripRenderMode.Professional;
+            UseSystemStyle = style.ControlsDefaultStyle,
+            DarkScrollBars = style.DarkScrollBar,
+            PanelBackColor = scheme.Panel.BackColor,
+            PanelForeColor = scheme.Panel.ForeColor,
+            BoxBackColor = scheme.Box.BackColor,
+            BoxForeColor = scheme.Box.ForeColor,
+            ButtonBackColor = scheme.Button.BackColor,
+            ButtonForeColor = scheme.Button.ForeColor,
+            BorderColor = scheme.Border.ForeColor,
+            HighlightBackColor = scheme.Highlight.BackColor,
+            HighlightForeColor = scheme.Highlight.ForeColor,
+            MarkColor = scheme.Mark.ForeColor,
+            LabelForeColor = scheme.Label.ForeColor,
+            TodayText = GlobalResources.Global_Today
+        };
+    }
+
+    /// <summary>
+    /// Nastavi prvkom kolekcie (a ich vnorenym prvkom) farby podla stylu. Ex* prvky sa nastyluju samy
+    /// (<see cref="IThemeable" />), standardne prvky WinForms obsluhy zaregistrovane v <see cref="RegisterThemeHandlers" />.
+    /// </summary>
+    public static void ChangeStyleOfControls(Style style, IEnumerable collection)
+    {
+        RegisterThemeHandlers();
+        ExThemer.Apply(collection, style.ToExTheme());
+    }
+
+    private static bool _themeHandlersRegistered;
+
+    /// <summary>
+    /// Obsluhy temy pre prvky mimo ExControls - vykreslovanie ponuk a panelov nastrojov (<see cref="MyMenuRenderer" />)
+    /// a standardne prvky WinForms.
+    /// </summary>
+    private static void RegisterThemeHandlers()
+    {
+        if (_themeHandlersRegistered)
+            return;
+        _themeHandlersRegistered = true;
+
+        ExThemer.Register<ContextMenuStrip>(ApplyContextMenu);
+        ExThemer.Register<PropertyGrid>(ApplyPropertyGrid);
+        ExThemer.Register<Panel>((panel, theme) =>
+        {
+            ExThemer.Apply(panel.Controls, theme);
+            panel.BackColor = theme.PanelBackColor;
+            panel.ForeColor = theme.PanelForeColor;
+        });
+        ExThemer.Register<SplitContainer>((sc, theme) =>
+        {
+            sc.BackColor = theme.PanelBackColor;
+            sc.ForeColor = theme.PanelForeColor;
+            ExThemer.Apply(sc.Panel1.Controls, theme);
+            ExThemer.Apply(sc.Panel2.Controls, theme);
+        });
+        ExThemer.Register<RichTextBox>((tb, theme) =>
+        {
+            if (!theme.UseSystemStyle)
+            {
+                tb.BackColor = theme.BoxBackColor;
+                tb.ForeColor = theme.BoxForeColor;
+                tb.BorderStyle = BorderStyle.None;
+            }
+
+            if (theme.DarkScrollBars)
+                tb.SetTheme(WindowsTheme.DarkExplorer);
+        });
+        ExThemer.Register<LinkLabel>((ll, theme) => ll.LinkColor = theme.HighlightBackColor);
+        ExThemer.Register<Label>((l, theme) => l.ForeColor = theme.LabelForeColor);
+        ExThemer.Register<TreeView>((tv, theme) =>
+        {
+            tv.BackColor = theme.BoxBackColor;
+            tv.ForeColor = theme.BoxForeColor;
+            if (!theme.UseSystemStyle) tv.BorderStyle = BorderStyle.None;
+
+            if (theme.DarkScrollBars)
+                tv.SetTheme(WindowsTheme.DarkExplorer);
+        });
+        ExThemer.Register<ListBox>((lb, theme) =>
+        {
+            lb.BackColor = theme.BoxBackColor;
+            lb.ForeColor = theme.BoxForeColor;
+            if (!theme.UseSystemStyle) lb.BorderStyle = BorderStyle.None;
+
+            if (theme.DarkScrollBars)
+                lb.SetTheme(WindowsTheme.DarkExplorer);
+        });
+        ExThemer.Register<MenuStrip>((ms, theme) =>
+        {
+            ms.BackColor = theme.PanelBackColor;
+            ms.ForeColor = theme.PanelForeColor;
+            ms.RenderMode = ToolStripRenderMode.Professional;
+            ms.Renderer = theme.UseSystemStyle
+                ? new ToolStripProfessionalRenderer(new LightColorTable())
+                : new MyMenuRenderer(new MyColorTable(), false);
+            ApplyToolStripItems(ms.Items, theme, false);
+        });
+        ExThemer.Register<ToolStrip>((ts, theme) =>
+        {
+            ts.BackColor = theme.PanelBackColor;
+            ts.ForeColor = theme.PanelForeColor;
+            ts.RenderMode = ToolStripRenderMode.Professional;
+            ts.Renderer = theme.UseSystemStyle
+                ? new MyMenuRenderer(new LightColorTable(), true)
+                : new MyMenuRenderer(new MyColorTable(), false);
+            ApplyToolStripItems(ts.Items, theme, true);
+        });
+        ExThemer.Register<DataGridView>(ApplyDataGridView);
+        ExThemer.Register<UserControl>((uc, theme) =>
+        {
+            ExThemer.Apply(uc.Controls, theme);
+            uc.BackColor = theme.PanelBackColor;
+            uc.ForeColor = theme.PanelForeColor;
+            if (theme.DarkScrollBars)
+                uc.SetTheme(WindowsTheme.DarkExplorer);
+        });
+    }
+
+    private static void ApplyContextMenu(ContextMenuStrip strip, ExTheme theme)
+    {
+        strip.RenderMode = ToolStripRenderMode.Professional;
+        if (theme.UseSystemStyle)
+        {
             strip.Renderer = new ToolStripProfessionalRenderer(new LightColorTable());
             return;
         }
 
-        strip.RenderMode = ToolStripRenderMode.Professional;
         strip.Renderer = new MyMenuRenderer(new MyColorTable(), true);
-
-        strip.BackColor = style.ControlsColorScheme.Panel.BackColor;
-        strip.ForeColor = style.ControlsColorScheme.Panel.ForeColor;
-
+        strip.BackColor = theme.PanelBackColor;
+        strip.ForeColor = theme.PanelForeColor;
         SetColorMenuItems(strip.Items);
 
         void SetColorMenuItems(IEnumerable coll)
         {
             foreach (ToolStripItem toolStripItem in coll)
             {
-                toolStripItem.BackColor = style.ControlsColorScheme.Panel.BackColor;
-                toolStripItem.ForeColor = style.ControlsColorScheme.Panel.ForeColor;
+                toolStripItem.BackColor = theme.PanelBackColor;
+                toolStripItem.ForeColor = theme.PanelForeColor;
                 if (toolStripItem is ToolStripMenuItem tsmi) SetColorMenuItems(tsmi.DropDown.Items);
             }
         }
     }
 
-    public static void ChangeStyleOfControls(Style style, IEnumerable collection)
+    /// <summary>
+    /// Farby poloziek ponuky alebo panela nastrojov vratane podponuk.
+    /// </summary>
+    /// <param name="items">polozky</param>
+    /// <param name="theme">tema</param>
+    /// <param name="buttonDropDowns">ci prechadzat aj rozbalovacie tlacidla panela nastrojov</param>
+    private static void ApplyToolStripItems(ToolStripItemCollection items, ExTheme theme, bool buttonDropDowns)
     {
-        var scheme = style.ControlsColorScheme;
-        foreach (Control control in collection)
+        foreach (ToolStripItem item in items)
         {
-            switch (control)
+            item.BackColor = theme.PanelBackColor;
+            item.ForeColor = theme.PanelForeColor;
+            switch (item)
             {
-                case ExCheckedListBox dclb:
-                {
-                    dclb.DefaultStyle = style.ControlsDefaultStyle;
-                    if (!style.ControlsDefaultStyle)
-                    {
-                        dclb.BackColor = scheme.Box.BackColor;
-                        dclb.ForeColor = scheme.Box.ForeColor;
-                        dclb.BorderColor = scheme.Border.ForeColor;
-                        dclb.SquareBackColor = scheme.Box.BackColor;
-                        dclb.MarkColor = scheme.Mark.ForeColor;
-                        dclb.BorderStyle = BorderStyle.None;
-                        dclb.FocusedBackColor = scheme.Border.ForeColor;
-                        dclb.HighlightColor = scheme.Highlight.BackColor;
-                    }
-
-                    if (style.DarkScrollBar) 
-                        dclb.SetTheme(WindowsTheme.DarkExplorer);
-
+                case ToolStripMenuItem tsmi:
+                    ApplyToolStripItems(tsmi.DropDown.Items, theme, buttonDropDowns);
                     break;
-                }
-                case PropertyGrid grid:
-                {
-                    if (!style.ControlsDefaultStyle)
-                    {
-                        grid.BackColor = scheme.Panel.BackColor;
-                        grid.ForeColor = scheme.Panel.ForeColor;
-                        grid.ViewBackColor = scheme.Box.BackColor;
-                        grid.ViewForeColor = scheme.Box.ForeColor;
-                        grid.HelpBorderColor = scheme.Border.ForeColor;
-                        grid.HelpBackColor = scheme.Panel.BackColor;
-                        grid.HelpForeColor = scheme.Panel.ForeColor;
-                        grid.LineColor = scheme.Button.BackColor;
-                        grid.CategoryForeColor = scheme.Box.ForeColor;
-                        grid.CategorySplitterColor = scheme.Box.ForeColor;
-                        grid.ViewBorderColor = scheme.Border.ForeColor;
-                        grid.CommandsBorderColor = scheme.Panel.BackColor;
-                        grid.CommandsForeColor = scheme.Panel.ForeColor;
-                        grid.CommandsBackColor = scheme.Panel.BackColor;
-                        grid.SelectedItemWithFocusBackColor = scheme.Highlight.BackColor;
-                        grid.SelectedItemWithFocusForeColor = scheme.Highlight.ForeColor;
-                    }
-                    if (style.DarkScrollBar) 
-                        grid.Controls[2].Controls[0].SetTheme(WindowsTheme.DarkExplorer);
-                    if (grid is ExPropertyGrid ex && !style.ControlsDefaultStyle)
-                    {
-                        ex.InnerToolStrip!.RenderMode = ToolStripRenderMode.Professional;
-                        ex.InnerToolStrip.Renderer = new MyMenuRenderer(new MyColorTable(), false);
-                    }
+                case ToolStripSplitButton tssb when buttonDropDowns:
+                    ApplyToolStripItems(tssb.DropDownItems, theme, buttonDropDowns);
                     break;
-                }
-                case ExGroupBox dgb:
-                {
-                    ChangeStyleOfControls(style, dgb.Controls);
-                    dgb.DefaultStyle = style.ControlsDefaultStyle;
-                    dgb.BackColor = scheme.Panel.BackColor;
-                    dgb.ForeColor = scheme.Panel.ForeColor;
-                    dgb.BorderThickness = 1;
-                    dgb.BorderColor = scheme.Border.ForeColor;
+                case ToolStripDropDownButton tsddb when buttonDropDowns:
+                    ApplyToolStripItems(tsddb.DropDownItems, theme, buttonDropDowns);
                     break;
-                }
-                case ExTableLayoutPanel p:
-                {
-                    ChangeStyleOfControls(style, control.Controls);
-                    control.BackColor = scheme.Panel.BackColor;
-                    control.ForeColor = scheme.Panel.ForeColor;
-                    p.DefaultStyle = style.ControlsDefaultStyle;
-                    if (!p.DefaultStyle && p.CellBorderStyle == TableLayoutPanelCellBorderStyle.Single)
-                    {
-                        p.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
-                        p.BorderColor = scheme.Border.ForeColor;
-                    }
-
+                case IThemeable themeable:
+                    themeable.ApplyTheme(theme);
                     break;
-                }
-                case Panel:
-                {
-                    ChangeStyleOfControls(style, control.Controls);
-                    control.BackColor = scheme.Panel.BackColor;
-                    control.ForeColor = scheme.Panel.ForeColor;
-                    break;
-                }
-                case SplitContainer sc:
-                {
-                    control.BackColor = scheme.Panel.BackColor;
-                    control.ForeColor = scheme.Panel.ForeColor;
-                    ChangeStyleOfControls(style, sc.Panel1.Controls);
-                    ChangeStyleOfControls(style, sc.Panel2.Controls);
-                    break;
-                }
-                case ExTabControl tab:
-                {
-                    ChangeStyleOfControls(style, control.Controls);
-                    tab.DefaultStyle = style.ControlsDefaultStyle;
-                    control.BackColor = scheme.Panel.BackColor;
-                    control.ForeColor = scheme.Panel.ForeColor;
-                    tab.HeaderBackColor = scheme.Box.BackColor;
-                    tab.HeaderForeColor = scheme.Box.ForeColor;
-                    tab.ActiveHeaderBackColor = scheme.Panel.BackColor;
-                    tab.ActiveHeaderForeColor = scheme.Panel.ForeColor;
-                    tab.BorderColor = scheme.Border.ForeColor;
-                    tab.HighlightBackColor = scheme.Button.BackColor;
-                    tab.HighlightForeColor = scheme.Button.ForeColor;
-                    break;
-                }
-                case ExButton b:
-                {
-                    b.DefaultStyle = style.ControlsDefaultStyle;
-                    if (!style.ControlsDefaultStyle)
-                    {
-                        control.BackColor = scheme.Button.BackColor;
-                        control.ForeColor = scheme.Button.ForeColor;
-                        b.ExFlatAppearance.BorderColor = scheme.Border.ForeColor;
-                        b.ExFlatAppearance.MouseOverBackColor = scheme.Highlight.BackColor;
-                        b.ExFlatAppearance.MouseDownBackColor = scheme.Highlight.BackColor;
-                        b.ExFlatAppearance.FocusBorderColor = scheme.Highlight.BackColor;
-                    }
-
-                    break;
-                }
-                case ExLineSeparator dls:
-                {
-                    dls.LineColor = scheme.Border.ForeColor;
-                    break;
-                }
-                case ExMaskedTextBox tb:
-                {
-                    tb.DefaultStyle = style.ControlsDefaultStyle;
-                    if (!style.ControlsDefaultStyle)
-                    {
-                        tb.BackColor = scheme.Box.BackColor;
-                        tb.ForeColor = scheme.Box.ForeColor;
-                        tb.BorderColor = scheme.Border.ForeColor;
-                        tb.HighlightColor = scheme.Highlight.BackColor;
-                        tb.DisabledBorderColor = scheme.Button.BackColor;
-                    }
-
-                    break;
-                }
-                case ExTextBox tb:
-                {
-                    tb.BackColor = scheme.Box.BackColor;
-                    tb.ForeColor = scheme.Box.ForeColor;
-                    tb.BorderColor = scheme.Border.ForeColor;
-                    tb.HighlightColor = scheme.Highlight.BackColor;
-                    tb.DefaultStyle = style.ControlsDefaultStyle;
-                    tb.DisabledBorderColor = scheme.Button.BackColor;
-                    tb.DisabledBackColor = scheme.Panel.BackColor;
-                    tb.UseDarkScrollBar = style.DarkScrollBar;
-                    break;
-                }
-                case RichTextBox tb:
-                {
-                    if (!style.ControlsDefaultStyle)
-                    {
-                        tb.BackColor = scheme.Box.BackColor;
-                        tb.ForeColor = scheme.Box.ForeColor;
-                        tb.BorderStyle = BorderStyle.None;
-                    }
-                    if (style.DarkScrollBar) 
-                        tb.SetTheme(WindowsTheme.DarkExplorer);
-                    break;
-                }
-                case ExNumericUpDown nud:
-                {
-                    nud.DefaultStyle = style.ControlsDefaultStyle;
-                    if (!style.ControlsDefaultStyle)
-                    {
-                        nud.BackColor = scheme.Box.BackColor;
-                        nud.ForeColor = scheme.Box.ForeColor;
-                        nud.ArrowsColor = scheme.Button.ForeColor;
-                        nud.BorderColor = scheme.Border.ForeColor;
-                        nud.HighlightColor = scheme.Highlight.BackColor;
-                        nud.SelectedButtonColor = scheme.Highlight.BackColor;
-                    }
-
-                    break;
-                }
-                case ExDateTimePicker dtp:
-                {
-                    dtp.Calendar.TodayText = GlobalResources.Global_Today;
-                    dtp.DefaultStyle = style.ControlsDefaultStyle;
-                    if (!style.ControlsDefaultStyle)
-                    {
-                        dtp.BackColor = scheme.Box.BackColor;
-                        dtp.ForeColor = scheme.Box.ForeColor;
-                        dtp.BorderColor = scheme.Border.ForeColor;
-                        dtp.ArrowColor = scheme.Box.ForeColor;
-                        dtp.ButtonBackColor = scheme.Box.BackColor;
-                        dtp.HighlightColor = scheme.Highlight.BackColor;
-                        dtp.SelectedFieldBackColor = scheme.Highlight.BackColor;
-                        dtp.SelectedFieldForeColor = scheme.Highlight.ForeColor;
-                        dtp.DisabledBackColor = scheme.Box.BackColor;
-                        dtp.DisabledForeColor = scheme.Border.ForeColor;
-                        ChangeStyleOfControls(style, new[] { dtp.Calendar });
-                    }
-
-                    break;
-                }
-                case ExCalendar cal:
-                {
-                    cal.TodayText = GlobalResources.Global_Today;
-                    cal.DefaultStyle = style.ControlsDefaultStyle;
-                    if (!style.ControlsDefaultStyle)
-                    {
-                        cal.BackColor = scheme.Box.BackColor;
-                        cal.ForeColor = scheme.Box.ForeColor;
-                        cal.HeaderForeColor = scheme.Box.ForeColor;
-                        cal.DayOfWeekForeColor = scheme.Box.ForeColor;
-                        cal.ArrowColor = scheme.Box.ForeColor;
-                        cal.BorderColor = scheme.Border.ForeColor;
-                        cal.TrailingForeColor = scheme.Mark.ForeColor;
-                        cal.WeekNumberForeColor = scheme.Mark.ForeColor;
-                        cal.DisabledForeColor = scheme.Border.ForeColor;
-                        cal.HoverBackColor = scheme.Button.BackColor;
-                        cal.HighlightColor = scheme.Highlight.BackColor;
-                        cal.HighlightForeColor = scheme.Highlight.ForeColor;
-                        cal.TodayBorderColor = scheme.Highlight.BackColor;
-                    }
-
-                    break;
-                }
-                case LinkLabel ll:
-                {
-                    ll.LinkColor = scheme.Highlight.BackColor;
-                    break;
-                }
-                case Label l:
-                {
-                    l.ForeColor = scheme.Label.ForeColor;
-                    break;
-                }
-                case TreeView tv:
-                {
-                    control.BackColor = scheme.Box.BackColor;
-                    control.ForeColor = scheme.Box.ForeColor;
-                    if (!style.ControlsDefaultStyle) tv.BorderStyle = BorderStyle.None;
-
-                    if (style.DarkScrollBar) 
-                        tv.SetTheme(WindowsTheme.DarkExplorer);
-
-                    break;
-                }
-                case ListBox lb:
-                {
-                    control.BackColor = scheme.Box.BackColor;
-                    control.ForeColor = scheme.Box.ForeColor;
-                    if (!style.ControlsDefaultStyle) lb.BorderStyle = BorderStyle.None;
-
-                    if (style.DarkScrollBar) 
-                        lb.SetTheme(WindowsTheme.DarkExplorer);
-
-                    break;
-                }
-                case ExCheckBox cb:
-                {
-                    cb.DefaultStyle = style.ControlsDefaultStyle;
-                    if (!style.ControlsDefaultStyle)
-                    {
-                        cb.BorderColor = scheme.Border.ForeColor;
-                        cb.BoxBackColor = scheme.Box.BackColor;
-                        cb.MarkColor = scheme.Mark.ForeColor;
-                        cb.HighlightColor = scheme.Highlight.BackColor;
-                    }
-
-                    break;
-                }
-                case ExComboBox dcombo:
-                {
-                    dcombo.DefaultStyle = dcombo.DefaultStyle && style.ControlsDefaultStyle;
-                    dcombo.UseDarkScrollBar = style.DarkScrollBar;
-                    if (!dcombo.DefaultStyle)
-                    {
-                        dcombo.BackColor = scheme.Box.BackColor;
-                        dcombo.ForeColor = scheme.Box.ForeColor;
-                        dcombo.DropDownSelectedRowBackColor = scheme.Highlight.BackColor;
-                        dcombo.DropDownBackColor = scheme.Panel.BackColor;
-                        dcombo.StyleNormal.BorderColor = scheme.Border.ForeColor;
-                        dcombo.StyleNormal.ArrowColor = scheme.Box.ForeColor;
-                        dcombo.StyleNormal.ButtonBorderColor = scheme.Box.BackColor;
-                        dcombo.StyleSelected.BorderColor = scheme.Highlight.BackColor;
-                        dcombo.StyleSelected.ButtonRenderFirst = false;
-                        dcombo.StyleSelected.ButtonBackColor = scheme.Highlight.BackColor;
-                        dcombo.StyleSelected.ButtonBorderColor = scheme.Highlight.BackColor;
-                        dcombo.StyleHighlight.BorderColor = scheme.Highlight.BackColor;
-                        dcombo.StyleHighlight.ButtonBorderColor = scheme.Highlight.BackColor;
-                        dcombo.StyleDisabled.BackColor = scheme.Box.BackColor;
-                        dcombo.StyleDisabled.ForeColor = scheme.Border.ForeColor;
-                    }
-
-                    break;
-                }
-                case ExRadioButton rb:
-                {
-                    rb.DefaultStyle = style.ControlsDefaultStyle;
-                    if (!style.ControlsDefaultStyle)
-                    {
-                        rb.BorderColor = scheme.Mark.ForeColor;
-                        rb.BoxBackColor = scheme.Panel.BackColor;
-                        rb.MarkColor = scheme.Mark.ForeColor;
-                        rb.HighlightColor = scheme.Highlight.BackColor;
-                    }
-
-                    break;
-                }
-                case MenuStrip ms:
-                {
-                    ms.BackColor = scheme.Panel.BackColor;
-                    ms.ForeColor = scheme.Panel.ForeColor;
-                    if (style.ControlsDefaultStyle)
-                    {
-                        ms.RenderMode = ToolStripRenderMode.Professional;
-                        ms.Renderer = new ToolStripProfessionalRenderer(new LightColorTable());
-                    }
-                    else
-                    {
-                        ms.RenderMode = ToolStripRenderMode.Professional;
-                        ms.Renderer = new MyMenuRenderer(new MyColorTable(), false);
-                    }
-
-                    SetColorMenuItems(ms.Items);
-
-                    void SetColorMenuItems(ToolStripItemCollection coll)
-                    {
-                        foreach (ToolStripItem toolStripItem in coll)
-                        {
-                            toolStripItem.BackColor = scheme.Panel.BackColor;
-                            toolStripItem.ForeColor = scheme.Panel.ForeColor;
-                            switch (toolStripItem)
-                            {
-                                case ToolStripMenuItem tsmi:
-                                    SetColorMenuItems(tsmi.DropDown.Items);
-                                    break;
-                                case ExToolStripComboBox tcb:
-                                {
-                                    tcb.ComboBox.DefaultStyle = style.ControlsDefaultStyle;
-                                    if (!style.ControlsDefaultStyle)
-                                    {
-                                        tcb.ComboBox.BackColor = scheme.Button.BackColor;
-                                        tcb.ComboBox.ForeColor = scheme.Button.ForeColor;
-                                        tcb.ComboBox.DropDownSelectedRowBackColor = scheme.Highlight.BackColor;
-                                        tcb.ComboBox.DropDownBackColor = scheme.Panel.BackColor;
-                                        tcb.ComboBox.StyleNormal.BorderColor = scheme.Border.ForeColor;
-                                        tcb.ComboBox.StyleNormal.ArrowColor = scheme.Box.ForeColor;
-                                        tcb.ComboBox.StyleSelected.BorderColor = scheme.Highlight.BackColor;
-                                        tcb.ComboBox.StyleHighlight.BorderColor = scheme.Highlight.BackColor;
-                                        tcb.ComboBox.StyleSelected.ButtonRenderFirst = false;
-                                        tcb.ComboBox.StyleSelected.ButtonBackColor = scheme.Highlight.BackColor;
-                                        tcb.ComboBox.StyleSelected.ButtonBorderColor = scheme.Highlight.BackColor;
-                                        tcb.ComboBox.StyleHighlight.ButtonBorderColor = scheme.Highlight.BackColor;
-                                    }
-
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    break;
-                }
-                case ToolStrip ts:
-                {
-                    ts.BackColor = scheme.Panel.BackColor;
-                    ts.ForeColor = scheme.Panel.ForeColor;
-                    if (style.ControlsDefaultStyle)
-                    {
-                        ts.RenderMode = ToolStripRenderMode.Professional;
-                        ts.Renderer = new MyMenuRenderer(new LightColorTable(), true);
-                    }
-                    else
-                    {
-                        ts.BackColor = scheme.Panel.BackColor;
-                        ts.ForeColor = scheme.Panel.ForeColor;
-                        ts.RenderMode = ToolStripRenderMode.Professional;
-                        ts.Renderer = new MyMenuRenderer(new MyColorTable(), false);
-                    }
-
-                    SetColorMenuItems(ts.Items);
-
-                    void SetColorMenuItems(ToolStripItemCollection coll)
-                    {
-                        foreach (ToolStripItem toolStripItem in coll)
-                        {
-                            toolStripItem.BackColor = scheme.Panel.BackColor;
-                            toolStripItem.ForeColor = scheme.Panel.ForeColor;
-                            switch (toolStripItem)
-                            {
-                                case ToolStripMenuItem tsmi:
-                                    SetColorMenuItems(tsmi.DropDown.Items);
-                                    break;
-                                case ToolStripSplitButton tssb:
-                                    SetColorMenuItems(tssb.DropDownItems);
-                                    break;
-                                case ToolStripDropDownButton tsddb:
-                                    SetColorMenuItems(tsddb.DropDownItems);
-                                    break;
-                                case ExToolStripComboBox tcb:
-                                    tcb.ComboBox.DefaultStyle = style.ControlsDefaultStyle;
-                                    if (!style.ControlsDefaultStyle)
-                                    {
-                                        tcb.ComboBox.BackColor = scheme.Button.BackColor;
-                                        tcb.ComboBox.ForeColor = scheme.Button.ForeColor;
-                                        tcb.ComboBox.DropDownSelectedRowBackColor = scheme.Highlight.BackColor;
-                                        tcb.ComboBox.DropDownBackColor = scheme.Panel.BackColor;
-                                        tcb.ComboBox.StyleNormal.BorderColor = scheme.Border.ForeColor;
-                                        tcb.ComboBox.StyleNormal.ArrowColor = scheme.Box.ForeColor;
-                                        tcb.ComboBox.StyleSelected.BorderColor = scheme.Highlight.BackColor;
-                                        tcb.ComboBox.StyleHighlight.BorderColor = scheme.Highlight.BackColor;
-                                        tcb.ComboBox.StyleSelected.ButtonRenderFirst = false;
-                                        tcb.ComboBox.StyleSelected.ButtonBackColor = scheme.Highlight.BackColor;
-                                        tcb.ComboBox.StyleSelected.ButtonBorderColor = scheme.Highlight.BackColor;
-                                        tcb.ComboBox.StyleHighlight.ButtonBorderColor = scheme.Highlight.BackColor;
-                                    }
-
-                                    break;
-                            }
-                        }
-                    }
-
-                    break;
-                }
-                case ExOptionsView ov:
-                    ChangeStyleOfControls(style, ov.Panels);
-                    ChangeStyleOfControls(style, new Control[]{ov.TreeView, ov.ToolStripMenu, ov.SearchBox});
-                    ov.LinkToChildrenForeColor = scheme.Highlight.BackColor;
-                    ov.HeaderNodeNameForeColor = scheme.Label.ForeColor;
-                    ov.HeaderNodeNameBackColor = scheme.Panel.BackColor;
-                    break;
-                case DataGridView dgv:
-                {
-                    // DoubleBuffered je u DataGridView protected a predvolene vypnute
-                    DgvDoubleBuffered?.SetValue(dgv, true);
-
-                    dgv.EnableHeadersVisualStyles = style.ControlsDefaultStyle;
-                    dgv.DefaultCellStyle.SelectionBackColor = scheme.Highlight.BackColor;
-                    dgv.DefaultCellStyle.SelectionForeColor = scheme.Highlight.ForeColor;
-                    dgv.RowHeadersDefaultCellStyle.SelectionBackColor = scheme.Highlight.BackColor;
-                    dgv.RowHeadersDefaultCellStyle.SelectionForeColor = scheme.Highlight.ForeColor;
-                    dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = scheme.Highlight.BackColor;
-                    dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = scheme.Highlight.ForeColor;
-
-                    if (!style.ControlsDefaultStyle)
-                    {
-                        dgv.ColumnHeadersDefaultCellStyle.BackColor = scheme.Button.BackColor;
-                        dgv.ColumnHeadersDefaultCellStyle.ForeColor = scheme.Button.ForeColor;
-                        dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-
-                        dgv.RowHeadersDefaultCellStyle.BackColor = scheme.Button.BackColor;
-                        dgv.RowHeadersDefaultCellStyle.ForeColor = scheme.Button.ForeColor;
-                        dgv.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-
-                        dgv.DefaultCellStyle.BackColor = scheme.Box.BackColor;
-                        dgv.DefaultCellStyle.ForeColor = scheme.Box.ForeColor;
-
-                        dgv.ForeColor = scheme.Panel.ForeColor;
-                        dgv.BackColor = scheme.Panel.BackColor;
-                        dgv.BackgroundColor = scheme.Box.BackColor;
-                        dgv.GridColor = scheme.Border.ForeColor;
-                        dgv.BorderStyle = BorderStyle.None;
-                    }
-                    else
-                    {
-                        dgv.ForeColor = SystemColors.ControlText;
-                        dgv.BackColor = SystemColors.Control;
-                        dgv.BackgroundColor = SystemColors.AppWorkspace;
-                    }
-
-                    foreach (DataGridViewColumn column in dgv.Columns)
-                    {
-                        switch (column)
-                        {
-                            case DataGridViewButtonColumn cbutton:
-                            {
-                                if (!style.ControlsDefaultStyle)
-                                {
-                                    cbutton.FlatStyle = FlatStyle.Flat;
-                                    cbutton.DefaultCellStyle.ForeColor = scheme.Button.ForeColor;
-                                    cbutton.DefaultCellStyle.BackColor = scheme.Button.BackColor;
-                                    cbutton.DefaultCellStyle.SelectionBackColor = scheme.Highlight.BackColor;
-                                    cbutton.DefaultCellStyle.SelectionForeColor = scheme.Highlight.ForeColor;
-                                }
-
-                                break;
-                            }
-                            case DataGridViewExComboBoxColumn dccb:
-                            {
-                                dccb.DefaultStyle = style.ControlsDefaultStyle;
-                                if (!style.ControlsDefaultStyle)
-                                {
-                                    dccb.DropDownBackColor = scheme.Panel.BackColor;
-                                    dccb.DropDownSelectedBackColor = scheme.Highlight.BackColor;
-                                    dccb.StyleNormal.ForeColor = scheme.Button.ForeColor;
-                                    dccb.StyleNormal.BackColor = scheme.Button.BackColor;
-                                    dccb.StyleNormal.BorderColor = scheme.Border.ForeColor;
-                                    dccb.StyleNormal.ArrowColor = scheme.Box.ForeColor;
-                                    dccb.StyleNormal.ButtonBackColor = scheme.Button.BackColor;
-                                    dccb.StyleNormal.ButtonBorderColor = scheme.Button.BackColor;
-                                    dccb.StyleSelected.BorderColor = scheme.Highlight.BackColor;
-                                    dccb.StyleSelected.ButtonRenderFirst = false;
-                                    dccb.StyleSelected.ButtonBackColor = scheme.Highlight.BackColor;
-                                    dccb.StyleSelected.ButtonBorderColor = scheme.Highlight.BackColor;
-                                    dccb.StyleHighlight.BorderColor = scheme.Highlight.BackColor;
-                                    dccb.StyleHighlight.ButtonBorderColor = scheme.Highlight.BackColor;
-                                }
-
-                                break;
-                            }
-                            case DataGridViewExCheckBoxColumn dccb:
-                            {
-                                dccb.DefaultStyle = style.ControlsDefaultStyle;
-                                if (!style.ControlsDefaultStyle)
-                                {
-                                    dccb.BorderColor = scheme.Border.ForeColor;
-                                    dccb.MarkColor = scheme.Mark.ForeColor;
-                                    dccb.SquareBackColor = scheme.Panel.BackColor;
-                                    dccb.HighlightColor = scheme.Highlight.BackColor;
-                                }
-
-                                break;
-                            }
-                            case DataGridViewLinkColumn dcl:
-                            {
-                                if (!style.ControlsDefaultStyle)
-                                {
-                                    dcl.LinkColor = ControlPaint.LightLight(scheme.Highlight.BackColor);
-                                    dcl.ActiveLinkColor = scheme.Panel.ForeColor;
-                                    dcl.TrackVisitedState = false;
-                                    dcl.LinkBehavior = LinkBehavior.HoverUnderline;
-                                }
-                                break;
-                            }
-                            case DataGridViewCheckBoxColumn ccb:
-                            {
-                                var template = new DataGridViewExCheckBoxCell
-                                {
-                                    DefaultStyle = style.ControlsDefaultStyle,
-                                    BorderColor = scheme.Border.ForeColor,
-                                    MarkColor = scheme.Mark.ForeColor,
-                                    SquareBackColor = scheme.Panel.BackColor,
-                                    HighlightColor = scheme.Highlight.BackColor
-                                };
-                                ccb.CellTemplate = template;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (style.DarkScrollBar)
-                        foreach (Control dgvc in dgv.Controls)
-                            if (dgvc is ScrollBar sc)
-                                sc.SetTheme(WindowsTheme.DarkExplorer);
-
-                    break;
-                }
-                case UserControl:
-                {
-                    ChangeStyleOfControls(style, control.Controls);
-                    control.BackColor = scheme.Panel.BackColor;
-                    control.ForeColor = scheme.Panel.ForeColor;
-                    if (style.DarkScrollBar)
-                        control.SetTheme(WindowsTheme.DarkExplorer);
-                    break;
-                }
-            }
-
-            if (control.ContextMenuStrip is not null)
-            {
-                ChangeColorContextMenu(style, control.ContextMenuStrip);
             }
         }
+    }
+
+    private static void ApplyPropertyGrid(PropertyGrid grid, ExTheme theme)
+    {
+        if (!theme.UseSystemStyle)
+        {
+            grid.BackColor = theme.PanelBackColor;
+            grid.ForeColor = theme.PanelForeColor;
+            grid.ViewBackColor = theme.BoxBackColor;
+            grid.ViewForeColor = theme.BoxForeColor;
+            grid.HelpBorderColor = theme.BorderColor;
+            grid.HelpBackColor = theme.PanelBackColor;
+            grid.HelpForeColor = theme.PanelForeColor;
+            grid.LineColor = theme.ButtonBackColor;
+            grid.CategoryForeColor = theme.BoxForeColor;
+            grid.CategorySplitterColor = theme.BoxForeColor;
+            grid.ViewBorderColor = theme.BorderColor;
+            grid.CommandsBorderColor = theme.PanelBackColor;
+            grid.CommandsForeColor = theme.PanelForeColor;
+            grid.CommandsBackColor = theme.PanelBackColor;
+            grid.SelectedItemWithFocusBackColor = theme.HighlightBackColor;
+            grid.SelectedItemWithFocusForeColor = theme.HighlightForeColor;
+        }
+
+        if (theme.DarkScrollBars)
+            grid.Controls[2].Controls[0].SetTheme(WindowsTheme.DarkExplorer);
+        if (grid is ExPropertyGrid ex && !theme.UseSystemStyle)
+        {
+            ex.InnerToolStrip!.RenderMode = ToolStripRenderMode.Professional;
+            ex.InnerToolStrip.Renderer = new MyMenuRenderer(new MyColorTable(), false);
+        }
+    }
+
+    private static void ApplyDataGridView(DataGridView dgv, ExTheme theme)
+    {
+        // DoubleBuffered je u DataGridView protected a predvolene vypnute
+        DgvDoubleBuffered?.SetValue(dgv, true);
+
+        dgv.EnableHeadersVisualStyles = theme.UseSystemStyle;
+        dgv.DefaultCellStyle.SelectionBackColor = theme.HighlightBackColor;
+        dgv.DefaultCellStyle.SelectionForeColor = theme.HighlightForeColor;
+        dgv.RowHeadersDefaultCellStyle.SelectionBackColor = theme.HighlightBackColor;
+        dgv.RowHeadersDefaultCellStyle.SelectionForeColor = theme.HighlightForeColor;
+        dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = theme.HighlightBackColor;
+        dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = theme.HighlightForeColor;
+
+        if (!theme.UseSystemStyle)
+        {
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = theme.ButtonBackColor;
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = theme.ButtonForeColor;
+            dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+
+            dgv.RowHeadersDefaultCellStyle.BackColor = theme.ButtonBackColor;
+            dgv.RowHeadersDefaultCellStyle.ForeColor = theme.ButtonForeColor;
+            dgv.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+
+            dgv.DefaultCellStyle.BackColor = theme.BoxBackColor;
+            dgv.DefaultCellStyle.ForeColor = theme.BoxForeColor;
+
+            dgv.ForeColor = theme.PanelForeColor;
+            dgv.BackColor = theme.PanelBackColor;
+            dgv.BackgroundColor = theme.BoxBackColor;
+            dgv.GridColor = theme.BorderColor;
+            dgv.BorderStyle = BorderStyle.None;
+        }
+        else
+        {
+            dgv.ForeColor = SystemColors.ControlText;
+            dgv.BackColor = SystemColors.Control;
+            dgv.BackgroundColor = SystemColors.AppWorkspace;
+        }
+
+        foreach (DataGridViewColumn column in dgv.Columns)
+        {
+            switch (column)
+            {
+                case IThemeable themeable:
+                    themeable.ApplyTheme(theme);
+                    break;
+                case DataGridViewButtonColumn cbutton:
+                {
+                    if (!theme.UseSystemStyle)
+                    {
+                        cbutton.FlatStyle = FlatStyle.Flat;
+                        cbutton.DefaultCellStyle.ForeColor = theme.ButtonForeColor;
+                        cbutton.DefaultCellStyle.BackColor = theme.ButtonBackColor;
+                        cbutton.DefaultCellStyle.SelectionBackColor = theme.HighlightBackColor;
+                        cbutton.DefaultCellStyle.SelectionForeColor = theme.HighlightForeColor;
+                    }
+
+                    break;
+                }
+                case DataGridViewLinkColumn dcl:
+                {
+                    if (!theme.UseSystemStyle)
+                    {
+                        dcl.LinkColor = ControlPaint.LightLight(theme.HighlightBackColor);
+                        dcl.ActiveLinkColor = theme.PanelForeColor;
+                        dcl.TrackVisitedState = false;
+                        dcl.LinkBehavior = LinkBehavior.HoverUnderline;
+                    }
+
+                    break;
+                }
+                case DataGridViewCheckBoxColumn ccb:
+                {
+                    ccb.CellTemplate = new DataGridViewExCheckBoxCell
+                    {
+                        DefaultStyle = theme.UseSystemStyle,
+                        BorderColor = theme.BorderColor,
+                        MarkColor = theme.MarkColor,
+                        SquareBackColor = theme.PanelBackColor,
+                        HighlightColor = theme.HighlightBackColor
+                    };
+                    break;
+                }
+            }
+        }
+
+        if (theme.DarkScrollBars)
+            foreach (Control dgvc in dgv.Controls)
+                if (dgvc is ScrollBar sc)
+                    sc.SetTheme(WindowsTheme.DarkExplorer);
     }
 
     /// <summary>
