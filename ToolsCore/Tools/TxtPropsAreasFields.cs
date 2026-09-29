@@ -48,12 +48,12 @@ public class TxtPropsAreasFields
     public string? Get(string area, string field, bool throwIfNull = true)
     {
         if (throwIfNull)
-            if (_areas.ContainsKey(area) && _areas[area].ContainsKey(field))
-                return _areas[area][field];
+            if (_areas.TryGetValue(area, out var fields) && fields.TryGetValue(field, out var found))
+                return found;
             else
                 throw new ArgumentNullException(nameof(area), string.Format(CultureInfo.InvariantCulture, EX_MESSAGE, _fileName, area, field));
 
-        return _areas.ContainsKey(area) && _areas[area].ContainsKey(field) ? _areas[area][field] : null;
+        return _areas.TryGetValue(area, out var value) ? value.GetValueOrDefault(field) : null;
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public class TxtPropsAreasFields
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <returns>slovnik vlastnosti alebo <see langword="null"/>, ak pole s nazov <paramref name="area"/> v sloniku poli nenajde.</returns>
-    public Dictionary<string, string>? Get(string area) => _areas.ContainsKey(area) ? _areas[area] : null;
+    public Dictionary<string, string>? Get(string area) => _areas.TryGetValue(area, out var value) ? value : null;
 
     /// <summary>
     /// Vrati cely slovnik s poliami a ich vlastnostami.
@@ -153,7 +153,7 @@ public class TxtPropsAreasFields
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <returns>text komentaru, alebo <see cref="string.Empty"/> ak pole s nazvom <paramref name="area"/> nenajde v slovniku poli.</returns>
-    public string GetComment(string area) => _areasComments.ContainsKey(area) ? _areasComments[area] : "";
+    public string GetComment(string area) => _areasComments.TryGetValue(area, out var value) ? value : "";
 
     /// <summary>
     /// Nastavi komentar pre dane pole. Ak zadany nazov pola <paramref name="area"/> nenajde v slovniku poli,
@@ -179,9 +179,9 @@ public class TxtPropsAreasFields
         foreach (var area in _areas.Keys)
         {
             file.WriteLine("[" + area + "]");
-            if (_areasComments.ContainsKey(area))
+            if (_areasComments.TryGetValue(area, out var value))
             {
-                var lines = _areasComments[area].Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                var lines = value.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                 for (var i = 0; i < lines.Length; i++)
                     if (!string.IsNullOrEmpty(lines[i]))
                     {
@@ -211,7 +211,7 @@ public class TxtPropsAreasFields
 
         foreach (var line in File.ReadAllLines(file, Encodings.Win1250))
         {
-            if (!string.IsNullOrEmpty(line) && !line.StartsWithAny(';','#', '\'') && line.StartsWith("[", StringComparison.Ordinal) && line.EndsWith("]", StringComparison.Ordinal))
+            if (!string.IsNullOrEmpty(line) && !line.StartsWithAny(';','#', '\'') && line.StartsWith('[') && line.EndsWith(']'))
             {
                 if (propInArea.Count != 0 || !string.IsNullOrEmpty(actualArea))
                 {
@@ -224,23 +224,23 @@ public class TxtPropsAreasFields
                 actualArea = s.Replace("]", "");
                 comments = new StringBuilder();
             }
-            else if (!string.IsNullOrEmpty(line) && line.StartsWith(";", StringComparison.Ordinal))
+            else if (!string.IsNullOrEmpty(line) && line.StartsWith(';'))
             {
                 comments.AppendLine(line.Substring(1));
             }
 
             if (!string.IsNullOrEmpty(line) &&
-                !line.StartsWith(";", StringComparison.Ordinal) && 
-                !line.StartsWith("#", StringComparison.Ordinal) &&
-                !line.StartsWith("'", StringComparison.Ordinal) && 
+                !line.StartsWith(';') && 
+                !line.StartsWith('#') &&
+                !line.StartsWith('\'') && 
                 line.Contains('='))
             {
                 var index = line.IndexOf('=');
                 var key = line.Substring(0, index).Trim();
                 var value = line.Substring(index + 1).Trim();
 
-                if (value.StartsWith("\"", StringComparison.Ordinal) && value.EndsWith("\"", StringComparison.Ordinal) ||
-                    value.StartsWith("'", StringComparison.Ordinal) && value.EndsWith("'", StringComparison.Ordinal))
+                if (value.StartsWith('"') && value.EndsWith('"') ||
+                    value.StartsWith('\'') && value.EndsWith('\''))
                     value = value.Substring(1, value.Length - 2);
 
                 try

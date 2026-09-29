@@ -56,10 +56,10 @@ public class TxtProps
     public string? Get(string field, bool nullSensitive = true)
     {
         if (nullSensitive)
-            return _dictionary.ContainsKey(field) 
-                ? _dictionary[field] : throw new ArgumentNullException(nameof(field), string.Format(CultureInfo.InvariantCulture, EX_MESSAGE, _fileName, field));
+            return _dictionary.TryGetValue(field, out var value) 
+                ? value : throw new ArgumentNullException(nameof(field), string.Format(CultureInfo.InvariantCulture, EX_MESSAGE, _fileName, field));
 
-        return _dictionary.ContainsKey(field) ? _dictionary[field] : null;
+        return _dictionary.GetValueOrDefault(field);
     }
 
     /// <summary>
@@ -97,15 +97,15 @@ public class TxtProps
     {
         foreach (var line in File.ReadAllLines(file, Encodings.Win1250))
         {
-            if (string.IsNullOrEmpty(line) || line.StartsWith(";", StringComparison.Ordinal) || line.StartsWith("#", StringComparison.Ordinal) || line.StartsWith("'", StringComparison.Ordinal) || !line.Contains('=')) 
+            if (string.IsNullOrEmpty(line) || line.StartsWith(';') || line.StartsWith('#') || line.StartsWith('\'') || !line.Contains('=')) 
                 continue;
 
             var index = line.IndexOf('=');
             var key = line.Substring(0, index).Trim();
             var value = line.Substring(index + 1).Trim();
 
-            if (value.StartsWith("\"", StringComparison.Ordinal) && value.EndsWith("\"", StringComparison.Ordinal) ||
-                value.StartsWith("'", StringComparison.Ordinal) && value.EndsWith("'", StringComparison.Ordinal))
+            if (value.StartsWith('"') && value.EndsWith('"') ||
+                value.StartsWith('\'') && value.EndsWith('\''))
                 value = value.Substring(1, value.Length - 2);
 
             try

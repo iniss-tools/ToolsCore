@@ -395,7 +395,7 @@ public partial class FAppSettingsBase : Form
         tv.Nodes.Add(controls);
     }
 
-    public TreeNode CreateParentNode(IColorScheme scheme, string name)
+    public static TreeNode CreateParentNode(IColorScheme scheme, string name)
     {
         var node = new TreeNode();
         node.Text = scheme.Name;
@@ -404,7 +404,7 @@ public partial class FAppSettingsBase : Form
         return node;
     }
 
-    public void CreateNode(ColorSetting setting, string name, TreeNode parent)
+    public static void CreateNode(ColorSetting setting, string name, TreeNode parent)
     {
         var node = new TreeNode();
         node.Text = setting.Name;

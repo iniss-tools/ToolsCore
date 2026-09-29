@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using ToolsCore.Expressions;
 using ToolsCore.StateDgm;
 using ToolsCore.Tests.Expressions;

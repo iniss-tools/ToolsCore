@@ -30,7 +30,7 @@ public class TxtPropsAreas
     /// </summary>
     /// <param name="area">Nazov pola.</param>
     /// <returns></returns>
-    public string? Get(string area) => _dictionary.ContainsKey(area) ? _dictionary[area] : null;
+    public string? Get(string area) => _dictionary.TryGetValue(area, out var value) ? value : null;
 
     /// <summary>
     /// Vrati zoznam vsetkych nazvov poli, ktore sa nachadzaju v slovniku.

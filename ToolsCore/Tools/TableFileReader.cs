@@ -8,7 +8,7 @@ public abstract class TableFileReader : IDisposable
     /// <summary>
     /// Data.
     /// </summary>
-    protected string[,] Data = null!;
+    protected string[,] Data { get; set; } = null!;
 
     /// <summary>
     /// Pocet riadkov.
@@ -42,5 +42,17 @@ public abstract class TableFileReader : IDisposable
     }
 
     /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
-    public abstract void Dispose();
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Uvolni prostriedky citaca (napr. Excel pri XLS).
+    /// </summary>
+    /// <param name="disposing"><see langword="true" /> pri volani z <see cref="Dispose()" />.</param>
+    protected virtual void Dispose(bool disposing)
+    {
+    }
 }

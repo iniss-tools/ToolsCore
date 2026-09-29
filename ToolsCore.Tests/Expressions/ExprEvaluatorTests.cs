@@ -1,4 +1,3 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ToolsCore.Expressions;
 
 namespace ToolsCore.Tests.Expressions;
