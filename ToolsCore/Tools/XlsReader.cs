@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.Office.Interop.Excel;
+using ToolsCore.Iniss.Tools;
 using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace ToolsCore.Tools;

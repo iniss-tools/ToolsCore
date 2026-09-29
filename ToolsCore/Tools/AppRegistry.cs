@@ -3,6 +3,7 @@ using System.Reflection;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using ToolsCore.Iniss.Tools;
 
 namespace ToolsCore.Tools;
 

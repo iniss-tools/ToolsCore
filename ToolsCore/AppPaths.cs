@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using ToolsCore.Tools;
+using ToolsCore.Iniss.Tools;
 using Application = System.Windows.Forms.Application;
 
 namespace ToolsCore;
@@ -20,13 +20,13 @@ public static class AppPaths
     /// <summary>
     /// Priečinok s údajmi programu: <c>%LocalAppData%\&lt;názov programu&gt;</c>.
     /// </summary>
-    public static string DataDir => _dataDir ??= Utils.CombinePath(
+    public static string DataDir => _dataDir ??= PathUtils.CombinePath(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AppName)!;
 
     /// <summary>
     /// Priečinok s konfiguračnými súbormi.
     /// </summary>
-    public static string ConfigDir => Utils.CombinePath(DataDir, FileConsts.CONFIG_PATH)!;
+    public static string ConfigDir => PathUtils.CombinePath(DataDir, FileConsts.CONFIG_PATH)!;
 
     /// <summary>
     /// Názov programu, pod ktorým vznikne priečinok v <c>%LocalAppData%</c>.

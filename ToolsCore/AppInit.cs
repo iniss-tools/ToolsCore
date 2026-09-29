@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Xml;
 using ExControls;
 using ToolsCore.Forms;
+using ToolsCore.Iniss.Tools;
 using ToolsCore.Tools;
 using ToolsCore.XML;
 using Application = System.Windows.Forms.Application;
@@ -50,7 +51,7 @@ public static class AppInit
         var resetFiles = new List<string>();
 
         //nacitanie konfiguracneho suboru CONFIG.XML
-        var config = ReadOrReset(Utils.CombinePath(configsDir, FileConsts.FILE_CONFIG)!, XmlSerialization.ReadData<TC>, resetFiles);
+        var config = ReadOrReset(PathUtils.CombinePath(configsDir, FileConsts.FILE_CONFIG)!, XmlSerialization.ReadData<TC>, resetFiles);
         GlobSettings.Fonts = config.Fonts;
 
         // Predvolene pismo aplikacie = pismo formularov z konfiguracie. Formulare (AutoScaleDimensions podla pisma
@@ -63,7 +64,7 @@ public static class AppInit
         Log.DoErrorLogs = config.LoggingError;
 
         //nacitanie suboru so stylmi STYLES.XML
-        var styles = ReadOrReset(Utils.CombinePath(configsDir, FileConsts.FILE_STYLES)!, Styles<TS>.ReadData, resetFiles);
+        var styles = ReadOrReset(PathUtils.CombinePath(configsDir, FileConsts.FILE_STYLES)!, Styles<TS>.ReadData, resetFiles);
         var usingStyle = styles.FirstOrDefault(s => s.Used) ?? styles.First();
         GlobSettings.UsingStyle = usingStyle;
 

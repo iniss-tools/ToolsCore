@@ -5,7 +5,6 @@
 		<RootNamespace>ToolsCore</RootNamespace>
 		<AssemblyName>ToolsCore</AssemblyName>
 		<UseWindowsForms>true</UseWindowsForms>
-		<UseWPF>true</UseWPF>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<LangVersion>default</LangVersion>
 	</PropertyGroup>
@@ -17,6 +16,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\ExControls\ExControls\ExControls.csproj" />
+		<ProjectReference Include="..\ToolsCore.Iniss\ToolsCore.Iniss.csproj" />
 	</ItemGroup>
 	<!-- Rozsirenie navrhara ExControls pre VS (editor kolekcie ExOptionsView.Panels) -->
 	<Import Project="..\..\ExControls\ExControls.Designer.targets" />

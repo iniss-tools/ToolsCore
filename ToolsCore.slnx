@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="ToolsCore.Iniss.Tests/ToolsCore.Iniss.Tests.csproj" />
+  <Project Path="ToolsCore.Iniss/ToolsCore.Iniss.csproj" />
   <Project Path="ToolsCore.Tests/ToolsCore.Tests.csproj" />
   <Project Path="ToolsCore/ToolsCore.csproj" />
 </Solution>

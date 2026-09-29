@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
-using ToolsCore.Tools;
+using ToolsCore.Iniss.Tools;
 
 namespace ToolsCore.XML;
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic.FileIO;
+using ToolsCore.Iniss.Tools;
 using Vanara.Windows.Shell;
 using SearchOption = System.IO.SearchOption;
 
@@ -99,6 +100,6 @@ public static partial class Utils
     {
         return !string.IsNullOrWhiteSpace(fileName) &&
                fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0 &&
-               (!checkIfExists || !File.Exists(CombinePath(fullPath, fileName)));
+               (!checkIfExists || !File.Exists(PathUtils.CombinePath(fullPath, fileName)));
     }
 }
