@@ -1,4 +1,6 @@
+using System.Globalization;
 using ToolsCore.Expressions;
+using ToolsCore.Properties;
 
 namespace ToolsCore.StateDgm;
 
@@ -187,9 +189,9 @@ public static class StateDgmValidator
         CheckIndCat(d, options, list);
 
         if (d.Categories.Count == 0)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.NoCategories, "Diagram nemá žiadnu kategóriu vlakov", StateDgmLocation.Root));
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.NoCategories, Resources.Sdv_NoCategories, StateDgmLocation.Root));
 
-        CheckDuplicates(d.Categories.Select(c => c.Key), "kategórie", list, i => new StateDgmLocation(StateDgmElementKind.Category, i), i => d.Categories[i].Name);
+        CheckDuplicates(d.Categories.Select(c => c.Key), Resources.Sdv_WhatCategory, list, i => new StateDgmLocation(StateDgmElementKind.Category, i), i => d.Categories[i].Name);
 
         for (var ci = 0; ci < d.Categories.Count; ci++)
             CheckCategory(d, ci, options, list);
@@ -199,21 +201,21 @@ public static class StateDgmValidator
 
     private static void CheckDesigns(StateDgmDiagram d, List<StateDgmDiagnostic> list)
     {
-        CheckDuplicates(d.Designs.Select(x => x.Key), "vzhľadu", list, i => new StateDgmLocation(StateDgmElementKind.Design, Index: i), i => d.Designs[i].Key);
+        CheckDuplicates(d.Designs.Select(x => x.Key), Resources.Sdv_WhatDesign, list, i => new StateDgmLocation(StateDgmElementKind.Design, Index: i), i => d.Designs[i].Key);
         for (var i = 0; i < d.Designs.Count; i++)
         {
             var des = d.Designs[i];
             var loc = new StateDgmLocation(StateDgmElementKind.Design, Index: i);
             if (des.Key.Length == 0)
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, "Vzhľad bez kľúča", loc) { Path = $"Vzhľad {i + 1}" });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, Resources.Sdv_DesignNoKey, loc) { Path = string.Format(CultureInfo.CurrentCulture, Resources.Sdv_DesignN, i + 1) });
             if (!StateDgmBitmaps.TryParse(des.Bitmaps, out _))
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.BitmapsFormat, $"Bitmaps „{des.Bitmaps}“ nemá tvar posun-normálny,zameranie,stlačený (napr. 6-7,8,9)", loc) { Path = des.Key });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.BitmapsFormat, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_BitmapsFormat, des.Bitmaps), loc) { Path = des.Key });
         }
     }
 
     private static void CheckTimePoints(StateDgmDiagram d, List<StateDgmDiagnostic> list)
     {
-        CheckDuplicates(d.TimePoints.Select(x => x.Key), "časového bodu", list, i => new StateDgmLocation(StateDgmElementKind.TimePoint, Index: i), i => d.TimePoints[i].Key);
+        CheckDuplicates(d.TimePoints.Select(x => x.Key), Resources.Sdv_WhatTimePoint, list, i => new StateDgmLocation(StateDgmElementKind.TimePoint, Index: i), i => d.TimePoints[i].Key);
         var all = d.AllTimePointKeys.ToHashSet(StringComparer.Ordinal);
         for (var i = 0; i < d.TimePoints.Count; i++)
             CheckTimePoint(d.TimePoints[i], new StateDgmLocation(StateDgmElementKind.TimePoint, Index: i), "", all, list);
@@ -221,19 +223,19 @@ public static class StateDgmValidator
 
     private static void CheckTimePoint(StateDgmTimePoint tp, StateDgmLocation loc, string prefix, HashSet<string> all, List<StateDgmDiagnostic> list)
     {
-        var path = prefix + (tp.Key.Length == 0 ? $"časový bod {loc.Index + 1}" : tp.Key);
+        var path = prefix + (tp.Key.Length == 0 ? string.Format(CultureInfo.CurrentCulture, Resources.Sdv_TimePointN, loc.Index + 1) : tp.Key);
         {
             if (tp.Key.Length == 0)
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, "Časový bod bez kľúča – INISS diagram nenačíta", loc) { Path = path });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, Resources.Sdv_TimePointNoKey, loc) { Path = path });
             else if (StateDgmKeys.BuiltInTimePoints.Contains(tp.Key))
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.TimePointShadowsBuiltIn, $"Časový bod „{tp.Key}“ má kľúč zabudovaného bodu – vlastný bod je zbytočný", loc) { Path = path });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.TimePointShadowsBuiltIn, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_TimePointShadows, tp.Key), loc) { Path = path });
             if (tp.Operator is not (StateDgmKeys.OPERATOR_MIN or StateDgmKeys.OPERATOR_MAX))
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointOperator, $"Operator „{tp.Operator}“ – povolené je len min alebo max", loc) { Path = path });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointOperator, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_TimePointOperator, tp.Operator), loc) { Path = path });
             foreach (var k in new[] { tp.TimePointKey1, tp.TimePointKey2 })
                 if (k.Length > 0 && !all.Contains(k))
-                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointKeyMissing, $"Zdrojový časový bod „{k}“ neexistuje", loc) { Path = path });
+                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointKeyMissing, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_TimePointSourceMissing, k), loc) { Path = path });
                 else if (k == tp.Key && k.Length > 0)
-                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointKeyMissing, "Časový bod sa odvodzuje sám od seba", loc) { Path = path });
+                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointKeyMissing, Resources.Sdv_TimePointSelf, loc) { Path = path });
         }
     }
 
@@ -245,8 +247,8 @@ public static class StateDgmValidator
         var expected = t.Equals("INDCAT6", StringComparison.OrdinalIgnoreCase) ? 6 : t.Equals("INDCAT8", StringComparison.OrdinalIgnoreCase) ? 8 : 0;
         if (expected != 0 && d.Categories.Count != expected)
             list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.IndCatCategoryCount,
-                $"{t.ToUpperInvariant()} vracia čísla 1–{expected}, ale diagram má {d.Categories.Count} kategórií" +
-                (d.Categories.Count < expected ? " – vlaky s vyšším číslom skončia v poslednej kategórii a v logu" : " – ďalšie kategórie sa nikdy nepoužijú"),
+                string.Format(CultureInfo.CurrentCulture, Resources.Sdv_CategoryCount, t.ToUpperInvariant(), expected, d.Categories.Count) +
+                (d.Categories.Count < expected ? Resources.Sdv_CategoryCountFewer : Resources.Sdv_CategoryCountMore),
                 StateDgmLocation.Root) { Path = "IndCat", ExprKey = StateDgmKeys.IND_CAT });
     }
 
@@ -256,17 +258,17 @@ public static class StateDgmValidator
         var cloc = new StateDgmLocation(StateDgmElementKind.Category, ci);
         var cpath = cat.Name.Length > 0 ? cat.Name : cat.Key;
         if (cat.Key.Length == 0)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, "Kategória bez kľúča", cloc) { Path = $"Kategória {ci + 1}" });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, Resources.Sdv_CategoryNoKey, cloc) { Path = string.Format(CultureInfo.CurrentCulture, Resources.Sdv_CategoryN, ci + 1) });
         if (cat.Icon is < 0 or > 2)
             list.Add(new StateDgmDiagnostic(cat.Icon is < 0 or > StateDgmKeys.MAX_ICON ? ExprSeverity.Error : ExprSeverity.Warning, StateDgmDiagnosticCode.IconRange,
-                $"Ikona kategórie {cat.Icon} – do súboru patrí čierna podoba 0–2, červenú (+3) si INISS pridá pri rýchlikoch sám", cloc) { Path = cpath });
+                string.Format(CultureInfo.CurrentCulture, Resources.Sdv_CategoryIcon, cat.Icon), cloc) { Path = cpath });
         if (cat.States.Count == 0)
         {
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.NoStates, "Kategória nemá žiadny stav", cloc) { Path = cpath });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.NoStates, Resources.Sdv_CategoryNoStates, cloc) { Path = cpath });
             return;
         }
 
-        CheckDuplicates(cat.States.Select(s => s.Key), "stavu", list, i => new StateDgmLocation(StateDgmElementKind.State, ci, i), i => $"{cpath} › {cat.States[i]}");
+        CheckDuplicates(cat.States.Select(s => s.Key), Resources.Sdv_WhatState, list, i => new StateDgmLocation(StateDgmElementKind.State, ci, i), i => $"{cpath} › {cat.States[i]}");
 
         var stateKeys = cat.States.Select(s => s.Key).ToHashSet(StringComparer.Ordinal);
         for (var si = 0; si < cat.States.Count; si++)
@@ -283,26 +285,26 @@ public static class StateDgmValidator
         var spath = $"{cpath} › {(s.Name.Length > 0 ? s.Name : s.Key)}";
 
         if (s.Key.Length == 0)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, "Stav bez kľúča", loc) { Path = $"{cpath} › stav {si + 1}" });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, Resources.Sdv_StateNoKey, loc) { Path = string.Format(CultureInfo.CurrentCulture, Resources.Sdv_PathStateN, cpath, si + 1) });
         if (s.Icon is < 0 or > StateDgmKeys.MAX_ICON)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.IconRange, $"Ikona stavu {s.Icon} – INISS má ikony 0–{StateDgmKeys.MAX_ICON}", loc) { Path = spath });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.IconRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_StateIcon, s.Icon, StateDgmKeys.MAX_ICON), loc) { Path = spath });
         if (s.DefaultControl != 0 && (s.DefaultControl < 1 || s.DefaultControl > s.Controls.Count))
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.DefaultControlRange, $"DefaultControl={s.DefaultControl}, ale stav má {s.Controls.Count} ovládačov (číslované od 1)", loc) { Path = spath });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.DefaultControlRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_DefaultControl, s.DefaultControl, s.Controls.Count), loc) { Path = spath });
 
         // automatika
         if (s.AutoMode is { IsExpression: false } am && am.Number is < 0 or > 2)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.AutoModeRange, $"AutoMode={am.Number} – povolené 0 (ručne), 1 (poloautomat), 2 (automat); INISS by načítanie diagramu prerušil", loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_MODE });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.AutoModeRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_AutoMode, am.Number), loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_MODE });
         if (s.AutoTimePoint is { IsExpression: false } atp && atp.Number is < 1 or > 2)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.AutoTimePointRange, $"AutoTimePoint={atp.Number} – povolené 1 (príchod), 2 (odchod); INISS by načítanie diagramu prerušil", loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_TIME_POINT });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.AutoTimePointRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_AutoTimePoint, atp.Number), loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_TIME_POINT });
         if (s.AutoModif is { IsExpression: false } amf && amf.Number is < 1 or > 2)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.AutoModifRange, $"AutoModif={amf.Number} – povolené 1 (krátke) alebo 2 (dlhé hlásenie)", loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_MODIF });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.AutoModifRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_AutoModif, amf.Number), loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_MODIF });
         if (s.HasAutomation && s.AutoTimePoint == null)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.AutomationIncomplete, "Automatika je zapnutá, ale chýba AutoTimePoint – INISS nemá od čoho počítať čas", loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_TIME_POINT });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.AutomationIncomplete, Resources.Sdv_AutoNoTimePoint, loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_TIME_POINT });
         // automatika hovori, kedy vlak do TOHTO stavu vstupi sam (riadok v Kalendari akcii vlaku) - akcie stavu s tym nesuvisia
         if (!s.HasAutomation && s.AutoMode == null && (s.AutoTimePoint != null || s.AutoTimePointAdd != null))
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Info, StateDgmDiagnosticCode.AutomationIncomplete, "Časový bod automatiky bez AutoMode – do stavu sa vlak dostane len ručne", loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_MODE });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Info, StateDgmDiagnosticCode.AutomationIncomplete, Resources.Sdv_AutoNoMode, loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_MODE });
         if (s.Wait != null && !options.HasIltis)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.WaitWithoutIltis, "Wait čaká na udalosť ILTISu, ktorú stanica bez ILTISu nikdy nedostane – akcia sa nevykoná", loc) { Path = spath, ExprKey = StateDgmKeys.WAIT });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.WaitWithoutIltis, Resources.Sdv_WaitWithoutIltis, loc) { Path = spath, ExprKey = StateDgmKeys.WAIT });
 
         CheckDynamic(s.AutoMode, StateDgmKeys.AUTO_MODE, options, loc, spath, list);
         CheckDynamic(s.AutoTimePoint, StateDgmKeys.AUTO_TIME_POINT, options, loc, spath, list);
@@ -313,7 +315,7 @@ public static class StateDgmValidator
         if (s.AutoCondition != null) CheckExpression(s.AutoCondition, StateDgmKeys.AUTO_CONDITION, ExprContext.Condition, true, options, loc, spath, list);
 
         // akcie
-        CheckDuplicates(s.Events.Select(e => e.Key), "akcie", list, i => new StateDgmLocation(StateDgmElementKind.Event, ci, si, i), i => $"{spath} › {s.Events[i].Key}");
+        CheckDuplicates(s.Events.Select(e => e.Key), Resources.Sdv_WhatEvent, list, i => new StateDgmLocation(StateDgmElementKind.Event, ci, si, i), i => $"{spath} › {s.Events[i].Key}");
         var eventKeys = s.Events.Select(e => e.Key).ToHashSet(StringComparer.Ordinal);
         for (var ei = 0; ei < s.Events.Count; ei++)
             CheckEvent(s.Events[ei], new StateDgmLocation(StateDgmElementKind.Event, ci, si, ei), $"{spath} › {s.Events[ei].Key}", stateKeys, options, list);
@@ -324,68 +326,68 @@ public static class StateDgmValidator
         {
             var c = s.Controls[i];
             var cl = new StateDgmLocation(StateDgmElementKind.Control, ci, si, i);
-            var cp = $"{spath} › tlačidlo {c.CtrlId}";
+            var cp = string.Format(CultureInfo.CurrentCulture, Resources.Sdv_PathButton, spath, c.CtrlId);
             if (!ids.Add(c.CtrlId))
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.DuplicateCtrlId, $"Dva ovládače s CtrlID={c.CtrlId}", cl) { Path = cp });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.DuplicateCtrlId, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_DuplicateCtrlId, c.CtrlId), cl) { Path = cp });
             if (c.DesignKey.Length == 0 || d.FindDesign(c.DesignKey) == null)
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.DesignKeyMissing, $"Vzhľad „{c.DesignKey}“ nie je v bloku CtrlDesign", cl) { Path = cp });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.DesignKeyMissing, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_DesignMissing, c.DesignKey), cl) { Path = cp });
             if (c.EventKey.Length > 0 && !eventKeys.Contains(c.EventKey))
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EventKeyMissing, $"Akcia „{c.EventKey}“ v tomto stave nie je", cl) { Path = cp });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EventKeyMissing, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_EventMissing, c.EventKey), cl) { Path = cp });
         }
 
         // casove body stavu
         var timePoints = d.AllTimePointKeys.Concat(s.TimePoints.Select(t => t.Key)).ToHashSet(StringComparer.Ordinal);
-        CheckDuplicates(s.TimePoints.Select(x => x.Key), "časového bodu", list, i => new StateDgmLocation(StateDgmElementKind.TimePoint, ci, si, i), i => $"{spath} › {s.TimePoints[i].Key}");
+        CheckDuplicates(s.TimePoints.Select(x => x.Key), Resources.Sdv_WhatTimePoint, list, i => new StateDgmLocation(StateDgmElementKind.TimePoint, ci, si, i), i => $"{spath} › {s.TimePoints[i].Key}");
         for (var i = 0; i < s.TimePoints.Count; i++)
             CheckTimePoint(s.TimePoints[i], new StateDgmLocation(StateDgmElementKind.TimePoint, ci, si, i), spath + " › ", timePoints, list);
 
         // startery
-        CheckDuplicates(s.Starters.Select(x => x.Key), "štartéra", list, i => new StateDgmLocation(StateDgmElementKind.Starter, ci, si, i), i => $"{spath} › {s.Starters[i].Key}");
+        CheckDuplicates(s.Starters.Select(x => x.Key), Resources.Sdv_WhatStarter, list, i => new StateDgmLocation(StateDgmElementKind.Starter, ci, si, i), i => $"{spath} › {s.Starters[i].Key}");
         for (var i = 0; i < s.Starters.Count; i++)
         {
             var st = s.Starters[i];
             var sl = new StateDgmLocation(StateDgmElementKind.Starter, ci, si, i);
-            var sp = $"{spath} › {(st.Key.Length > 0 ? st.Key : $"štartér {i + 1}")}";
+            var sp = $"{spath} › {(st.Key.Length > 0 ? st.Key : string.Format(CultureInfo.CurrentCulture, Resources.Sdv_StarterN, i + 1))}";
             if (st.Key.Length == 0)
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, "Štartér bez kľúča", sl) { Path = sp });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, Resources.Sdv_StarterNoKey, sl) { Path = sp });
             if (st.EventKey.Length == 0 || !eventKeys.Contains(st.EventKey))
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EventKeyMissing, $"Akcia „{st.EventKey}“ v tomto stave nie je", sl) { Path = sp });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EventKeyMissing, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_EventMissing, st.EventKey), sl) { Path = sp });
             if (st.TimePointKey.Length == 0 || !timePoints.Contains(st.TimePointKey))
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointKeyMissing, $"Časový bod „{st.TimePointKey}“ neexistuje", sl) { Path = sp });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointKeyMissing, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_TimePointMissing, st.TimePointKey), sl) { Path = sp });
             if (st.TimePointKeyLast != null && !timePoints.Contains(st.TimePointKeyLast))
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointKeyMissing, $"Časový bod „{st.TimePointKeyLast}“ neexistuje", sl) { Path = sp });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointKeyMissing, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_TimePointMissing, st.TimePointKeyLast), sl) { Path = sp });
             if (st.Class != StateDgmKeys.CLASS_STARTER)
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.UnknownEventClass, $"Trieda štartéra „{st.Class}“ – INISS pozná len {StateDgmKeys.CLASS_STARTER}", sl) { Path = sp });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.UnknownEventClass, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_StarterClass, st.Class, StateDgmKeys.CLASS_STARTER), sl) { Path = sp });
         }
     }
 
     private static void CheckEvent(StateDgmEvent e, StateDgmLocation loc, string path, HashSet<string> stateKeys, StateDgmValidationOptions options, List<StateDgmDiagnostic> list)
     {
         if (e.Key.Length == 0)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, "Akcia bez kľúča", loc) { Path = path });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, Resources.Sdv_EventNoKey, loc) { Path = path });
         if (!StateDgmKeys.EventClasses.Contains(e.Class))
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.UnknownEventClass, $"Neznáma trieda akcie „{e.Class}“", loc) { Path = path });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.UnknownEventClass, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_EventClassUnknown, e.Class), loc) { Path = path });
         if (!string.IsNullOrEmpty(e.NextState) && !stateKeys.Contains(e.NextState))
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.NextStateMissing, $"NextState „{e.NextState}“ v tejto kategórii nie je", loc) { Path = path });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.NextStateMissing, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_NextStateMissing, e.NextState), loc) { Path = path });
         if (options.ReportKeys != null && !string.IsNullOrEmpty(e.ReportKey) && !options.ReportKeys.Contains(e.ReportKey))
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.ReportKeyUnknown, $"Typ hlásenia „{e.ReportKey}“ nie je v Categori.txt", loc) { Path = path });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.ReportKeyUnknown, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_ReportKeyUnknown, e.ReportKey), loc) { Path = path });
 
         switch (e.Class)
         {
             case "SDEventChangeState":
             case "SDEventSelectState":
                 if (string.IsNullOrEmpty(e.NextState))
-                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.ChangeStateNoNext, $"{e.Class} vyžaduje NextState", loc) { Path = path });
+                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.ChangeStateNoNext, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_NeedsNextState, e.Class), loc) { Path = path });
                 break;
             case "SDEventWithDialog":
                 if (string.IsNullOrEmpty(e.Dialog))
-                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.DialogInvalid, "SDEventWithDialog bez dialógu", loc) { Path = path });
+                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.DialogInvalid, Resources.Sdv_DialogMissing, loc) { Path = path });
                 else if (!StateDgmKeys.Dialogs.Contains(e.Dialog))
-                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.DialogInvalid, $"Neznámy dialóg „{e.Dialog}“ – INISS má {string.Join(", ", StateDgmKeys.Dialogs)}", loc) { Path = path });
+                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.DialogInvalid, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_DialogUnknown, e.Dialog, string.Join(", ", StateDgmKeys.Dialogs)), loc) { Path = path });
                 break;
             case "SDEventVlakAttr":
                 if (e.DelayArrival is not > 0 && e.DelayDeparture is not > 0)
-                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.VlakAttrNoDelay, $"SDEventVlakAttr musí mať zapnuté „{StateDgmKeys.DELAY_ARRIVAL}“ alebo „{StateDgmKeys.DELAY_DEPARTURE}“", loc) { Path = path });
+                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.VlakAttrNoDelay, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_VlakAttrNoDelay, StateDgmKeys.DELAY_ARRIVAL, StateDgmKeys.DELAY_DEPARTURE), loc) { Path = path });
                 break;
         }
     }
@@ -412,9 +414,9 @@ public static class StateDgmValidator
             var loc = new StateDgmLocation(StateDgmElementKind.State, ci, i);
             var path = $"{cpath} › {(s.Name.Length > 0 ? s.Name : s.Key)}";
             if (!seen.Contains(i))
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.StateUnreachable, "Stav sa z počiatočného stavu kategórie žiadnou akciou nedosiahne", loc) { Path = path });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.StateUnreachable, Resources.Sdv_StateUnreachable, loc) { Path = path });
             else if (options.ReportInfos && !s.Events.Any(e => e.ChangesState) && !s.Attr.HasFlag(StateDgmAttr.Shadow))
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Info, StateDgmDiagnosticCode.StateDeadEnd, "Zo stavu nevedie žiadna akcia a nie je koncový (Shadow) – vlak v ňom ostane", loc) { Path = path });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Info, StateDgmDiagnosticCode.StateDeadEnd, Resources.Sdv_StateDeadEnd, loc) { Path = path });
         }
     }
 
@@ -430,7 +432,7 @@ public static class StateDgmValidator
         foreach (var x in r.Diagnostics)
         {
             var sev = x.Severity;
-            var msg = x.IsError ? $"{key}: výraz sa nepreloží – {x.Message}; INISS by načítanie diagramu prerušil" : $"{key}: {x.Message}";
+            var msg = x.IsError ? string.Format(CultureInfo.CurrentCulture, Resources.Sdv_ExpressionError, key, x.Message) : $"{key}: {x.Message}";
             list.Add(new StateDgmDiagnostic(sev, StateDgmDiagnosticCode.Expression, msg, loc) { Path = path, Expr = x, ExprKey = key });
         }
     }
@@ -442,7 +444,7 @@ public static class StateDgmValidator
         foreach (var k in keys)
         {
             if (k.Length > 0 && seen.TryGetValue(k, out var first))
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.DuplicateKey, $"Kľúč {what} „{k}“ je použitý dvakrát (prvýkrát ako {first + 1}.)", loc(i)) { Path = path(i) });
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.DuplicateKey, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_DuplicateKey, what, k, first + 1), loc(i)) { Path = path(i) });
             else if (k.Length > 0)
                 seen[k] = i;
             i++;

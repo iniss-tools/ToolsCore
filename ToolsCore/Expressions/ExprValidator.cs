@@ -1,3 +1,6 @@
+using ToolsCore.Properties;
+using System.Globalization;
+
 namespace ToolsCore.Expressions;
 
 /// <summary>
@@ -100,8 +103,8 @@ public static class ExprValidator
             if (root is ExprNumberNode { Source: ExprNumberSource.Literal, Value: 1 }) return; // bezna zaloha "1"
             if (ExprEvaluator.TryFoldConstant(root, out var value))
                 Add(ExprSeverity.Info, ExprDiagnosticCode.ConstantCondition,
-                    value != 0 ? "Podmienka je vždy splnená" : "Podmienka nie je nikdy splnená", root,
-                    value != 0 ? "Ako záložnú podmienku na konci zoznamu píšte 1" : "Položku odstráňte alebo doplňte podmienku");
+                    value != 0 ? Resources.Expr_AlwaysTrue : Resources.Expr_NeverTrue, root,
+                    value != 0 ? Resources.Expr_AlwaysTrue_Fix : Resources.Expr_NeverTrue_Fix);
         }
 
         private void VisitNumber(ExprNumberNode n)
@@ -112,23 +115,23 @@ public static class ExprValidator
                 var decimalText = tok.Text.TrimStart('0');
                 if (decimalText.Length == 0) decimalText = "0";
                 Add(ExprSeverity.Warning, ExprDiagnosticCode.OctalLiteral,
-                    $"Číslo s vedúcou nulou sa číta osmičkovo: {tok.Text} = {tok.Value}", n,
-                    fix: TextFix.Single($"Zapísať desiatkovo: {decimalText}", n.Start, n.Length, decimalText));
+                    string.Format(CultureInfo.CurrentCulture, Resources.Expr_Octal, tok.Text, tok.Value), n,
+                    fix: TextFix.Single(string.Format(CultureInfo.CurrentCulture, Resources.Expr_Octal_Fix, decimalText), n.Start, n.Length, decimalText));
             }
 
             if (tok.TrainType is { } tt)
             {
                 if (options.Symbols?.TrainTypeKeys is not null && !tt.FromTrTypes)
                     Add(ExprSeverity.Warning, ExprDiagnosticCode.TrainTypeNotInTrTypes,
-                        $"Druh vlaku {tt.Key} nie je zavedený v TrTypes.txt (použije sa zabudovaný druh {ExprTrainTypes.NameOf(tt.Index)})", n,
-                        $"Zaviesť druh {ExprTrainTypes.NameOf(tt.Index)} v TrTypes.txt alebo použiť druh, ktorý grafikon má");
+                        string.Format(CultureInfo.CurrentCulture, Resources.Expr_TrainTypeNotDefined, tt.Key, ExprTrainTypes.NameOf(tt.Index)), n,
+                        string.Format(CultureInfo.CurrentCulture, Resources.Expr_TrainTypeNotDefined_Fix, ExprTrainTypes.NameOf(tt.Index)));
                 else if (!tt.Exact)
                 {
                     var exact = ExactTypeName(tt);
                     var prefix = tok.Text[..(tok.Text.Length - tt.Key.Length)];
                     Add(ExprSeverity.Info, ExprDiagnosticCode.TrainTypeInexactMatch,
-                        $"Druh vlaku {tt.Key} sa našiel len bez ohľadu na veľkosť písmen alebo diakritiku ({exact})", n,
-                        fix: exact is null ? null : TextFix.Single($"Zapísať presne: {prefix}{exact}", n.Start, n.Length, prefix + exact));
+                        string.Format(CultureInfo.CurrentCulture, Resources.Expr_TrainTypeInexact, tt.Key, exact), n,
+                        fix: exact is null ? null : TextFix.Single(string.Format(CultureInfo.CurrentCulture, Resources.Expr_TrainTypeInexact_Fix, prefix, exact), n.Start, n.Length, prefix + exact));
                 }
             }
         }
@@ -148,8 +151,8 @@ public static class ExprValidator
             if (options.ReportContextDependent && info.ContextDependent)
                 Add(ExprSeverity.Info, ExprDiagnosticCode.ContextDependentFunction,
                     f.Canonical == ExprFunction.ZPOZDENI
-                        ? "ZPOZDENI je meškanie príchodu na príchodovej tabuli, inak väčšie z oboch meškaní – jednoznačnejšie je ZPOZDENIPRIJ alebo ZPOZDENIODJ"
-                        : "VYLUKAZDE je výluka príchodu na príchodovej tabuli, inak ktorákoľvek výluka – jednoznačnejšie je PRIZNAK(Prizn_VylP) alebo PRIZNAK(Prizn_VylO)",
+                        ? Resources.Expr_Zpozdeni
+                        : Resources.Expr_Vylukazde,
                     f);
 
             var symbols = options.Symbols;
@@ -160,19 +163,19 @@ public static class ExprValidator
                 case ExprArgMeaning.StationId when f.Argument is ExprNumberNode { Source: ExprNumberSource.Literal } id:
                     if (symbols.StationExists(id.Value) == false)
                         Add(ExprSeverity.Warning, ExprDiagnosticCode.UnknownStation,
-                            $"Stanica {id.Value} nie je v grafikone", id, "Skontrolovať ID stanice (Stanice.txt, trasy vlakov)");
+                            string.Format(CultureInfo.CurrentCulture, Resources.Expr_StationUnknown, id.Value), id, Resources.Expr_StationUnknown_Fix);
                     break;
 
                 case ExprArgMeaning.TrackName when f.Argument is ExprStringNode track:
                     if (track.Value.Length > 0 && symbols.TrackExists(track.Value) == false)
                         Add(ExprSeverity.Warning, ExprDiagnosticCode.UnknownTrack,
-                            $"Koľaj \"{track.Value}\" nie je v Pozice.txt", track, "Použiť názov koľaje z Pozice.txt");
+                            string.Format(CultureInfo.CurrentCulture, Resources.Expr_TrackUnknown, track.Value), track, Resources.Ttv_UseTrackName);
                     break;
 
                 case ExprArgMeaning.OperatorName when f.Argument is ExprStringNode op:
                     if (symbols.OperatorExists(op.Value) == false)
                         Add(ExprSeverity.Warning, ExprDiagnosticCode.UnknownOperator,
-                            $"Dopravca \"{op.Value}\" nie je vo Vlastnik.txt", op, "Použiť názov dopravcu z Vlastnik.txt");
+                            string.Format(CultureInfo.CurrentCulture, Resources.Expr_OperatorUnknown, op.Value), op, Resources.Expr_OperatorUnknown_Fix);
                     break;
             }
         }
@@ -188,8 +191,8 @@ public static class ExprValidator
                     var negated = b.Operator is ExprTokenKind.NotEqual;
                     var replacement = negated ? $"!{Text(mask)}" : Text(mask);
                     Add(ExprSeverity.Warning, ExprDiagnosticCode.MaskComparedToNumber,
-                        "PRIZNAK(x) vracia masku príznakov, nie 0/1 – porovnávajte s 0 alebo použite bez porovnania", b,
-                        fix: TextFix.Single($"Nahradiť porovnanie: {replacement}", b.Start, b.Length, replacement));
+                        Resources.Expr_PriznakMask, b,
+                        fix: TextFix.Single(string.Format(CultureInfo.CurrentCulture, Resources.Expr_ReplaceComparison, replacement), b.Start, b.Length, replacement));
                 }
             }
 
@@ -198,22 +201,22 @@ public static class ExprValidator
             if (b is { IsConnective: true, Right: ExprBinaryNode { IsConnective: true } r } && Rank(b.Operator) > Rank(r.Operator))
             {
                 Add(ExprSeverity.Warning, ExprDiagnosticCode.MixedLogicalOperators,
-                    $"Spojky {ExprMessages.Operator(b.Operator)} a {ExprMessages.Operator(r.Operator)} majú v INISSe rovnakú prioritu a viažu sprava: "
-                    + $"{Text(b.Left)} {ExprMessages.Operator(b.Operator)} ({Text(r.Left)} {ExprMessages.Operator(r.Operator)} {Text(r.Right)}) – doplňte zátvorky",
-                    b, fix: Parenthesize($"Uzátvorkovať: ({Text(b.Left)} {ExprMessages.Operator(b.Operator)} {Text(r.Left)}) {ExprMessages.Operator(r.Operator)} …", b.Left, r.Left));
+                    string.Format(CultureInfo.CurrentCulture, Resources.Expr_ConjunctionsRight, ExprMessages.Operator(b.Operator), ExprMessages.Operator(r.Operator))
+                    + string.Format(CultureInfo.CurrentCulture, Resources.Expr_RightAssoc, Text(b.Left), ExprMessages.Operator(b.Operator), Text(r.Left), ExprMessages.Operator(r.Operator), Text(r.Right)),
+                    b, fix: Parenthesize(string.Format(CultureInfo.CurrentCulture, Resources.Expr_Parenthesize, Text(b.Left), ExprMessages.Operator(b.Operator), Text(r.Left), ExprMessages.Operator(r.Operator)), b.Left, r.Left));
             }
 
             if (b.Right is ExprBinaryNode rs && IsOrderSensitive(b.Operator, rs.Operator))
             {
                 Add(ExprSeverity.Warning, ExprDiagnosticCode.RightAssociativeArithmetic,
-                    $"INISS počíta sprava: {Text(b.Left)} {ExprMessages.Operator(b.Operator)} ({Text(rs.Left)} {ExprMessages.Operator(rs.Operator)} {Text(rs.Right)}) – doplňte zátvorky",
-                    b, fix: Parenthesize($"Uzátvorkovať zľava: ({Text(b.Left)} {ExprMessages.Operator(b.Operator)} {Text(rs.Left)}) {ExprMessages.Operator(rs.Operator)} …", b.Left, rs.Left));
+                    string.Format(CultureInfo.CurrentCulture, Resources.Expr_RightToLeft, Text(b.Left), ExprMessages.Operator(b.Operator), Text(rs.Left), ExprMessages.Operator(rs.Operator), Text(rs.Right)),
+                    b, fix: Parenthesize(string.Format(CultureInfo.CurrentCulture, Resources.Expr_ParenthesizeLeft, Text(b.Left), ExprMessages.Operator(b.Operator), Text(rs.Left), ExprMessages.Operator(rs.Operator)), b.Left, rs.Left));
             }
 
             if (b.Operator is ExprTokenKind.Slash or ExprTokenKind.Percent
                 && ExprEvaluator.TryFoldConstant(b.Right, out var divisor) && divisor == 0)
                 Add(ExprSeverity.Warning, ExprDiagnosticCode.DivisionByZero,
-                    "Delenie nulou – INISS pri vyhodnotení spadne", b.Right, "Opraviť deliteľa");
+                    Resources.Expr_DivideByZero, b.Right, Resources.Expr_DivideByZero_Fix);
         }
 
         private void VisitUnary(ExprUnaryNode u)
@@ -223,15 +226,15 @@ public static class ExprValidator
                 case ExprTokenKind.Not or ExprTokenKind.NotWord or ExprTokenKind.BitNot
                     when u.Operand is ExprBinaryNode { IsComparison: true } cmp:
                     Add(ExprSeverity.Info, ExprDiagnosticCode.NegationOfComparison,
-                        $"Negácia platí na celé porovnanie: {ExprMessages.Operator(u.Operator)}({Text(cmp)})", u,
-                        fix: Parenthesize($"Uzátvorkovať ľavú stranu: ({ExprMessages.Operator(u.Operator)}{Text(cmp.Left)}) …", u, cmp.Left));
+                        string.Format(CultureInfo.CurrentCulture, Resources.Expr_NegationWhole, ExprMessages.Operator(u.Operator), Text(cmp)), u,
+                        fix: Parenthesize(string.Format(CultureInfo.CurrentCulture, Resources.Expr_ParenthesizeLeftSide, ExprMessages.Operator(u.Operator), Text(cmp.Left)), u, cmp.Left));
                     break;
 
                 case ExprTokenKind.Minus or ExprTokenKind.Plus
                     when u.Operand is ExprBinaryNode { Operator: ExprTokenKind.Plus or ExprTokenKind.Minus } sum:
                     Add(ExprSeverity.Warning, ExprDiagnosticCode.SignOfSum,
-                        $"Znamienko platí na celý súčet: {ExprMessages.Operator(u.Operator)}({Text(sum)})", u,
-                        fix: Parenthesize($"Uzátvorkovať prvý člen: ({ExprMessages.Operator(u.Operator)}{Text(sum.Left)}) …", u, sum.Left));
+                        string.Format(CultureInfo.CurrentCulture, Resources.Expr_SignWhole, ExprMessages.Operator(u.Operator), Text(sum)), u,
+                        fix: Parenthesize(string.Format(CultureInfo.CurrentCulture, Resources.Expr_ParenthesizeFirst, ExprMessages.Operator(u.Operator), Text(sum.Left)), u, sum.Left));
                     break;
             }
         }

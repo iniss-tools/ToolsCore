@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using ToolsCore.Properties;
 
 namespace ToolsCore.Tools;
 
@@ -40,7 +41,7 @@ public static partial class Utils
         if(TimeSpan.TryParseExact(text, timeformats, CultureInfo.InvariantCulture, out var duration))
             return (int)duration.TotalMilliseconds;
         else
-            throw new ArgumentException("Neplatný formát času");
+            throw new ArgumentException(Resources.Utils_BadTimeFormat);
     }
 
     /// <summary>

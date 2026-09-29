@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using ToolsCore.Properties;
 
 namespace ToolsCore.XML;
 
@@ -17,7 +18,7 @@ public record ControlsColorScheme() : IColorScheme
 
     /// <inheritdoc />
     [XmlIgnore] 
-    public string Name => "Ovládacie prvky";
+    public string Name => Resources.ColorScheme_Controls;
 
     [XmlIgnore]
     private static readonly Dictionary<string, ColorSetting> Props = new()

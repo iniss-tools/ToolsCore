@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using ToolsCore.Properties;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
@@ -93,7 +94,7 @@ public readonly struct ShortcutName(Shortcut shortcut)
     public override string ToString()
     {
         if (Value == Shortcut.None) 
-            return "(Žiadna)";
+            return Resources.Shortcut_None;
         return new KeysConverter().ConvertToString((Keys)Value) ?? "";
     }
 }

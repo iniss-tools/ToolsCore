@@ -1,4 +1,6 @@
-﻿using ToolsCore.Entities;
+﻿using System.Globalization;
+using ToolsCore.Entities;
+using ToolsCore.Properties;
 
 namespace ToolsCore.Tools;
 
@@ -13,7 +15,7 @@ public static class RawBankParser
         var file = FyzBankFile(pathToBank);
 
         if (!File.Exists(file))
-            throw new FileNotFoundException($"Súbor s definíciou priečinkov zvukov sa na zvolenej ceste nenašiel: {file}");
+            throw new FileNotFoundException(string.Format(CultureInfo.CurrentCulture, Resources.Rbp_GroupsFileMissing, file));
 
         using var reader = new BinaryReader(File.OpenRead(file), Encodings.Win1250);
         var countLangs = reader.ReadInt32();
@@ -78,7 +80,7 @@ public static class RawBankParser
         var file = FyzZvukFile(pathToBank, language);
 
         if (!File.Exists(file))
-            throw new FileNotFoundException($"Súbor s definíciou zvukov sa na zvolenej ceste nenašiel: {file}");
+            throw new FileNotFoundException(string.Format(CultureInfo.CurrentCulture, Resources.Rbp_SoundsFileMissing, file));
 
         var allSounds = new LinkedList<FyzSound>();
 
@@ -87,7 +89,7 @@ public static class RawBankParser
         using var reader = new BinaryReader(File.OpenRead(file), Encodings.Win1250);
         var countGroups = reader.ReadInt32();
 
-        const string part = "Analyzovanie súboru banky zvukov";
+        var part = Resources.Rbp_Analyzing;
         progress?.Report(new ProgressStatus(part, countGroups));
 
         for (var i = 0; i < countGroups; i++)

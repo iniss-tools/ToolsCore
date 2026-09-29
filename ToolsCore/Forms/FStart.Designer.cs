@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FStart));
             ExControls.OptionsNode optionsNode1 = new ExControls.OptionsNode();
             ExControls.OptionsNode optionsNode2 = new ExControls.OptionsNode();
             this.exOptionsView1 = new ExControls.ExOptionsView();
@@ -44,19 +45,16 @@
             // exOptionsView1
             // 
             this.exOptionsView1.Controls.Add(this.statusStrip1);
-            this.exOptionsView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this.exOptionsView1, "exOptionsView1");
             this.exOptionsView1.HeaderNodeNameBackColor = System.Drawing.SystemColors.Control;
             this.exOptionsView1.HeaderNodeNameFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.exOptionsView1.HeaderNodeNameForeColor = System.Drawing.SystemColors.ControlText;
             this.exOptionsView1.HeaderNodeNameVisible = false;
             this.exOptionsView1.LinkToChildrenForeColor = System.Drawing.Color.Empty;
-            this.exOptionsView1.Location = new System.Drawing.Point(0, 0);
             this.exOptionsView1.Name = "exOptionsView1";
             this.exOptionsView1.Panels.Add(this.pProjects);
             this.exOptionsView1.Panels.Add(this.pSettings);
             this.exOptionsView1.SearchBoxVisible = false;
-            this.exOptionsView1.Size = new System.Drawing.Size(628, 403);
-            this.exOptionsView1.TabIndex = 0;
             // 
             // exOptionsView1.ToolStripMenu
             // 
@@ -93,53 +91,47 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 381);
+            resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(628, 22);
             this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(40, 17);
-            this.toolStripStatusLabel1.Text = "Verzia:";
+            resources.ApplyResources(this.toolStripStatusLabel1, "toolStripStatusLabel1");
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(40, 17);
-            this.toolStripStatusLabel2.Text = "0.0.0.0";
+            resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
             // 
             // pProjects
             // 
             this.pProjects.Name = "pProjects";
             optionsNode1.Name = "";
-            optionsNode1.Text = "Projekty";
+            optionsNode1.Text = resources.GetString("optionsNode1.Text");
             this.pProjects.Node = optionsNode1;
-            this.pProjects.NodeText = "Projekty";
+            this.pProjects.NodeText = resources.GetString("pProjects.NodeText");
             this.pProjects.ParentNode = null;
             // 
             // pSettings
             // 
             this.pSettings.Name = "pSettings";
             optionsNode2.Name = "";
-            optionsNode2.Text = "Prispôsobiť";
+            optionsNode2.Text = resources.GetString("optionsNode2.Text");
             this.pSettings.Node = optionsNode2;
-            this.pSettings.NodeText = "Prispôsobiť";
+            this.pSettings.NodeText = resources.GetString("pSettings.NodeText");
             this.pSettings.ParentNode = null;
             // 
             // FStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(628, 403);
+            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.exOptionsView1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(514, 349);
             this.Name = "FStart";
-            this.Text = "Štart";
             ((System.ComponentModel.ISupportInitialize)(this.exOptionsView1)).EndInit();
             this.exOptionsView1.ResumeLayout(false);
             this.exOptionsView1.PerformLayout();

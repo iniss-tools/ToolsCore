@@ -185,41 +185,30 @@ namespace ToolsCore.Forms
             desktopMenuModeLabel.Name = "desktopMenuModeLabel";
             desktopMenuModeLabel.Size = new Size(70, 15);
             desktopMenuModeLabel.TabIndex = 1;
-            desktopMenuModeLabel.Text = "Zobrazovať:";
+            desktopMenuModeLabel.Text = resources.GetString("desktopMenuModeLabel.Text");
             // 
             // panelBottom
             // 
             panelBottom.Controls.Add(bSave);
             panelBottom.Controls.Add(bStorno);
-            panelBottom.Dock = DockStyle.Bottom;
-            panelBottom.Location = new Point(0, 508);
+            resources.ApplyResources(panelBottom, "panelBottom");
             panelBottom.Margin = new Padding(4, 3, 4, 3);
             panelBottom.Name = "panelBottom";
-            panelBottom.Size = new Size(964, 40);
-            panelBottom.TabIndex = 3;
             // 
             // bSave
             // 
-            bSave.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            bSave.Location = new Point(768, 7);
+            resources.ApplyResources(bSave, "bSave");
             bSave.Margin = new Padding(4, 3, 4, 3);
             bSave.Name = "bSave";
-            bSave.Size = new Size(88, 27);
-            bSave.TabIndex = 1;
-            bSave.Text = "Uložiť";
             bSave.UseVisualStyleBackColor = true;
             bSave.Click += BSave_Click;
             // 
             // bStorno
             // 
-            bStorno.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            resources.ApplyResources(bStorno, "bStorno");
             bStorno.DialogResult = DialogResult.Cancel;
-            bStorno.Location = new Point(862, 7);
             bStorno.Margin = new Padding(4, 3, 4, 3);
             bStorno.Name = "bStorno";
-            bStorno.Size = new Size(88, 27);
-            bStorno.TabIndex = 2;
-            bStorno.Text = "Zrušiť";
             bStorno.UseVisualStyleBackColor = true;
             bStorno.Click += BStorno_Click;
             // 
@@ -241,12 +230,11 @@ namespace ToolsCore.Forms
             // 
             // optionsView
             // 
-            optionsView.Dock = DockStyle.Fill;
+            resources.ApplyResources(optionsView, "optionsView");
             optionsView.HeaderNodeNameBackColor = SystemColors.Control;
             optionsView.HeaderNodeNameFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
             optionsView.HeaderNodeNameForeColor = SystemColors.ControlText;
             optionsView.LinkToChildrenForeColor = Color.Empty;
-            optionsView.Location = new Point(0, 0);
             optionsView.Margin = new Padding(4, 3, 4, 3);
             optionsView.Name = "optionsView";
             optionsView.Padding = new Padding(6);
@@ -260,8 +248,6 @@ namespace ToolsCore.Forms
             optionsView.Panels.Add(pFonts);
             optionsView.Panels.Add(pEnvironment);
             optionsView.Panels.Add(pLogging);
-            optionsView.Size = new Size(964, 508);
-            optionsView.TabIndex = 0;
             // 
             // optionsView.ToolStripMenu
             // 
@@ -300,37 +286,29 @@ namespace ToolsCore.Forms
             optionsNode1.ImageKey = "general.png";
             optionsNode1.Name = "";
             optionsNode1.SelectedImageKey = "general.png";
-            optionsNode1.Text = "Všeobecné";
+            optionsNode1.Text = resources.GetString("optionsNode1.Text");
             pGeneral.Node = optionsNode1;
-            pGeneral.NodeText = "Všeobecné";
+            pGeneral.NodeText = resources.GetString("pGeneral.NodeText");
             pGeneral.ParentNode = null;
             // 
             // pConcreteGeneral
             // 
-            pConcreteGeneral.Dock = DockStyle.Fill;
-            pConcreteGeneral.Location = new Point(0, 123);
+            resources.ApplyResources(pConcreteGeneral, "pConcreteGeneral");
             pConcreteGeneral.Margin = new Padding(4, 3, 4, 3);
             pConcreteGeneral.Name = "pConcreteGeneral";
-            pConcreteGeneral.Size = new Size(630, 342);
-            pConcreteGeneral.TabIndex = 0;
             // 
             // gboxGeneralProgram
             // 
-            gboxGeneralProgram.AutoSize = true;
+            resources.ApplyResources(gboxGeneralProgram, "gboxGeneralProgram");
             gboxGeneralProgram.Controls.Add(cbStartup);
             gboxGeneralProgram.Controls.Add(label3);
             gboxGeneralProgram.Controls.Add(cboxClassicGui);
             gboxGeneralProgram.Controls.Add(cboxMultipleInstances);
             gboxGeneralProgram.DisabledForeColor = SystemColors.GrayText;
-            gboxGeneralProgram.Dock = DockStyle.Top;
-            gboxGeneralProgram.Location = new Point(0, 0);
             gboxGeneralProgram.Margin = new Padding(4, 3, 4, 3);
             gboxGeneralProgram.Name = "gboxGeneralProgram";
             gboxGeneralProgram.Padding = new Padding(4, 3, 4, 3);
-            gboxGeneralProgram.Size = new Size(630, 123);
-            gboxGeneralProgram.TabIndex = 0;
             gboxGeneralProgram.TabStop = false;
-            gboxGeneralProgram.Text = "Všeobecné";
             // 
             // cbStartup
             // 
@@ -338,10 +316,9 @@ namespace ToolsCore.Forms
             cbStartup.DropDownSelectedRowBackColor = SystemColors.Highlight;
             cbStartup.DropDownStyle = ComboBoxStyle.DropDownList;
             cbStartup.FormattingEnabled = true;
-            cbStartup.Location = new Point(184, 78);
+            resources.ApplyResources(cbStartup, "cbStartup");
             cbStartup.Margin = new Padding(4, 3, 4, 3);
             cbStartup.Name = "cbStartup";
-            cbStartup.Size = new Size(219, 23);
             cbStartup.StyleDisabled.ArrowColor = null;
             cbStartup.StyleDisabled.BackColor = null;
             cbStartup.StyleDisabled.BorderColor = null;
@@ -370,7 +347,6 @@ namespace ToolsCore.Forms
             cbStartup.StyleSelected.ButtonBorderColor = null;
             cbStartup.StyleSelected.ButtonRenderFirst = null;
             cbStartup.StyleSelected.ForeColor = null;
-            cbStartup.TabIndex = 4;
             cbStartup.UseDarkScrollBar = false;
             // 
             // configBindingSource
@@ -379,39 +355,27 @@ namespace ToolsCore.Forms
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(7, 84);
+            resources.ApplyResources(label3, "label3");
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(166, 15);
-            label3.TabIndex = 3;
-            label3.Text = "Pri spustení programu otvoriť:";
             // 
             // cboxClassicGui
             // 
-            cboxClassicGui.AutoSize = true;
+            resources.ApplyResources(cboxClassicGui, "cboxClassicGui");
             cboxClassicGui.BoxBackColor = Color.White;
             cboxClassicGui.DataBindings.Add(new Binding("Checked", configBindingSource, "ClassicGUI", true));
             cboxClassicGui.HighlightColor = SystemColors.Highlight;
-            cboxClassicGui.Location = new Point(8, 50);
             cboxClassicGui.Margin = new Padding(4, 3, 4, 3);
             cboxClassicGui.Name = "cboxClassicGui";
-            cboxClassicGui.Size = new Size(249, 19);
-            cboxClassicGui.TabIndex = 0;
-            cboxClassicGui.Text = "Používať klasický dizajn ovládacích prvkov";
             // 
             // cboxMultipleInstances
             // 
-            cboxMultipleInstances.AutoSize = true;
+            resources.ApplyResources(cboxMultipleInstances, "cboxMultipleInstances");
             cboxMultipleInstances.BoxBackColor = Color.White;
             cboxMultipleInstances.DataBindings.Add(new Binding("Checked", configBindingSource, "MoreInstance", true));
             cboxMultipleInstances.HighlightColor = SystemColors.Highlight;
-            cboxMultipleInstances.Location = new Point(8, 23);
             cboxMultipleInstances.Margin = new Padding(4, 3, 4, 3);
             cboxMultipleInstances.Name = "cboxMultipleInstances";
-            cboxMultipleInstances.Size = new Size(226, 19);
-            cboxMultipleInstances.TabIndex = 0;
-            cboxMultipleInstances.Text = "Povoliť duplicitné inštancie programu";
             // 
             // pDesktop
             // 
@@ -421,13 +385,13 @@ namespace ToolsCore.Forms
             optionsNode2.ImageKey = "desktop.png";
             optionsNode2.Name = "";
             optionsNode2.SelectedImageKey = "desktop.png";
-            optionsNode2.Text = "Pracovná plocha";
+            optionsNode2.Text = resources.GetString("optionsNode2.Text");
             pDesktop.Node = optionsNode2;
-            pDesktop.NodeText = "Pracovná plocha";
+            pDesktop.NodeText = resources.GetString("pDesktop.NodeText");
             optionsNode3.ImageKey = "environment.png";
             optionsNode3.Name = "";
             optionsNode3.SelectedImageKey = "environment.png";
-            optionsNode3.Text = "Prostredie";
+            optionsNode3.Text = resources.GetString("optionsNode3.Text");
             pDesktop.ParentNode = optionsNode3;
             // 
             // pDesktopComponents
@@ -439,85 +403,62 @@ namespace ToolsCore.Forms
             optionsNode4.ImageKey = "desktop.png";
             optionsNode4.Name = "";
             optionsNode4.SelectedImageKey = "desktop.png";
-            optionsNode4.Text = "Komponenty";
+            optionsNode4.Text = resources.GetString("optionsNode4.Text");
             pDesktopComponents.Node = optionsNode4;
-            pDesktopComponents.NodeText = "Komponenty";
+            pDesktopComponents.NodeText = resources.GetString("pDesktopComponents.NodeText");
             pDesktopComponents.ParentNode = optionsNode2;
             // 
             // pConcreteDesktopComponents
             // 
-            pConcreteDesktopComponents.Dock = DockStyle.Fill;
-            pConcreteDesktopComponents.Location = new Point(0, 76);
+            resources.ApplyResources(pConcreteDesktopComponents, "pConcreteDesktopComponents");
             pConcreteDesktopComponents.Margin = new Padding(4, 3, 4, 3);
             pConcreteDesktopComponents.Name = "pConcreteDesktopComponents";
-            pConcreteDesktopComponents.Size = new Size(630, 389);
-            pConcreteDesktopComponents.TabIndex = 8;
             // 
             // ppDesktopComponents
             // 
-            ppDesktopComponents.AutoSize = true;
+            resources.ApplyResources(ppDesktopComponents, "ppDesktopComponents");
             ppDesktopComponents.Controls.Add(desktopMenuModeLabel);
             ppDesktopComponents.Controls.Add(rbMenuToolStrip);
             ppDesktopComponents.Controls.Add(cboxShowRowHeaders);
             ppDesktopComponents.Controls.Add(rbMenuOnly);
             ppDesktopComponents.Controls.Add(rbToolOnly);
-            ppDesktopComponents.Dock = DockStyle.Top;
-            ppDesktopComponents.Location = new Point(0, 0);
             ppDesktopComponents.Margin = new Padding(4, 3, 4, 3);
             ppDesktopComponents.Name = "ppDesktopComponents";
-            ppDesktopComponents.Size = new Size(630, 76);
-            ppDesktopComponents.TabIndex = 7;
             // 
             // rbMenuToolStrip
             // 
-            rbMenuToolStrip.AutoSize = true;
+            resources.ApplyResources(rbMenuToolStrip, "rbMenuToolStrip");
             rbMenuToolStrip.HighlightColor = SystemColors.Highlight;
-            rbMenuToolStrip.Location = new Point(108, 14);
             rbMenuToolStrip.Margin = new Padding(4, 3, 4, 3);
             rbMenuToolStrip.Name = "rbMenuToolStrip";
-            rbMenuToolStrip.Size = new Size(142, 19);
-            rbMenuToolStrip.TabIndex = 2;
             rbMenuToolStrip.TabStop = true;
-            rbMenuToolStrip.Text = "MenuStrip aj ToolStrip";
             rbMenuToolStrip.UseVisualStyleBackColor = true;
             // 
             // cboxShowRowHeaders
             // 
-            cboxShowRowHeaders.AutoSize = true;
+            resources.ApplyResources(cboxShowRowHeaders, "cboxShowRowHeaders");
             cboxShowRowHeaders.BoxBackColor = Color.White;
             cboxShowRowHeaders.DataBindings.Add(new Binding("Checked", configBindingSource, "ShowRowsHeader", true));
             cboxShowRowHeaders.HighlightColor = SystemColors.Highlight;
-            cboxShowRowHeaders.Location = new Point(19, 54);
             cboxShowRowHeaders.Margin = new Padding(4, 3, 4, 3);
             cboxShowRowHeaders.Name = "cboxShowRowHeaders";
-            cboxShowRowHeaders.Size = new Size(227, 19);
-            cboxShowRowHeaders.TabIndex = 6;
-            cboxShowRowHeaders.Text = "Zobrazovať hlavičku riadkov v tabuľke";
             // 
             // rbMenuOnly
             // 
-            rbMenuOnly.AutoSize = true;
+            resources.ApplyResources(rbMenuOnly, "rbMenuOnly");
             rbMenuOnly.HighlightColor = SystemColors.Highlight;
-            rbMenuOnly.Location = new Point(298, 14);
             rbMenuOnly.Margin = new Padding(4, 3, 4, 3);
             rbMenuOnly.Name = "rbMenuOnly";
-            rbMenuOnly.Size = new Size(102, 19);
-            rbMenuOnly.TabIndex = 3;
             rbMenuOnly.TabStop = true;
-            rbMenuOnly.Text = "Len MenuStrip";
             rbMenuOnly.UseVisualStyleBackColor = true;
             // 
             // rbToolOnly
             // 
-            rbToolOnly.AutoSize = true;
+            resources.ApplyResources(rbToolOnly, "rbToolOnly");
             rbToolOnly.HighlightColor = SystemColors.Highlight;
-            rbToolOnly.Location = new Point(444, 14);
             rbToolOnly.Margin = new Padding(4, 3, 4, 3);
             rbToolOnly.Name = "rbToolOnly";
-            rbToolOnly.Size = new Size(94, 19);
-            rbToolOnly.TabIndex = 4;
             rbToolOnly.TabStop = true;
-            rbToolOnly.Text = "Len ToolStrip";
             rbToolOnly.UseVisualStyleBackColor = true;
             // 
             // pDesktopColumns
@@ -529,9 +470,9 @@ namespace ToolsCore.Forms
             optionsNode5.ImageKey = "columns.png";
             optionsNode5.Name = "";
             optionsNode5.SelectedImageKey = "columns.png";
-            optionsNode5.Text = "Stĺpce";
+            optionsNode5.Text = resources.GetString("optionsNode5.Text");
             pDesktopColumns.Node = optionsNode5;
-            pDesktopColumns.NodeText = "Stĺpce";
+            pDesktopColumns.NodeText = resources.GetString("pDesktopColumns.NodeText");
             pDesktopColumns.ParentNode = optionsNode2;
             // 
             // dgvColumns
@@ -543,43 +484,38 @@ namespace ToolsCore.Forms
             dgvColumns.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvColumns.Columns.AddRange(new DataGridViewColumn[] { cColName, cColVisible, cColMinWidth });
             dgvColumns.DataSource = desktopColumnBindingSource;
-            dgvColumns.Dock = DockStyle.Fill;
-            dgvColumns.Location = new Point(0, 38);
+            resources.ApplyResources(dgvColumns, "dgvColumns");
             dgvColumns.Margin = new Padding(4, 3, 4, 3);
             dgvColumns.Name = "dgvColumns";
             dgvColumns.RowHeadersVisible = false;
             dgvColumns.RowHeadersWidth = 51;
             dgvColumns.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvColumns.Size = new Size(630, 427);
-            dgvColumns.TabIndex = 1;
             // 
             // cColName
             // 
             cColName.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             cColName.DataPropertyName = "Name";
-            cColName.HeaderText = "Názov";
+            resources.ApplyResources(cColName, "cColName");
             cColName.MinimumWidth = 6;
             cColName.Name = "cColName";
             cColName.ReadOnly = true;
-            cColName.Width = 65;
             // 
             // cColVisible
             // 
             cColVisible.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             cColVisible.DataPropertyName = "Visible";
-            cColVisible.HeaderText = "Viditeľný";
+            resources.ApplyResources(cColVisible, "cColVisible");
             cColVisible.HighlightColor = Color.FromArgb(0, 120, 215);
             cColVisible.MinimumWidth = 6;
             cColVisible.Name = "cColVisible";
             cColVisible.Resizable = DataGridViewTriState.True;
             cColVisible.SquareBackColor = Color.White;
-            cColVisible.Width = 60;
             // 
             // cColMinWidth
             // 
             cColMinWidth.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             cColMinWidth.DataPropertyName = "MinWidth";
-            cColMinWidth.HeaderText = "Minimálna šírka (px)";
+            resources.ApplyResources(cColMinWidth, "cColMinWidth");
             cColMinWidth.MinimumWidth = 6;
             cColMinWidth.Name = "cColMinWidth";
             // 
@@ -593,61 +529,42 @@ namespace ToolsCore.Forms
             panel2.Controls.Add(bColDown);
             panel2.Controls.Add(bColUp);
             panel2.Controls.Add(cboxFitLastCol);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
+            resources.ApplyResources(panel2, "panel2");
             panel2.Margin = new Padding(4, 3, 4, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(630, 38);
-            panel2.TabIndex = 2;
             // 
             // bResetColumns
             // 
-            bResetColumns.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            bResetColumns.Location = new Point(542, 3);
+            resources.ApplyResources(bResetColumns, "bResetColumns");
             bResetColumns.Margin = new Padding(4, 3, 4, 3);
             bResetColumns.Name = "bResetColumns";
-            bResetColumns.Size = new Size(88, 27);
-            bResetColumns.TabIndex = 3;
-            bResetColumns.Text = "Resetovať";
             bResetColumns.UseVisualStyleBackColor = true;
             bResetColumns.Click += BResetColumns_Click;
             // 
             // bColDown
             // 
-            bColDown.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            bColDown.Location = new Point(428, 3);
+            resources.ApplyResources(bColDown, "bColDown");
             bColDown.Margin = new Padding(4, 3, 4, 3);
             bColDown.Name = "bColDown";
-            bColDown.Size = new Size(56, 27);
-            bColDown.TabIndex = 2;
-            bColDown.Text = "↓";
             bColDown.UseVisualStyleBackColor = true;
             bColDown.Click += BColDown_Click;
             // 
             // bColUp
             // 
-            bColUp.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            bColUp.Location = new Point(365, 3);
+            resources.ApplyResources(bColUp, "bColUp");
             bColUp.Margin = new Padding(4, 3, 4, 3);
             bColUp.Name = "bColUp";
-            bColUp.Size = new Size(56, 27);
-            bColUp.TabIndex = 1;
-            bColUp.Text = "↑";
             bColUp.UseVisualStyleBackColor = true;
             bColUp.Click += BColUp_Click;
             // 
             // cboxFitLastCol
             // 
-            cboxFitLastCol.AutoSize = true;
+            resources.ApplyResources(cboxFitLastCol, "cboxFitLastCol");
             cboxFitLastCol.BoxBackColor = Color.White;
             cboxFitLastCol.DataBindings.Add(new Binding("Checked", configBindingSource, "FitLastColumn", true));
             cboxFitLastCol.HighlightColor = SystemColors.Highlight;
-            cboxFitLastCol.Location = new Point(4, 10);
             cboxFitLastCol.Margin = new Padding(4, 3, 4, 3);
             cboxFitLastCol.Name = "cboxFitLastCol";
-            cboxFitLastCol.Size = new Size(171, 19);
-            cboxFitLastCol.TabIndex = 0;
-            cboxFitLastCol.Text = "Prispôsobiť posledný stĺpec";
             // 
             // pLocalization
             // 
@@ -658,31 +575,24 @@ namespace ToolsCore.Forms
             optionsNode6.ImageKey = "localization.png";
             optionsNode6.Name = "";
             optionsNode6.SelectedImageKey = "localization.png";
-            optionsNode6.Text = "Lokalizácia";
+            optionsNode6.Text = resources.GetString("optionsNode6.Text");
             pLocalization.Node = optionsNode6;
-            pLocalization.NodeText = "Lokalizácia";
+            pLocalization.NodeText = resources.GetString("pLocalization.NodeText");
             pLocalization.ParentNode = optionsNode3;
             // 
             // pConcreteLocalization
             // 
-            pConcreteLocalization.Dock = DockStyle.Fill;
-            pConcreteLocalization.Location = new Point(0, 58);
+            resources.ApplyResources(pConcreteLocalization, "pConcreteLocalization");
             pConcreteLocalization.Margin = new Padding(4, 3, 4, 3);
             pConcreteLocalization.Name = "pConcreteLocalization";
-            pConcreteLocalization.Size = new Size(630, 407);
-            pConcreteLocalization.TabIndex = 1;
             // 
             // panel3
             // 
-            panel3.AutoSize = true;
+            resources.ApplyResources(panel3, "panel3");
             panel3.Controls.Add(cbAppLanguage);
             panel3.Controls.Add(label2);
-            panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(0, 0);
             panel3.Margin = new Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(630, 58);
-            panel3.TabIndex = 0;
             // 
             // cbAppLanguage
             // 
@@ -690,10 +600,9 @@ namespace ToolsCore.Forms
             cbAppLanguage.DropDownSelectedRowBackColor = SystemColors.Highlight;
             cbAppLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
             cbAppLanguage.FormattingEnabled = true;
-            cbAppLanguage.Location = new Point(7, 32);
+            resources.ApplyResources(cbAppLanguage, "cbAppLanguage");
             cbAppLanguage.Margin = new Padding(4, 3, 4, 3);
             cbAppLanguage.Name = "cbAppLanguage";
-            cbAppLanguage.Size = new Size(235, 23);
             cbAppLanguage.StyleDisabled.ArrowColor = null;
             cbAppLanguage.StyleDisabled.BackColor = null;
             cbAppLanguage.StyleDisabled.BorderColor = null;
@@ -722,18 +631,13 @@ namespace ToolsCore.Forms
             cbAppLanguage.StyleSelected.ButtonBorderColor = null;
             cbAppLanguage.StyleSelected.ButtonRenderFirst = null;
             cbAppLanguage.StyleSelected.ForeColor = null;
-            cbAppLanguage.TabIndex = 1;
             cbAppLanguage.UseDarkScrollBar = false;
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(4, 14);
+            resources.ApplyResources(label2, "label2");
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(178, 15);
-            label2.TabIndex = 0;
-            label2.Text = "Jazyk používateľského rozhrania:";
             // 
             // pShortcuts
             // 
@@ -744,9 +648,9 @@ namespace ToolsCore.Forms
             optionsNode7.ImageKey = "shortcut.png";
             optionsNode7.Name = "";
             optionsNode7.SelectedImageKey = "shortcut.png";
-            optionsNode7.Text = "Klávesové skratky";
+            optionsNode7.Text = resources.GetString("optionsNode7.Text");
             pShortcuts.Node = optionsNode7;
-            pShortcuts.NodeText = "Klávesové skratky";
+            pShortcuts.NodeText = resources.GetString("pShortcuts.NodeText");
             pShortcuts.ParentNode = optionsNode3;
             // 
             // dgvShortcuts
@@ -758,16 +662,13 @@ namespace ToolsCore.Forms
             dgvShortcuts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvShortcuts.Columns.AddRange(new DataGridViewColumn[] { cShortcutName, cShortcut, cShortcutAttach, cShortcutDeattach, cShortcutReset });
             dgvShortcuts.DataSource = commandShortcutBindingSource;
-            dgvShortcuts.Dock = DockStyle.Fill;
-            dgvShortcuts.Location = new Point(0, 37);
+            resources.ApplyResources(dgvShortcuts, "dgvShortcuts");
             dgvShortcuts.Margin = new Padding(4, 3, 4, 3);
             dgvShortcuts.Name = "dgvShortcuts";
             dgvShortcuts.ReadOnly = true;
             dgvShortcuts.RowHeadersVisible = false;
             dgvShortcuts.RowHeadersWidth = 51;
             dgvShortcuts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvShortcuts.Size = new Size(630, 428);
-            dgvShortcuts.TabIndex = 1;
             dgvShortcuts.CellContentClick += DgvShortcuts_CellContentClick;
             // 
             // cShortcutName
@@ -775,51 +676,44 @@ namespace ToolsCore.Forms
             cShortcutName.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             cShortcutName.DataPropertyName = "Name";
             cShortcutName.Frozen = true;
-            cShortcutName.HeaderText = "Názov";
+            resources.ApplyResources(cShortcutName, "cShortcutName");
             cShortcutName.MinimumWidth = 6;
             cShortcutName.Name = "cShortcutName";
             cShortcutName.ReadOnly = true;
-            cShortcutName.Width = 65;
             // 
             // cShortcut
             // 
             cShortcut.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             cShortcut.DataPropertyName = "Shortcut";
             cShortcut.Frozen = true;
-            cShortcut.HeaderText = "Skratka";
+            resources.ApplyResources(cShortcut, "cShortcut");
             cShortcut.MinimumWidth = 6;
             cShortcut.Name = "cShortcut";
             cShortcut.ReadOnly = true;
-            cShortcut.Width = 70;
             // 
             // cShortcutAttach
             // 
-            cShortcutAttach.HeaderText = "Priradiť";
+            resources.ApplyResources(cShortcutAttach, "cShortcutAttach");
             cShortcutAttach.MinimumWidth = 6;
             cShortcutAttach.Name = "cShortcutAttach";
             cShortcutAttach.ReadOnly = true;
-            cShortcutAttach.Text = "Priradiť";
             cShortcutAttach.UseColumnTextForButtonValue = true;
-            cShortcutAttach.Width = 125;
             // 
             // cShortcutDeattach
             // 
-            cShortcutDeattach.HeaderText = "Odobrať";
+            resources.ApplyResources(cShortcutDeattach, "cShortcutDeattach");
             cShortcutDeattach.MinimumWidth = 6;
             cShortcutDeattach.Name = "cShortcutDeattach";
             cShortcutDeattach.ReadOnly = true;
-            cShortcutDeattach.Text = "Odobrať";
             cShortcutDeattach.UseColumnTextForButtonValue = true;
-            cShortcutDeattach.Width = 125;
             // 
             // cShortcutReset
             // 
             cShortcutReset.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            cShortcutReset.HeaderText = "Resetovať";
+            resources.ApplyResources(cShortcutReset, "cShortcutReset");
             cShortcutReset.MinimumWidth = 6;
             cShortcutReset.Name = "cShortcutReset";
             cShortcutReset.ReadOnly = true;
-            cShortcutReset.Text = "Resetovať";
             cShortcutReset.UseColumnTextForButtonValue = true;
             // 
             // commandShortcutBindingSource
@@ -830,34 +724,23 @@ namespace ToolsCore.Forms
             // 
             panel1.Controls.Add(bShortcutsReset);
             panel1.Controls.Add(lShortcutMsg);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
+            resources.ApplyResources(panel1, "panel1");
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(630, 37);
-            panel1.TabIndex = 0;
             // 
             // bShortcutsReset
             // 
-            bShortcutsReset.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            bShortcutsReset.Location = new Point(493, 3);
+            resources.ApplyResources(bShortcutsReset, "bShortcutsReset");
             bShortcutsReset.Margin = new Padding(4, 3, 4, 3);
             bShortcutsReset.Name = "bShortcutsReset";
-            bShortcutsReset.Size = new Size(133, 27);
-            bShortcutsReset.TabIndex = 1;
-            bShortcutsReset.Text = "Resetovať všetky";
             bShortcutsReset.UseVisualStyleBackColor = true;
             bShortcutsReset.Click += BShortcutsReset_Click;
             // 
             // lShortcutMsg
             // 
-            lShortcutMsg.AutoSize = true;
-            lShortcutMsg.Location = new Point(4, 9);
+            resources.ApplyResources(lShortcutMsg, "lShortcutMsg");
             lShortcutMsg.Margin = new Padding(4, 0, 4, 0);
             lShortcutMsg.Name = "lShortcutMsg";
-            lShortcutMsg.Size = new Size(20, 15);
-            lShortcutMsg.TabIndex = 0;
-            lShortcutMsg.Text = "txt";
             // 
             // pStyles
             // 
@@ -867,9 +750,9 @@ namespace ToolsCore.Forms
             optionsNode8.ImageKey = "colors.png";
             optionsNode8.Name = "";
             optionsNode8.SelectedImageKey = "colors.png";
-            optionsNode8.Text = "Štýly a farby";
+            optionsNode8.Text = resources.GetString("optionsNode8.Text");
             pStyles.Node = optionsNode8;
-            pStyles.NodeText = "Štýly a farby";
+            pStyles.NodeText = resources.GetString("pStyles.NodeText");
             pStyles.ParentNode = optionsNode3;
             // 
             // ppStyles
@@ -880,29 +763,22 @@ namespace ToolsCore.Forms
             ppStyles.Controls.Add(gbColorItemSettings);
             ppStyles.Controls.Add(gbCategorySettings);
             ppStyles.Controls.Add(exGroupBox8);
-            ppStyles.Dock = DockStyle.Fill;
-            ppStyles.Location = new Point(0, 0);
+            resources.ApplyResources(ppStyles, "ppStyles");
             ppStyles.Margin = new Padding(4, 3, 4, 3);
             ppStyles.Name = "ppStyles";
-            ppStyles.Size = new Size(630, 465);
-            ppStyles.TabIndex = 0;
             // 
             // toolStrip1
             // 
             toolStrip1.BackColor = SystemColors.Control;
             toolStrip1.ImageScalingSize = new Size(20, 20);
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripLabel1, tscbStyles, tsbApplyStyle, toolStripSeparator1, tsbAddStyle, tsbRenameStyle, tsbDeleteStyle, toolStripSeparator2, tsbResetStyle });
-            toolStrip1.Location = new Point(0, 0);
+            resources.ApplyResources(toolStrip1, "toolStrip1");
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(630, 27);
-            toolStrip1.TabIndex = 0;
-            toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel1
             // 
             toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(29, 24);
-            toolStripLabel1.Text = "Štýl:";
+            resources.ApplyResources(toolStripLabel1, "toolStripLabel1");
             // 
             // tscbStyles
             // 
@@ -910,7 +786,7 @@ namespace ToolsCore.Forms
             tscbStyles.DropDownWidth = 121;
             tscbStyles.FlatStyle = FlatStyle.Standard;
             tscbStyles.Name = "tscbStyles";
-            tscbStyles.Size = new Size(174, 24);
+            resources.ApplyResources(tscbStyles, "tscbStyles");
             tscbStyles.SelectedIndexChanged += TscbStyles_SelectedIndexChanged;
             // 
             // tsbApplyStyle
@@ -919,14 +795,13 @@ namespace ToolsCore.Forms
             tsbApplyStyle.Image = GlobalResources.correct;
             tsbApplyStyle.ImageTransparentColor = Color.Magenta;
             tsbApplyStyle.Name = "tsbApplyStyle";
-            tsbApplyStyle.Size = new Size(24, 24);
-            tsbApplyStyle.Text = "Použiť štýl";
+            resources.ApplyResources(tsbApplyStyle, "tsbApplyStyle");
             tsbApplyStyle.Click += TsbApplyStyle_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 27);
+            resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
             // 
             // tsbAddStyle
             // 
@@ -934,8 +809,7 @@ namespace ToolsCore.Forms
             tsbAddStyle.Image = GlobalResources.add;
             tsbAddStyle.ImageTransparentColor = Color.Magenta;
             tsbAddStyle.Name = "tsbAddStyle";
-            tsbAddStyle.Size = new Size(24, 24);
-            tsbAddStyle.Text = "Pridať štýl...";
+            resources.ApplyResources(tsbAddStyle, "tsbAddStyle");
             tsbAddStyle.Click += TsbAddStyle_Click;
             // 
             // tsbRenameStyle
@@ -944,8 +818,7 @@ namespace ToolsCore.Forms
             tsbRenameStyle.Image = GlobalResources.rename;
             tsbRenameStyle.ImageTransparentColor = Color.Magenta;
             tsbRenameStyle.Name = "tsbRenameStyle";
-            tsbRenameStyle.Size = new Size(24, 24);
-            tsbRenameStyle.Text = "Premenovať štýl...";
+            resources.ApplyResources(tsbRenameStyle, "tsbRenameStyle");
             tsbRenameStyle.Click += TsbRenameStyle_Click;
             // 
             // tsbDeleteStyle
@@ -954,14 +827,13 @@ namespace ToolsCore.Forms
             tsbDeleteStyle.Image = GlobalResources.delete;
             tsbDeleteStyle.ImageTransparentColor = Color.Magenta;
             tsbDeleteStyle.Name = "tsbDeleteStyle";
-            tsbDeleteStyle.Size = new Size(24, 24);
-            tsbDeleteStyle.Text = "Odstrániť štýl";
+            resources.ApplyResources(tsbDeleteStyle, "tsbDeleteStyle");
             tsbDeleteStyle.Click += TsbDeleteStyle_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 27);
+            resources.ApplyResources(toolStripSeparator2, "toolStripSeparator2");
             // 
             // tsbResetStyle
             // 
@@ -969,52 +841,41 @@ namespace ToolsCore.Forms
             tsbResetStyle.Image = GlobalResources.restart;
             tsbResetStyle.ImageTransparentColor = Color.Magenta;
             tsbResetStyle.Name = "tsbResetStyle";
-            tsbResetStyle.Size = new Size(24, 24);
-            tsbResetStyle.Text = "Resetovať štýl";
+            resources.ApplyResources(tsbResetStyle, "tsbResetStyle");
             tsbResetStyle.Click += TsbResetStyle_Click;
             // 
             // exGroupBox1
             // 
-            exGroupBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            resources.ApplyResources(exGroupBox1, "exGroupBox1");
             exGroupBox1.Controls.Add(lFontStyleExample);
             exGroupBox1.DisabledForeColor = SystemColors.GrayText;
-            exGroupBox1.Location = new Point(338, 373);
             exGroupBox1.Margin = new Padding(2);
             exGroupBox1.Name = "exGroupBox1";
             exGroupBox1.Padding = new Padding(2);
-            exGroupBox1.Size = new Size(287, 90);
-            exGroupBox1.TabIndex = 5;
             exGroupBox1.TabStop = false;
-            exGroupBox1.Text = "Ukážka";
             // 
             // lFontStyleExample
             // 
-            lFontStyleExample.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            resources.ApplyResources(lFontStyleExample, "lFontStyleExample");
             lFontStyleExample.BorderStyle = BorderStyle.FixedSingle;
-            lFontStyleExample.Location = new Point(8, 17);
             lFontStyleExample.Margin = new Padding(2, 0, 2, 0);
             lFontStyleExample.Name = "lFontStyleExample";
-            lFontStyleExample.Size = new Size(273, 60);
-            lFontStyleExample.TabIndex = 0;
             lFontStyleExample.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tvStyles
             // 
-            tvStyles.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            resources.ApplyResources(tvStyles, "tvStyles");
             tvStyles.FullRowSelect = true;
             tvStyles.HideSelection = false;
-            tvStyles.Location = new Point(7, 113);
             tvStyles.Margin = new Padding(2);
             tvStyles.Name = "tvStyles";
             tvStyles.ShowLines = false;
-            tvStyles.Size = new Size(326, 349);
             tvStyles.Style = ExTreeViewStyle.Light;
-            tvStyles.TabIndex = 2;
             tvStyles.AfterSelect += TvStyles_AfterSelect;
             // 
             // gbColorItemSettings
             // 
-            gbColorItemSettings.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            resources.ApplyResources(gbColorItemSettings, "gbColorItemSettings");
             gbColorItemSettings.Controls.Add(bResetColorSetting);
             gbColorItemSettings.Controls.Add(cboxBold);
             gbColorItemSettings.Controls.Add(csForeColor);
@@ -1022,118 +883,83 @@ namespace ToolsCore.Forms
             gbColorItemSettings.Controls.Add(lStyleForeColor);
             gbColorItemSettings.Controls.Add(csBackColor);
             gbColorItemSettings.DisabledForeColor = SystemColors.GrayText;
-            gbColorItemSettings.Location = new Point(338, 231);
             gbColorItemSettings.Margin = new Padding(2);
             gbColorItemSettings.Name = "gbColorItemSettings";
             gbColorItemSettings.Padding = new Padding(2);
-            gbColorItemSettings.Size = new Size(287, 133);
-            gbColorItemSettings.TabIndex = 4;
             gbColorItemSettings.TabStop = false;
-            gbColorItemSettings.Text = "Nastavenia položky";
             // 
             // bResetColorSetting
             // 
-            bResetColorSetting.Location = new Point(194, 18);
+            resources.ApplyResources(bResetColorSetting, "bResetColorSetting");
             bResetColorSetting.Margin = new Padding(4, 3, 4, 3);
             bResetColorSetting.Name = "bResetColorSetting";
-            bResetColorSetting.Size = new Size(88, 27);
-            bResetColorSetting.TabIndex = 5;
-            bResetColorSetting.Text = "Resetovať";
             bResetColorSetting.UseVisualStyleBackColor = true;
             bResetColorSetting.Click += BResetColorSetting_Click;
             // 
             // cboxBold
             // 
-            cboxBold.AutoSize = true;
+            resources.ApplyResources(cboxBold, "cboxBold");
             cboxBold.BoxBackColor = Color.White;
             cboxBold.HighlightColor = SystemColors.Highlight;
-            cboxBold.Location = new Point(8, 25);
             cboxBold.Margin = new Padding(2);
             cboxBold.Name = "cboxBold";
-            cboxBold.Size = new Size(95, 19);
-            cboxBold.TabIndex = 0;
-            cboxBold.Text = "Tučné písmo";
             cboxBold.CheckedChanged += CboxBold_CheckedChanged;
             // 
             // csForeColor
             // 
-            csForeColor.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            resources.ApplyResources(csForeColor, "csForeColor");
             csForeColor.BorderColor = SystemColors.ButtonShadow;
-            csForeColor.Location = new Point(144, 44);
             csForeColor.Margin = new Padding(5);
             csForeColor.Name = "csForeColor";
-            csForeColor.Size = new Size(42, 32);
-            csForeColor.TabIndex = 2;
             csForeColor.SelectedColorChanged += CsForeColor_SelectedColorChanged;
             // 
             // lStyleBackColor
             // 
-            lStyleBackColor.AutoSize = true;
-            lStyleBackColor.Location = new Point(5, 103);
+            resources.ApplyResources(lStyleBackColor, "lStyleBackColor");
             lStyleBackColor.Margin = new Padding(2, 0, 2, 0);
             lStyleBackColor.Name = "lStyleBackColor";
-            lStyleBackColor.Size = new Size(83, 15);
-            lStyleBackColor.TabIndex = 3;
-            lStyleBackColor.Text = "Farba pozadia:";
             // 
             // lStyleForeColor
             // 
-            lStyleForeColor.AutoSize = true;
-            lStyleForeColor.Location = new Point(5, 61);
+            resources.ApplyResources(lStyleForeColor, "lStyleForeColor");
             lStyleForeColor.Margin = new Padding(2, 0, 2, 0);
             lStyleForeColor.Name = "lStyleForeColor";
-            lStyleForeColor.Size = new Size(126, 15);
-            lStyleForeColor.TabIndex = 1;
-            lStyleForeColor.Text = "Farba popredia (textu):";
             // 
             // csBackColor
             // 
-            csBackColor.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            resources.ApplyResources(csBackColor, "csBackColor");
             csBackColor.BorderColor = SystemColors.ButtonShadow;
-            csBackColor.Location = new Point(144, 85);
             csBackColor.Margin = new Padding(5);
             csBackColor.Name = "csBackColor";
-            csBackColor.Size = new Size(42, 32);
-            csBackColor.TabIndex = 4;
             csBackColor.SelectedColorChanged += CsBackColor_SelectedColorChanged;
             // 
             // gbCategorySettings
             // 
-            gbCategorySettings.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            resources.ApplyResources(gbCategorySettings, "gbCategorySettings");
             gbCategorySettings.Controls.Add(label8);
             gbCategorySettings.Controls.Add(cbFont);
             gbCategorySettings.Controls.Add(nudFontSize);
             gbCategorySettings.Controls.Add(cboxOnlyNonPropFont);
             gbCategorySettings.DisabledForeColor = SystemColors.GrayText;
-            gbCategorySettings.Location = new Point(338, 108);
             gbCategorySettings.Margin = new Padding(2);
             gbCategorySettings.Name = "gbCategorySettings";
             gbCategorySettings.Padding = new Padding(2);
-            gbCategorySettings.Size = new Size(287, 122);
-            gbCategorySettings.TabIndex = 3;
             gbCategorySettings.TabStop = false;
-            gbCategorySettings.Text = "Nastavenia kategórie";
             // 
             // label8
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(5, 85);
+            resources.ApplyResources(label8, "label8");
             label8.Margin = new Padding(2, 0, 2, 0);
             label8.Name = "label8";
-            label8.Size = new Size(71, 15);
-            label8.TabIndex = 2;
-            label8.Text = "Veľkosť (pt):";
             // 
             // cbFont
             // 
-            cbFont.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            resources.ApplyResources(cbFont, "cbFont");
             cbFont.DropDownSelectedRowBackColor = SystemColors.Highlight;
             cbFont.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFont.FormattingEnabled = true;
-            cbFont.Location = new Point(8, 16);
             cbFont.Margin = new Padding(2);
             cbFont.Name = "cbFont";
-            cbFont.Size = new Size(274, 23);
             cbFont.StyleDisabled.ArrowColor = null;
             cbFont.StyleDisabled.BackColor = null;
             cbFont.StyleDisabled.BorderColor = null;
@@ -1162,106 +988,76 @@ namespace ToolsCore.Forms
             cbFont.StyleSelected.ButtonBorderColor = null;
             cbFont.StyleSelected.ButtonRenderFirst = null;
             cbFont.StyleSelected.ForeColor = null;
-            cbFont.TabIndex = 0;
             cbFont.UseDarkScrollBar = false;
             cbFont.SelectedIndexChanged += CbFont_SelectedIndexChanged;
             // 
             // nudFontSize
             // 
-            nudFontSize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            resources.ApplyResources(nudFontSize, "nudFontSize");
             nudFontSize.HighlightColor = SystemColors.Highlight;
-            nudFontSize.Location = new Point(144, 83);
             nudFontSize.Margin = new Padding(2);
             nudFontSize.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudFontSize.Name = "nudFontSize";
             nudFontSize.SelectedButtonColor = SystemColors.Highlight;
-            nudFontSize.Size = new Size(78, 23);
-            nudFontSize.TabIndex = 3;
             nudFontSize.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudFontSize.ValueChanged += NudFontSize_ValueChanged;
             // 
             // cboxOnlyNonPropFont
             // 
-            cboxOnlyNonPropFont.AutoSize = true;
+            resources.ApplyResources(cboxOnlyNonPropFont, "cboxOnlyNonPropFont");
             cboxOnlyNonPropFont.BoxBackColor = Color.White;
             cboxOnlyNonPropFont.HighlightColor = SystemColors.Highlight;
-            cboxOnlyNonPropFont.Location = new Point(8, 53);
             cboxOnlyNonPropFont.Margin = new Padding(2);
             cboxOnlyNonPropFont.Name = "cboxOnlyNonPropFont";
-            cboxOnlyNonPropFont.Size = new Size(221, 19);
-            cboxOnlyNonPropFont.TabIndex = 1;
-            cboxOnlyNonPropFont.Text = "Zobraziť len neproporcionálne písma";
             cboxOnlyNonPropFont.CheckedChanged += CboxOnlyNonPropFont_CheckedChanged;
             // 
             // exGroupBox8
             // 
-            exGroupBox8.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            resources.ApplyResources(exGroupBox8, "exGroupBox8");
             exGroupBox8.Controls.Add(cboxHighlightStatusBar);
             exGroupBox8.Controls.Add(cboxDarkScrollbars);
             exGroupBox8.Controls.Add(cboxDarkTitlebar);
             exGroupBox8.Controls.Add(cboxDefaultVisual);
             exGroupBox8.DisabledForeColor = SystemColors.GrayText;
-            exGroupBox8.Location = new Point(7, 33);
             exGroupBox8.Margin = new Padding(2);
             exGroupBox8.Name = "exGroupBox8";
             exGroupBox8.Padding = new Padding(2);
-            exGroupBox8.Size = new Size(618, 75);
-            exGroupBox8.TabIndex = 1;
             exGroupBox8.TabStop = false;
-            exGroupBox8.Text = "Nastavenia štýlu";
             // 
             // cboxHighlightStatusBar
             // 
-            cboxHighlightStatusBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            cboxHighlightStatusBar.AutoSize = true;
+            resources.ApplyResources(cboxHighlightStatusBar, "cboxHighlightStatusBar");
             cboxHighlightStatusBar.BoxBackColor = Color.White;
             cboxHighlightStatusBar.HighlightColor = SystemColors.Highlight;
-            cboxHighlightStatusBar.Location = new Point(337, 21);
             cboxHighlightStatusBar.Margin = new Padding(4, 3, 4, 3);
             cboxHighlightStatusBar.Name = "cboxHighlightStatusBar";
-            cboxHighlightStatusBar.Size = new Size(275, 19);
-            cboxHighlightStatusBar.TabIndex = 3;
-            cboxHighlightStatusBar.Text = "Zafarbiť stavový riadok podľa farby zvýraznenia";
             cboxHighlightStatusBar.CheckedChanged += CboxHighlightStatusBar_CheckedChanged;
             // 
             // cboxDarkScrollbars
             // 
-            cboxDarkScrollbars.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            cboxDarkScrollbars.AutoSize = true;
+            resources.ApplyResources(cboxDarkScrollbars, "cboxDarkScrollbars");
             cboxDarkScrollbars.BoxBackColor = Color.White;
             cboxDarkScrollbars.HighlightColor = SystemColors.Highlight;
-            cboxDarkScrollbars.Location = new Point(337, 44);
             cboxDarkScrollbars.Margin = new Padding(2);
             cboxDarkScrollbars.Name = "cboxDarkScrollbars";
-            cboxDarkScrollbars.Size = new Size(205, 19);
-            cboxDarkScrollbars.TabIndex = 1;
-            cboxDarkScrollbars.Text = "Použiť tmavé posuvníky (>Win10)";
             cboxDarkScrollbars.CheckedChanged += CboxDarkScrollbars_CheckedChanged;
             // 
             // cboxDarkTitlebar
             // 
-            cboxDarkTitlebar.AutoSize = true;
+            resources.ApplyResources(cboxDarkTitlebar, "cboxDarkTitlebar");
             cboxDarkTitlebar.BoxBackColor = Color.White;
             cboxDarkTitlebar.HighlightColor = SystemColors.Highlight;
-            cboxDarkTitlebar.Location = new Point(5, 44);
             cboxDarkTitlebar.Margin = new Padding(2);
             cboxDarkTitlebar.Name = "cboxDarkTitlebar";
-            cboxDarkTitlebar.Size = new Size(222, 19);
-            cboxDarkTitlebar.TabIndex = 2;
-            cboxDarkTitlebar.Text = "Použiť tmavé záhlavie okna (>Win10)";
             cboxDarkTitlebar.CheckedChanged += CboxDarkTitlebar_CheckedChanged;
             // 
             // cboxDefaultVisual
             // 
-            cboxDefaultVisual.AutoSize = true;
+            resources.ApplyResources(cboxDefaultVisual, "cboxDefaultVisual");
             cboxDefaultVisual.BoxBackColor = Color.White;
             cboxDefaultVisual.HighlightColor = SystemColors.Highlight;
-            cboxDefaultVisual.Location = new Point(5, 20);
             cboxDefaultVisual.Margin = new Padding(2);
             cboxDefaultVisual.Name = "cboxDefaultVisual";
-            cboxDefaultVisual.Size = new Size(241, 19);
-            cboxDefaultVisual.TabIndex = 0;
-            cboxDefaultVisual.Text = "Použiť klasický vzhľad ovládacích prvkov";
             cboxDefaultVisual.CheckedChanged += CboxDefaultVisual_CheckedChanged;
             // 
             // pFonts
@@ -1273,9 +1069,9 @@ namespace ToolsCore.Forms
             optionsNode9.ImageKey = "font.png";
             optionsNode9.Name = "";
             optionsNode9.SelectedImageKey = "font.png";
-            optionsNode9.Text = "Písma";
+            optionsNode9.Text = resources.GetString("optionsNode9.Text");
             pFonts.Node = optionsNode9;
-            pFonts.NodeText = "Písma";
+            pFonts.NodeText = resources.GetString("pFonts.NodeText");
             pFonts.ParentNode = optionsNode3;
             // 
             // pgFonts
@@ -1302,7 +1098,7 @@ namespace ToolsCore.Forms
             pgFonts.ButtonPropertyPages.Name = "";
             pgFonts.ButtonPropertyPages.Size = new Size(23, 22);
             pgFonts.ButtonPropertyPages.Visible = false;
-            pgFonts.Dock = DockStyle.Fill;
+            resources.ApplyResources(pgFonts, "pgFonts");
             pgFonts.FirstHideAllProperties = false;
             pgFonts.HelpVisible = false;
             pgFonts.HiddenAttributes = null;
@@ -1337,25 +1133,17 @@ namespace ToolsCore.Forms
             // 
             exGroupBox3.Controls.Add(lFontExample);
             exGroupBox3.DisabledForeColor = SystemColors.GrayText;
-            exGroupBox3.Dock = DockStyle.Bottom;
-            exGroupBox3.Location = new Point(0, 397);
+            resources.ApplyResources(exGroupBox3, "exGroupBox3");
             exGroupBox3.Margin = new Padding(4, 3, 4, 3);
             exGroupBox3.Name = "exGroupBox3";
             exGroupBox3.Padding = new Padding(4, 3, 4, 3);
-            exGroupBox3.Size = new Size(630, 68);
-            exGroupBox3.TabIndex = 1;
             exGroupBox3.TabStop = false;
-            exGroupBox3.Text = "Ukážka písma";
             // 
             // lFontExample
             // 
-            lFontExample.Dock = DockStyle.Fill;
-            lFontExample.Location = new Point(4, 19);
+            resources.ApplyResources(lFontExample, "lFontExample");
             lFontExample.Margin = new Padding(4, 0, 4, 0);
             lFontExample.Name = "lFontExample";
-            lFontExample.Size = new Size(622, 46);
-            lFontExample.TabIndex = 0;
-            lFontExample.Text = "AaČčXxLl+*1!";
             lFontExample.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pEnvironment
@@ -1364,7 +1152,7 @@ namespace ToolsCore.Forms
             pEnvironment.Margin = new Padding(4, 3, 4, 3);
             pEnvironment.Name = "pEnvironment";
             pEnvironment.Node = optionsNode3;
-            pEnvironment.NodeText = "Prostredie";
+            pEnvironment.NodeText = resources.GetString("pEnvironment.NodeText");
             pEnvironment.ParentNode = null;
             // 
             // pLogging
@@ -1375,9 +1163,9 @@ namespace ToolsCore.Forms
             optionsNode10.ImageKey = "debugging.png";
             optionsNode10.Name = "";
             optionsNode10.SelectedImageKey = "debugging.png";
-            optionsNode10.Text = "Logovanie a debugging";
+            optionsNode10.Text = resources.GetString("optionsNode10.Text");
             pLogging.Node = optionsNode10;
-            pLogging.NodeText = "Logovanie a debugging";
+            pLogging.NodeText = resources.GetString("pLogging.NodeText");
             pLogging.ParentNode = null;
             // 
             // ppLogging
@@ -1385,12 +1173,9 @@ namespace ToolsCore.Forms
             ppLogging.Controls.Add(cbShowErrors);
             ppLogging.Controls.Add(gbLogging);
             ppLogging.Controls.Add(label1);
-            ppLogging.Dock = DockStyle.Fill;
-            ppLogging.Location = new Point(0, 0);
+            resources.ApplyResources(ppLogging, "ppLogging");
             ppLogging.Margin = new Padding(4, 3, 4, 3);
             ppLogging.Name = "ppLogging";
-            ppLogging.Size = new Size(630, 465);
-            ppLogging.TabIndex = 0;
             // 
             // cbShowErrors
             // 
@@ -1398,10 +1183,9 @@ namespace ToolsCore.Forms
             cbShowErrors.DropDownSelectedRowBackColor = SystemColors.Highlight;
             cbShowErrors.DropDownStyle = ComboBoxStyle.DropDownList;
             cbShowErrors.FormattingEnabled = true;
-            cbShowErrors.Location = new Point(10, 122);
+            resources.ApplyResources(cbShowErrors, "cbShowErrors");
             cbShowErrors.Margin = new Padding(4, 3, 4, 3);
             cbShowErrors.Name = "cbShowErrors";
-            cbShowErrors.Size = new Size(303, 23);
             cbShowErrors.StyleDisabled.ArrowColor = null;
             cbShowErrors.StyleDisabled.BackColor = null;
             cbShowErrors.StyleDisabled.BorderColor = null;
@@ -1430,59 +1214,42 @@ namespace ToolsCore.Forms
             cbShowErrors.StyleSelected.ButtonBorderColor = null;
             cbShowErrors.StyleSelected.ButtonRenderFirst = null;
             cbShowErrors.StyleSelected.ForeColor = null;
-            cbShowErrors.TabIndex = 2;
             cbShowErrors.UseDarkScrollBar = false;
             // 
             // gbLogging
             // 
-            gbLogging.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            resources.ApplyResources(gbLogging, "gbLogging");
             gbLogging.Controls.Add(cboxLoggingInfo);
             gbLogging.Controls.Add(cboxLoggingError);
             gbLogging.DisabledForeColor = SystemColors.GrayText;
-            gbLogging.Location = new Point(4, 3);
             gbLogging.Margin = new Padding(4, 3, 4, 3);
             gbLogging.Name = "gbLogging";
             gbLogging.Padding = new Padding(4, 3, 4, 3);
-            gbLogging.Size = new Size(622, 81);
-            gbLogging.TabIndex = 0;
             gbLogging.TabStop = false;
-            gbLogging.Text = "Logovanie";
             // 
             // cboxLoggingInfo
             // 
-            cboxLoggingInfo.AutoSize = true;
+            resources.ApplyResources(cboxLoggingInfo, "cboxLoggingInfo");
             cboxLoggingInfo.BoxBackColor = Color.White;
             cboxLoggingInfo.DataBindings.Add(new Binding("CheckState", configBindingSource, "LoggingInfo", true));
             cboxLoggingInfo.HighlightColor = SystemColors.Highlight;
-            cboxLoggingInfo.Location = new Point(7, 22);
             cboxLoggingInfo.Margin = new Padding(4, 3, 4, 3);
             cboxLoggingInfo.Name = "cboxLoggingInfo";
-            cboxLoggingInfo.Size = new Size(291, 19);
-            cboxLoggingInfo.TabIndex = 0;
-            cboxLoggingInfo.Text = "Logovanie informácií o stave programu do súboru";
             // 
             // cboxLoggingError
             // 
-            cboxLoggingError.AutoSize = true;
+            resources.ApplyResources(cboxLoggingError, "cboxLoggingError");
             cboxLoggingError.BoxBackColor = Color.White;
             cboxLoggingError.DataBindings.Add(new Binding("CheckState", configBindingSource, "LoggingError", true));
             cboxLoggingError.HighlightColor = SystemColors.Highlight;
-            cboxLoggingError.Location = new Point(7, 48);
             cboxLoggingError.Margin = new Padding(4, 3, 4, 3);
             cboxLoggingError.Name = "cboxLoggingError";
-            cboxLoggingError.Size = new Size(227, 19);
-            cboxLoggingError.TabIndex = 1;
-            cboxLoggingError.Text = "Logovanie chýb a výnimiek do súboru";
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(7, 104);
+            resources.ApplyResources(label1, "label1");
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(154, 15);
-            label1.TabIndex = 1;
-            label1.Text = "Zobrazovať chybové hlášky:";
             // 
             // appLanguageBindingSource
             // 
@@ -1502,7 +1269,7 @@ namespace ToolsCore.Forms
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = bStorno;
-            ClientSize = new Size(964, 548);
+            resources.ApplyResources(this, "$this");
             Controls.Add(optionsView);
             Controls.Add(panelBottom);
             HelpButton = true;
@@ -1512,7 +1279,6 @@ namespace ToolsCore.Forms
             MinimumSize = new Size(903, 587);
             Name = "FAppSettingsBase";
             ShowIcon = false;
-            Text = "Nastavenia programu";
             HelpButtonClicked += FAppSettingsBase_HelpButtonClicked;
             Load += FAppSettingsBase_Load;
             KeyDown += FAppSettingsBase_KeyDown;

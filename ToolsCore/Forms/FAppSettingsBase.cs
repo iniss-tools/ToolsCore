@@ -88,15 +88,15 @@ public partial class FAppSettingsBase : Form
 
         cbShowErrors.BindEnum(new Dictionary<DebugMode, string>
         {
-            [DebugMode.OnlyMessage] = "Iba krátka správa",
-            [DebugMode.DetailInfo] = "Detailné informácie",
-            [DebugMode.AppCrash] = "Spadnutie programu (systémový dialóg)"
+            [DebugMode.OnlyMessage] = Resources.Settings_DebugOnlyMessage,
+            [DebugMode.DetailInfo] = Resources.Settings_DebugDetail,
+            [DebugMode.AppCrash] = Resources.Settings_DebugCrash
         });
 
         cbStartup.BindEnum(new Dictionary<StartupType, string>
         {
-            [StartupType.EmptyWindow] = "Prázdne okno",
-            [StartupType.LastProject] = "Posledný projekt"
+            [StartupType.EmptyWindow] = Resources.Settings_StartupEmpty,
+            [StartupType.LastProject] = Resources.Settings_StartupLast
         });
 
         configBindingSource.DataSource = Config;
@@ -111,7 +111,7 @@ public partial class FAppSettingsBase : Form
 
         this.ApplyThemeAndFonts();
 
-        lShortcutMsg.Text = "Vyberte skratku zo zoznamu";
+        lShortcutMsg.Text = Resources.Settings_SelectShortcut;
         if (Shortcuts is not null) 
             FindAndCheckDuplicateShortcuts();
 
@@ -205,7 +205,7 @@ public partial class FAppSettingsBase : Form
     {
         if (ShouldRestart)
         {
-            var result = Utils.ShowQuestion("Vykonali ste zmeny vyžadujúce reštartovanie programu.\n\nReštartovať program teraz?", 
+            var result = Utils.ShowQuestion(Resources.Settings_RestartNow, 
                 MessageBoxButtons.YesNoCancel);
             switch (result)
             {
@@ -558,7 +558,7 @@ public partial class FAppSettingsBase : Form
         UsingStyle.Used = true;
         if (!previousStyle.ControlsDefaultStyle && UsingStyle.ControlsDefaultStyle)
         {
-            Utils.ShowInfo("Zmeny sa prejavia úplne až po reštartovaní programu.");
+            Utils.ShowInfo(Resources.Settings_RestartLater);
             ShouldRestart = true;
         }
         tsbApplyStyle.Enabled = false;

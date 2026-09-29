@@ -1,4 +1,6 @@
+using System.Globalization;
 using ToolsCore.Expressions;
+using ToolsCore.Properties;
 
 namespace ToolsCore.TabTab;
 
@@ -158,13 +160,13 @@ public static class TabTabValidator
             {
                 case TabTabLineKind.SectionHeader:
                     list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.SectionHeaderInside,
-                        $"Hlavička [{line.Text}] vnútri sekcie – pri uložení by vznikla nová sekcia", line.Span, line,
-                        suggestion: "Založiť sekciu tlačidlom Pridať a riadok odstrániť"));
+                        string.Format(CultureInfo.CurrentCulture, Resources.Ttv_HeaderInSection, line.Text), line.Span, line,
+                        suggestion: Resources.Ttv_HeaderInSection_Fix));
                     break;
 
                 case TabTabLineKind.BadSectionHeader:
                     list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.BadSectionHeader,
-                        "Riadok začína [ bez ] – INISS ho ignoruje", line.Span, line, suggestion: "Riadok odstrániť alebo doplniť ]"));
+                        Resources.Ttv_BracketUnclosed, line.Span, line, suggestion: Resources.Ttv_BracketUnclosed_Fix));
                     break;
 
                 case TabTabLineKind.Options:
@@ -172,8 +174,8 @@ public static class TabTabValidator
                         if (!o.Equals(TabTabSectionParser.OptionIgnoreCase, StringComparison.OrdinalIgnoreCase)
                             && !o.Equals(TabTabSectionParser.OptionViewValues, StringComparison.OrdinalIgnoreCase))
                             list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.UnknownOption,
-                                $"Riadok bez = : „{o}“ nie je voľba sekcie (IgnoreCase, ViewValues) – INISS ho ignoruje", line.LeftSpan, line,
-                                suggestion: "Doplniť = a pravú stranu, alebo riadok zakomentovať znakom ;"));
+                                string.Format(CultureInfo.CurrentCulture, Resources.Ttv_LineWithoutEquals, o), line.LeftSpan, line,
+                                suggestion: Resources.Ttv_LineWithoutEquals_Fix));
                     break;
 
                 case TabTabLineKind.Rule:
@@ -219,14 +221,14 @@ public static class TabTabValidator
                 var isComment = comment.StartsWith(';');
                 // komentar patri pred prvy riadok pravidla - vnutri viacriadkoveho pravidla by INISS pravidlo ukoncil
                 var fix = isComment
-                    ? new TextFix("Presunúť komentár na samostatný riadok pred pravidlo", [
+                    ? new TextFix(Resources.Ttv_MoveCommentBeforeRule, [
                         new TextEdit(slash + 1, contentEnd - slash - 1, ""),
                         new TextEdit(ruleStartPos, 0, comment + newline)
                     ])
-                    : TextFix.Single("Odstrániť medzery za \\", slash + 1, contentEnd - slash - 1, "");
+                    : TextFix.Single(Resources.Ttv_RemoveSpacesAfterSlash, slash + 1, contentEnd - slash - 1, "");
                 list.Add(new TabTabDiagnostic(ExprSeverity.Warning, TabTabDiagnosticCode.BrokenContinuation,
-                    (isComment ? "Komentár za \\" : "Medzery za \\")
-                    + " – INISS spája riadky len vtedy, keď je \\ posledný znak riadka; takto riadok spracuje samostatne a zvyšok pravidla na ďalších riadkoch sa rozpadne",
+                    (isComment ? Resources.Ttv_CommentAfterSlash : Resources.Ttv_SpacesAfterSlash)
+                    + Resources.Ttv_SlashNotLast,
                     slash, contentEnd - slash, lineIndex) { Suggestion = fix.Title, Fix = fix });
                 broken.Add(lineIndex);
                 inside = true; // autor pokracovanie chcel - dalsie riadky su stale to iste pravidlo
@@ -310,12 +312,12 @@ public static class TabTabValidator
             {
                 var comment = text[first..contentEnd];
                 var lineEnd = nl < 0 ? end : nl + 1; // vratane konca riadka
-                var fix = new TextFix("Presunúť komentár pred začiatok pravidla", [
+                var fix = new TextFix(Resources.Ttv_MoveCommentBeforeRuleStart, [
                     new TextEdit(pos, lineEnd - pos, ""),
                     new TextEdit(ruleStartPos, 0, comment + newline)
                 ]);
                 list.Add(new TabTabDiagnostic(ExprSeverity.Warning, TabTabDiagnosticCode.CommentInsideRule,
-                    "Komentár vnútri viacriadkového pravidla – INISS ním pravidlo ukončí a riadky pod ním spracuje ako nové pravidlo",
+                    Resources.Ttv_CommentInsideRule,
                     first, contentEnd - first, lineIndex) { Suggestion = fix.Title, Fix = fix });
                 broken.Add(ruleStartLine);
                 inside = false;
@@ -360,8 +362,8 @@ public static class TabTabValidator
         if (line.Right.Length == 0)
         {
             list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.EmptyRight,
-                "Pravá strana pravidla je prázdna – pravidlo sa uplatní na prázdny text", line.RightSpan, line,
-                suggestion: "Doplniť text INISSu alebo udalosť (#SWITCH …) za ="));
+                Resources.Ttv_EmptyRight, line.RightSpan, line,
+                suggestion: Resources.Ttv_EmptyRight_Fix));
             return;
         }
 
@@ -379,11 +381,11 @@ public static class TabTabValidator
                 var known = upper is "#VYLUKA" or "#ODKLON" or "#SWITCH" or "#MERGE" or "#MERGE2" || upper.StartsWith("#POZODJ_", StringComparison.Ordinal);
                 list.Add(known
                     ? New(ExprSeverity.Error, TabTabDiagnosticCode.EventCase,
-                        $"unknown magic item {line.Right} – udalosť sa píše veľkými písmenami ({upper})", line.RightSpan, line,
-                        fix: TextFix.Single($"Prepísať na {upper}", line.RightSpan.Start, line.RightSpan.Length, upper))
+                        string.Format(CultureInfo.CurrentCulture, Resources.Ttv_MagicItemCase, line.Right, upper), line.RightSpan, line,
+                        fix: TextFix.Single(string.Format(CultureInfo.CurrentCulture, Resources.Ttv_RewriteTo, upper), line.RightSpan.Start, line.RightSpan.Length, upper))
                     : New(ExprSeverity.Error, TabTabDiagnosticCode.InissUnknownMagicItem,
                         $"unknown magic item {line.Right}", line.RightSpan, line,
-                        suggestion: "Použiť #SWITCH, #MERGE, #MERGE2, #VYLUKA, #ODKLON alebo #POZODJ_<koľaj>; text začínajúci # sa inak nedá zapísať"));
+                        suggestion: Resources.Ttv_MagicItem_Fix));
                 return;
             }
 
@@ -397,8 +399,8 @@ public static class TabTabValidator
                 var track = line.PozOdjTrack ?? "";
                 if (options.Symbols?.TrackExists(track) == false)
                     list.Add(New(ExprSeverity.Error, TabTabDiagnosticCode.InissUnknownTrack,
-                        $"the position {track} was not found – koľaj nie je v Pozice.txt", line.RightSpan, line,
-                        suggestion: "Použiť názov koľaje z Pozice.txt"));
+                        string.Format(CultureInfo.CurrentCulture, Resources.Ttv_PositionNotFound, track), line.RightSpan, line,
+                        suggestion: Resources.Ttv_UseTrackName));
                 CheckColumnRefs(line.Left, line.LeftSpan, line, options, list);
                 return;
             }
@@ -411,7 +413,7 @@ public static class TabTabValidator
         if (items is [{ Text.Length: 0 }])
         {
             list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.EmptyEventList,
-                $"{line.Right} bez položiek", line.RightSpan, line, suggestion: "Doplniť položky pred = alebo pravidlo odstrániť"));
+                string.Format(CultureInfo.CurrentCulture, Resources.Ttv_NoItems, line.Right), line.RightSpan, line, suggestion: Resources.Ttv_NoItems_Fix));
             return;
         }
 
@@ -419,11 +421,11 @@ public static class TabTabValidator
         {
             list.Add(step == 2
                 ? New(ExprSeverity.Error, TabTabDiagnosticCode.InissItemsCountUneven,
-                    $"the items count is uneven – {line.Right} potrebuje dvojice podmienka, \"text\" (položiek: {items.Count})", line.LeftSpan, line,
-                    suggestion: "Doplniť text za poslednú podmienku alebo odstrániť prebytočnú položku; čiarka v texte musí byť v úvodzovkách")
+                    string.Format(CultureInfo.CurrentCulture, Resources.Ttv_ItemsUneven, line.Right, items.Count), line.LeftSpan, line,
+                    suggestion: Resources.Ttv_ItemsUneven_Fix)
                 : New(ExprSeverity.Error, TabTabDiagnosticCode.InissItemsCountNotMultipleOf3,
-                    $"the items count is not multiple of 3 – {line.Right} potrebuje trojice podmienka, \"oddeľovač\", \"text\" (položiek: {items.Count})", line.LeftSpan, line,
-                    suggestion: "Každá podmienka potrebuje oddeľovač aj text (oddeľovač môže byť prázdny: cond,,\"text\")"));
+                    string.Format(CultureInfo.CurrentCulture, Resources.Ttv_ItemsNotTriple, line.Right, items.Count), line.LeftSpan, line,
+                    suggestion: Resources.Ttv_ItemsNotTriple_Fix));
         }
 
         var alwaysTrueSeen = false;
@@ -434,8 +436,8 @@ public static class TabTabValidator
                 if (alwaysTrueSeen && line.Event == TabTabEventKind.Switch)
                 {
                     list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.UnreachableItem,
-                        "Položka za vždy splnenou podmienkou sa nikdy nepoužije", item.Span, line,
-                        suggestion: "Presunúť záložnú podmienku 1 na koniec zoznamu alebo položku odstrániť"));
+                        Resources.Ttv_ItemAfterAlwaysTrue, item.Span, line,
+                        suggestion: Resources.Ttv_ItemAfterAlwaysTrue_Fix));
                 }
 
                 CheckCondition(item, line, options, list, out var alwaysTrue);
@@ -495,18 +497,18 @@ public static class TabTabValidator
             {
                 case TabTabText.IssueKind.UnbalancedQuotes:
                     list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.UnbalancedQuotes,
-                        "Nepárny počet úvodzoviek – text od poslednej úvodzovky sa berie doslovne, vrátane {n}", at, line,
-                        suggestion: "Doplniť alebo odstrániť úvodzovku"));
+                        Resources.Ttv_OddQuotes, at, line,
+                        suggestion: Resources.Ttv_OddQuotes_Fix));
                     break;
                 case TabTabText.IssueKind.BadFontCode:
                     list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.BadFontCode,
-                        $"{raw.Substring(issue.Start, issue.Length)} nie je zápis písma – písmo sa píše ako {{číslo}} alebo {{@}} až na konci textu; takto je to text", at, line,
-                        suggestion: "Presunúť {n} na koniec textu alebo opraviť číslo"));
+                        string.Format(CultureInfo.CurrentCulture, Resources.Ttv_NotFont, raw.Substring(issue.Start, issue.Length)), at, line,
+                        suggestion: Resources.Ttv_NotFont_Fix));
                     break;
                 case TabTabText.IssueKind.FontInsideQuotes:
                     list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.FontInsideQuotes,
-                        $"{raw.Substring(issue.Start, issue.Length)} je vnútri úvodzoviek, takže je textom, nie písmom", at, line,
-                        suggestion: "Písmo patrí za úvodzovky: \"text\"{n}"));
+                        string.Format(CultureInfo.CurrentCulture, Resources.Ttv_FontInQuotes, raw.Substring(issue.Start, issue.Length)), at, line,
+                        suggestion: Resources.Ttv_FontInQuotes_Fix));
                     break;
             }
         }
@@ -515,13 +517,13 @@ public static class TabTabValidator
     /// <summary>Odporucanie k chybe prekladaca INISSu.</summary>
     private static string? ErrorSuggestion(ExprDiagnosticCode code) => code switch
     {
-        ExprDiagnosticCode.InissUnknownSymbol => "Skontrolovať názov funkcie alebo konštanty (Typ_ len s druhom z TrTypes.txt); zoznam je v dokumentácii Jazyk výrazov",
-        ExprDiagnosticCode.InissExpected => "Doplniť chýbajúci znak – zátvorku, dvojbodku alebo reťazec v úvodzovkách",
-        ExprDiagnosticCode.InissUnexpected => "Skontrolovať zápis – dvojitá negácia a reťazené porovnania potrebujú zátvorky, = je ==",
-        ExprDiagnosticCode.InissUnterminatedString => "Doplniť uzatváraciu úvodzovku alebo #",
-        ExprDiagnosticCode.InissNumberExpected => "Číslo nesmie obsahovať písmená (okrem 0x pre šestnástkový zápis)",
-        ExprDiagnosticCode.InissBadDateFormat => "Dátum sa píše #d.m.rrrr#",
-        ExprDiagnosticCode.InissBadTimeFormat => "Čas sa píše #h:m# alebo #h:m:s#",
+        ExprDiagnosticCode.InissUnknownSymbol => Resources.Ttv_Fix_UnknownSymbol,
+        ExprDiagnosticCode.InissExpected => Resources.Ttv_Fix_Expected,
+        ExprDiagnosticCode.InissUnexpected => Resources.Ttv_Fix_Unexpected,
+        ExprDiagnosticCode.InissUnterminatedString => Resources.Ttv_Fix_UnterminatedString,
+        ExprDiagnosticCode.InissNumberExpected => Resources.Ttv_Fix_NumberExpected,
+        ExprDiagnosticCode.InissBadDateFormat => Resources.Ttv_Fix_BadDate,
+        ExprDiagnosticCode.InissBadTimeFormat => Resources.Ttv_Fix_BadTime,
         _ => null
     };
 
@@ -540,7 +542,7 @@ public static class TabTabValidator
         if (options.ColumnNames.Any(c => string.Equals(c, name, StringComparison.OrdinalIgnoreCase))) return;
 
         list.Add(New(ExprSeverity.Warning, TabTabDiagnosticCode.UnknownColumn,
-            $"Stĺpec „{name}“ nie je v žiadnej tabuli, ktorá túto sekciu používa", span, line,
-            suggestion: "Použiť názov alebo kľúč stĺpca z katalógovej tabule"));
+            string.Format(CultureInfo.CurrentCulture, Resources.Ttv_ColumnUnknown, name), span, line,
+            suggestion: Resources.Ttv_ColumnUnknown_Fix));
     }
 }

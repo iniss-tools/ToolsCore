@@ -1,4 +1,5 @@
 using System.Globalization;
+using ToolsCore.Properties;
 
 namespace ToolsCore.Expressions;
 
@@ -169,7 +170,7 @@ public sealed class ExprEvaluator
                 return Evaluate(p.Inner);
 
             case ExprStringNode s:
-                throw new ExprEvaluationException("Reťazec mimo argumentu funkcie", s);
+                throw new ExprEvaluationException(Resources.Eval_StringOutsideArgument, s);
 
             case ExprUnaryNode u:
             {
@@ -230,7 +231,7 @@ public sealed class ExprEvaluator
 
     private int EvaluateFunction(ExprFunctionNode f)
     {
-        var t = _train ?? throw new ExprEvaluationException("Vyhodnotenie funkcie vyžaduje vlak", f);
+        var t = _train ?? throw new ExprEvaluationException(Resources.Eval_NeedsTrain, f);
         var arg = f.Argument;
 
         switch (f.Canonical)

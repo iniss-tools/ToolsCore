@@ -1,3 +1,6 @@
+using ToolsCore.Properties;
+using System.Globalization;
+
 namespace ToolsCore.StateDgm;
 
 /// <summary>
@@ -18,7 +21,7 @@ public static class StateDgmConverter
         d.RootExtras.AddRange(file.Root.Items.Where(i => !(i is StateDgmGroup g && ctrls.Contains(g))));
         if (ctrls.Count == 0)
         {
-            d.Warnings.Add(new StateDgmLoadWarning($"Súbor neobsahuje blok {StateDgmKeys.CTRLS} – INISS v ňom nenájde diagram", -1));
+            d.Warnings.Add(new StateDgmLoadWarning(string.Format(CultureInfo.CurrentCulture, Resources.Sdc_NoCtrls, StateDgmKeys.CTRLS), -1));
             return d;
         }
 
@@ -33,7 +36,7 @@ public static class StateDgmConverter
 
         if (design != null) ReadDesigns(d, design);
         if (header != null) ReadHeader(d, header);
-        else d.Warnings.Add(new StateDgmLoadWarning($"Chýba blok {StateDgmKeys.CTRLS}\\{StateDgmKeys.STATE_DGM}", -1));
+        else d.Warnings.Add(new StateDgmLoadWarning(string.Format(CultureInfo.CurrentCulture, Resources.Sdc_BlockMissing, StateDgmKeys.CTRLS, StateDgmKeys.STATE_DGM), -1));
         return d;
     }
 
@@ -55,7 +58,7 @@ public static class StateDgmConverter
             d.Designs.Add(item);
         }
 
-        CheckCount(d, r.Int(StateDgmKeys.NUM_DESIGNS), d.Designs.Count, StateDgmKeys.NUM_DESIGNS, "vzhľadov", design.Line);
+        CheckCount(d, r.Int(StateDgmKeys.NUM_DESIGNS), d.Designs.Count, StateDgmKeys.NUM_DESIGNS, Resources.Sdc_WhatDesigns, design.Line);
         d.DesignExtras.AddRange(r.Extras());
     }
 
@@ -67,12 +70,12 @@ public static class StateDgmConverter
         foreach (var g in r.Groups(StateDgmKeys.TIME_POINT))
             d.TimePoints.Add(ReadTimePoint(g));
 
-        CheckCount(d, r.Int(StateDgmKeys.NUM_TIME_POINTS), d.TimePoints.Count, StateDgmKeys.NUM_TIME_POINTS, "časových bodov", header.Line);
+        CheckCount(d, r.Int(StateDgmKeys.NUM_TIME_POINTS), d.TimePoints.Count, StateDgmKeys.NUM_TIME_POINTS, Resources.Sdc_WhatTimePoints, header.Line);
 
         foreach (var g in r.Groups(StateDgmKeys.CATEGORIE))
             d.Categories.Add(ReadCategory(d, g));
 
-        CheckCount(d, r.Int(StateDgmKeys.NUM_CATEGORIES), d.Categories.Count, StateDgmKeys.NUM_CATEGORIES, "kategórií", header.Line);
+        CheckCount(d, r.Int(StateDgmKeys.NUM_CATEGORIES), d.Categories.Count, StateDgmKeys.NUM_CATEGORIES, Resources.Sdc_WhatCategories, header.Line);
         d.HeaderExtras.AddRange(r.Extras());
     }
 
@@ -107,7 +110,7 @@ public static class StateDgmConverter
         };
         foreach (var sg in r.Groups(StateDgmKeys.STATE))
             cat.States.Add(ReadState(d, sg));
-        CheckCount(d, r.Int(StateDgmKeys.NUM_STATES), cat.States.Count, StateDgmKeys.NUM_STATES, $"stavov kategórie {cat.Key}", g.Line);
+        CheckCount(d, r.Int(StateDgmKeys.NUM_STATES), cat.States.Count, StateDgmKeys.NUM_STATES, string.Format(CultureInfo.CurrentCulture, Resources.Sdc_WhatStates, cat.Key), g.Line);
         cat.Extras.AddRange(r.Extras());
         return cat;
     }
@@ -150,10 +153,10 @@ public static class StateDgmConverter
         foreach (var sg in r.Groups(StateDgmKeys.STARTER)) s.Starters.Add(ReadStarter(sg));
         foreach (var tg in r.Groups(StateDgmKeys.TIME_POINT)) s.TimePoints.Add(ReadTimePoint(tg));
 
-        CheckCount(d, r.Int(StateDgmKeys.NUM_EVENTS), s.Events.Count, StateDgmKeys.NUM_EVENTS, $"akcií stavu {s.Key}", g.Line);
-        CheckCount(d, r.Int(StateDgmKeys.NUM_CONTROLS), s.Controls.Count, StateDgmKeys.NUM_CONTROLS, $"ovládačov stavu {s.Key}", g.Line);
-        CheckCount(d, r.Int(StateDgmKeys.NUM_STARTERS), s.Starters.Count, StateDgmKeys.NUM_STARTERS, $"štartérov stavu {s.Key}", g.Line);
-        CheckCount(d, r.Int(StateDgmKeys.NUM_TIME_POINTS), s.TimePoints.Count, StateDgmKeys.NUM_TIME_POINTS, $"časových bodov stavu {s.Key}", g.Line);
+        CheckCount(d, r.Int(StateDgmKeys.NUM_EVENTS), s.Events.Count, StateDgmKeys.NUM_EVENTS, string.Format(CultureInfo.CurrentCulture, Resources.Sdc_WhatEvents, s.Key), g.Line);
+        CheckCount(d, r.Int(StateDgmKeys.NUM_CONTROLS), s.Controls.Count, StateDgmKeys.NUM_CONTROLS, string.Format(CultureInfo.CurrentCulture, Resources.Sdc_WhatControls, s.Key), g.Line);
+        CheckCount(d, r.Int(StateDgmKeys.NUM_STARTERS), s.Starters.Count, StateDgmKeys.NUM_STARTERS, string.Format(CultureInfo.CurrentCulture, Resources.Sdc_WhatStarters, s.Key), g.Line);
+        CheckCount(d, r.Int(StateDgmKeys.NUM_TIME_POINTS), s.TimePoints.Count, StateDgmKeys.NUM_TIME_POINTS, string.Format(CultureInfo.CurrentCulture, Resources.Sdc_WhatStateTimePoints, s.Key), g.Line);
         s.Extras.AddRange(r.Extras());
         return s;
     }
@@ -248,8 +251,8 @@ public static class StateDgmConverter
         if (declared == null || declared == actual) return;
         d.Warnings.Add(new StateDgmLoadWarning(
             declared < actual
-                ? $"{key}={declared}, ale {what} je {actual} – INISS načíta len prvých {declared}; po uložení sa počet opraví"
-                : $"{key}={declared}, ale {what} je len {actual} – po uložení sa počet opraví", line));
+                ? string.Format(CultureInfo.CurrentCulture, Resources.Sdc_CountMore, key, declared, what, actual, declared)
+                : string.Format(CultureInfo.CurrentCulture, Resources.Sdc_CountLess, key, declared, what, actual), line));
     }
 
     /// <summary>

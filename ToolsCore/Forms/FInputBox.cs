@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using ToolsCore.Properties;
 using ToolsCore.Tools;
 
 namespace ToolsCore.Forms;
@@ -27,13 +28,13 @@ public partial class FInputBox : Form
         var value = tbValue.Text;
         if (string.IsNullOrWhiteSpace(value))
         {
-            Utils.ShowError("Hodnota nemôže byť prázdna.");
+            Utils.ShowError(Resources.InputBox_Empty);
             return;
         }
 
         if (_listToCheck.Cast<object>().Any(item => _comparator(item, value)))
         {
-            Utils.ShowError("Hodnota je neplatná.");
+            Utils.ShowError(Resources.InputBox_Invalid);
             return;
         }
 

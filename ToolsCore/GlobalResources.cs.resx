@@ -12,7 +12,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NameColorSettings_Border" xml:space="preserve">
-    <value>Okrej</value>
+    <value>Okraj</value>
   </data>
   <data name="NameColorSettings_Label" xml:space="preserve">
     <value>Popisek</value>
@@ -51,13 +51,13 @@
     <value>Tlačítka formulářů</value>
   </data>
   <data name="NameAppFontSetting_ChartData" xml:space="preserve">
-    <value>Data v tabulkách</value>
+    <value>Buňky tabulek</value>
   </data>
   <data name="NameAppFontSetting_ChartHeaders" xml:space="preserve">
-    <value>Nadpisy v tabulkách</value>
+    <value>Záhlaví tabulek</value>
   </data>
   <data name="NameAppFontSetting_Labels" xml:space="preserve">
-    <value>Popisy formulářů</value>
+    <value>Text ve formulářích</value>
   </data>
   <data name="NameAppFontSetting_StateRow" xml:space="preserve">
     <value>Stavový řádek</value>
@@ -70,5 +70,35 @@
   </data>
   <data name="RRecentProjects" xml:space="preserve">
     <value>Poslední projekty</value>
+  </data>
+  <data name="NameAppFontSetting_Category" xml:space="preserve">
+    <value>Písma</value>
+  </data>
+  <data name="NameColorSettings_Panel" xml:space="preserve">
+    <value>Panel</value>
+  </data>
+  <data name="NameColorSettings_Button" xml:space="preserve">
+    <value>Tlačítko</value>
+  </data>
+  <data name="NameColorSettings_Box" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="NameColorSettings_Mark" xml:space="preserve">
+    <value>Značka (v RadioButton a v CheckBox)</value>
+  </data>
+  <data name="NameColorSettings_Highlight" xml:space="preserve">
+    <value>Zvýraznění</value>
+  </data>
+  <data name="RError" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="RInfo" xml:space="preserve">
+    <value>Informace</value>
+  </data>
+  <data name="RQuestion" xml:space="preserve">
+    <value>Otázka</value>
+  </data>
+  <data name="RWarning" xml:space="preserve">
+    <value>Upozornění</value>
   </data>
 </root>

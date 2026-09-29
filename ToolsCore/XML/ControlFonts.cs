@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using ToolsCore.Converters;
 
 namespace ToolsCore.XML;
 
@@ -8,8 +9,6 @@ namespace ToolsCore.XML;
 [DefaultProperty(nameof(Labels))]
 public record ControlFonts()
 {
-    private const string FontsCategory = "Písma";
-
     private static AppFont DefaultLabelsFont { get; } = new(SystemFonts.DefaultFont);
     private static AppFont DefaultButtonsFont { get; } = new(SystemFonts.DefaultFont);
     private static AppFont DefaultMenuFont { get; } = new(SystemFonts.MenuFont!);
@@ -21,8 +20,8 @@ public record ControlFonts()
     /// Nastavenie písma pre Labels.
     /// </summary>
     [XmlElement("Labels")]
-    [DisplayName("Text vo formulároch")]
-    [Category(FontsCategory)]
+    [ResDisplayName("NameAppFontSetting_Labels")]
+    [ResCategory("NameAppFontSetting_Category")]
     public AppFont Labels { get; set => field = OrDefault(value, DefaultLabelsFont); } = DefaultLabelsFont;
 
     private bool ShouldSerializeLabels() => !Equals(Labels.Font, DefaultLabelsFont.Font);
@@ -31,8 +30,8 @@ public record ControlFonts()
     /// Nastavenie písma pre Buttons.
     /// </summary>
     [XmlElement("Buttons")] 
-    [DisplayName("Tlačidlá formulárov")]
-    [Category(FontsCategory)]
+    [ResDisplayName("NameAppFontSetting_Buttons")]
+    [ResCategory("NameAppFontSetting_Category")]
     public AppFont Buttons { get; set => field = OrDefault(value, DefaultButtonsFont); } = DefaultButtonsFont;
 
     private bool ShouldSerializeButtons() => !Equals(Buttons.Font, DefaultButtonsFont.Font);
@@ -41,8 +40,8 @@ public record ControlFonts()
     /// Nastavenie písma pre Menu.
     /// </summary>
     [XmlElement("Menu")]
-    [DisplayName("Menu")]
-    [Category(FontsCategory)]
+    [ResDisplayName("NameAppFontSetting_Menu")]
+    [ResCategory("NameAppFontSetting_Category")]
     public AppFont Menu { get; set => field = OrDefault(value, DefaultMenuFont); } = DefaultMenuFont;
 
     private bool ShouldSerializeMenu() => !Equals(Menu.Font, DefaultMenuFont.Font);
@@ -51,8 +50,8 @@ public record ControlFonts()
     /// Nastavenie písma pre hlavičku śtĺpcov v DataGridView.
     /// </summary>
     [XmlElement("ColsHeaders")]
-    [DisplayName("Hlavičky tabuliek")]
-    [Category(FontsCategory)]
+    [ResDisplayName("NameAppFontSetting_ChartHeaders")]
+    [ResCategory("NameAppFontSetting_Category")]
     public AppFont ColsHeader { get; set => field = OrDefault(value, DefaultColsHeaderFont); } = DefaultColsHeaderFont;
 
     private bool ShouldSerializeColsHeader() => !Equals(ColsHeader.Font, DefaultColsHeaderFont.Font);
@@ -61,8 +60,8 @@ public record ControlFonts()
     /// Nastavenie písma pre obsah v DataGridView.
     /// </summary>
     [XmlElement("TableCells")]
-    [DisplayName("Bunky tabuliek")]
-    [Category(FontsCategory)]
+    [ResDisplayName("NameAppFontSetting_ChartData")]
+    [ResCategory("NameAppFontSetting_Category")]
     public AppFont TableCells { get; set => field = OrDefault(value, DefaultTableCellsFont); } = DefaultTableCellsFont;
 
     private bool ShouldSerializeTableCells() => !Equals(TableCells.Font, DefaultTableCellsFont.Font);
@@ -71,8 +70,8 @@ public record ControlFonts()
     /// Nastavenie písma pre stavový riadok v dolnej časti pracovnej plochy programu.
     /// </summary>
     [XmlElement("StateRow")]
-    [DisplayName("Stavový riadok")]
-    [Category(FontsCategory)]
+    [ResDisplayName("NameAppFontSetting_StateRow")]
+    [ResCategory("NameAppFontSetting_Category")]
     public AppFont StateRow { get; set => field = OrDefault(value, DefaultStateRowFont); } = DefaultStateRowFont;
 
     private bool ShouldSerializeStateRow() => !Equals(StateRow.Font, DefaultStateRowFont.Font);

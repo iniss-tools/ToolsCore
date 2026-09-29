@@ -1,3 +1,5 @@
+using ToolsCore.Properties;
+
 namespace ToolsCore.Tools;
 
 /// <summary>
@@ -86,11 +88,11 @@ public static class EwaCodec
         var start = wav.Position;
 
         if (Read4ByteString(reader) != "RIFF")
-            throw new FormatException("Chybný formát WAV súboru (chýba hlavička RIFF)!");
+            throw new FormatException(Resources.Ewa_NoRiff);
         if (reader.ReadInt32() != wav.Length - start - 8)
-            throw new FormatException("Chybný formát WAV súboru (chybná dĺžka súboru)");
+            throw new FormatException(Resources.Ewa_BadLength);
         if (Read4ByteString(reader) != "WAVE")
-            throw new FormatException("Chybný formát WAV súboru (nie je typu WAVE)");
+            throw new FormatException(Resources.Ewa_NotWave);
 
         var fmtLen = -1;
         while (wav.Length - wav.Position >= 8)
@@ -105,9 +107,9 @@ public static class EwaCodec
         }
 
         if (fmtLen < 0)
-            throw new FormatException("Chybný formát WAV súboru (nenájdený formát)");
+            throw new FormatException(Resources.Ewa_NoFormat);
         if (fmtLen < 16)
-            throw new FormatException("Chybný formát WAV súboru (fmt chunk má dĺžku menšiu ako 16 bytov)");
+            throw new FormatException(Resources.Ewa_FmtTooShort);
 
         var formatTag = reader.ReadInt16();
         reader.ReadInt16(); // kanaly
@@ -122,7 +124,7 @@ public static class EwaCodec
             reader.ReadInt16();
             reader.ReadInt32();
             if (new Guid("00000001-0000-0010-8000-00AA00389B71") != new Guid(reader.ReadBytes(16)))
-                throw new FormatException("Chybný formát WAV súboru (neznámy subformát (GUID))");
+                throw new FormatException(Resources.Ewa_UnknownSubformat);
         }
     }
 

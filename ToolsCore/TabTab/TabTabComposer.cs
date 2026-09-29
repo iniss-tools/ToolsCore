@@ -1,4 +1,6 @@
-﻿using ToolsCore.Expressions;
+﻿using System.Globalization;
+using ToolsCore.Expressions;
+using ToolsCore.Properties;
 
 namespace ToolsCore.TabTab;
 
@@ -109,13 +111,13 @@ public static class TabTabComposer
             if (pending is { } p)
             {
                 v = p.Fill(v);
-                note = note.Length == 0 ? "vyplnilo @ z predchádzajúceho zdroja" : note + "; vyplnilo @";
+                note = note.Length == 0 ? Resources.Ttc_FilledFromPrevious : note + "; vyplnilo @";
             }
             steps.Add(new TabTabComposeStep(source, v, note));
             if (v.HasPlaceholder)
             {
                 pending = v;
-                steps.Add(new TabTabComposeStep(source, v, "text obsahuje @ – čaká na ďalší zdroj"));
+                steps.Add(new TabTabComposeStep(source, v, Resources.Ttc_WaitsForNext));
                 return false;
             }
             final = v;
@@ -137,12 +139,12 @@ public static class TabTabComposer
         if (tab is not null && rules is not null)
         {
             // 1. #VYLUKA, 2. #ODKLON, 3. #POZODJ_<kolaj>
-            if (lockout && rules.TryGet("#VYLUKA", out var vyl) && Accept("#VYLUKA", vyl, "vlak má výluku"))
+            if (lockout && rules.TryGet("#VYLUKA", out var vyl) && Accept("#VYLUKA", vyl, Resources.Ttc_HasLockout))
                 return Finish(input, final!.Value, steps, error);
-            if (deflected && rules.TryGet("#ODKLON", out var odk) && Accept("#ODKLON", odk, "vlak má odklon"))
+            if (deflected && rules.TryGet("#ODKLON", out var odk) && Accept("#ODKLON", odk, Resources.Ttc_HasDeflect))
                 return Finish(input, final!.Value, steps, error);
             var depTrack = input.Train.DepartureTrack;
-            if (depTrack.Length > 0 && rules.TryGet("#POZODJ_" + depTrack, out var poz) && Accept("#POZODJ_" + depTrack, poz, $"koľaj odchodu {depTrack}"))
+            if (depTrack.Length > 0 && rules.TryGet("#POZODJ_" + depTrack, out var poz) && Accept("#POZODJ_" + depTrack, poz, string.Format(CultureInfo.CurrentCulture, Resources.Ttc_DepartureTrack, depTrack)))
                 return Finish(input, final!.Value, steps, error);
 
             // 4. #SWITCH
@@ -171,9 +173,9 @@ public static class TabTabComposer
         // 7. nahradny text programu (len smer/ciel)
         if (input.TypeItemsIdx is >= 3 and <= 5)
         {
-            if (lockout && input.FallbackLockoutText.Length > 0 && Accept("náhradný text výluky", new TabTabValue(input.FallbackLockoutText, null), "nastavenie INISSu"))
+            if (lockout && input.FallbackLockoutText.Length > 0 && Accept(Resources.Ttc_FallbackLockout, new TabTabValue(input.FallbackLockoutText, null), "nastavenie INISSu"))
                 return Finish(input, final!.Value, steps, error);
-            if (!lockout && deflected && input.FallbackDeflectText.Length > 0 && Accept("náhradný text odklonu", new TabTabValue(input.FallbackDeflectText, null), "nastavenie INISSu"))
+            if (!lockout && deflected && input.FallbackDeflectText.Length > 0 && Accept(Resources.Ttc_FallbackDeflect, new TabTabValue(input.FallbackDeflectText, null), "nastavenie INISSu"))
                 return Finish(input, final!.Value, steps, error);
         }
 
@@ -183,7 +185,7 @@ public static class TabTabComposer
 
         // 9. vlastna hodnota
         var own = pending is { } pp ? pp.Fill(input.OwnValue) : input.OwnValue;
-        steps.Add(new TabTabComposeStep("vlastná hodnota", own, pending is null ? "" : "vyplnilo @"));
+        steps.Add(new TabTabComposeStep(Resources.Ttc_OwnValue, own, pending is null ? "" : "vyplnilo @"));
         return Finish(input, own, steps, error);
     }
 
@@ -210,7 +212,7 @@ public static class TabTabComposer
         {
             case 1:
                 result = tab1 is not null && tab1.TryGet(value.Text, out var v1) ? Apply(v1, value) : new TabTabValue("", value.Font);
-                note = tab1 is null ? "TAB1 chýba" : result.Text.Length == 0 && value.Text.Length > 0 ? "text nie je v TAB1 – stĺpec ostane prázdny" : "";
+                note = tab1 is null ? Resources.Ttc_Tab1Missing : result.Text.Length == 0 && value.Text.Length > 0 ? Resources.Ttc_NotInTab1Empty : "";
                 break;
 
             case 2:
@@ -218,7 +220,7 @@ public static class TabTabComposer
                 if (value.Text.StartsWith('#') && tab1 is not null && tab1.TryGet(value.Text, out var whole))
                 {
                     result = Apply(whole, value);
-                    note = "text začínajúci # sa hľadá v TAB1 ako celok";
+                    note = Resources.Ttc_HashWhole;
                     break;
                 }
                 var parts = value.Text.Split([':', '.', '/', '-', ',', ' '], 2);
@@ -231,12 +233,12 @@ public static class TabTabComposer
                 {
                     result = new TabTabValue(Apply(h, new TabTabValue(hours, value.Font)).Text + Apply(t, new TabTabValue(tens, value.Font)).Text + Apply(u, new TabTabValue(units, value.Font)).Text,
                         h.Font ?? t.Font ?? u.Font ?? value.Font);
-                    note = "hodiny z TAB1, minúty po čísliciach z TAB2";
+                    note = Resources.Ttc_HoursMinutes;
                 }
                 else
                 {
                     result = new TabTabValue("", value.Font);
-                    note = "niektorá časť času nie je v tabuľkách – stĺpec ostane prázdny";
+                    note = Resources.Ttc_TimePartMissing;
                 }
                 break;
             }
@@ -250,7 +252,7 @@ public static class TabTabComposer
                 else
                 {
                     result = value;
-                    note = "text nie je v TAB1 – pošle sa nezmenený";
+                    note = Resources.Ttc_NotInTab1Unchanged;
                 }
                 break;
 
@@ -259,7 +261,7 @@ public static class TabTabComposer
                 if (value.Text.StartsWith('#') && tab1 is not null && tab1.TryGet(value.Text, out var whole4))
                 {
                     result = Apply(whole4, value);
-                    note = "text začínajúci # sa hľadá v TAB1 ako celok";
+                    note = Resources.Ttc_HashWhole;
                     break;
                 }
                 var sb = new StringBuilder();
@@ -277,17 +279,17 @@ public static class TabTabComposer
                     }
                 }
                 result = new TabTabValue(sb.ToString(), font ?? value.Font);
-                note = "znak po znaku podľa TAB1";
+                note = Resources.Ttc_CharByChar;
                 break;
             }
 
             default:
                 result = value;
-                note = input.DivType == 0 ? "bez prekódovania" : $"neznámy spôsob plnenia {input.DivType}";
+                note = input.DivType == 0 ? Resources.Ttc_NoRecoding : string.Format(CultureInfo.CurrentCulture, Resources.Ttc_UnknownDivType, input.DivType);
                 break;
         }
 
-        steps?.Add(new TabTabComposeStep($"spôsob plnenia {input.DivType}", result, note));
+        steps?.Add(new TabTabComposeStep(string.Format(CultureInfo.CurrentCulture, Resources.Ttc_DivType, input.DivType), result, note));
         return result;
 
         static TabTabValue Apply(TabTabValue rule, TabTabValue original) =>
@@ -305,11 +307,11 @@ public static class TabTabComposer
             if (!TryCondition(items[i], evaluator, ref error, out var truthy)) continue;
             if (!truthy) continue;
 
-            note = $"riadok {rule.LineIndex + 1}, položka {i + 1}: {items[i].Text}";
+            note = string.Format(CultureInfo.CurrentCulture, Resources.Ttc_RuleItem, rule.LineIndex + 1, i + 1, items[i].Text);
             return ResolveText(items[i + 1], input);
         }
 
-        note = $"riadok {rule.LineIndex + 1}: žiadna podmienka neplatí";
+        note = string.Format(CultureInfo.CurrentCulture, Resources.Ttc_RuleNoMatch, rule.LineIndex + 1);
         return null;
     }
 
@@ -357,11 +359,11 @@ public static class TabTabComposer
 
         if (used.Count == 0)
         {
-            note = $"riadok {rule.LineIndex + 1}: žiadna podmienka neplatí";
+            note = string.Format(CultureInfo.CurrentCulture, Resources.Ttc_RuleNoMatch, rule.LineIndex + 1);
             return null;
         }
 
-        note = $"riadok {rule.LineIndex + 1}, položky {string.Join(", ", used)}";
+        note = string.Format(CultureInfo.CurrentCulture, Resources.Ttc_RuleItems, rule.LineIndex + 1, string.Join(", ", used));
         return new TabTabValue(acc, font);
     }
 

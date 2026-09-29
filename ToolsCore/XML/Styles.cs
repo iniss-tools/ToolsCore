@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using System.Globalization;
 using System.Reflection;
 using System.Xml.Serialization;
+using ToolsCore.Properties;
 using ToolsCore.Tools;
 
 namespace ToolsCore.XML;
@@ -130,7 +132,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
 
                 if (query.Count != 0)
                 {
-                    var error = $"Chyba v súbore štýlov: Štýl {query[0]} je zadefinovaný viackrát.";
+                    var error = string.Format(CultureInfo.CurrentCulture, Resources.Styles_Duplicate, query[0]);
                     Log.Error(error);
                     throw new ArgumentException(error);
                 }

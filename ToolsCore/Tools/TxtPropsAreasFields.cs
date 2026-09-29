@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using ToolsCore.Properties;
 namespace ToolsCore.Tools;
 
 /// <summary>
@@ -7,7 +8,7 @@ namespace ToolsCore.Tools;
 /// </summary>
 public class TxtPropsAreasFields
 {
-    private const string EX_MESSAGE = "Súbor {0}: V oblasti {1} sa očakávala vlastnosť {2}.";
+    private static string EX_MESSAGE => Resources.TxtProps_MissingInArea;
 
     private readonly string _fileName;
     private readonly Dictionary<string, Dictionary<string, string>> _areas;
@@ -51,7 +52,7 @@ public class TxtPropsAreasFields
             if (_areas.TryGetValue(area, out var fields) && fields.TryGetValue(field, out var found))
                 return found;
             else
-                throw new ArgumentNullException(nameof(area), string.Format(CultureInfo.InvariantCulture, EX_MESSAGE, _fileName, area, field));
+                throw new ArgumentNullException(nameof(area), string.Format(CultureInfo.CurrentCulture, EX_MESSAGE, _fileName, area, field));
 
         return _areas.TryGetValue(area, out var value) ? value.GetValueOrDefault(field) : null;
     }
@@ -93,7 +94,7 @@ public class TxtPropsAreasFields
             if (value == null)
             {
                 if (type is WriteType.WriteStringANSI or WriteType.WriteStringUTF8)
-                    throw new ArgumentNullException(nameof(area), string.Format(CultureInfo.InvariantCulture, EX_MESSAGE, _fileName, area, field));
+                    throw new ArgumentNullException(nameof(area), string.Format(CultureInfo.CurrentCulture, EX_MESSAGE, _fileName, area, field));
 
                 value = "".Quote();
             }

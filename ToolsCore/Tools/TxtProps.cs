@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using ToolsCore.Properties;
 
 namespace ToolsCore.Tools;
 
@@ -7,7 +8,7 @@ namespace ToolsCore.Tools;
 /// </summary>
 public class TxtProps
 {
-    private const string EX_MESSAGE = "Súbor {0}: Očakávala sa vlastnosť {1}.";
+    private static string EX_MESSAGE => Resources.TxtProps_Missing;
 
     private readonly string _fileName;
     private readonly Dictionary<string, string> _dictionary;
@@ -57,7 +58,7 @@ public class TxtProps
     {
         if (nullSensitive)
             return _dictionary.TryGetValue(field, out var value) 
-                ? value : throw new ArgumentNullException(nameof(field), string.Format(CultureInfo.InvariantCulture, EX_MESSAGE, _fileName, field));
+                ? value : throw new ArgumentNullException(nameof(field), string.Format(CultureInfo.CurrentCulture, EX_MESSAGE, _fileName, field));
 
         return _dictionary.GetValueOrDefault(field);
     }

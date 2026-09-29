@@ -1,3 +1,5 @@
+using System.Globalization;
+using ToolsCore.Properties;
 using ToolsCore.Tools;
 
 namespace ToolsCore.StateDgm;
@@ -59,7 +61,7 @@ public static class StateDgmReader
         r.SkipWhite();
         var version = r.ReadToken(4);
         if (version != VERSION)
-            throw new StateDgmParseException($"Neznáma verzia zápisu „{version}“ – očakáva sa {VERSION} na prvom riadku", r.Line);
+            throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_UnknownVersion, version, VERSION), r.Line);
         file.Version = version;
         r.SkipLine();
 
@@ -80,7 +82,7 @@ public static class StateDgmReader
             var c = r.Read();
             if (c == -1)
             {
-                if (nested) throw new StateDgmParseException("Neočakávaný koniec súboru – chýba }", r.Line);
+                if (nested) throw new StateDgmParseException(Resources.Sdr_UnexpectedEof, r.Line);
                 return;
             }
 
@@ -93,13 +95,13 @@ public static class StateDgmReader
             if (c == '}')
             {
                 if (nested) return;
-                throw new StateDgmParseException("Neočakávané } mimo skupiny", r.Line);
+                throw new StateDgmParseException(Resources.Sdr_UnexpectedBrace, r.Line);
             }
 
             var line = r.Line;
             var colon = r.Read();
             if (colon != ':')
-                throw new StateDgmParseException($"Za „{(char)c}“ sa očakáva :", line);
+                throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_ColonExpected, (char)c), line);
 
             switch (c)
             {
@@ -115,12 +117,12 @@ public static class StateDgmReader
                     r.SkipWhite();
                     var name = r.ReadQuoted();
                     if (string.IsNullOrEmpty(name))
-                        throw new StateDgmParseException("Skupina bez mena", line);
+                        throw new StateDgmParseException(Resources.Sdr_GroupNoName, line);
                     var sub = CreateGroup(group, name, line);
                     r.SkipWhite();
                     var brace = r.Read();
                     if (brace != '{')
-                        throw new StateDgmParseException($"Za skupinou „{name}“ sa očakáva {{", r.Line);
+                        throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_BraceExpected, name), r.Line);
                     ReadBody(r, file, sub, true);
                     break;
                 }
@@ -135,7 +137,7 @@ public static class StateDgmReader
                     }
 
                     if (r.Peek() != '"')
-                        throw new StateDgmParseException($"Hodnota kľúča „{key}“ musí byť reťazec v úvodzovkách", r.Line);
+                        throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_StringExpected, key), r.Line);
                     var text = r.ReadQuoted();
                     group.Items.Add(new StateDgmValue(key, text) { Line = line });
                     break;
@@ -152,9 +154,9 @@ public static class StateDgmReader
 
                     var raw = r.ReadWhile(ch => ch is '+' or '-' or 'x' or (>= '0' and <= '9') or (>= 'A' and <= 'F') or (>= 'a' and <= 'f'));
                     if (raw.Length == 0)
-                        throw new StateDgmParseException($"Kľúč „{key}“ nemá číselnú hodnotu", r.Line);
+                        throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_NoNumber, key), r.Line);
                     if (!TryStrtol(raw, out var number))
-                        throw new StateDgmParseException($"„{raw}“ nie je číslo (kľúč „{key}“)", r.Line);
+                        throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_NotNumber, raw, key), r.Line);
                     // desiatkovy zapis sa pri zapise normalizuje, sestnastkovy a osmickovy sa zachova
                     var digits = raw.TrimStart('+', '-');
                     var keepRaw = digits.StartsWith("0x", StringComparison.OrdinalIgnoreCase) || (digits.Length > 1 && digits[0] == '0');
@@ -177,16 +179,16 @@ public static class StateDgmReader
                     {
                         "Ano" or "Yes" => true,
                         "Ne" or "No" => false,
-                        "" => throw new StateDgmParseException($"Kľúč „{key}“ nemá hodnotu Ano/Ne", r.Line),
-                        _ => throw new StateDgmParseException($"„{word}“ nie je Ano ani Ne (kľúč „{key}“)", r.Line)
+                        "" => throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_NoBool, key), r.Line),
+                        _ => throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_NotBool, word, key), r.Line)
                     };
                     group.Items.Add(new StateDgmValue(key, flag) { Line = line });
                     break;
                 }
                 case 'A':
-                    throw new StateDgmParseException("Typ A: (binárne dáta) sa v StateDgm.txt nepoužíva a editor ho nepodporuje", line);
+                    throw new StateDgmParseException(Resources.Sdr_BinaryUnsupported, line);
                 default:
-                    throw new StateDgmParseException($"Neznámy typ položky „{(char)c}:“", line);
+                    throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_UnknownItemType, (char)c), line);
             }
         }
     }
@@ -214,10 +216,10 @@ public static class StateDgmReader
         r.SkipWhite();
         var key = r.ReadQuoted();
         if (string.IsNullOrEmpty(key))
-            throw new StateDgmParseException("Položka bez kľúča", line);
+            throw new StateDgmParseException(Resources.Sdr_ItemNoKey, line);
         r.SkipWhite();
         if (r.Read() != '=')
-            throw new StateDgmParseException($"Za kľúčom „{key}“ sa očakáva =", r.Line);
+            throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_EqualsExpected, key), r.Line);
         r.SkipWhite();
         return key;
     }
@@ -308,15 +310,15 @@ public static class StateDgmReader
             while (true)
             {
                 var c = Read();
-                if (c == -1) throw new StateDgmParseException("Neukončený reťazec", startLine);
+                if (c == -1) throw new StateDgmParseException(Resources.Sdr_UnterminatedString, startLine);
                 if (c == '"') break;
-                if (sb.Length >= MAX_STRING) throw new StateDgmParseException($"Reťazec je dlhší než {MAX_STRING} znakov", startLine);
+                if (sb.Length >= MAX_STRING) throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_StringTooLong, MAX_STRING), startLine);
                 if (c == '\\')
                 {
                     var e = Read();
                     switch (e)
                     {
-                        case -1: throw new StateDgmParseException("Neukončený reťazec", startLine);
+                        case -1: throw new StateDgmParseException(Resources.Sdr_UnterminatedString, startLine);
                         case 'n': c = '\n'; break;
                         case 'r': c = '\r'; break;
                         case 't': c = '\t'; break;
