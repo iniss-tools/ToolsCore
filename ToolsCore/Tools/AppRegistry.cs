@@ -76,7 +76,7 @@ public static class AppRegistry
     {
         using var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
         if (key is null)
-            return Array.Empty<ProjectInfo>();
+            return [];
 
         var projects = new HashSet<ProjectInfo>();
         var regValue = key.GetValue(RegOpenedProjects);

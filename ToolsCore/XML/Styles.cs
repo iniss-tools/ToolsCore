@@ -11,10 +11,8 @@ namespace ToolsCore.XML;
 /// Trieda reprezentujuca zoznam stylov definovanych pre GUI programu
 /// </summary>
 [XmlRoot("STYLES")]
-public class Styles<T> : IEnumerable<T>, IList where T : Style
+public class Styles<T> : IList, IList<T> where T : Style
 {
-    private readonly object _sync = new();
-
     /// <summary>
     /// Zoznam vsetkych stylov s vlastnostami
     /// </summary>
@@ -40,6 +38,11 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     public void Insert(int index, object? item) => StyleList.Insert(index, (item as T)!);
 
     /// <inheritdoc />
+    public int IndexOf(T item) => StyleList.IndexOf(item);
+
+    /// <inheritdoc />
+    public void Insert(int index, T item) => StyleList.Insert(index, item);
+    
     public void RemoveAt(int index) => StyleList.RemoveAt(index);
 
     object? IList.this[int index]
@@ -68,10 +71,9 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     public void Remove(object? item) => StyleList.Remove((item as T)!);
 
     /// <inheritdoc />
-    public void CopyTo(Array array, int index)
-    {
-        throw new NotSupportedException();
-    }
+    public void CopyTo(Array array, int index) => StyleList.ToArray().CopyTo(array, index);
+
+    public bool Remove(T item) => StyleList.Remove(item);
 
     /// <summary>
     /// Vrati pocet stylov v zozname
@@ -79,12 +81,11 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     public int Count => StyleList.Count;
 
     /// <inheritdoc />
-    public object SyncRoot => _sync;
+    public object SyncRoot { get; } = new();
 
     /// <inheritdoc />
     public bool IsSynchronized => false;
-
-    /// <inheritdoc />
+    
     public bool IsReadOnly => false;
 
     /// <inheritdoc />
@@ -93,8 +94,8 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     /// <summary>
     /// Prida styl do zoznamu stylov
     /// </summary>
-    /// <param name="style"></param>
-    public void Add(T style) => StyleList.Add(style);
+    /// <param name="value"></param>
+    public void Add(T value) => StyleList.Add(value);
 
     /// <inheritdoc />
     int IList.Add(object? value)
@@ -102,9 +103,12 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
         StyleList.Add((value as T)!);
         return Count;
     }
-
-    /// <inheritdoc />
+    
     public void Clear() => StyleList.Clear();
+
+    public bool Contains(T item) => StyleList.Contains(item);
+
+    public void CopyTo(T[] array, int arrayIndex) => StyleList.CopyTo(array, arrayIndex);
 
     /// <inheritdoc />
     public bool Contains(object? item) => item is T t && StyleList.Contains(t);
@@ -157,7 +161,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
                 //keby malo viacero stylov nastavene Used na true
                 try
                 {
-                    var _ = styles.SingleOrDefault(s => s.Used);
+                    _ = styles.SingleOrDefault(s => s.Used);
                 }
                 catch (Exception)
                 {
@@ -183,7 +187,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
 
         if (styles == null)
         {
-            styles = new Styles<T>();
+            styles = [];
 
             styles.StyleList.Insert(0, GetDefaultStyle(false));
             styles.StyleList.Insert(1, GetDefaultStyle(true));
@@ -216,7 +220,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
 
     public Styles(Styles<T> original) : this()
     {
-        StyleList = new List<T>();
+        StyleList = [];
         foreach (var style in original.StyleList)
             StyleList.Add(style with { });
     }

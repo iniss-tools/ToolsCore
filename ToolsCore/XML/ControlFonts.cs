@@ -86,7 +86,7 @@ public record ControlFonts()
     /// Vráti zoznam všetkých nastaviteľných komponentov, pre ktoré sa nastavuje ich písmo.
     /// </summary>
     /// <returns>zoznam komponentov.</returns>
-    public List<AppFont> GetValues() => new() { Labels, Buttons, Menu, ColsHeader, TableCells, StateRow };
+    public List<AppFont> GetValues() => [Labels, Buttons, Menu, ColsHeader, TableCells, StateRow];
 
     protected ControlFonts(ControlFonts orig)
     {

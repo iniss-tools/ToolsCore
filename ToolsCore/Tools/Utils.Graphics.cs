@@ -67,7 +67,7 @@ public static partial class Utils
 
         ArgumentNullException.ThrowIfNull(ft);
 
-        char[] charSizes = { 'i', 'a', 'Z', '%', '#', 'a', 'B', 'l', 'm', ',', '.' };
+        char[] charSizes = ['i', 'a', 'Z', '%', '#', 'a', 'B', 'l', 'm', ',', '.'];
         var charWidth = g.MeasureString("I", ft).Width;
 
         return charSizes.All(c => Math.Abs(g.MeasureString(c.ToString(), ft).Width - charWidth) <= 0.0001f);

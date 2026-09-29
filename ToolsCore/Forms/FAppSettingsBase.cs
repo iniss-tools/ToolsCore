@@ -34,8 +34,8 @@ public partial class FAppSettingsBase : Form
     public Type StyleType { get; } = null!;
     protected ExBindingList<CmdShortcut> Shortcuts { get; set; } = null!;
     protected ExBindingList<DesktopColumn> Columns { get; set; } = null!;
-    protected virtual IList<CmdShortcut> DefaultShortcuts => new List<CmdShortcut>();
-    protected virtual IList<DesktopColumn> DefaultColumns => new List<DesktopColumn>();
+    protected virtual IList<CmdShortcut> DefaultShortcuts => [];
+    protected virtual IList<DesktopColumn> DefaultColumns => [];
     protected bool ShouldRestart { get; set; }
     public Style UsingStyle { get; private set; } = null!;
 

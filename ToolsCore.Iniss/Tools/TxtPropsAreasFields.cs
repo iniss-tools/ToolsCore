@@ -23,8 +23,8 @@ public class TxtPropsAreasFields
     public TxtPropsAreasFields(string file, bool write = false)
     {
         _fileName = file;
-        _areas = new Dictionary<string, Dictionary<string, string>>();
-        _areasComments = new Dictionary<string, string>();
+        _areas = [];
+        _areasComments = [];
 
         if (!write) 
             LoadFromFile(file);
@@ -47,7 +47,7 @@ public class TxtPropsAreasFields
     /// </summary>
     public string Get(string area, string field) => Get(area, field, true)!;
 
-    public string? Get(string area, string field, bool throwIfNull = true)
+    public string? Get(string area, string field, bool throwIfNull)
     {
         if (throwIfNull)
             if (_areas.TryGetValue(area, out var fields) && fields.TryGetValue(field, out var found))
@@ -183,7 +183,7 @@ public class TxtPropsAreasFields
             file.WriteLine("[" + area + "]");
             if (_areasComments.TryGetValue(area, out var value))
             {
-                var lines = value.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                var lines = value.Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
                 for (var i = 0; i < lines.Length; i++)
                     if (!string.IsNullOrEmpty(lines[i]))
                     {
@@ -221,7 +221,7 @@ public class TxtPropsAreasFields
                     _areasComments.Add(actualArea, comments.ToString());
                 }
 
-                propInArea = new Dictionary<string, string>();
+                propInArea = [];
                 var s = line.Replace("[", "");
                 actualArea = s.Replace("]", "");
                 comments = new StringBuilder();

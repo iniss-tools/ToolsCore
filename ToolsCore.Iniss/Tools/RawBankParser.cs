@@ -94,7 +94,7 @@ public static class RawBankParser
 
         var allSounds = new LinkedList<FyzSound>();
 
-        language.Groups = new List<FyzGroup>();
+        language.Groups = [];
 
         using var reader = new BinaryReader(File.OpenRead(file), Encodings.Win1250);
         var countGroups = reader.ReadInt32();

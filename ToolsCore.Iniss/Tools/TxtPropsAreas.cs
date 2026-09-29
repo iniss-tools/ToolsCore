@@ -18,7 +18,7 @@ public class TxtPropsAreas
     public TxtPropsAreas(string file, bool write = false)
     {
         _fileName = file;
-        _dictionary = new Dictionary<string, string>();
+        _dictionary = [];
 
         if (!write)
             LoadFromFile(file);

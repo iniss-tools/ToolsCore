@@ -14,7 +14,7 @@ public class CsvStringReader : TableFileReader
     public CsvStringReader(string text, char linesep = '\n', char rowsep = ';')
     {
         text = text.Replace("\r", "");
-        var rows = text.Split(new[] { linesep }, StringSplitOptions.RemoveEmptyEntries);
+        var rows = text.Split([linesep], StringSplitOptions.RemoveEmptyEntries);
 
         RowCount = rows.Length;
 

@@ -10,7 +10,7 @@ public class FyzGroup
         Key = key;
         Name = name;
         RelativePath = relativePath;
-        Sounds = new BindingList<FyzSound>();
+        Sounds = [];
     }
 
     /// <summary>

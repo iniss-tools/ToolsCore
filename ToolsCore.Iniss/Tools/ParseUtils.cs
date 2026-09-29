@@ -37,7 +37,7 @@ public static partial class ParseUtils
         if (text == "--:--")
             return -1;
 
-        string[] timeformats = { @"m\:ss", @"mm\:ss", @"h\:mm\:ss" };
+        string[] timeformats = [@"m\:ss", @"mm\:ss", @"h\:mm\:ss"];
         if(TimeSpan.TryParseExact(text, timeformats, CultureInfo.InvariantCulture, out var duration))
             return (int)duration.TotalMilliseconds;
         else
