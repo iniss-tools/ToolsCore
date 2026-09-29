@@ -35,8 +35,7 @@ dopravcovia); bez neho sa `Typ_…` hľadá len medzi zabudovanými druhmi a kon
 proti dátam sa preskočia.
 
 Testy (`ToolsCore.Iniss.Tests/Expressions`) overujú gramatiku, sémantiku a korpus výrazov
-z reálnych súborov (`TestData/expressions.txt`); test `LiveData_AllConditionsCompile`
-prejde všetky `TabTab.txt`/`StateDgm.txt` pod `D:\INISSroot`, ak priečinok existuje.
+z reálnych súborov (`TestData/expressions.txt`).
 
 ## StateDgm – stavový diagram vlaku
 
