@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace ToolsCore.Iniss.Tools;
 
@@ -133,31 +134,31 @@ public static class Log
 
                 if (_maxSize > 0 && File.Exists(FullFilePath) && _maxSize < new FileInfo(FullFilePath).Length)
                 {
-                    var newFile = Path.GetFileNameWithoutExtension(FileName) + "_" + now.ToString("dd-MM") + ".log.bak";
+                    var newFile = Path.GetFileNameWithoutExtension(FileName) + "_" + now.ToString("dd-MM", CultureInfo.InvariantCulture) + ".log.bak";
                     File.Move(FullFilePath, PathUtils.CombinePath(FullFileDir, newFile)!);
                 }
 
                 switch (_dateTypeStamp)
                 {
                     case DateType.Date:
-                        text = now.ToString("dd.MM.yyyy") + _dateSeparator + text;
+                        text = now.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture) + _dateSeparator + text;
                         break;
                     case DateType.Datetime:
-                        text = now.ToString("dd.MM.yyyy HH:mm:ss") + _dateSeparator + text;
+                        text = now.ToString("dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture) + _dateSeparator + text;
                         break;
                     case DateType.DatetimeMs:
-                        text = now.ToString("dd.MM.yyyy HH:mm:ss.fff") + _dateSeparator + text;
+                        text = now.ToString("dd.MM.yyyy HH:mm:ss.fff", CultureInfo.InvariantCulture) + _dateSeparator + text;
                         break;
                     case DateType.Time:
-                        text = now.ToString("HH:mm:ss") + _dateSeparator + text;
+                        text = now.ToString("HH:mm:ss", CultureInfo.InvariantCulture) + _dateSeparator + text;
                         break;
                     case DateType.TimeMs:
-                        text = now.ToString("HH:mm:ss.fff") + _dateSeparator + text;
+                        text = now.ToString("HH:mm:ss.fff", CultureInfo.InvariantCulture) + _dateSeparator + text;
                         break;
                     case DateType.DateLast:
                     {
                         if (_lastDate.Equals(now.Date))
-                            text = "--- " + now.ToString("dd.MM.yyyy") + " ---\r\n" + text;
+                            text = "--- " + now.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture) + " ---\r\n" + text;
                         break;
                     }
                     default:

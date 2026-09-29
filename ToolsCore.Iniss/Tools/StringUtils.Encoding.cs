@@ -14,7 +14,7 @@ public static partial class StringUtils
     /// <param name="data">Pole bytov.</param>
     /// <returns>skonverovane pole bytov.</returns>
     [ExcludeFromCodeCoverage]
-    public static string ANSItoUTF(this byte[] data)
+    public static string AnsiToUTF(this byte[] data)
     {
         ArgumentNullException.ThrowIfNull(data);
         if (data.Length == 0)
@@ -29,7 +29,7 @@ public static partial class StringUtils
     /// <param name="data">Retazec.</param>
     /// <returns>skonvetovany retazec.</returns>
     [ExcludeFromCodeCoverage]
-    public static string ANSItoUTF(this string data)
+    public static string AnsiToUTF(this string data)
     {
         ArgumentNullException.ThrowIfNull(data);
         if (data.Length == 0)

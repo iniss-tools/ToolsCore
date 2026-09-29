@@ -10,6 +10,17 @@ namespace ToolsCore.Tests.StateDgm;
 [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
 public class StateDgmWriterTests
 {
+    [TestMethod]
+    public void Wait_MenaUdalostiPodlaJazykaVyrazov()
+    {
+        // mena sa zapisuju do suboru - nesmu zavisiet od mien clenov enumu
+        Assert.AreEqual("Odj|Vj|ZCV|OVC|VVC", StateDgmDynamic.WaitName(StateDgmWaitEvent.Odj | StateDgmWaitEvent.Vj | StateDgmWaitEvent.Zcv
+                                                                        | StateDgmWaitEvent.Ovc | StateDgmWaitEvent.Vvc));
+        Assert.IsTrue(StateDgmDynamic.TryParseWait("VVC", out var e));
+        Assert.AreEqual(StateDgmWaitEvent.Vvc, e);
+        Assert.IsFalse(StateDgmDynamic.TryParseWait("Vvc", out _));
+    }
+
     private const string Sample = """
         0001
         C:"Popis"

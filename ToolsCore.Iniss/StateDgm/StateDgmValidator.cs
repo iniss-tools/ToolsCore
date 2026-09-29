@@ -229,7 +229,7 @@ public static class StateDgmValidator
                 list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, Resources.Sdv_TimePointNoKey, loc) { Path = path });
             else if (StateDgmKeys.BuiltInTimePoints.Contains(tp.Key))
                 list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.TimePointShadowsBuiltIn, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_TimePointShadows, tp.Key), loc) { Path = path });
-            if (tp.Operator is not (StateDgmKeys.OPERATOR_MIN or StateDgmKeys.OPERATOR_MAX))
+            if (tp.Operator is not (StateDgmKeys.OperatorMin or StateDgmKeys.OperatorMax))
                 list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointOperator, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_TimePointOperator, tp.Operator), loc) { Path = path });
             foreach (var k in new[] { tp.TimePointKey1, tp.TimePointKey2 })
                 if (k.Length > 0 && !all.Contains(k))
@@ -242,14 +242,14 @@ public static class StateDgmValidator
     private static void CheckIndCat(StateDgmDiagram d, StateDgmValidationOptions options, List<StateDgmDiagnostic> list)
     {
         var expr = d.EffectiveIndCat;
-        CheckExpression(expr, StateDgmKeys.IND_CAT, ExprContext.Condition, false, options, StateDgmLocation.Root, "IndCat", list);
+        CheckExpression(expr, StateDgmKeys.IndCat, ExprContext.Condition, false, options, StateDgmLocation.Root, "IndCat", list);
         var t = expr.Trim();
         var expected = t.Equals("INDCAT6", StringComparison.OrdinalIgnoreCase) ? 6 : t.Equals("INDCAT8", StringComparison.OrdinalIgnoreCase) ? 8 : 0;
         if (expected != 0 && d.Categories.Count != expected)
             list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.IndCatCategoryCount,
                 string.Format(CultureInfo.CurrentCulture, Resources.Sdv_CategoryCount, t.ToUpperInvariant(), expected, d.Categories.Count) +
                 (d.Categories.Count < expected ? Resources.Sdv_CategoryCountFewer : Resources.Sdv_CategoryCountMore),
-                StateDgmLocation.Root) { Path = "IndCat", ExprKey = StateDgmKeys.IND_CAT });
+                StateDgmLocation.Root) { Path = "IndCat", ExprKey = StateDgmKeys.IndCat });
     }
 
     private static void CheckCategory(StateDgmDiagram d, int ci, StateDgmValidationOptions options, List<StateDgmDiagnostic> list)
@@ -260,7 +260,7 @@ public static class StateDgmValidator
         if (cat.Key.Length == 0)
             list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, Resources.Sdv_CategoryNoKey, cloc) { Path = string.Format(CultureInfo.CurrentCulture, Resources.Sdv_CategoryN, ci + 1) });
         if (cat.Icon is < 0 or > 2)
-            list.Add(new StateDgmDiagnostic(cat.Icon is < 0 or > StateDgmKeys.MAX_ICON ? ExprSeverity.Error : ExprSeverity.Warning, StateDgmDiagnosticCode.IconRange,
+            list.Add(new StateDgmDiagnostic(cat.Icon is < 0 or > StateDgmKeys.MaxIcon ? ExprSeverity.Error : ExprSeverity.Warning, StateDgmDiagnosticCode.IconRange,
                 string.Format(CultureInfo.CurrentCulture, Resources.Sdv_CategoryIcon, cat.Icon), cloc) { Path = cpath });
         if (cat.States.Count == 0)
         {
@@ -286,33 +286,33 @@ public static class StateDgmValidator
 
         if (s.Key.Length == 0)
             list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.EmptyKey, Resources.Sdv_StateNoKey, loc) { Path = string.Format(CultureInfo.CurrentCulture, Resources.Sdv_PathStateN, cpath, si + 1) });
-        if (s.Icon is < 0 or > StateDgmKeys.MAX_ICON)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.IconRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_StateIcon, s.Icon, StateDgmKeys.MAX_ICON), loc) { Path = spath });
+        if (s.Icon is < 0 or > StateDgmKeys.MaxIcon)
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.IconRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_StateIcon, s.Icon, StateDgmKeys.MaxIcon), loc) { Path = spath });
         if (s.DefaultControl != 0 && (s.DefaultControl < 1 || s.DefaultControl > s.Controls.Count))
             list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.DefaultControlRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_DefaultControl, s.DefaultControl, s.Controls.Count), loc) { Path = spath });
 
         // automatika
         if (s.AutoMode is { IsExpression: false } am && am.Number is < 0 or > 2)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.AutoModeRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_AutoMode, am.Number), loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_MODE });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.AutoModeRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_AutoMode, am.Number), loc) { Path = spath, ExprKey = StateDgmKeys.AutoMode });
         if (s.AutoTimePoint is { IsExpression: false } atp && atp.Number is < 1 or > 2)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.AutoTimePointRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_AutoTimePoint, atp.Number), loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_TIME_POINT });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.AutoTimePointRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_AutoTimePoint, atp.Number), loc) { Path = spath, ExprKey = StateDgmKeys.AutoTimePoint });
         if (s.AutoModif is { IsExpression: false } amf && amf.Number is < 1 or > 2)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.AutoModifRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_AutoModif, amf.Number), loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_MODIF });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.AutoModifRange, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_AutoModif, amf.Number), loc) { Path = spath, ExprKey = StateDgmKeys.AutoModif });
         if (s.HasAutomation && s.AutoTimePoint == null)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.AutomationIncomplete, Resources.Sdv_AutoNoTimePoint, loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_TIME_POINT });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.AutomationIncomplete, Resources.Sdv_AutoNoTimePoint, loc) { Path = spath, ExprKey = StateDgmKeys.AutoTimePoint });
         // automatika hovori, kedy vlak do TOHTO stavu vstupi sam (riadok v Kalendari akcii vlaku) - akcie stavu s tym nesuvisia
         if (!s.HasAutomation && s.AutoMode == null && (s.AutoTimePoint != null || s.AutoTimePointAdd != null))
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Info, StateDgmDiagnosticCode.AutomationIncomplete, Resources.Sdv_AutoNoMode, loc) { Path = spath, ExprKey = StateDgmKeys.AUTO_MODE });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Info, StateDgmDiagnosticCode.AutomationIncomplete, Resources.Sdv_AutoNoMode, loc) { Path = spath, ExprKey = StateDgmKeys.AutoMode });
         if (s.Wait != null && !options.HasIltis)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.WaitWithoutIltis, Resources.Sdv_WaitWithoutIltis, loc) { Path = spath, ExprKey = StateDgmKeys.WAIT });
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.WaitWithoutIltis, Resources.Sdv_WaitWithoutIltis, loc) { Path = spath, ExprKey = StateDgmKeys.Wait });
 
-        CheckDynamic(s.AutoMode, StateDgmKeys.AUTO_MODE, options, loc, spath, list);
-        CheckDynamic(s.AutoTimePoint, StateDgmKeys.AUTO_TIME_POINT, options, loc, spath, list);
-        CheckDynamic(s.AutoTimePointAdd, StateDgmKeys.AUTO_TIME_POINT_ADD, options, loc, spath, list);
-        CheckDynamic(s.AutoModif, StateDgmKeys.AUTO_MODIF, options, loc, spath, list);
-        if (s.Wait != null) CheckExpression(s.Wait.Text, StateDgmKeys.WAIT, ExprContext.StateDgmWait, false, options, loc, spath, list);
-        if (s.WaitPath != null) CheckDynamic(s.WaitPath, StateDgmKeys.WAIT_PATH, options, loc, spath, list);
-        if (s.AutoCondition != null) CheckExpression(s.AutoCondition, StateDgmKeys.AUTO_CONDITION, ExprContext.Condition, true, options, loc, spath, list);
+        CheckDynamic(s.AutoMode, StateDgmKeys.AutoMode, options, loc, spath, list);
+        CheckDynamic(s.AutoTimePoint, StateDgmKeys.AutoTimePoint, options, loc, spath, list);
+        CheckDynamic(s.AutoTimePointAdd, StateDgmKeys.AutoTimePointAdd, options, loc, spath, list);
+        CheckDynamic(s.AutoModif, StateDgmKeys.AutoModif, options, loc, spath, list);
+        if (s.Wait != null) CheckExpression(s.Wait.Text, StateDgmKeys.Wait, ExprContext.StateDgmWait, false, options, loc, spath, list);
+        if (s.WaitPath != null) CheckDynamic(s.WaitPath, StateDgmKeys.WaitPath, options, loc, spath, list);
+        if (s.AutoCondition != null) CheckExpression(s.AutoCondition, StateDgmKeys.AutoCondition, ExprContext.Condition, true, options, loc, spath, list);
 
         // akcie
         CheckDuplicates(s.Events.Select(e => e.Key), Resources.Sdv_WhatEvent, list, i => new StateDgmLocation(StateDgmElementKind.Event, ci, si, i), i => $"{spath} › {s.Events[i].Key}");
@@ -356,8 +356,8 @@ public static class StateDgmValidator
                 list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointKeyMissing, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_TimePointMissing, st.TimePointKey), sl) { Path = sp });
             if (st.TimePointKeyLast != null && !timePoints.Contains(st.TimePointKeyLast))
                 list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.TimePointKeyMissing, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_TimePointMissing, st.TimePointKeyLast), sl) { Path = sp });
-            if (st.Class != StateDgmKeys.CLASS_STARTER)
-                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.UnknownEventClass, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_StarterClass, st.Class, StateDgmKeys.CLASS_STARTER), sl) { Path = sp });
+            if (st.Class != StateDgmKeys.ClassStarter)
+                list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.UnknownEventClass, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_StarterClass, st.Class, StateDgmKeys.ClassStarter), sl) { Path = sp });
         }
     }
 
@@ -387,7 +387,7 @@ public static class StateDgmValidator
                 break;
             case "SDEventVlakAttr":
                 if (e.DelayArrival is not > 0 && e.DelayDeparture is not > 0)
-                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.VlakAttrNoDelay, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_VlakAttrNoDelay, StateDgmKeys.DELAY_ARRIVAL, StateDgmKeys.DELAY_DEPARTURE), loc) { Path = path });
+                    list.Add(new StateDgmDiagnostic(ExprSeverity.Error, StateDgmDiagnosticCode.VlakAttrNoDelay, string.Format(CultureInfo.CurrentCulture, Resources.Sdv_VlakAttrNoDelay, StateDgmKeys.DelayArrival, StateDgmKeys.DelayDeparture), loc) { Path = path });
                 break;
         }
     }

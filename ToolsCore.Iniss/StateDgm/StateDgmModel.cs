@@ -43,13 +43,13 @@ public enum StateDgmWaitEvent : uint
     Vj = 0x10000000,
 
     /// <summary>Zavedenie cisla vlaku - pri ILTISe sa nepouziva.</summary>
-    ZCV = 0x20000000,
+    Zcv = 0x20000000,
 
     /// <summary>Odchodova vlakova cesta (sprava 080-4).</summary>
-    OVC = 0x40000000,
+    Ovc = 0x40000000,
 
     /// <summary>Vchodova vlakova cesta (sprava 080-4).</summary>
-    VVC = 0x80000000
+    Vvc = 0x80000000
 }
 
 /// <summary>
@@ -115,9 +115,36 @@ public sealed class StateDgmDynamic : IEquatable<StateDgmDynamic>
     /// <summary>Konstanta pre kluc <c>Wait</c> - meno udalosti, alebo null pre <see cref="StateDgmWaitEvent.None" />.</summary>
     public static StateDgmDynamic? FromWait(StateDgmWaitEvent e) => e == StateDgmWaitEvent.None ? null : new StateDgmDynamic(null, WaitName(e));
 
+    // mena udalosti v jazyku vyrazov INISSu (ExprConstants) - zapisuju sa do suboru, preto nezavisia od mien clenov enumu;
+    // poradie podla hodnoty
+    private static readonly (StateDgmWaitEvent Event, string Key)[] WaitKeys =
+    [
+        (StateDgmWaitEvent.Odj, "Odj"),
+        (StateDgmWaitEvent.Vj, "Vj"),
+        (StateDgmWaitEvent.Zcv, "ZCV"),
+        (StateDgmWaitEvent.Ovc, "OVC"),
+        (StateDgmWaitEvent.Vvc, "VVC")
+    ];
+
     /// <summary>Mena udalosti spojene <c>|</c> (napr. <c>VVC|Vj</c>).</summary>
     public static string WaitName(StateDgmWaitEvent e) =>
-        string.Join("|", Enum.GetValues<StateDgmWaitEvent>().Where(x => x != StateDgmWaitEvent.None && e.HasFlag(x)).Select(x => x.ToString()));
+        string.Join("|", WaitKeys.Where(w => e.HasFlag(w.Event)).Select(w => w.Key));
+
+    /// <summary>Udalost podla mena v jazyku vyrazov (napr. <c>VVC</c>); rozlisuje velkost pismen.</summary>
+    /// <returns><see langword="false" />, ak meno nie je udalost ILTISu.</returns>
+    public static bool TryParseWait(string key, out StateDgmWaitEvent e)
+    {
+        foreach (var w in WaitKeys)
+        {
+            if (!string.Equals(w.Key, key, StringComparison.Ordinal))
+                continue;
+            e = w.Event;
+            return true;
+        }
+
+        e = StateDgmWaitEvent.None;
+        return false;
+    }
 
     /// <inheritdoc />
     public bool Equals(StateDgmDynamic? other) => other != null && Number == other.Number && Expression == other.Expression;
@@ -138,119 +165,119 @@ public sealed class StateDgmDynamic : IEquatable<StateDgmDynamic>
 public static class StateDgmKeys
 {
     // bloky
-    public const string CTRLS = "StateDgmCtrls";
-    public const string CTRL_DESIGN = "CtrlDesign";
-    public const string STATE_DGM = "StateDgm";
-    public const string CATEGORIE = "Categorie";
-    public const string DESIGN = "Design";
-    public const string STATE = "State";
-    public const string EVENT = "Event";
-    public const string CONTROL = "Control";
-    public const string STARTER = "Starter";
-    public const string TIME_POINT = "TimePoint";
-    public const string DO_STATE = "DoState";
-    public const string UNDO_STATE = "UndoState";
-    public const string DO_EVENT = "DoEvent";
-    public const string UNDO_EVENT = "UndoEvent";
+    public const string Ctrls = "StateDgmCtrls";
+    public const string CtrlDesign = "CtrlDesign";
+    public const string StateDgm = "StateDgm";
+    public const string Categorie = "Categorie";
+    public const string Design = "Design";
+    public const string State = "State";
+    public const string Event = "Event";
+    public const string Control = "Control";
+    public const string Starter = "Starter";
+    public const string TimePoint = "TimePoint";
+    public const string DoState = "DoState";
+    public const string UndoState = "UndoState";
+    public const string DoEvent = "DoEvent";
+    public const string UndoEvent = "UndoEvent";
 
     // spolocne
-    public const string KEY = "Key";
-    public const string NAME = "Name";
-    public const string COMMENT = "Comment";
-    public const string ICON = "Icon";
-    public const string CLASS = "Class";
+    public const string Key = "Key";
+    public const string Name = "Name";
+    public const string Comment = "Comment";
+    public const string Icon = "Icon";
+    public const string Class = "Class";
 
     // CtrlDesign
-    public const string NUM_DESIGNS = "NumDesigns";
-    public const string BITMAPS = "Bitmaps";
-    public const string DEF_PUSH_BTN = "DefPushBtn";
-    public const string CLASS_DESIGN_BTN = "SDCCtrlDesignBtn";
-    public const string CLASS_DESIGN = "SDCCtrlDesign";
+    public const string NumDesigns = "NumDesigns";
+    public const string Bitmaps = "Bitmaps";
+    public const string DefPushBtn = "DefPushBtn";
+    public const string ClassDesignBtn = "SDCCtrlDesignBtn";
+    public const string ClassDesign = "SDCCtrlDesign";
 
     // hlavicka
-    public const string NUM_TIME_POINTS = "NumTimePoints";
-    public const string NUM_CATEGORIES = "NumCategories";
-    public const string IND_CAT = "IndCat";
-    public const string TIME_POINT_KEY1 = "TimePointKey1";
-    public const string TIME_POINT_KEY2 = "TimePointKey2";
-    public const string TIME_POINT_OFFSET1 = "TimePointOffset1";
-    public const string TIME_POINT_OFFSET2 = "TimePointOffset2";
-    public const string OPERATOR = "Operator";
-    public const string OPERATOR_MIN = "min";
-    public const string OPERATOR_MAX = "max";
+    public const string NumTimePoints = "NumTimePoints";
+    public const string NumCategories = "NumCategories";
+    public const string IndCat = "IndCat";
+    public const string TimePointKey1 = "TimePointKey1";
+    public const string TimePointKey2 = "TimePointKey2";
+    public const string TimePointOffset1 = "TimePointOffset1";
+    public const string TimePointOffset2 = "TimePointOffset2";
+    public const string Operator = "Operator";
+    public const string OperatorMin = "min";
+    public const string OperatorMax = "max";
 
     // kategoria
-    public const string NUM_STATES = "NumStates";
+    public const string NumStates = "NumStates";
 
     // stav
-    public const string ATTR = "Attr";
-    public const string AUTO_MODE = "AutoMode";
-    public const string AUTO_TIME_POINT = "AutoTimePoint";
-    public const string AUTO_TIME_POINT_ADD = "AutoTimePointAdd";
-    public const string AUTO_MODIF = "AutoModif";
-    public const string AUTO_CONDITION = "AutoCondition";
-    public const string WAIT = "Wait";
-    public const string WAIT_PATH = "WaitPath";
-    public const string DEFAULT_CONTROL = "DefaultControl";
-    public const string NUM_EVENTS = "NumEvents";
-    public const string NUM_CONTROLS = "NumControls";
-    public const string NUM_STARTERS = "NumStarters";
+    public const string Attr = "Attr";
+    public const string AutoMode = "AutoMode";
+    public const string AutoTimePoint = "AutoTimePoint";
+    public const string AutoTimePointAdd = "AutoTimePointAdd";
+    public const string AutoModif = "AutoModif";
+    public const string AutoCondition = "AutoCondition";
+    public const string Wait = "Wait";
+    public const string WaitPath = "WaitPath";
+    public const string DefaultControl = "DefaultControl";
+    public const string NumEvents = "NumEvents";
+    public const string NumControls = "NumControls";
+    public const string NumStarters = "NumStarters";
 
     // DoState / UndoState
-    public const string CLASS_TABLE_SET = "SVFTableSet";
-    public const string ON_DEP_TABLE = "JeNaOdjezdové";
-    public const string ON_ARR_TABLE = "JeNaPříjezdové";
-    public const string ON_PLATFORM_TABLE = "JeNaSměrových";
-    public const string SHOW_POSITION = "JeZobrazenaPozice";
-    public const string SHOW_TRACK = "JeZobrazenaKolej";
-    public const string ON_DEP_TABLE_OLD = "OnDepTable";
-    public const string ON_ARR_TABLE_OLD = "OnArrTable";
-    public const string ON_PLATFORM_TABLE_OLD = "OnPlatformTable";
-    public const string SHOW_POSITION_OLD = "PlatformNumber";
-    public const string SHOW_TRACK_OLD = "TrackNumber";
+    public const string ClassTableSet = "SVFTableSet";
+    public const string OnDepTable = "JeNaOdjezdové";
+    public const string OnArrTable = "JeNaPříjezdové";
+    public const string OnPlatformTable = "JeNaSměrových";
+    public const string ShowPosition = "JeZobrazenaPozice";
+    public const string ShowTrack = "JeZobrazenaKolej";
+    public const string OnDepTableOld = "OnDepTable";
+    public const string OnArrTableOld = "OnArrTable";
+    public const string OnPlatformTableOld = "OnPlatformTable";
+    public const string ShowPositionOld = "PlatformNumber";
+    public const string ShowTrackOld = "TrackNumber";
 
     // akcia
-    public const string NEXT_STATE = "NextState";
-    public const string REPORT_KEY = "ReportKey";
-    public const string DIALOG = "Dialog";
-    public const string POS_FOR_ARRIVAL = "Pozice pro příjezd";
-    public const string POS_FOR_DEPARTURE = "Pozice pro odjezd";
-    public const string COPY_POSITION = "Kopírovat pozici";
-    public const string MODIFY_REPORT = "ModifiReport";
-    public const string ASK_REPORT = "Dotaz na hlášení";
-    public const string HIDE_SHOW = "SkrytOdkryt";
-    public const string DELAY_ARRIVAL = "Zpoždění na příjezdu";
-    public const string DELAY_DEPARTURE = "Zpoždění na odjezdu";
-    public const string REPORT_ABOUT = "ReportAbout";
-    public const string POS_GROUP_TXT = "PosGroupTxt";
-    public const string POS_TEXT1 = "PosText1";
-    public const string POS_TEXT2 = "PosText2";
+    public const string NextState = "NextState";
+    public const string ReportKey = "ReportKey";
+    public const string Dialog = "Dialog";
+    public const string PosForArrival = "Pozice pro příjezd";
+    public const string PosForDeparture = "Pozice pro odjezd";
+    public const string CopyPosition = "Kopírovat pozici";
+    public const string ModifyReport = "ModifiReport";
+    public const string AskReport = "Dotaz na hlášení";
+    public const string HideShow = "SkrytOdkryt";
+    public const string DelayArrival = "Zpoždění na příjezdu";
+    public const string DelayDeparture = "Zpoždění na odjezdu";
+    public const string ReportAbout = "ReportAbout";
+    public const string PosGroupTxt = "PosGroupTxt";
+    public const string PosText1 = "PosText1";
+    public const string PosText2 = "PosText2";
 
     // ovladac
-    public const string CTRL_ID = "CtrlID";
-    public const string DESIGN_KEY = "DesignKey";
-    public const string EVENT_KEY = "EventKey";
+    public const string CtrlID = "CtrlID";
+    public const string DesignKey = "DesignKey";
+    public const string EventKey = "EventKey";
 
     // starter
-    public const string CLASS_STARTER = "SDStarterShape";
-    public const string TIME_POINT_KEY = "TimePointKey";
-    public const string TIME_OFFSET = "TimeOffset";
-    public const string TIME_OFFSET_STEP = "TimeOffsetStep";
-    public const string TIME_POINT_KEY_LAST = "TimePointKeyLast";
-    public const string TIME_OFFSET_LAST = "TimeOffsetLast";
-    public const string START_LATER_TOO = "StartLaterToo";
+    public const string ClassStarter = "SDStarterShape";
+    public const string TimePointKey = "TimePointKey";
+    public const string TimeOffset = "TimeOffset";
+    public const string TimeOffsetStep = "TimeOffsetStep";
+    public const string TimePointKeyLast = "TimePointKeyLast";
+    public const string TimeOffsetLast = "TimeOffsetLast";
+    public const string StartLaterToo = "StartLaterToo";
 
     /// <summary>Zauzivany kluc prveho stavu kategorie (INISS berie ako pociatocny prvy stav bez ohladu na kluc).</summary>
-    public const string START_STATE = "#Start";
+    public const string StartState = "#Start";
 
     /// <summary>
     /// Casovy bod stavu, ktory INISS nastavi na cas vstupu vlaku do stavu - stav ho musi deklarovat
     /// skupinou <c>TimePoint</c> s tymto klucom (bez zdrojovych bodov).
     /// </summary>
-    public const string START_TIME = "#StartTime";
+    public const string StartTime = "#StartTime";
 
     /// <summary>Predvoleny vyraz <c>IndCat</c>, ked kluc chyba.</summary>
-    public const string DEFAULT_IND_CAT = "INDCAT6";
+    public const string DefaultIndCat = "INDCAT6";
 
     /// <summary>Zabudovane casove body (kluce, na ktore sa odkazuju startery a vlastne casove body).</summary>
     public static readonly string[] BuiltInTimePoints =
@@ -282,7 +309,7 @@ public static class StateDgmKeys
     public static readonly string[] Dialogs = ["SDDlgKolej", "SDDlgZpozdeni", "SDDlgZpozdeniG"];
 
     /// <summary>Najvyssie cislo ikony kategorie aj stavu.</summary>
-    public const int MAX_ICON = 5;
+    public const int MaxIcon = 5;
 }
 
 /// <summary>
@@ -346,7 +373,7 @@ public sealed class StateDgmDesign : StateDgmElement
     public bool DefaultPushButton { get; set; }
 
     /// <summary>Trieda ovladaca.</summary>
-    public string Class { get; set; } = StateDgmKeys.CLASS_DESIGN_BTN;
+    public string Class { get; set; } = StateDgmKeys.ClassDesignBtn;
 
     /// <summary>Rozlozene obrazky, null pri nespravnom tvare.</summary>
     public StateDgmBitmaps? ParsedBitmaps => StateDgmBitmaps.TryParse(Bitmaps, out var b) ? b : null;
@@ -379,7 +406,7 @@ public sealed class StateDgmTimePoint : StateDgmElement
     public int Offset2 { get; set; }
 
     /// <summary><c>min</c> alebo <c>max</c>.</summary>
-    public string Operator { get; set; } = StateDgmKeys.OPERATOR_MIN;
+    public string Operator { get; set; } = StateDgmKeys.OperatorMin;
 
     /// <inheritdoc />
     public override string ToString() => Key;
@@ -391,7 +418,7 @@ public sealed class StateDgmTimePoint : StateDgmElement
 public sealed class StateDgmTableSet : StateDgmElement
 {
     /// <summary>Trieda funkcie stavu - INISS ma len <c>SVFTableSet</c>.</summary>
-    public string Class { get; set; } = StateDgmKeys.CLASS_TABLE_SET;
+    public string Class { get; set; } = StateDgmKeys.ClassTableSet;
 
     /// <summary><c>JeNaOdjezdové</c></summary>
     public bool OnDepartureTable { get; set; }
@@ -517,7 +544,7 @@ public sealed class StateDgmStarter : StateDgmElement
     public string EventKey { get; set; } = "";
 
     /// <summary>Trieda - jedina je <c>SDStarterShape</c>.</summary>
-    public string Class { get; set; } = StateDgmKeys.CLASS_STARTER;
+    public string Class { get; set; } = StateDgmKeys.ClassStarter;
 
     /// <summary>Casovy bod prveho spustenia.</summary>
     public string TimePointKey { get; set; } = "";
@@ -597,7 +624,7 @@ public sealed class StateDgmState : StateDgmElement
     /// <summary>Startery.</summary>
     public List<StateDgmStarter> Starters { get; } = [];
 
-    /// <summary>Casove body stavu (napr. <see cref="StateDgmKeys.START_TIME" />); platia len v tomto stave.</summary>
+    /// <summary>Casove body stavu (napr. <see cref="StateDgmKeys.StartTime" />); platia len v tomto stave.</summary>
     public List<StateDgmTimePoint> TimePoints { get; } = [];
 
     /// <summary>Stav ma zapnutu automatiku (AutoMode je vyraz alebo nenulove cislo).</summary>
@@ -680,7 +707,7 @@ public sealed class StateDgmDiagram
     public List<StateDgmLoadWarning> Warnings { get; } = [];
 
     /// <summary>Vyraz IndCat, ktory INISS skutocne pouzije.</summary>
-    public string EffectiveIndCat => string.IsNullOrWhiteSpace(IndCat) ? StateDgmKeys.DEFAULT_IND_CAT : IndCat;
+    public string EffectiveIndCat => string.IsNullOrWhiteSpace(IndCat) ? StateDgmKeys.DefaultIndCat : IndCat;
 
     /// <summary>Vsetky kluce casovych bodov - zabudovane aj vlastne.</summary>
     public IEnumerable<string> AllTimePointKeys => StateDgmKeys.BuiltInTimePoints.Concat(TimePoints.Select(t => t.Key));

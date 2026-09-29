@@ -143,13 +143,13 @@ public class Styles<T> : IList, IList<T> where T : Style
 
                 var rewrite = false;
 
-                if (!ids.Contains(StyleNames.LIGHT))
+                if (!ids.Contains(StyleNames.Light))
                 {
                     styles.StyleList.Insert(0, GetDefaultStyle(false));
                     rewrite = true;
                 }
 
-                if (!ids.Contains(StyleNames.DARK))
+                if (!ids.Contains(StyleNames.Dark))
                 {
                     styles.StyleList.Insert(1, GetDefaultStyle(true));
                     rewrite = true;

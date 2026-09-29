@@ -1,4 +1,5 @@
-﻿using System.Drawing.Design;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Drawing.Design;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
 using ToolsCore.Converters;
@@ -43,6 +44,7 @@ public record AppFont()
     [XmlIgnore]
     [Browsable(false)]
     [UsedImplicitly]
+    [SuppressMessage("Performance", "CA1822", Justification = "Vlastnost instancie pre PropertyGrid a vazbu.")]
     public string Example => "OK1932Šč./jkl";
 
     /// <summary>

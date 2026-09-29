@@ -8,7 +8,7 @@ namespace ToolsCore.Iniss.Tools;
 /// </summary>
 public class TxtProps
 {
-    private static string EX_MESSAGE => Resources.TxtProps_Missing;
+    private static string ExMessage => Resources.TxtProps_Missing;
 
     private readonly string _fileName;
     private readonly Dictionary<string, string> _dictionary;
@@ -58,7 +58,7 @@ public class TxtProps
     {
         if (nullSensitive)
             return _dictionary.TryGetValue(field, out var value) 
-                ? value : throw new ArgumentNullException(nameof(field), string.Format(CultureInfo.CurrentCulture, EX_MESSAGE, _fileName, field));
+                ? value : throw new ArgumentNullException(nameof(field), string.Format(CultureInfo.CurrentCulture, ExMessage, _fileName, field));
 
         return _dictionary.GetValueOrDefault(field);
     }

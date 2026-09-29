@@ -17,7 +17,7 @@ public static class StateDgmWriter
     public static string Write(StateDgmDiagram d)
     {
         var sb = new StringBuilder();
-        sb.Append(StateDgmReader.VERSION).Append(NL);
+        sb.Append(StateDgmReader.Version).Append(NL);
         foreach (var c in d.HeaderComments)
             sb.Append("C:\"").Append(c).Append('"').Append(NL);
         sb.Append(NL);
@@ -27,7 +27,7 @@ public static class StateDgmWriter
         var ctrlValues = d.CtrlsExtras.Where(i => i is StateDgmValue).ToList();
         if (ctrlValues.Count > 0)
         {
-            sb.Append("P:\"").Append(StateDgmKeys.CTRLS).Append('"').Append(NL).Append('{').Append(NL);
+            sb.Append("P:\"").Append(StateDgmKeys.Ctrls).Append('"').Append(NL).Append('{').Append(NL);
             foreach (var item in ctrlValues) WriteItem(sb, item, 1);
             sb.Append('}').Append(NL).Append(NL);
         }
@@ -39,7 +39,7 @@ public static class StateDgmWriter
 
         foreach (var g in d.CtrlsExtras.OfType<StateDgmGroup>())
         {
-            sb.Append("P:\"").Append(StateDgmKeys.CTRLS).Append("\\\\").Append(Escape(g.Name)).Append('"').Append(NL).Append('{').Append(NL);
+            sb.Append("P:\"").Append(StateDgmKeys.Ctrls).Append("\\\\").Append(Escape(g.Name)).Append('"').Append(NL).Append('{').Append(NL);
             foreach (var sub in g.Items) WriteItem(sb, sub, 1);
             sb.Append('}').Append(NL).Append(NL);
         }
@@ -65,34 +65,34 @@ public static class StateDgmWriter
     private static void WriteDesigns(StringBuilder sb, StateDgmDiagram d)
     {
         sb.Append(';').Append(NL).Append("; Vzhľady tlačidiel").Append(NL).Append(';').Append(NL);
-        sb.Append("P:\"").Append(StateDgmKeys.CTRLS).Append("\\\\").Append(StateDgmKeys.CTRL_DESIGN).Append('"').Append(NL);
+        sb.Append("P:\"").Append(StateDgmKeys.Ctrls).Append("\\\\").Append(StateDgmKeys.CtrlDesign).Append('"').Append(NL);
         sb.Append("{\t;Bitmaps=\"Offset-Normal,NormalFokus,Pushed\"").Append(NL);
         var keyWidth = d.Designs.Count == 0 ? 0 : d.Designs.Max(x => x.Key.Length);
         for (var i = 0; i < d.Designs.Count; i++)
         {
             var des = d.Designs[i];
-            var name = string.Create(CultureInfo.InvariantCulture, $"{StateDgmKeys.DESIGN}{i + 1}");
+            var name = string.Create(CultureInfo.InvariantCulture, $"{StateDgmKeys.Design}{i + 1}");
             sb.Append('\t').Append("G:\"").Append(name).Append('"').Append(name.Length < 8 ? " " : "").Append('{');
-            sb.Append(Str(StateDgmKeys.KEY, des.Key)).Append(Pad(des.Key.Length, keyWidth));
-            sb.Append(Str(StateDgmKeys.BITMAPS, des.Bitmaps)).Append(des.Bitmaps.Length < 8 ? "\t\t" : "\t");
-            sb.Append(Int(StateDgmKeys.DEF_PUSH_BTN, des.DefaultPushButton ? 1 : 0)).Append('\t');
-            sb.Append(Str(StateDgmKeys.CLASS, des.Class));
+            sb.Append(Str(StateDgmKeys.Key, des.Key)).Append(Pad(des.Key.Length, keyWidth));
+            sb.Append(Str(StateDgmKeys.Bitmaps, des.Bitmaps)).Append(des.Bitmaps.Length < 8 ? "\t\t" : "\t");
+            sb.Append(Int(StateDgmKeys.DefPushBtn, des.DefaultPushButton ? 1 : 0)).Append('\t');
+            sb.Append(Str(StateDgmKeys.Class, des.Class));
             foreach (var x in des.Extras) sb.Append('\t').Append(Inline(x));
             sb.Append('}').Append(NL);
         }
 
-        sb.Append('\t').Append(Int(StateDgmKeys.NUM_DESIGNS, d.Designs.Count)).Append(NL);
+        sb.Append('\t').Append(Int(StateDgmKeys.NumDesigns, d.Designs.Count)).Append(NL);
         foreach (var x in d.DesignExtras) WriteItem(sb, x, 1);
         sb.Append('}').Append(NL).Append(NL);
     }
 
     private static void WriteHeader(StringBuilder sb, StateDgmDiagram d)
     {
-        sb.Append("P:\"").Append(StateDgmKeys.CTRLS).Append("\\\\").Append(StateDgmKeys.STATE_DGM).Append('"').Append(NL).Append('{').Append(NL);
-        sb.Append('\t').Append(Int(StateDgmKeys.NUM_TIME_POINTS, d.TimePoints.Count)).Append(NL);
-        sb.Append('\t').Append(Int(StateDgmKeys.NUM_CATEGORIES, d.Categories.Count)).Append(NL);
+        sb.Append("P:\"").Append(StateDgmKeys.Ctrls).Append("\\\\").Append(StateDgmKeys.StateDgm).Append('"').Append(NL).Append('{').Append(NL);
+        sb.Append('\t').Append(Int(StateDgmKeys.NumTimePoints, d.TimePoints.Count)).Append(NL);
+        sb.Append('\t').Append(Int(StateDgmKeys.NumCategories, d.Categories.Count)).Append(NL);
         if (!string.IsNullOrWhiteSpace(d.IndCat))
-            sb.Append('\t').Append(Str(StateDgmKeys.IND_CAT, d.IndCat)).Append(NL);
+            sb.Append('\t').Append(Str(StateDgmKeys.IndCat, d.IndCat)).Append(NL);
         for (var i = 0; i < d.TimePoints.Count; i++)
             WriteTimePoint(sb, d.TimePoints[i], i + 1, 1);
 
@@ -107,35 +107,35 @@ public static class StateDgmWriter
         // bod bez zdrojov (napr. #StartTime) staci na jeden riadok
         if (tp.TimePointKey1.Length == 0 && tp.TimePointKey2.Length == 0 && tp.Extras.Count == 0)
         {
-            sb.Append(t1).Append("G:\"").Append(StateDgmKeys.TIME_POINT).Append(index.ToString(CultureInfo.InvariantCulture)).Append("\" {").Append(Str(StateDgmKeys.KEY, tp.Key));
-            if (tp.Name.Length > 0) sb.Append('\t').Append(Str(StateDgmKeys.NAME, tp.Name));
+            sb.Append(t1).Append("G:\"").Append(StateDgmKeys.TimePoint).Append(index.ToString(CultureInfo.InvariantCulture)).Append("\" {").Append(Str(StateDgmKeys.Key, tp.Key));
+            if (tp.Name.Length > 0) sb.Append('\t').Append(Str(StateDgmKeys.Name, tp.Name));
             sb.Append('}').Append(NL);
             return;
         }
 
-        sb.Append(t1).Append("G:\"").Append(StateDgmKeys.TIME_POINT).Append(index.ToString(CultureInfo.InvariantCulture)).Append('"').Append(NL).Append(t1).Append('{').Append(NL);
-        sb.Append(t2).Append(Str(StateDgmKeys.KEY, tp.Key)).Append(NL);
-        if (tp.Name.Length > 0) sb.Append(t2).Append(Str(StateDgmKeys.NAME, tp.Name)).Append(NL);
-        sb.Append(t2).Append(Str(StateDgmKeys.TIME_POINT_KEY1, tp.TimePointKey1)).Append(NL);
-        sb.Append(t2).Append(Int(StateDgmKeys.TIME_POINT_OFFSET1, tp.Offset1)).Append("\t; ").Append(SecondsName(tp.Offset1)).Append(NL);
-        sb.Append(t2).Append(Str(StateDgmKeys.TIME_POINT_KEY2, tp.TimePointKey2)).Append(NL);
-        sb.Append(t2).Append(Int(StateDgmKeys.TIME_POINT_OFFSET2, tp.Offset2)).Append("\t; ").Append(SecondsName(tp.Offset2)).Append(NL);
-        sb.Append(t2).Append(Str(StateDgmKeys.OPERATOR, tp.Operator)).Append(NL);
+        sb.Append(t1).Append("G:\"").Append(StateDgmKeys.TimePoint).Append(index.ToString(CultureInfo.InvariantCulture)).Append('"').Append(NL).Append(t1).Append('{').Append(NL);
+        sb.Append(t2).Append(Str(StateDgmKeys.Key, tp.Key)).Append(NL);
+        if (tp.Name.Length > 0) sb.Append(t2).Append(Str(StateDgmKeys.Name, tp.Name)).Append(NL);
+        sb.Append(t2).Append(Str(StateDgmKeys.TimePointKey1, tp.TimePointKey1)).Append(NL);
+        sb.Append(t2).Append(Int(StateDgmKeys.TimePointOffset1, tp.Offset1)).Append("\t; ").Append(SecondsName(tp.Offset1)).Append(NL);
+        sb.Append(t2).Append(Str(StateDgmKeys.TimePointKey2, tp.TimePointKey2)).Append(NL);
+        sb.Append(t2).Append(Int(StateDgmKeys.TimePointOffset2, tp.Offset2)).Append("\t; ").Append(SecondsName(tp.Offset2)).Append(NL);
+        sb.Append(t2).Append(Str(StateDgmKeys.Operator, tp.Operator)).Append(NL);
         foreach (var x in tp.Extras) WriteItem(sb, x, indent + 1);
         sb.Append(t1).Append('}').Append(NL);
     }
 
     private static void WriteCategory(StringBuilder sb, StateDgmCategory cat, int index)
     {
-        sb.Append("P:\"").Append(StateDgmKeys.CTRLS).Append("\\\\").Append(StateDgmKeys.STATE_DGM).Append("\\\\").Append(StateDgmKeys.CATEGORIE).Append(index.ToString(CultureInfo.InvariantCulture)).Append('"').Append(NL);
+        sb.Append("P:\"").Append(StateDgmKeys.Ctrls).Append("\\\\").Append(StateDgmKeys.StateDgm).Append("\\\\").Append(StateDgmKeys.Categorie).Append(index.ToString(CultureInfo.InvariantCulture)).Append('"').Append(NL);
         sb.Append('{').Append(NL);
-        sb.Append('\t').Append(Str(StateDgmKeys.KEY, cat.Key)).Append(NL);
-        sb.Append('\t').Append(Str(StateDgmKeys.NAME, cat.Name)).Append(NL);
-        sb.Append('\t').Append(Str(StateDgmKeys.COMMENT, cat.Comment)).Append(NL);
-        sb.Append('\t').Append(Int(StateDgmKeys.ICON, cat.Icon)).Append(NL);
+        sb.Append('\t').Append(Str(StateDgmKeys.Key, cat.Key)).Append(NL);
+        sb.Append('\t').Append(Str(StateDgmKeys.Name, cat.Name)).Append(NL);
+        sb.Append('\t').Append(Str(StateDgmKeys.Comment, cat.Comment)).Append(NL);
+        sb.Append('\t').Append(Int(StateDgmKeys.Icon, cat.Icon)).Append(NL);
         for (var i = 0; i < cat.States.Count; i++)
             WriteState(sb, cat.States[i], i + 1);
-        sb.Append('\t').Append(Int(StateDgmKeys.NUM_STATES, cat.States.Count)).Append(NL);
+        sb.Append('\t').Append(Int(StateDgmKeys.NumStates, cat.States.Count)).Append(NL);
         foreach (var x in cat.Extras) WriteItem(sb, x, 1);
         sb.Append('}').Append(NL).Append(NL);
     }
@@ -143,64 +143,64 @@ public static class StateDgmWriter
     private static void WriteState(StringBuilder sb, StateDgmState s, int index)
     {
         const string t2 = "\t\t";
-        sb.Append('\t').Append("G:\"").Append(StateDgmKeys.STATE).Append(index.ToString(CultureInfo.InvariantCulture)).Append('"').Append(NL).Append("\t{").Append(NL);
-        sb.Append(t2).Append(Str(StateDgmKeys.KEY, s.Key)).Append(NL);
-        if (s.Name.Length > 0) sb.Append(t2).Append(Str(StateDgmKeys.NAME, s.Name)).Append(NL);
-        sb.Append(t2).Append(Int(StateDgmKeys.ICON, s.Icon)).Append(NL);
-        sb.Append(t2).Append("I:\"").Append(StateDgmKeys.ATTR).Append("\"=0x").Append(((int)s.Attr).ToString("X2", System.Globalization.CultureInfo.InvariantCulture));
+        sb.Append('\t').Append("G:\"").Append(StateDgmKeys.State).Append(index.ToString(CultureInfo.InvariantCulture)).Append('"').Append(NL).Append("\t{").Append(NL);
+        sb.Append(t2).Append(Str(StateDgmKeys.Key, s.Key)).Append(NL);
+        if (s.Name.Length > 0) sb.Append(t2).Append(Str(StateDgmKeys.Name, s.Name)).Append(NL);
+        sb.Append(t2).Append(Int(StateDgmKeys.Icon, s.Icon)).Append(NL);
+        sb.Append(t2).Append("I:\"").Append(StateDgmKeys.Attr).Append("\"=0x").Append(((int)s.Attr).ToString("X2", System.Globalization.CultureInfo.InvariantCulture));
         if (s.Attr != StateDgmAttr.None) sb.Append("\t; ").Append(AttrNames(s.Attr));
         sb.Append(NL);
 
-        if (s.DoState != null) WriteTableSet(sb, StateDgmKeys.DO_STATE, s.DoState);
-        if (s.UndoState != null) WriteTableSet(sb, StateDgmKeys.UNDO_STATE, s.UndoState);
-        if (s.DefaultControl != 0) sb.Append(t2).Append(Int(StateDgmKeys.DEFAULT_CONTROL, s.DefaultControl)).Append(NL);
+        if (s.DoState != null) WriteTableSet(sb, StateDgmKeys.DoState, s.DoState);
+        if (s.UndoState != null) WriteTableSet(sb, StateDgmKeys.UndoState, s.UndoState);
+        if (s.DefaultControl != 0) sb.Append(t2).Append(Int(StateDgmKeys.DefaultControl, s.DefaultControl)).Append(NL);
 
         if (s.AutoMode != null || s.AutoTimePoint != null || s.AutoTimePointAdd != null || s.AutoModif != null
             || s.AutoCondition != null || s.Wait != null || s.WaitPath != null)
         {
             sb.Append(t2).Append("; automatika").Append(NL);
-            if (s.AutoMode != null) sb.Append(t2).Append(Dyn(StateDgmKeys.AUTO_MODE, s.AutoMode)).Append(Comment(s.AutoMode, AutoModeName)).Append(NL);
-            if (s.AutoTimePoint != null) sb.Append(t2).Append(Dyn(StateDgmKeys.AUTO_TIME_POINT, s.AutoTimePoint)).Append(Comment(s.AutoTimePoint, AutoTimePointName)).Append(NL);
-            if (s.AutoTimePointAdd != null) sb.Append(t2).Append(Dyn(StateDgmKeys.AUTO_TIME_POINT_ADD, s.AutoTimePointAdd)).Append(Comment(s.AutoTimePointAdd, SecondsName)).Append(NL);
-            if (s.AutoModif != null) sb.Append(t2).Append(Dyn(StateDgmKeys.AUTO_MODIF, s.AutoModif)).Append(Comment(s.AutoModif, AutoModifName)).Append(NL);
-            if (s.Wait != null) sb.Append(t2).Append(Dyn(StateDgmKeys.WAIT, s.Wait)).Append(NL);
-            if (s.WaitPath != null) sb.Append(t2).Append(Dyn(StateDgmKeys.WAIT_PATH, s.WaitPath)).Append(NL);
-            if (s.AutoCondition != null) sb.Append(t2).Append(Str(StateDgmKeys.AUTO_CONDITION, s.AutoCondition)).Append(NL);
+            if (s.AutoMode != null) sb.Append(t2).Append(Dyn(StateDgmKeys.AutoMode, s.AutoMode)).Append(Comment(s.AutoMode, AutoModeName)).Append(NL);
+            if (s.AutoTimePoint != null) sb.Append(t2).Append(Dyn(StateDgmKeys.AutoTimePoint, s.AutoTimePoint)).Append(Comment(s.AutoTimePoint, AutoTimePointName)).Append(NL);
+            if (s.AutoTimePointAdd != null) sb.Append(t2).Append(Dyn(StateDgmKeys.AutoTimePointAdd, s.AutoTimePointAdd)).Append(Comment(s.AutoTimePointAdd, SecondsName)).Append(NL);
+            if (s.AutoModif != null) sb.Append(t2).Append(Dyn(StateDgmKeys.AutoModif, s.AutoModif)).Append(Comment(s.AutoModif, AutoModifName)).Append(NL);
+            if (s.Wait != null) sb.Append(t2).Append(Dyn(StateDgmKeys.Wait, s.Wait)).Append(NL);
+            if (s.WaitPath != null) sb.Append(t2).Append(Dyn(StateDgmKeys.WaitPath, s.WaitPath)).Append(NL);
+            if (s.AutoCondition != null) sb.Append(t2).Append(Str(StateDgmKeys.AutoCondition, s.AutoCondition)).Append(NL);
         }
 
         if (s.TimePoints.Count > 0)
         {
             sb.Append(t2).Append(';').Append(NL).Append(t2).Append("; Časové body stavu").Append(NL).Append(t2).Append(';').Append(NL);
             for (var i = 0; i < s.TimePoints.Count; i++) WriteTimePoint(sb, s.TimePoints[i], i + 1, 2);
-            sb.Append(t2).Append(Int(StateDgmKeys.NUM_TIME_POINTS, s.TimePoints.Count)).Append(NL);
+            sb.Append(t2).Append(Int(StateDgmKeys.NumTimePoints, s.TimePoints.Count)).Append(NL);
         }
 
         if (s.Starters.Count > 0)
         {
             sb.Append(t2).Append(';').Append(NL).Append(t2).Append("; Štartéry").Append(NL).Append(t2).Append(';').Append(NL);
             for (var i = 0; i < s.Starters.Count; i++) WriteStarter(sb, s.Starters[i], i + 1);
-            sb.Append(t2).Append(Int(StateDgmKeys.NUM_STARTERS, s.Starters.Count)).Append(NL);
+            sb.Append(t2).Append(Int(StateDgmKeys.NumStarters, s.Starters.Count)).Append(NL);
         }
 
         sb.Append(t2).Append(';').Append(NL).Append(t2).Append("; Akcie").Append(NL).Append(t2).Append(';').Append(NL);
         var keyWidth = s.Events.Count == 0 ? 0 : s.Events.Max(e => e.Key.Length);
         for (var i = 0; i < s.Events.Count; i++) WriteEvent(sb, s.Events[i], i + 1, keyWidth);
-        sb.Append(t2).Append(Int(StateDgmKeys.NUM_EVENTS, s.Events.Count)).Append(NL);
+        sb.Append(t2).Append(Int(StateDgmKeys.NumEvents, s.Events.Count)).Append(NL);
 
         sb.Append(t2).Append(';').Append(NL).Append(t2).Append("; Ovládače").Append(NL).Append(t2).Append(';').Append(NL);
         var designWidth = s.Controls.Count == 0 ? 0 : s.Controls.Max(c => c.DesignKey.Length);
         for (var i = 0; i < s.Controls.Count; i++)
         {
             var c = s.Controls[i];
-            sb.Append(t2).Append("G:\"").Append(StateDgmKeys.CONTROL).Append(i + 1).Append("\" {");
-            sb.Append(Int(StateDgmKeys.CTRL_ID, c.CtrlId)).Append('\t');
-            sb.Append(Str(StateDgmKeys.DESIGN_KEY, c.DesignKey)).Append(Pad(c.DesignKey.Length, designWidth));
-            sb.Append(Str(StateDgmKeys.EVENT_KEY, c.EventKey));
+            sb.Append(t2).Append("G:\"").Append(StateDgmKeys.Control).Append(i + 1).Append("\" {");
+            sb.Append(Int(StateDgmKeys.CtrlID, c.CtrlId)).Append('\t');
+            sb.Append(Str(StateDgmKeys.DesignKey, c.DesignKey)).Append(Pad(c.DesignKey.Length, designWidth));
+            sb.Append(Str(StateDgmKeys.EventKey, c.EventKey));
             foreach (var x in c.Extras) sb.Append('\t').Append(Inline(x));
             sb.Append('}').Append(NL);
         }
 
-        sb.Append(t2).Append(Int(StateDgmKeys.NUM_CONTROLS, s.Controls.Count)).Append(NL);
+        sb.Append(t2).Append(Int(StateDgmKeys.NumControls, s.Controls.Count)).Append(NL);
         foreach (var x in s.Extras) WriteItem(sb, x, 2);
         sb.Append("\t}").Append(NL);
     }
@@ -209,35 +209,35 @@ public static class StateDgmWriter
     {
         const string t2 = "\t\t", t3 = "\t\t\t";
         sb.Append(t2).Append("G:\"").Append(name).Append('"').Append(NL).Append(t2).Append('{').Append(NL);
-        sb.Append(t3).Append(Str(StateDgmKeys.CLASS, t.Class)).Append(NL);
-        sb.Append(t3).Append(Bool(StateDgmKeys.ON_DEP_TABLE, t.OnDepartureTable)).Append(NL);
-        sb.Append(t3).Append(Bool(StateDgmKeys.ON_ARR_TABLE, t.OnArrivalTable)).Append(NL);
-        sb.Append(t3).Append(Bool(StateDgmKeys.ON_PLATFORM_TABLE, t.OnPlatformTables)).Append(NL);
-        sb.Append(t3).Append(Bool(StateDgmKeys.SHOW_POSITION, t.ShowPosition)).Append(NL);
-        sb.Append(t3).Append(Bool(StateDgmKeys.SHOW_TRACK, t.ShowTrack)).Append(NL);
+        sb.Append(t3).Append(Str(StateDgmKeys.Class, t.Class)).Append(NL);
+        sb.Append(t3).Append(Bool(StateDgmKeys.OnDepTable, t.OnDepartureTable)).Append(NL);
+        sb.Append(t3).Append(Bool(StateDgmKeys.OnArrTable, t.OnArrivalTable)).Append(NL);
+        sb.Append(t3).Append(Bool(StateDgmKeys.OnPlatformTable, t.OnPlatformTables)).Append(NL);
+        sb.Append(t3).Append(Bool(StateDgmKeys.ShowPosition, t.ShowPosition)).Append(NL);
+        sb.Append(t3).Append(Bool(StateDgmKeys.ShowTrack, t.ShowTrack)).Append(NL);
         foreach (var x in t.Extras) WriteItem(sb, x, 3);
         sb.Append(t2).Append('}').Append(NL);
     }
 
     private static void WriteEvent(StringBuilder sb, StateDgmEvent e, int index, int keyWidth)
     {
-        sb.Append("\t\t").Append("G:\"").Append(StateDgmKeys.EVENT).Append(index.ToString(CultureInfo.InvariantCulture)).Append("\" {");
-        sb.Append(Str(StateDgmKeys.KEY, e.Key)).Append(Pad(e.Key.Length, keyWidth));
-        if (e.Name != null) sb.Append(Str(StateDgmKeys.NAME, e.Name)).Append('\t');
-        if (e.Icon != null) sb.Append(Int(StateDgmKeys.ICON, e.Icon.Value)).Append('\t');
-        if (e.Comment != null) sb.Append(Str(StateDgmKeys.COMMENT, e.Comment)).Append('\t');
-        if (e.Dialog != null) sb.Append(Str(StateDgmKeys.DIALOG, e.Dialog)).Append('\t');
-        if (e.NextState != null) sb.Append(Str(StateDgmKeys.NEXT_STATE, e.NextState)).Append('\t');
-        if (e.ReportKey != null) sb.Append(Str(StateDgmKeys.REPORT_KEY, e.ReportKey)).Append('\t');
-        Opt(sb, StateDgmKeys.POS_FOR_ARRIVAL, e.PositionForArrival);
-        Opt(sb, StateDgmKeys.POS_FOR_DEPARTURE, e.PositionForDeparture);
-        Opt(sb, StateDgmKeys.COPY_POSITION, e.CopyPosition);
-        Opt(sb, StateDgmKeys.MODIFY_REPORT, e.ModifyReport);
-        Opt(sb, StateDgmKeys.ASK_REPORT, e.AskBeforeReport);
-        Opt(sb, StateDgmKeys.HIDE_SHOW, e.HideShow);
-        Opt(sb, StateDgmKeys.DELAY_ARRIVAL, e.DelayArrival);
-        Opt(sb, StateDgmKeys.DELAY_DEPARTURE, e.DelayDeparture);
-        sb.Append(Str(StateDgmKeys.CLASS, e.Class));
+        sb.Append("\t\t").Append("G:\"").Append(StateDgmKeys.Event).Append(index.ToString(CultureInfo.InvariantCulture)).Append("\" {");
+        sb.Append(Str(StateDgmKeys.Key, e.Key)).Append(Pad(e.Key.Length, keyWidth));
+        if (e.Name != null) sb.Append(Str(StateDgmKeys.Name, e.Name)).Append('\t');
+        if (e.Icon != null) sb.Append(Int(StateDgmKeys.Icon, e.Icon.Value)).Append('\t');
+        if (e.Comment != null) sb.Append(Str(StateDgmKeys.Comment, e.Comment)).Append('\t');
+        if (e.Dialog != null) sb.Append(Str(StateDgmKeys.Dialog, e.Dialog)).Append('\t');
+        if (e.NextState != null) sb.Append(Str(StateDgmKeys.NextState, e.NextState)).Append('\t');
+        if (e.ReportKey != null) sb.Append(Str(StateDgmKeys.ReportKey, e.ReportKey)).Append('\t');
+        Opt(sb, StateDgmKeys.PosForArrival, e.PositionForArrival);
+        Opt(sb, StateDgmKeys.PosForDeparture, e.PositionForDeparture);
+        Opt(sb, StateDgmKeys.CopyPosition, e.CopyPosition);
+        Opt(sb, StateDgmKeys.ModifyReport, e.ModifyReport);
+        Opt(sb, StateDgmKeys.AskReport, e.AskBeforeReport);
+        Opt(sb, StateDgmKeys.HideShow, e.HideShow);
+        Opt(sb, StateDgmKeys.DelayArrival, e.DelayArrival);
+        Opt(sb, StateDgmKeys.DelayDeparture, e.DelayDeparture);
+        sb.Append(Str(StateDgmKeys.Class, e.Class));
         foreach (var x in e.Extras) sb.Append('\t').Append(Inline(x));
         if (e.DoEvent != null) sb.Append('\t').Append(Inline(e.DoEvent));
         if (e.UndoEvent != null) sb.Append('\t').Append(Inline(e.UndoEvent));
@@ -247,15 +247,15 @@ public static class StateDgmWriter
     private static void WriteStarter(StringBuilder sb, StateDgmStarter s, int index)
     {
         const string t2 = "\t\t", t3 = "\t\t\t";
-        sb.Append(t2).Append("G:\"").Append(StateDgmKeys.STARTER).Append(index.ToString(CultureInfo.InvariantCulture)).Append("\" {")
-            .Append(Str(StateDgmKeys.KEY, s.Key)).Append('\t').Append(Str(StateDgmKeys.EVENT_KEY, s.EventKey)).Append(NL);
-        sb.Append(t3).Append(Str(StateDgmKeys.CLASS, s.Class)).Append(NL);
-        sb.Append(t3).Append(Str(StateDgmKeys.TIME_POINT_KEY, s.TimePointKey)).Append(NL);
-        sb.Append(t3).Append(Int(StateDgmKeys.TIME_OFFSET, s.TimeOffset)).Append("\t; ").Append(SecondsName(s.TimeOffset)).Append(NL);
-        if (s.TimeOffsetStep != null) sb.Append(t3).Append(Int(StateDgmKeys.TIME_OFFSET_STEP, s.TimeOffsetStep.Value)).Append("\t; opakovať každých ").Append(SecondsName(s.TimeOffsetStep.Value)).Append(NL);
-        if (s.TimePointKeyLast != null) sb.Append(t3).Append(Str(StateDgmKeys.TIME_POINT_KEY_LAST, s.TimePointKeyLast)).Append(NL);
-        if (s.TimeOffsetLast != null) sb.Append(t3).Append(Int(StateDgmKeys.TIME_OFFSET_LAST, s.TimeOffsetLast.Value)).Append("\t; naposledy ").Append(SecondsName(s.TimeOffsetLast.Value)).Append(NL);
-        if (s.StartLaterToo) sb.Append(t3).Append(Int(StateDgmKeys.START_LATER_TOO, 1)).Append(NL);
+        sb.Append(t2).Append("G:\"").Append(StateDgmKeys.Starter).Append(index.ToString(CultureInfo.InvariantCulture)).Append("\" {")
+            .Append(Str(StateDgmKeys.Key, s.Key)).Append('\t').Append(Str(StateDgmKeys.EventKey, s.EventKey)).Append(NL);
+        sb.Append(t3).Append(Str(StateDgmKeys.Class, s.Class)).Append(NL);
+        sb.Append(t3).Append(Str(StateDgmKeys.TimePointKey, s.TimePointKey)).Append(NL);
+        sb.Append(t3).Append(Int(StateDgmKeys.TimeOffset, s.TimeOffset)).Append("\t; ").Append(SecondsName(s.TimeOffset)).Append(NL);
+        if (s.TimeOffsetStep != null) sb.Append(t3).Append(Int(StateDgmKeys.TimeOffsetStep, s.TimeOffsetStep.Value)).Append("\t; opakovať každých ").Append(SecondsName(s.TimeOffsetStep.Value)).Append(NL);
+        if (s.TimePointKeyLast != null) sb.Append(t3).Append(Str(StateDgmKeys.TimePointKeyLast, s.TimePointKeyLast)).Append(NL);
+        if (s.TimeOffsetLast != null) sb.Append(t3).Append(Int(StateDgmKeys.TimeOffsetLast, s.TimeOffsetLast.Value)).Append("\t; naposledy ").Append(SecondsName(s.TimeOffsetLast.Value)).Append(NL);
+        if (s.StartLaterToo) sb.Append(t3).Append(Int(StateDgmKeys.StartLaterToo, 1)).Append(NL);
         foreach (var x in s.Extras) WriteItem(sb, x, 3);
         sb.Append(t2).Append('}').Append(NL);
     }

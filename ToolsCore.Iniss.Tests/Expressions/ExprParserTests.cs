@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Diagnostics.CodeAnalysis;
 using ToolsCore.Iniss.Expressions;
 
@@ -24,7 +25,7 @@ public class ExprParserTests
     /// <summary>Zapise strom v prefixovom tvare - na kontrolu asociativity a priority.</summary>
     private static string Dump(ExprNode n) => n switch
     {
-        ExprNumberNode num => num.Value.ToString(),
+        ExprNumberNode num => num.Value.ToString(CultureInfo.InvariantCulture),
         ExprStringNode s => $"\"{s.Value}\"",
         ExprParenNode p => Dump(p.Inner),
         ExprUnaryNode u => $"({ExprMessages.Operator(u.Operator)} {Dump(u.Operand)})",
@@ -241,7 +242,7 @@ public class ExprParserTests
     {
         Assert.AreEqual("Neznámy symbol VVC", Fail("VVC").Message);
         Assert.AreEqual("Neznámy symbol OVC", Fail("OVC").Message);
-        Assert.AreEqual(unchecked((int)0x80000000).ToString(), Dump(Parse("VVC", ExprContext.StateDgmWait)));
+        Assert.AreEqual(unchecked((int)0x80000000).ToString(CultureInfo.InvariantCulture), Dump(Parse("VVC", ExprContext.StateDgmWait)));
         Assert.AreEqual("134217728", Dump(Parse("Odj", ExprContext.StateDgmWait)));
         Assert.AreEqual("(| 1073741824 268435456)", Dump(Parse("OVC | Vj", ExprContext.StateDgmWait)));
     }

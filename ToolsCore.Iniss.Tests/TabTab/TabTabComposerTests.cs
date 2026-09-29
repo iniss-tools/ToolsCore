@@ -12,7 +12,7 @@ public class TabTabComposerTests
     {
         public string TrainNumber { get; init; } = "1234";
         public int Position { get; init; } = 2;
-        public int TrainTypeIndex { get; init; } = 0; // Os
+        public int TrainTypeIndex { get; init; } // Os
         public uint Flags { get; init; }
         public uint State { get; init; }
         public bool IsDeflected { get; init; }

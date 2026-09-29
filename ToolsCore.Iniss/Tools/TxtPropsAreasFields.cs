@@ -9,7 +9,7 @@ namespace ToolsCore.Iniss.Tools;
 /// </summary>
 public class TxtPropsAreasFields
 {
-    private static string EX_MESSAGE => Resources.TxtProps_MissingInArea;
+    private static string ExMessage => Resources.TxtProps_MissingInArea;
 
     private readonly string _fileName;
     private readonly Dictionary<string, Dictionary<string, string>> _areas;
@@ -53,7 +53,7 @@ public class TxtPropsAreasFields
             if (_areas.TryGetValue(area, out var fields) && fields.TryGetValue(field, out var found))
                 return found;
             else
-                throw new ArgumentNullException(nameof(area), string.Format(CultureInfo.CurrentCulture, EX_MESSAGE, _fileName, area, field));
+                throw new ArgumentNullException(nameof(area), string.Format(CultureInfo.CurrentCulture, ExMessage, _fileName, area, field));
 
         return _areas.TryGetValue(area, out var value) ? value.GetValueOrDefault(field) : null;
     }
@@ -95,7 +95,7 @@ public class TxtPropsAreasFields
             if (value == null)
             {
                 if (type is WriteType.WriteStringANSI or WriteType.WriteStringUTF8)
-                    throw new ArgumentNullException(nameof(area), string.Format(CultureInfo.CurrentCulture, EX_MESSAGE, _fileName, area, field));
+                    throw new ArgumentNullException(nameof(area), string.Format(CultureInfo.CurrentCulture, ExMessage, _fileName, area, field));
 
                 value = "".Quote();
             }
@@ -165,10 +165,8 @@ public class TxtPropsAreasFields
     /// <param name="comment">Komentár.</param>
     public void SetComment(string area, string comment)
     {
-        if (_areasComments.ContainsKey(area))
+        if (!_areasComments.TryAdd(area, comment))
             _areasComments[area] = comment;
-        else
-            _areasComments.Add(area, comment);
     }
 
     /// <summary>

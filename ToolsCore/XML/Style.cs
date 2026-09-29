@@ -84,7 +84,7 @@ public record Style
     }
 
     [XmlIgnore]
-    public static Style DefaultLightStyle => new() { Name = StyleNames.LIGHT };
+    public static Style DefaultLightStyle => new() { Name = StyleNames.Light };
 
     [XmlIgnore]
     public static Style DefaultDarkStyle
@@ -92,7 +92,7 @@ public record Style
         get
         {
             var style = DefaultLightStyle;
-            style.Name = StyleNames.DARK;
+            style.Name = StyleNames.Dark;
             style.ControlsColorScheme = SetDefaultDarkControlsScheme();
             style.ControlsDefaultStyle = false;
             style.DarkScrollBar = true;

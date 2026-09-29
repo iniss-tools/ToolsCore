@@ -26,7 +26,7 @@ public static class AppPaths
     /// <summary>
     /// Priečinok s konfiguračnými súbormi.
     /// </summary>
-    public static string ConfigDir => PathUtils.CombinePath(DataDir, FileConsts.CONFIG_PATH)!;
+    public static string ConfigDir => PathUtils.CombinePath(DataDir, FileConsts.ConfigPath)!;
 
     /// <summary>
     /// Názov programu, pod ktorým vznikne priečinok v <c>%LocalAppData%</c>.

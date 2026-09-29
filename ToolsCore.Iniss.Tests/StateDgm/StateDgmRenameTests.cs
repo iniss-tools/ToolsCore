@@ -37,9 +37,9 @@ public class StateDgmRenameTests
         }
 
         var v = d.Categories[0].States[1];
-        v.TimePoints.Add(new StateDgmTimePoint { Key = StateDgmKeys.START_TIME });
-        v.TimePoints.Add(new StateDgmTimePoint { Key = "#Lok", TimePointKey1 = StateDgmKeys.START_TIME, TimePointKey2 = "#Bod" });
-        v.Starters.Add(new StateDgmStarter { Key = "S2", EventKey = "#GoVypis", TimePointKey = StateDgmKeys.START_TIME, TimePointKeyLast = "#Lok" });
+        v.TimePoints.Add(new StateDgmTimePoint { Key = StateDgmKeys.StartTime });
+        v.TimePoints.Add(new StateDgmTimePoint { Key = "#Lok", TimePointKey1 = StateDgmKeys.StartTime, TimePointKey2 = "#Bod" });
+        v.Starters.Add(new StateDgmStarter { Key = "S2", EventKey = "#GoVypis", TimePointKey = StateDgmKeys.StartTime, TimePointKeyLast = "#Lok" });
         return d;
     }
 
@@ -192,7 +192,7 @@ public class StateDgmRenameTests
 
         var start = v.TimePoints[0];
         start.Key = "#Vstup";
-        Assert.IsTrue(StateDgmRename.TryRename(d, start, StateDgmKeys.START_TIME, out n));
+        Assert.IsTrue(StateDgmRename.TryRename(d, start, StateDgmKeys.StartTime, out n));
         Assert.AreEqual(2, n);
         Assert.AreEqual("#Vstup", v.TimePoints[1].TimePointKey1);
         Assert.AreEqual("#Vstup", v.Starters[1].TimePointKey);

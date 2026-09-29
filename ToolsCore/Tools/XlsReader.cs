@@ -31,14 +31,21 @@ public class XlsReader : TableFileReader
     /// <inheritdoc />
     protected override void Dispose(bool disposing)
     {
-        if (!disposing)
-            return;
+        try
+        {
+            if (!disposing)
+                return;
 
-        _workbook.Close();
-        _excelApp.Quit();
-        Marshal.ReleaseComObject(_worksheet);
-        Marshal.ReleaseComObject(_workbook);
-        Marshal.ReleaseComObject(_excelApp);
+            _workbook.Close();
+            _excelApp.Quit();
+            Marshal.ReleaseComObject(_worksheet);
+            Marshal.ReleaseComObject(_workbook);
+            Marshal.ReleaseComObject(_excelApp);
+        }
+        finally
+        {
+            base.Dispose(disposing);
+        }
     }
 
     private void ReadWorksheet()

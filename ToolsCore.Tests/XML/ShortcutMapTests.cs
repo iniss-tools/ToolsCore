@@ -1,3 +1,4 @@
+using System.Xml;
 using System.Xml.Serialization;
 using ToolsCore.Commands;
 using ToolsCore.XML;
@@ -28,7 +29,7 @@ public class ShortcutMapTests
     private static Config Read(string xml)
     {
         using var reader = new StringReader(xml);
-        return (Config)new XmlSerializer(typeof(Config)).Deserialize(reader)!;
+        return (Config)new XmlSerializer(typeof(Config)).Deserialize(XmlReader.Create(reader))!;
     }
 
     private static string Write(Config config)

@@ -55,7 +55,7 @@ public class StateDgmValidatorTests
             Assert.IsTrue(codes.Contains(expected), $"chýba {expected}:\n{string.Join("\n", diags)}");
 
         var expr = diags.Single(x => x.Code == StateDgmDiagnosticCode.Expression);
-        Assert.AreEqual(StateDgmKeys.AUTO_CONDITION, expr.ExprKey);
+        Assert.AreEqual(StateDgmKeys.AutoCondition, expr.ExprKey);
         Assert.IsTrue(expr.IsError);
         Assert.IsNotNull(expr.Expr);
         Assert.AreEqual(new StateDgmLocation(StateDgmElementKind.State, 0, 0), expr.Location);
@@ -72,7 +72,7 @@ public class StateDgmValidatorTests
         d.Designs.Add(new StateDgmDesign { Key = "OdídeN", Bitmaps = "36-7,8,9" });
         var cat = new StateDgmCategory { Key = "#K", Name = "Kat" };
         d.Categories.Add(cat);
-        var start = new StateDgmState { Key = "#Start", AutoMode = StateDgmDynamic.FromExpression("Typ(Typ_R) ? 2 : 0"), AutoTimePoint = StateDgmDynamic.FromNumber(2), AutoTimePointAdd = StateDgmDynamic.FromNumber(-600), Wait = StateDgmDynamic.FromWait(StateDgmWaitEvent.OVC) };
+        var start = new StateDgmState { Key = "#Start", AutoMode = StateDgmDynamic.FromExpression("Typ(Typ_R) ? 2 : 0"), AutoTimePoint = StateDgmDynamic.FromNumber(2), AutoTimePointAdd = StateDgmDynamic.FromNumber(-600), Wait = StateDgmDynamic.FromWait(StateDgmWaitEvent.Ovc) };
         start.Events.Add(new StateDgmEvent { Key = "#Go", NextState = "Koniec", Class = "SDEventUniPos", ReportKey = "Odjede" });
         start.Controls.Add(new StateDgmControl { CtrlId = 0, DesignKey = "OdídeN", EventKey = "#Go" });
         cat.States.Add(start);

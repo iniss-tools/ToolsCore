@@ -38,7 +38,10 @@ public static class AppInit
     public static AppSession<TC, TS> Initialization<TC, TS>()
         where TC : ConfigBase, new() where TS : Style
     {
-        //Nastavenie cesty, kde sa budu ukladat logovacie subory - musi byt prve,
+        // vedomie o DPI pred akymkolvek oknom (aj hlasenim o poskodenej konfiguracii); predtym dpiAware v app.manifest
+        Application.SetHighDpiMode(HighDpiMode.SystemAware);
+
+        //Nastavenie cesty, kde sa budu ukladat logovacie subory - musi byt pred konfiguraciou,
         //aby uz aj chyba pri nacitani konfiguracie mala kam zapisat
         Log.DataDirPath = AppPaths.DataDir;
 
@@ -51,7 +54,7 @@ public static class AppInit
         var resetFiles = new List<string>();
 
         //nacitanie konfiguracneho suboru CONFIG.XML
-        var config = ReadOrReset(PathUtils.CombinePath(configsDir, FileConsts.FILE_CONFIG)!, XmlSerialization.ReadData<TC>, resetFiles);
+        var config = ReadOrReset(PathUtils.CombinePath(configsDir, FileConsts.FileConfig)!, XmlSerialization.ReadData<TC>, resetFiles);
         GlobSettings.Fonts = config.Fonts;
 
         // Predvolene pismo aplikacie = pismo formularov z konfiguracie. Formulare (AutoScaleDimensions podla pisma
@@ -64,7 +67,7 @@ public static class AppInit
         Log.DoErrorLogs = config.LoggingError;
 
         //nacitanie suboru so stylmi STYLES.XML
-        var styles = ReadOrReset(PathUtils.CombinePath(configsDir, FileConsts.FILE_STYLES)!, Styles<TS>.ReadData, resetFiles);
+        var styles = ReadOrReset(PathUtils.CombinePath(configsDir, FileConsts.FileStyles)!, Styles<TS>.ReadData, resetFiles);
         var usingStyle = styles.FirstOrDefault(s => s.Used) ?? styles.First();
         GlobSettings.UsingStyle = usingStyle;
 
@@ -115,7 +118,7 @@ public static class AppInit
         if (!owned && !config.MoreInstance)
         {
             Log.Info("Duplicitná inštancia ukončená");
-            Utils.ShowInfo(string.Format(GlobalResources.Global_AppAlreadyRunning, Application.ProductName));
+            Utils.ShowInfo(string.Format(CultureInfo.CurrentCulture, GlobalResources.Global_AppAlreadyRunning, Application.ProductName));
             Environment.Exit(0);
         }
 
@@ -157,7 +160,7 @@ public static class AppInit
         };
 
         if (_resetFiles.Count > 0)
-            Utils.ShowWarning(string.Format(GlobalResources.Global_ConfigReset, string.Join(", ", _resetFiles)));
+            Utils.ShowWarning(string.Format(CultureInfo.CurrentCulture, GlobalResources.Global_ConfigReset, string.Join(", ", _resetFiles)));
 
         if (crash)
         {

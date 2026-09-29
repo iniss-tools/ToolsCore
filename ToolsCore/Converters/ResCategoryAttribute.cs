@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Resources;
 
 namespace ToolsCore.Converters;
@@ -16,5 +17,5 @@ public sealed class ResCategoryAttribute(string key, Type? type = null) : Catego
     public Type ResourceType { get; } = type ?? typeof(GlobalResources);
 
     /// <inheritdoc />
-    protected override string? GetLocalizedString(string value) => new ResourceManager(ResourceType).GetString(value) ?? value;
+    protected override string? GetLocalizedString(string value) => new ResourceManager(ResourceType).GetString(value, CultureInfo.CurrentUICulture) ?? value;
 }

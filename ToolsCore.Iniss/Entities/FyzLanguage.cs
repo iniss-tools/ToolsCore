@@ -15,13 +15,13 @@ public class FyzLanguage
 
     /// <summary>Initializes a new instance of the <see cref="FyzLanguage" /> class.</summary>
     public FyzLanguage(string key, string name) 
-        : this(key, name, RawBankParser.FILE_FYZZVUK, $"{key}\\")
+        : this(key, name, RawBankParser.FileFyzzvuk, $"{key}\\")
     {
     }
 
     /// <summary>Initializes a new instance of the <see cref="FyzLanguage" /> class.</summary>
     public FyzLanguage(string key, string name, string relativePath) 
-        : this(key, name, RawBankParser.FILE_FYZZVUK, relativePath)
+        : this(key, name, RawBankParser.FileFyzzvuk, relativePath)
     {
     }
 

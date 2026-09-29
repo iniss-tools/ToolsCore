@@ -261,7 +261,7 @@ public static partial class ParseUtils
     /// <param name="ch">Typ zaciatku riadku.</param>
     /// <returns>Ci riadok obsahuje koniec suboru (EOF).</returns>
     [ExcludeFromCodeCoverage]
-    public static bool LineIsEOF(ReadStartChar ch) => ch == ReadStartChar.Eof;
+    public static bool LineIsEof(ReadStartChar ch) => ch == ReadStartChar.Eof;
 }
 
 

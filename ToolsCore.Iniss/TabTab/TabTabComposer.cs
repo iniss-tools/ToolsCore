@@ -39,7 +39,7 @@ public sealed class TabTabColumnInput
     public TabTabValue OwnValue { get; init; } = TabTabValue.Empty;
 
     /// <summary>Text z TTexts.txt pre tento stlpec a vlak; <see langword="null"/>, ak nie je.</summary>
-    public TabTabValue? TTextsValue { get; init; }
+    public TabTabValue? TextsValue { get; init; }
 
     /// <summary>TYPE_ITEMS_DIVTYPE stlpca (0-4).</summary>
     public int DivType { get; init; }
@@ -180,7 +180,7 @@ public static class TabTabComposer
         }
 
         // 8. TTexts
-        if (input.TTextsValue is { } tt && Accept("TTexts", tt, ""))
+        if (input.TextsValue is { } tt && Accept("TTexts", tt, ""))
             return Finish(input, final!.Value, steps, error);
 
         // 9. vlastna hodnota

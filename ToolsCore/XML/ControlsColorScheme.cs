@@ -134,7 +134,7 @@ public record ControlsColorScheme() : IColorScheme
 
     private static ColorSetting InitProperty(string propname) => Props[propname] with { };
 
-    private static void AssignProperty(ref ColorSetting prop, string propname)
+    private static void AssignProperty(ref ColorSetting? prop, string propname)
     {
         if (prop is null)
             InitProperty(propname);
@@ -146,22 +146,18 @@ public record ControlsColorScheme() : IColorScheme
         }
     }
 
-    // The backing fields (_button, _label, ...) are indirectly assigned here through the property
-    // setters (which also apply AssignProperty's Name/DisableXxx side effect) - Roslyn's definite-assignment
-    // analysis for record copy constructors doesn't credit assignment through a property setter, nor does
-    // it apply the fields' own declaration-site initializers here (both run for the primary constructor only).
-#pragma warning disable CS8618
+    // kopia farby uz ma nazov a priznaky z Props (priradil ich setter povodnej instancie) - staci kopirovat polia
     protected ControlsColorScheme(ControlsColorScheme original)
     {
-        Button = original.Button with { };
-        Label = original.Label with { };
-        Box = original.Box with { };
-        Border = original.Border with { };
-        Panel = original.Panel with { };
-        Mark = original.Mark with { };
-        Highlight = original.Highlight with { };
+        if (original.Button != null) Button = original.Button with { };
+        if (original.Label != null) Label = original.Label with { };
+        if (original.Box != null) Box = original.Box with { };
+        if (original.Border != null) Border = original.Border with { };
+        if (original.Panel != null) Panel = original.Panel with { };
+        if (original.Mark != null) Mark = original.Mark with { };
+        if (original.Highlight != null) Highlight = original.Highlight with { };
+        Font = original.Font;
     }
-#pragma warning restore CS8618
 
     #endregion
 }

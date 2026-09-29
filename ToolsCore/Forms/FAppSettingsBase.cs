@@ -335,7 +335,7 @@ public partial class FAppSettingsBase : Form
         cboxDarkScrollbars.Checked = style.DarkScrollBar;
         cboxHighlightStatusBar.Checked = style.HighlightStatusBar;
 
-        if (style.Name is StyleNames.LIGHT or StyleNames.DARK)
+        if (style.Name is StyleNames.Light or StyleNames.Dark)
         {
             tsbRenameStyle.Enabled = false;
             tsbDeleteStyle.Enabled = false;
@@ -583,7 +583,7 @@ public partial class FAppSettingsBase : Form
             return;
 
         var style = (Style)tscbStyles.SelectedItem!;
-        var newStyle = OnResetStyle(style.Name == StyleNames.DARK);
+        var newStyle = OnResetStyle(style.Name == StyleNames.Dark);
         newStyle.Name = style.Name;
         newStyle.Used = style.Used;
         var actualIndex = tscbStyles.SelectedIndex;
@@ -612,7 +612,7 @@ public partial class FAppSettingsBase : Form
 
         var parent = selectedNode.Parent;
         var style = (Style)tscbStyles.SelectedItem!;
-        var newStyle = OnResetStyle(style.Name == StyleNames.DARK);
+        var newStyle = OnResetStyle(style.Name == StyleNames.Dark);
         var categoryFromDef = StyleType.GetProperty(parent!.Name, BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance)?.GetValue(newStyle);
 
         if (categoryFromDef?.GetType().GetProperty(selectedNode.Name)?.GetValue(categoryFromDef) is not ColorSetting settingDef)

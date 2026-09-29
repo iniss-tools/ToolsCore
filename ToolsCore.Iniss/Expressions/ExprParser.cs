@@ -225,7 +225,7 @@ public sealed class ExprParser
         }
     }
 
-    private ExprNode ParseFunction(ExprToken tok)
+    private ExprFunctionNode ParseFunction(ExprToken tok)
     {
         var fn = tok.Function!;
         Advance();

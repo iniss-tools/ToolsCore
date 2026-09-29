@@ -9,12 +9,12 @@ public static class RawBankParser
     /// <summary>
     /// Subor so zoznamom jazykov zvukovej banky (v priecinku banky).
     /// </summary>
-    public const string FILE_FYZBANK = "FyzBank.dat";
+    public const string FileFyzbank = "FyzBank.dat";
 
     /// <summary>
     /// Subor so zoznamom skupin a zvukov jazyka (v priecinku jazyka).
     /// </summary>
-    public const string FILE_FYZZVUK = "FyzZvuk.dat";
+    public const string FileFyzzvuk = "FyzZvuk.dat";
 
     /// <summary>
     /// Precita subor FyzBank.dat, ktory obsahuje informacie o jazykoch zvukovej banky.
@@ -34,10 +34,10 @@ public static class RawBankParser
 
         for (var i = 0; i < countLangs; i++)
         {
-            var fileFyzZvukName = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
-            var relativePath = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
-            var key = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
-            var name = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
+            var fileFyzZvukName = reader.ReadBytes(reader.ReadNumWithVarLength()).AnsiToUTF();
+            var relativePath = reader.ReadBytes(reader.ReadNumWithVarLength()).AnsiToUTF();
+            var key = reader.ReadBytes(reader.ReadNumWithVarLength()).AnsiToUTF();
+            var name = reader.ReadBytes(reader.ReadNumWithVarLength()).AnsiToUTF();
             reader.ReadBytes(4); // 4 byte padding
             languages.Add(new FyzLanguage(key, name, fileFyzZvukName, relativePath));
         }
@@ -104,19 +104,19 @@ public static class RawBankParser
 
         for (var i = 0; i < countGroups; i++)
         {
-            var dirName = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
-            var dirKey = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
-            var dirRelativePath = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
+            var dirName = reader.ReadBytes(reader.ReadNumWithVarLength()).AnsiToUTF();
+            var dirKey = reader.ReadBytes(reader.ReadNumWithVarLength()).AnsiToUTF();
+            var dirRelativePath = reader.ReadBytes(reader.ReadNumWithVarLength()).AnsiToUTF();
             var countFiles = reader.ReadInt32();
 
             var grp = new FyzGroup(language, dirKey, dirName, dirRelativePath);
 
             for (var j = 0; j < countFiles; j++)
             {
-                var text = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
-                var sName = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
-                var sKey = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
-                var fileName = reader.ReadBytes(reader.ReadNumWithVarLength()).ANSItoUTF();
+                var text = reader.ReadBytes(reader.ReadNumWithVarLength()).AnsiToUTF();
+                var sName = reader.ReadBytes(reader.ReadNumWithVarLength()).AnsiToUTF();
+                var sKey = reader.ReadBytes(reader.ReadNumWithVarLength()).AnsiToUTF();
+                var fileName = reader.ReadBytes(reader.ReadNumWithVarLength()).AnsiToUTF();
                 
                 var relativePath = "";
                 if (fileName.Contains('\\'))
@@ -192,7 +192,7 @@ public static class RawBankParser
     /// <summary>
     /// Cesta k súboru FYZBANK.DAT banky.
     /// </summary>
-    public static string FyzBankFile(string pathToBank) => PathUtils.CombinePath(pathToBank, FILE_FYZBANK)!;
+    public static string FyzBankFile(string pathToBank) => PathUtils.CombinePath(pathToBank, FileFyzbank)!;
 
     /// <summary>
     /// Cesta k súboru so zvukmi jazyka (väčšinou FYZZVUK.DAT v priečinku jazyka).

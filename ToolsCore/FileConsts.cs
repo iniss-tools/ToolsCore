@@ -2,7 +2,7 @@
 
 public static class FileConsts
 {
-    public const string FILE_CONFIG = "CONFIG.cfg";
-    public const string FILE_STYLES = "STYLES.cfg";
-    public const string CONFIG_PATH = "config";
+    public const string FileConfig = "CONFIG.cfg";
+    public const string FileStyles = "STYLES.cfg";
+    public const string ConfigPath = "config";
 }

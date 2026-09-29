@@ -19,7 +19,7 @@ public sealed class StateDgmParseException(string message, int line) : Exception
 public sealed class StateDgmTextFile
 {
     /// <summary>Cislo verzie zapisu z prveho riadka (INISS 3.39 prijme len <c>0001</c>).</summary>
-    public string Version { get; set; } = StateDgmReader.VERSION;
+    public string Version { get; set; } = StateDgmReader.Version;
 
     /// <summary>Hlavickove komentare <c>C:"…"</c> - text za <c>C:</c> po koniec riadka, bez uvodzoviek.</summary>
     public List<string> HeaderComments { get; } = [];
@@ -46,7 +46,7 @@ public sealed class StateDgmTextFile
 public static class StateDgmReader
 {
     /// <summary>Jedina verzia zapisu, ktoru INISS 3.39 prijme.</summary>
-    public const string VERSION = "0001";
+    public const string Version = "0001";
 
     private const int MAX_STRING = 0x400;
 
@@ -60,8 +60,8 @@ public static class StateDgmReader
 
         r.SkipWhite();
         var version = r.ReadToken(4);
-        if (version != VERSION)
-            throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_UnknownVersion, version, VERSION), r.Line);
+        if (version != Version)
+            throw new StateDgmParseException(string.Format(CultureInfo.CurrentCulture, Resources.Sdr_UnknownVersion, version, Version), r.Line);
         file.Version = version;
         r.SkipLine();
 
