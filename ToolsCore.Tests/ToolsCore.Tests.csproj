@@ -12,6 +12,9 @@
 		<PackageReference Include="MSTest.TestFramework" Version="4.4.0" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="TestData\**" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+	<ItemGroup>
 		<ProjectReference Include="..\ToolsCore\ToolsCore.csproj" />
 	</ItemGroup>
 </Project>

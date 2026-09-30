@@ -1,9 +1,10 @@
 ﻿using System.Globalization;
 using System.Reflection;
 using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Shell;
-using Microsoft.WindowsAPICodePack.Taskbar;
+using System.Text;
 using ToolsCore.Iniss.Tools;
+using Vanara.PInvoke;
+using Vanara.Windows.Shell;
 
 namespace ToolsCore.Tools;
 
@@ -19,7 +20,6 @@ public static class AppRegistry
 
     private static string? _jumpListCategory;
     private static bool _jumpListFailed;
-    private static bool _jumpListItemRemoved;
     
     /// <summary>
     /// Maximalny pocet projektov zobrazenych v zozname odkazov na paneli uloh.
@@ -145,55 +145,37 @@ public static class AppRegistry
     /// <summary>
     /// Nanovo vytvori a zapise zoznam odkazov na paneli uloh.
     /// </summary>
-    /// <param name="retryOnError">
-    /// Ak <see langword="true"/>, po chybe sposobenej polozkou odstranenou pouzivatelom sa zapis zopakuje.
-    /// </param>
-    private static void RefreshJumpList(bool retryOnError = true)
+    private static void RefreshJumpList()
     {
         //zoznam odkazov sa vytvara len v aplikaciach, ktore o to poziadali metodou RegisterJumpList
-        if (_jumpListCategory is null || _jumpListFailed || !TaskbarManager.IsPlatformSupported)
+        if (_jumpListCategory is null || _jumpListFailed)
             return;
-        
+
         var exePath = Environment.ProcessPath;
         if (string.IsNullOrEmpty(exePath))
             return;
 
-        //zoznam projektov je uz zoradeny od naposledy otvoreneho
-        var projects = (_projects ?? GetOpenedProjects())
-            .Where(project => !string.IsNullOrWhiteSpace(project.Path))
-            .Take(MaxJumplistItems)
-            .ToArray();
-
         try
         {
+            //projekty, ktore pouzivatel odstranil zo zoznamu odkazov, zmiznu aj zo zoznamu nedavnych projektov
+            //(Windows by ich opatovne pridanie odmietol - Vanara ich pri zapise sama vynecha)
+            foreach (var path in RemovedJumpListPaths())
+                RemoveProject(path);
+
+            //zoznam projektov je uz zoradeny od naposledy otvoreneho
+            var projects = (_projects ?? GetOpenedProjects())
+                .Where(project => !string.IsNullOrWhiteSpace(project.Path))
+                .Take(MaxJumplistItems);
+
             //uz zapisane polozky sa nedaju odstranit, preto sa cely zoznam zakazdym vytvara nanovo
-            var jumpList = JumpList.CreateJumpList();
-            jumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Neither;
-            jumpList.JumpListItemsRemoved += JumpList_ItemsRemoved;
+            var jumpList = new JumpList { ShowFrequentCategory = false, ShowRecentCategory = false };
+            foreach (var project in projects)
+                jumpList.Add(CreateJumpListTask(project.Path, exePath));
 
-            if (projects.Length != 0)
-            {
-                var category = new JumpListCustomCategory(_jumpListCategory);
-                foreach (var project in projects)
-                    category.AddJumpListItems(CreateJumpListLink(project.Path, exePath));
-
-                jumpList.AddCustomCategories(category);
-            }
-
-            jumpList.Refresh();
-            _jumpListItemRemoved = false;
+            jumpList.ApplySettings();
         }
         catch (Exception e)
         {
-            //ak pouzivatel polozku zo zoznamu odstranil, Windows odmietne jej opatovne pridanie
-            //- pri zapise sa na nu prislo, takze sa zapis zopakuje uz bez nej
-            if (retryOnError && _jumpListItemRemoved)
-            {
-                _jumpListItemRemoved = false;
-                RefreshJumpList(false);
-                return;
-            }
-
             //zoznam odkazov nie je kriticka funkcia - aplikacia musi bezat aj ked sa ho nepodari vytvorit
             Log.Exception(e);
             _jumpListFailed = true;
@@ -206,33 +188,39 @@ public static class AppRegistry
     /// <param name="path">Cesta k projektu.</param>
     /// <param name="exePath">Cesta k spustitelnemu suboru aplikacie.</param>
     /// <returns>polozka zoznamu odkazov.</returns>
-    private static JumpListLink CreateJumpListLink(string path, string exePath) =>
-        new(exePath, path)
+    private static JumpListTask CreateJumpListTask(string path, string exePath) =>
+        new(path, exePath)
         {
+            Category = _jumpListCategory,
             //cesta musi byt v uvodzovkach, inak sa argument s medzerami rozpadne na viacero argumentov
             Arguments = path.Quote(),
             WorkingDirectory = Path.GetDirectoryName(exePath) ?? "",
-            IconReference = new IconReference(exePath, 0)
+            IconResourcePath = exePath,
+            IconResourceIndex = 0
         };
 
     /// <summary>
-    /// Odstrani zo zoznamu poslednych pouzivanych projektov polozky, ktore pouzivatel odstranil
-    /// zo zoznamu odkazov na paneli uloh.
+    /// Cesty projektov, ktore pouzivatel odstranil zo zoznamu odkazov na paneli uloh (argument odkazu).
     /// </summary>
-    private static void JumpList_ItemsRemoved(object? sender, UserRemovedJumpListItemsEventArgs e)
+    private static List<string> RemovedJumpListPaths()
     {
-        foreach (var item in e.RemovedItems)
-        {
-            var path = item switch
-            {
-                JumpListLink link when !string.IsNullOrWhiteSpace(link.Arguments) => link.Arguments.Trim('"'),
-                IJumpListItem jumpListItem => jumpListItem.Path,
-                _ => null
-            };
+        var paths = new List<string>();
+        var list = new Shell32.ICustomDestinationList();
+        if (list.GetRemovedDestinations(typeof(Shell32.IObjectArray).GUID) is not Shell32.IObjectArray removed)
+            return paths;
 
-            if (RemoveProject(path))
-                _jumpListItemRemoved = true;
+        for (var i = 0u; i < removed.GetCount(); i++)
+        {
+            if (removed.GetAt(i, typeof(Shell32.IShellLinkW).GUID) is not Shell32.IShellLinkW link)
+                continue;
+
+            var args = new StringBuilder(1024);
+            link.GetArguments(args, args.Capacity);
+            if (!string.IsNullOrWhiteSpace(args.ToString()))
+                paths.Add(args.ToString().Trim('"'));
         }
+
+        return paths;
     }
 
     /// <summary>

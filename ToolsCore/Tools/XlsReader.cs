@@ -1,67 +1,89 @@
-﻿using System.Runtime.InteropServices;
-using Microsoft.Office.Interop.Excel;
+using System.Globalization;
+using ExcelDataReader;
 using ToolsCore.Iniss.Tools;
-using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace ToolsCore.Tools;
 
 /// <summary>
-/// Nacitava udaje zo .XLS a .XLSX suborov.
+/// Nacitava udaje zo .XLS a .XLSX suborov (ExcelDataReader - bez nainstalovaneho Excelu).
 /// </summary>
 public class XlsReader : TableFileReader
 {
-    private readonly Application _excelApp;
-    private readonly Workbook _workbook;
-    private readonly Worksheet _worksheet;
-
     /// <summary>
-    /// Vytvori novu instanciu triedy <see cref="XlsReader"/>.
+    /// Vytvori novu instanciu triedy <see cref="XlsReader"/> a nacita obsah harku.
     /// </summary>
     /// <param name="fileName">Cesta k suboru.</param>
-    /// <param name="worksheetID">Identifikator sheetu.</param>
+    /// <param name="worksheetID">Poradie harku (od 1).</param>
     public XlsReader(string fileName, int worksheetID = 1)
     {
-        _excelApp = new Application();
-        _workbook = _excelApp.Workbooks.Open(fileName, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-        _worksheet = (Worksheet)_workbook.Worksheets[worksheetID];
+        // stary format .xls (BIFF) pouziva kodove stranky, ktore .NET bez registracie nepozna
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-        ReadWorksheet();
+        // subor moze byt otvoreny v Exceli - citanie ho nesmie zamknut ani zlyhat na zdielani
+        using var stream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        using var reader = ExcelReaderFactory.CreateReader(stream);
+        for (var i = 1; i < worksheetID; i++)
+        {
+            if (!reader.NextResult())
+                throw new ArgumentOutOfRangeException(nameof(worksheetID), worksheetID, "Sheet does not exist.");
+        }
+
+        var rows = new List<string[]>();
+        while (reader.Read())
+        {
+            var row = new string[reader.FieldCount];
+            for (var c = 0; c < row.Length; c++)
+                row[c] = CellText(reader.GetValue(c));
+            rows.Add(row);
+        }
+
+        (Data, RowCount, ColumnCount) = UsedRange(rows);
     }
 
-    /// <inheritdoc />
-    protected override void Dispose(bool disposing)
+    /// <summary>
+    /// Text bunky. Cisla a logicke hodnoty ako predtym cez Excel (<c>Value2</c>); datum a cas v tvare, ktory citaju
+    /// importy (<c>HH:mm</c>, <c>dd.MM.yyyy</c>).
+    /// </summary>
+    internal static string CellText(object? value) => value switch
     {
-        try
-        {
-            if (!disposing)
-                return;
+        null => "",
+        string s => s,
+        double d => d.ToString(CultureInfo.CurrentCulture),
+        // bunka len s casom ma v Exceli datum 30.12.1899 (nula dni)
+        DateTime t when t.Date < new DateTime(1900, 1, 1) => t.ToString("HH:mm", CultureInfo.InvariantCulture),
+        DateTime { TimeOfDay.Ticks: 0 } t => t.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture),
+        DateTime t => t.ToString("dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture),
+        TimeSpan t => t.ToString(@"hh\:mm", CultureInfo.InvariantCulture),
+        _ => Convert.ToString(value, CultureInfo.CurrentCulture) ?? ""
+    };
 
-            _workbook.Close();
-            _excelApp.Quit();
-            Marshal.ReleaseComObject(_worksheet);
-            Marshal.ReleaseComObject(_workbook);
-            Marshal.ReleaseComObject(_excelApp);
-        }
-        finally
-        {
-            base.Dispose(disposing);
-        }
-    }
-
-    private void ReadWorksheet()
+    /// <summary>
+    /// Vyreze obdlznik od prvej po poslednu neprazdnu bunku - rovnako ako <c>UsedRange</c> v Exceli.
+    /// </summary>
+    internal static (string[,] Data, int Rows, int Columns) UsedRange(IReadOnlyList<string[]> rows)
     {
-        var range = _worksheet.UsedRange;
-        RowCount = range.Rows.Count;
-        ColumnCount = range.Columns.Count;
-
-        Data = new string[RowCount, ColumnCount];
-
-        for (var r = 1; r <= RowCount; r++)
+        int top = int.MaxValue, left = int.MaxValue, bottom = -1, right = -1;
+        for (var r = 0; r < rows.Count; r++)
         {
-            for (var c = 1; c <= ColumnCount; c++)
+            for (var c = 0; c < rows[r].Length; c++)
             {
-                Data[r - 1, c - 1] = (range.Cells[r, c] as Microsoft.Office.Interop.Excel.Range)?.Value2.ToString() ?? "";
+                if (rows[r][c].Length == 0)
+                    continue;
+                top = Math.Min(top, r);
+                bottom = Math.Max(bottom, r);
+                left = Math.Min(left, c);
+                right = Math.Max(right, c);
             }
         }
+
+        if (bottom < 0)
+            return (new string[0, 0], 0, 0);
+
+        var data = new string[bottom - top + 1, right - left + 1];
+        for (var r = top; r <= bottom; r++)
+            for (var c = left; c <= right; c++)
+                data[r - top, c - left] = c < rows[r].Length ? rows[r][c] : "";
+
+        return (data, bottom - top + 1, right - left + 1);
     }
 }
