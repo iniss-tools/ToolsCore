@@ -1,9 +1,10 @@
 ﻿using System.Xml.Serialization;
+using ToolsCore.Properties;
 
 namespace ToolsCore.XML;
 
 /// <summary>
-///     Trieda definujuca farby pre ovladacie prvky GUI.
+/// Trieda definujuca farby pre ovladacie prvky GUI.
 /// </summary>
 public record ControlsColorScheme() : IColorScheme
 {
@@ -17,7 +18,7 @@ public record ControlsColorScheme() : IColorScheme
 
     /// <inheritdoc />
     [XmlIgnore] 
-    public string Name => "Ovládacie prvky";
+    public string Name => Resources.ColorScheme_Controls;
 
     [XmlIgnore]
     private static readonly Dictionary<string, ColorSetting> Props = new()
@@ -34,7 +35,7 @@ public record ControlsColorScheme() : IColorScheme
     #region Properties
 
     /// <summary>
-    ///     Styl pre tlacidla.
+    /// Styl pre tlacidla.
     /// </summary>
     [XmlElement("Button")]
     public ColorSetting Button
@@ -48,7 +49,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Button));
 
     /// <summary>
-    ///     Styl pre všetky štítky.
+    /// Styl pre všetky štítky.
     /// </summary>
     [XmlElement("Label")]
     public ColorSetting Label
@@ -62,7 +63,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Label));
 
     /// <summary>
-    ///     Styl pre boxy - ComboBox, ListBox....
+    /// Styl pre boxy - ComboBox, ListBox....
     /// </summary>
     [XmlElement("Box")]
     public ColorSetting Box
@@ -76,7 +77,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Box));
 
     /// <summary>
-    ///     Farba okrajov ovladacich prvkov (nastavovat iba ForeColor).
+    /// Farba okrajov ovladacich prvkov (nastavovat iba ForeColor).
     /// </summary>
     [XmlElement("Border")]
     public ColorSetting Border
@@ -90,7 +91,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Border));
 
     /// <summary>
-    ///     Styl panelu.
+    /// Styl panelu.
     /// </summary>
     [XmlElement("Panel")]
     public ColorSetting Panel
@@ -104,7 +105,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Panel));
 
     /// <summary>
-    ///     Farba značiek - pouzite ako značka vo vnutri RadioButton a CheckBox (nastavovat iba ForeColor).
+    /// Farba značiek - pouzite ako značka vo vnutri RadioButton a CheckBox (nastavovat iba ForeColor).
     /// </summary>
     [XmlElement("Mark")]
     public ColorSetting Mark
@@ -118,7 +119,7 @@ public record ControlsColorScheme() : IColorScheme
     } = InitProperty(nameof(Mark));
 
     /// <summary>
-    ///     Styl pre oznacenie prave aktivneho ovladacieho prvku resp. jeho casti.
+    /// Styl pre oznacenie prave aktivneho ovladacieho prvku resp. jeho casti.
     /// </summary>
     [XmlElement("Highlight")]
     public ColorSetting Highlight
@@ -133,7 +134,7 @@ public record ControlsColorScheme() : IColorScheme
 
     private static ColorSetting InitProperty(string propname) => Props[propname] with { };
 
-    private static void AssignProperty(ref ColorSetting prop, string propname)
+    private static void AssignProperty(ref ColorSetting? prop, string propname)
     {
         if (prop is null)
             InitProperty(propname);
@@ -145,22 +146,18 @@ public record ControlsColorScheme() : IColorScheme
         }
     }
 
-    // The backing fields (_button, _label, ...) are indirectly assigned here through the property
-    // setters (which also apply AssignProperty's Name/DisableXxx side effect) - Roslyn's definite-assignment
-    // analysis for record copy constructors doesn't credit assignment through a property setter, nor does
-    // it apply the fields' own declaration-site initializers here (both run for the primary constructor only).
-#pragma warning disable CS8618
+    // kopia farby uz ma nazov a priznaky z Props (priradil ich setter povodnej instancie) - staci kopirovat polia
     protected ControlsColorScheme(ControlsColorScheme original)
     {
-        Button = original.Button with { };
-        Label = original.Label with { };
-        Box = original.Box with { };
-        Border = original.Border with { };
-        Panel = original.Panel with { };
-        Mark = original.Mark with { };
-        Highlight = original.Highlight with { };
+        if (original.Button != null) Button = original.Button with { };
+        if (original.Label != null) Label = original.Label with { };
+        if (original.Box != null) Box = original.Box with { };
+        if (original.Border != null) Border = original.Border with { };
+        if (original.Panel != null) Panel = original.Panel with { };
+        if (original.Mark != null) Mark = original.Mark with { };
+        if (original.Highlight != null) Highlight = original.Highlight with { };
+        Font = original.Font;
     }
-#pragma warning restore CS8618
 
     #endregion
 }

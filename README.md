@@ -2,6 +2,18 @@
 
 Pomocná knižnica pre INISSTools projekty.
 
+## Projekty
+
+| Projekt | Cieľ | Obsah |
+|---|---|---|
+| `ToolsCore.Iniss` | `net10.0` (bez WinForms) | doména INISS: `Expressions`, `StateDgm`, `TabTab`, zvuková banka (`Entities`, `RawBankParser`, `EwaCodec`), súbory (`TxtProps*`, CSV, `Encodings`, `FileTransaction`), `Log`, `ParseUtils`, `StringUtils`, `PathUtils` |
+| `ToolsCore` | `net10.0-windows` | WinForms vrstva nad doménou: `AppInit`, `AppSession`, formuláre, príkazy (`Commands`), nastavenia a štýly (`XML`), `FormUtils`, `Utils` (dialógy, grafika, kôš), `XlsReader` |
+
+Menné priestory ostali rovnaké (`ToolsCore.Expressions`, `ToolsCore.Tools`…), zostava je daná projektom.
+Doména nesmie odkazovať na WinForms ani ExControls; texty hlásení má vo vlastných
+`ToolsCore.Iniss/Properties/Resources(.cs).resx`. Testy domény sú v `ToolsCore.Iniss.Tests`
+(`net10.0`), testy WinForms vrstvy v `ToolsCore.Tests`.
+
 ## Expressions – jazyk výrazov INISS
 
 `ToolsCore.Expressions` je prekladač a vyhodnocovač jazyka, ktorým INISS píše
@@ -22,9 +34,8 @@ je v dokumentácii `iniss-tools-docs/docs/iniss/formaty-suborov/local/vyrazy.mdx
 dopravcovia); bez neho sa `Typ_…` hľadá len medzi zabudovanými druhmi a kontroly
 proti dátam sa preskočia.
 
-Testy (`ToolsCore.Tests/Expressions`) overujú gramatiku, sémantiku a korpus výrazov
-z reálnych súborov (`TestData/expressions.txt`); test `LiveData_AllConditionsCompile`
-prejde všetky `TabTab.txt`/`StateDgm.txt` pod `D:\INISSroot`, ak priečinok existuje.
+Testy (`ToolsCore.Iniss.Tests/Expressions`) overujú gramatiku, sémantiku a korpus výrazov
+z reálnych súborov (`TestData/expressions.txt`).
 
 ## StateDgm – stavový diagram vlaku
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FError));
             this.pbIcon = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.rtbMessage = new ExControls.ExRichTextBox();
@@ -39,29 +40,21 @@
             // 
             // pbIcon
             // 
-            this.pbIcon.Location = new System.Drawing.Point(11, 9);
+            resources.ApplyResources(this.pbIcon, "pbIcon");
             this.pbIcon.Margin = new System.Windows.Forms.Padding(2);
             this.pbIcon.Name = "pbIcon";
-            this.pbIcon.Size = new System.Drawing.Size(72, 72);
             this.pbIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pbIcon.TabIndex = 0;
             this.pbIcon.TabStop = false;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(96, 9);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(216, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Pri vykonávaní programu sa vyskytla chyba:\r\n";
             // 
             // rtbMessage
             // 
-            this.rtbMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.rtbMessage, "rtbMessage");
             this.rtbMessage.BorderColor = System.Drawing.Color.DimGray;
             this.rtbMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbMessage.DefaultStyle = false;
@@ -69,24 +62,16 @@
             this.rtbMessage.DisabledBorderColor = System.Drawing.SystemColors.InactiveBorder;
             this.rtbMessage.DisabledForeColor = System.Drawing.SystemColors.GrayText;
             this.rtbMessage.HighlightColor = System.Drawing.SystemColors.Highlight;
-            this.rtbMessage.Location = new System.Drawing.Point(99, 24);
             this.rtbMessage.Margin = new System.Windows.Forms.Padding(2);
             this.rtbMessage.Name = "rtbMessage";
             this.rtbMessage.ReadOnly = true;
             this.rtbMessage.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbMessage.Size = new System.Drawing.Size(467, 178);
-            this.rtbMessage.TabIndex = 1;
-            this.rtbMessage.Text = "";
             // 
             // bOK
             // 
-            this.bOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bOK.Location = new System.Drawing.Point(509, 209);
+            resources.ApplyResources(this.bOK, "bOK");
             this.bOK.Margin = new System.Windows.Forms.Padding(2);
             this.bOK.Name = "bOK";
-            this.bOK.Size = new System.Drawing.Size(57, 28);
-            this.bOK.TabIndex = 2;
-            this.bOK.Text = "OK";
             this.bOK.UseVisualStyleBackColor = true;
             this.bOK.Click += new System.EventHandler(this.bOK_Click);
             // 
@@ -96,18 +81,15 @@
             this.panel1.Controls.Add(this.bOK);
             this.panel1.Controls.Add(this.pbIcon);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(577, 248);
-            this.panel1.TabIndex = 3;
             // 
             // FError
             // 
             this.AcceptButton = this.bOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 248);
+            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
@@ -117,7 +99,6 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Chyba";
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -138,6 +138,9 @@
   <data name="Global_Retry" xml:space="preserve">
     <value>Opakovať</value>
   </data>
+  <data name="Global_ConfigReset" xml:space="preserve">
+    <value>Súbor nastavení {0} bol poškodený, preto sa obnovili predvolené nastavenia. Pôvodný súbor ostal vedľa s príponou .bad.</value>
+  </data>
   <data name="Global_AppAlreadyRunning" xml:space="preserve">
     <value>Program {0} je už spustený. Ak ho chcete spúšťať viackrát naraz, zapnite v nastaveniach programu voľbu Povoliť duplicitné inštancie programu.</value>
   </data>
@@ -184,16 +187,16 @@
     <value>Zvýraznenie</value>
   </data>
   <data name="NameAppFontSetting_Labels" xml:space="preserve">
-    <value>Popisy formulárov</value>
+    <value>Text vo formulároch</value>
   </data>
   <data name="NameAppFontSetting_Buttons" xml:space="preserve">
     <value>Tlačidlá formulárov</value>
   </data>
   <data name="NameAppFontSetting_ChartHeaders" xml:space="preserve">
-    <value>Nadpisy v tabuľkách</value>
+    <value>Hlavičky tabuliek</value>
   </data>
   <data name="NameAppFontSetting_ChartData" xml:space="preserve">
-    <value>Dáta v tabuľkách</value>
+    <value>Bunky tabuliek</value>
   </data>
   <data name="NameAppFontSetting_StateRow" xml:space="preserve">
     <value>Stavový riadok</value>
@@ -375,5 +378,8 @@
   </data>
   <data name="sort_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\sort-down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NameAppFontSetting_Category" xml:space="preserve">
+    <value>Písma</value>
   </data>
 </root>

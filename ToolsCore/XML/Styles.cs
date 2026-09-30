@@ -1,26 +1,26 @@
 ﻿using System.Collections;
+using System.Globalization;
 using System.Reflection;
 using System.Xml.Serialization;
-using ToolsCore.Tools;
+using ToolsCore.Iniss.Tools;
+using ToolsCore.Properties;
 
 namespace ToolsCore.XML;
 
 /// <summary>
-///     Trieda reprezentujuca zoznam stylov definovanych pre GUI programu
+/// Trieda reprezentujuca zoznam stylov definovanych pre GUI programu
 /// </summary>
 [XmlRoot("STYLES")]
-public class Styles<T> : IEnumerable<T>, IList where T : Style
+public class Styles<T> : IList, IList<T> where T : Style
 {
-    private readonly object _sync = new();
-
     /// <summary>
-    ///     Zoznam vsetkych stylov s vlastnostami
+    /// Zoznam vsetkych stylov s vlastnostami
     /// </summary>
     [XmlIgnore] 
     public List<T> StyleList { get; set; }
 
     /// <summary>
-    ///     Konstruktor
+    /// Konstruktor
     /// </summary>
     public Styles() : this(new List<T>())
     {
@@ -38,6 +38,11 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     public void Insert(int index, object? item) => StyleList.Insert(index, (item as T)!);
 
     /// <inheritdoc />
+    public int IndexOf(T item) => StyleList.IndexOf(item);
+
+    /// <inheritdoc />
+    public void Insert(int index, T item) => StyleList.Insert(index, item);
+    
     public void RemoveAt(int index) => StyleList.RemoveAt(index);
 
     object? IList.this[int index]
@@ -47,7 +52,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     }
 
     /// <summary>
-    ///     Indexer pre jednoduchsi vyber z listu stylov
+    /// Indexer pre jednoduchsi vyber z listu stylov
     /// </summary>
     /// <param name="index">index prvku</param>
     public T this[int index]
@@ -57,7 +62,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     }
 
     /// <summary>
-    ///     Indexer pre jednoduchsi vyber z listu stylov. Vrati styl podla nazvu stylu
+    /// Indexer pre jednoduchsi vyber z listu stylov. Vrati styl podla nazvu stylu
     /// </summary>
     /// <param name="key"></param>
     public T this[string key] => StyleList.First(i => i.Name == key);
@@ -66,33 +71,31 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     public void Remove(object? item) => StyleList.Remove((item as T)!);
 
     /// <inheritdoc />
-    public void CopyTo(Array array, int index)
-    {
-        throw new NotSupportedException();
-    }
+    public void CopyTo(Array array, int index) => StyleList.ToArray().CopyTo(array, index);
+
+    public bool Remove(T item) => StyleList.Remove(item);
 
     /// <summary>
-    ///     Vrati pocet stylov v zozname
+    /// Vrati pocet stylov v zozname
     /// </summary>
     public int Count => StyleList.Count;
 
     /// <inheritdoc />
-    public object SyncRoot => _sync;
+    public object SyncRoot { get; } = new();
 
     /// <inheritdoc />
     public bool IsSynchronized => false;
-
-    /// <inheritdoc />
+    
     public bool IsReadOnly => false;
 
     /// <inheritdoc />
     public bool IsFixedSize => false;
 
     /// <summary>
-    ///     Prida styl do zoznamu stylov
+    /// Prida styl do zoznamu stylov
     /// </summary>
-    /// <param name="style"></param>
-    public void Add(T style) => StyleList.Add(style);
+    /// <param name="value"></param>
+    public void Add(T value) => StyleList.Add(value);
 
     /// <inheritdoc />
     int IList.Add(object? value)
@@ -100,15 +103,18 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
         StyleList.Add((value as T)!);
         return Count;
     }
-
-    /// <inheritdoc />
+    
     public void Clear() => StyleList.Clear();
+
+    public bool Contains(T item) => StyleList.Contains(item);
+
+    public void CopyTo(T[] array, int arrayIndex) => StyleList.CopyTo(array, arrayIndex);
 
     /// <inheritdoc />
     public bool Contains(object? item) => item is T t && StyleList.Contains(t);
 
     /// <summary>
-    ///     Nacitava data z konfiguracneho suboru
+    /// Nacitava data z konfiguracneho suboru
     /// </summary>
     /// <param name="fileName">cesta k suboru</param>
     /// <returns></returns>
@@ -130,20 +136,20 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
 
                 if (query.Count != 0)
                 {
-                    var error = $"Chyba v súbore štýlov: Štýl {query[0]} je zadefinovaný viackrát.";
+                    var error = string.Format(CultureInfo.CurrentCulture, Resources.Styles_Duplicate, query[0]);
                     Log.Error(error);
                     throw new ArgumentException(error);
                 }
 
                 var rewrite = false;
 
-                if (!ids.Contains(StyleNames.LIGHT))
+                if (!ids.Contains(StyleNames.Light))
                 {
                     styles.StyleList.Insert(0, GetDefaultStyle(false));
                     rewrite = true;
                 }
 
-                if (!ids.Contains(StyleNames.DARK))
+                if (!ids.Contains(StyleNames.Dark))
                 {
                     styles.StyleList.Insert(1, GetDefaultStyle(true));
                     rewrite = true;
@@ -155,7 +161,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
                 //keby malo viacero stylov nastavene Used na true
                 try
                 {
-                    var _ = styles.SingleOrDefault(s => s.Used);
+                    _ = styles.SingleOrDefault(s => s.Used);
                 }
                 catch (Exception)
                 {
@@ -181,7 +187,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
 
         if (styles == null)
         {
-            styles = new Styles<T>();
+            styles = [];
 
             styles.StyleList.Insert(0, GetDefaultStyle(false));
             styles.StyleList.Insert(1, GetDefaultStyle(true));
@@ -192,7 +198,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
     }
 
     /// <summary>
-    ///     Zapise data do konfiguracneho suboru
+    /// Zapise data do konfiguracneho suboru
     /// </summary>
     /// <param name="fileName">cesta k suboru</param>
     /// <param name="obj">data</param>
@@ -214,7 +220,7 @@ public class Styles<T> : IEnumerable<T>, IList where T : Style
 
     public Styles(Styles<T> original) : this()
     {
-        StyleList = new List<T>();
+        StyleList = [];
         foreach (var style in original.StyleList)
             StyleList.Add(style with { });
     }

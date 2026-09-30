@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<!-- Domena INISS bez WinForms: formaty suborov, jazyk vyrazov, stavovy diagram, TabTab, zvukova banka. -->
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<OutputType>Library</OutputType>
+		<RootNamespace>ToolsCore.Iniss</RootNamespace>
+		<AssemblyName>ToolsCore.Iniss</AssemblyName>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<LangVersion>default</LangVersion>
+	</PropertyGroup>
+</Project>

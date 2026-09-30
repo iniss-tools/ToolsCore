@@ -1,4 +1,5 @@
-﻿using System.Resources;
+﻿using System.Globalization;
+using System.Resources;
 
 namespace ToolsCore.Converters;
 
@@ -15,6 +16,6 @@ public class ResDisplayNameAttribute : DisplayNameAttribute
     private static string Init(Type type, string key)
     {
         var manager = new ResourceManager(type);
-        return manager.GetString(key) ?? key;
+        return manager.GetString(key, CultureInfo.CurrentUICulture) ?? key;
     }
 }

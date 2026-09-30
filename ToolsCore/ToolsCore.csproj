@@ -5,19 +5,18 @@
 		<RootNamespace>ToolsCore</RootNamespace>
 		<AssemblyName>ToolsCore</AssemblyName>
 		<UseWindowsForms>true</UseWindowsForms>
-		<UseWPF>true</UseWPF>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<LangVersion>default</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="JetBrains.Annotations" Version="2026.2.0" />
-		<PackageReference Include="Microsoft.Office.Interop.Excel" Version="16.0.18925.20022" />
-		<PackageReference Include="WindowsAPICodePack" Version="8.0.15.2" />
+		<!-- len pre Rider ([UsedImplicitly]); atributy su [Conditional], za behu sa DLL nepotrebuje -->
+		<PackageReference Include="ExcelDataReader" Version="3.9.0" />
+		<PackageReference Include="JetBrains.Annotations" Version="2026.2.0" PrivateAssets="all" ExcludeAssets="runtime" />
 		<PackageReference Include="Vanara.Windows.Shell" Version="5.0.7" />
-		<PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.11" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\ExControls\ExControls\ExControls.csproj" />
+		<ProjectReference Include="..\ToolsCore.Iniss\ToolsCore.Iniss.csproj" />
 	</ItemGroup>
 	<!-- Rozsirenie navrhara ExControls pre VS (editor kolekcie ExOptionsView.Panels) -->
 	<Import Project="..\..\ExControls\ExControls.Designer.targets" />

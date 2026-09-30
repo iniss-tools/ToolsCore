@@ -77,5 +77,122 @@ namespace ToolsCore.Properties {
                 return ResourceManager.GetString("FAppSettings_lShortcutHelp2", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iba krátka správa.
+        /// </summary>
+        internal static string Settings_DebugOnlyMessage {
+            get {
+                return ResourceManager.GetString("Settings_DebugOnlyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detailné informácie.
+        /// </summary>
+        internal static string Settings_DebugDetail {
+            get {
+                return ResourceManager.GetString("Settings_DebugDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spadnutie programu (systémový dialóg).
+        /// </summary>
+        internal static string Settings_DebugCrash {
+            get {
+                return ResourceManager.GetString("Settings_DebugCrash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prázdne okno.
+        /// </summary>
+        internal static string Settings_StartupEmpty {
+            get {
+                return ResourceManager.GetString("Settings_StartupEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Posledný projekt.
+        /// </summary>
+        internal static string Settings_StartupLast {
+            get {
+                return ResourceManager.GetString("Settings_StartupLast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vyberte skratku zo zoznamu.
+        /// </summary>
+        internal static string Settings_SelectShortcut {
+            get {
+                return ResourceManager.GetString("Settings_SelectShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vykonali ste zmeny vyžadujúce reštartovanie programu.  Reštartovať program teraz?.
+        /// </summary>
+        internal static string Settings_RestartNow {
+            get {
+                return ResourceManager.GetString("Settings_RestartNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zmeny sa prejavia úplne až po reštartovaní programu..
+        /// </summary>
+        internal static string Settings_RestartLater {
+            get {
+                return ResourceManager.GetString("Settings_RestartLater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnota nemôže byť prázdna..
+        /// </summary>
+        internal static string InputBox_Empty {
+            get {
+                return ResourceManager.GetString("InputBox_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnota je neplatná..
+        /// </summary>
+        internal static string InputBox_Invalid {
+            get {
+                return ResourceManager.GetString("InputBox_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chyba v súbore štýlov: Štýl {0} je zadefinovaný viackrát..
+        /// </summary>
+        internal static string Styles_Duplicate {
+            get {
+                return ResourceManager.GetString("Styles_Duplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ovládacie prvky.
+        /// </summary>
+        internal static string ColorScheme_Controls {
+            get {
+                return ResourceManager.GetString("ColorScheme_Controls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Žiadna).
+        /// </summary>
+        internal static string Shortcut_None {
+            get {
+                return ResourceManager.GetString("Shortcut_None", resourceCulture);
+            }
+        }
     }
 }

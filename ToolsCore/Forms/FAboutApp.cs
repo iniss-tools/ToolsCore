@@ -16,13 +16,13 @@ public partial class FAboutApp : Form
             picIcon.Image = icon;
         lAppName.Font = new Font(lAppName.Font, FontStyle.Bold);
 
-        linkWeb.Text = LinkConsts.LINK_INFO_APP;
-        linkEmail.Text = LinkConsts.EMAIL;
+        linkWeb.Text = LinkConsts.LinkInfoApp;
+        linkEmail.Text = LinkConsts.Email;
     }
 
-    private void OnWebLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => Utils.OpenShell(LinkConsts.LINK_INFO_APP);
+    private void OnWebLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => Utils.OpenShell(LinkConsts.LinkInfoApp);
 
-    private void OnEmailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => Utils.OpenShell("mailto:" + LinkConsts.EMAIL);
+    private void OnEmailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => Utils.OpenShell("mailto:" + LinkConsts.Email);
 
-    private void OnHelpButtonClicked(object sender, CancelEventArgs e) => Utils.OpenShell(LinkConsts.LINK_INFO_APP);
+    private void OnHelpButtonClicked(object sender, CancelEventArgs e) => Utils.OpenShell(LinkConsts.LinkInfoApp);
 }

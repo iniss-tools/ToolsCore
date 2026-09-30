@@ -3,75 +3,75 @@
 namespace ToolsCore.XML;
 
 /// <summary>
-///     Trieda reprezentujuca strukturu pre konfiguracny subor vo formate XML.
+/// Trieda reprezentujuca strukturu pre konfiguracny subor vo formate XML.
 /// </summary>
 [XmlRoot("CONFIG")]
 public record ConfigBase()
 {
     /// <summary>
-    ///     Mod zobrazovania chybovych hlasok v GUI.
+    /// Mod zobrazovania chybovych hlasok v GUI.
     /// </summary>
     [XmlElement("DebugModeGUI")]
     public DebugMode DebugModeGUI { get; set; } = DebugMode.OnlyMessage;
 
     /// <summary>
-    ///     Zobrazenie menu v hlavnom dialogu programu.
+    /// Zobrazenie menu v hlavnom dialogu programu.
     /// </summary>
     [XmlElement("DesktopMenu")]
     public DesktopMenu DesktopMenuMode { get; set; } = DesktopMenu.MsTs;
 
     /// <summary>
-    ///     Pouzivat klasicky dizajn komponetov v GUI.
+    /// Pouzivat klasicky dizajn komponetov v GUI.
     /// </summary>
     [XmlElement("ClassicGUI"), DefaultValue(false)]
     public bool ClassicGUI { get; set; }
 
     /// <summary>
-    ///     Nastavi jazyk pouzivatelskeho rozhrania (GUI).
+    /// Nastavi jazyk pouzivatelskeho rozhrania (GUI).
     /// </summary>
     [XmlElement("Language"), DefaultValue(AppLanguage.Slovak)]
     public AppLanguage Language { get; set; } = AppLanguage.Slovak;
 
     /// <summary>
-    ///     Nastavi, co sa ma diat ihned po zapnuti programu.
+    /// Nastavi, co sa ma diat ihned po zapnuti programu.
     /// </summary>
     [XmlElement("Startup"), DefaultValue(StartupType.EmptyWindow)]
     public StartupType Startup { get; set; } = StartupType.EmptyWindow;
 
     /// <summary>
-    ///     Povolit alebo zakazat viacero instancii tohto programu.
+    /// Povolit alebo zakazat viacero instancii tohto programu.
     /// </summary>
     [XmlElement("MoreInstances"), DefaultValue(false)]
     public bool MoreInstance { get; set; }
 
     /// <summary>
-    ///     Ci sa ma prisposobit posledny stlpec v tabulke na pracovnej ploche programu.
+    /// Ci sa ma prisposobit posledny stlpec v tabulke na pracovnej ploche programu.
     /// </summary>
     [XmlElement("FitLastColumn"), DefaultValue(true)]
     public bool FitLastColumn { get; set; } = true;
 
     /// <summary>
-    ///     Nastavenia pisiem pre jednotlive komponenty GUI.
+    /// Nastavenia pisiem pre jednotlive komponenty GUI.
     /// </summary>
     [XmlElement("ControlFonts"), TypeConverter(typeof(ExpandableObjectConverter))]
     public ControlFonts Fonts { get; set; } = new();
 
     /// <summary>
-    ///     Vrati alebo nastavi, ci sa maju zobrazovat hlavicky riadkov v tabulke na pracovnej ploche programu.
+    /// Vrati alebo nastavi, ci sa maju zobrazovat hlavicky riadkov v tabulke na pracovnej ploche programu.
     /// </summary>
     [XmlElement("ShowRowsHeader"), DefaultValue(true)]
     public bool ShowRowsHeader { get; set; } = true;
 
     /// <summary>
-    ///      Vrati alebo nastavi ci sa maju logovat informacie a oznamy.
-    ///     <see langword="true"/> ak logovat informacie o aplikacii, inak <see langword="false"/>.
+    /// Vrati alebo nastavi ci sa maju logovat informacie a oznamy.
+    /// <see langword="true"/> ak logovat informacie o aplikacii, inak <see langword="false"/>.
     /// </summary>
     [XmlElement("LoggingInfo"), DefaultValue(true)]
     public bool LoggingInfo { get; set; } = true;
 
     /// <summary>
-    ///     Vrati alebo nastavi ci sa maju logovat chyby.
-    ///     <see langword="true"/> ak logovat chyby a vynimky, inak <see langword="false"/>.
+    /// Vrati alebo nastavi ci sa maju logovat chyby.
+    /// <see langword="true"/> ak logovat chyby a vynimky, inak <see langword="false"/>.
     /// </summary>
     [XmlElement("LoggingError"), DefaultValue(true)]
     public bool LoggingError { get; set; } = true;
@@ -96,66 +96,66 @@ public record ConfigBase()
 }
 
 /// <summary>
-///     Typ zobrazenia MenuStrip alebo ToolStrip na pracovnej ploche programu.
+/// Typ zobrazenia MenuStrip alebo ToolStrip na pracovnej ploche programu.
 /// </summary>
 public enum DesktopMenu
 {
     /// <summary>
-    ///     ToolStrip aj MenuStrip.
+    /// ToolStrip aj MenuStrip.
     /// </summary>
     [XmlEnum(Name = "0")]
     MsTs,
 
     /// <summary>
-    ///     Len ToolStrip.
+    /// Len ToolStrip.
     /// </summary>
     [XmlEnum(Name = "1")] 
     TsOnly,
 
     /// <summary>
-    ///     Len MenuStrip.
+    /// Len MenuStrip.
     /// </summary>
     [XmlEnum(Name = "2")] 
     MsOnly
 }
 
 /// <summary>
-///     Typ debuggovania.
+/// Typ debuggovania.
 /// </summary>
 public enum DebugMode
 {
     /// <summary>
-    ///     Normalne chybove hlasky.
+    /// Normalne chybove hlasky.
     /// </summary>
     [XmlEnum(Name = "0")] 
     OnlyMessage,
 
     /// <summary>
-    ///     Zobrazovanie detailnejsich chyb. hlasok.
+    /// Zobrazovanie detailnejsich chyb. hlasok.
     /// </summary>
     [XmlEnum(Name = "1")] 
     DetailInfo,
 
     /// <summary>
-    ///     Bez chybovych hlasok (spadnutie programu).
+    /// Bez chybovych hlasok (spadnutie programu).
     /// </summary>
     [XmlEnum(Name = "2")] 
     AppCrash
 }
 
 /// <summary>
-///     Jazyk aplikacie.
+/// Jazyk aplikacie.
 /// </summary>
 public enum AppLanguage
 {
     /// <summary>
-    ///     Slovensky jazyk.
+    /// Slovensky jazyk.
     /// </summary>
     [XmlEnum(Name = "SK")]
     Slovak,
 
     /// <summary>
-    ///     Cesky jazyk.
+    /// Cesky jazyk.
     /// </summary>
     [XmlEnum(Name = "CZ")] 
     Czech
@@ -164,13 +164,13 @@ public enum AppLanguage
 public enum StartupType
 {
     /// <summary>
-    ///     Otvori hlavne prazdne okno.
+    /// Otvori hlavne prazdne okno.
     /// </summary>
     [XmlEnum(Name = "EmptyWindow")]
     EmptyWindow,
 
     /// <summary>
-    ///     Otvori hlavne okno s posledne otvorenym projektom.
+    /// Otvori hlavne okno s posledne otvorenym projektom.
     /// </summary>
     [XmlEnum(Name = "LastProject")]
     LastProject

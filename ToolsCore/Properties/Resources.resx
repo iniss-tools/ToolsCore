@@ -123,4 +123,45 @@
   <data name="FAppSettings_lShortcutHelp2" xml:space="preserve">
     <value>Neplatná klávesová skratka. Stlačte inú.</value>
   </data>
+  <data name="Settings_DebugOnlyMessage" xml:space="preserve">
+    <value>Iba krátka správa</value>
+  </data>
+  <data name="Settings_DebugDetail" xml:space="preserve">
+    <value>Detailné informácie</value>
+  </data>
+  <data name="Settings_DebugCrash" xml:space="preserve">
+    <value>Spadnutie programu (systémový dialóg)</value>
+  </data>
+  <data name="Settings_StartupEmpty" xml:space="preserve">
+    <value>Prázdne okno</value>
+  </data>
+  <data name="Settings_StartupLast" xml:space="preserve">
+    <value>Posledný projekt</value>
+  </data>
+  <data name="Settings_SelectShortcut" xml:space="preserve">
+    <value>Vyberte skratku zo zoznamu</value>
+  </data>
+  <data name="Settings_RestartNow" xml:space="preserve">
+    <value>Vykonali ste zmeny vyžadujúce reštartovanie programu.
+
+Reštartovať program teraz?</value>
+  </data>
+  <data name="Settings_RestartLater" xml:space="preserve">
+    <value>Zmeny sa prejavia úplne až po reštartovaní programu.</value>
+  </data>
+  <data name="InputBox_Empty" xml:space="preserve">
+    <value>Hodnota nemôže byť prázdna.</value>
+  </data>
+  <data name="InputBox_Invalid" xml:space="preserve">
+    <value>Hodnota je neplatná.</value>
+  </data>
+  <data name="Styles_Duplicate" xml:space="preserve">
+    <value>Chyba v súbore štýlov: Štýl {0} je zadefinovaný viackrát.</value>
+  </data>
+  <data name="ColorScheme_Controls" xml:space="preserve">
+    <value>Ovládacie prvky</value>
+  </data>
+  <data name="Shortcut_None" xml:space="preserve">
+    <value>(Žiadna)</value>
+  </data>
 </root>

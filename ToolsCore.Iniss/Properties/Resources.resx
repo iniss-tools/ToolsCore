@@ -1,0 +1,891 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Sdv_NoCategories" xml:space="preserve">
+    <value>Diagram nemá žiadnu kategóriu vlakov</value>
+  </data>
+  <data name="Sdv_WhatCategory" xml:space="preserve">
+    <value>kategórie</value>
+  </data>
+  <data name="Sdv_WhatDesign" xml:space="preserve">
+    <value>vzhľadu</value>
+  </data>
+  <data name="Sdv_DesignNoKey" xml:space="preserve">
+    <value>Vzhľad bez kľúča</value>
+  </data>
+  <data name="Sdv_DesignN" xml:space="preserve">
+    <value>Vzhľad {0}</value>
+  </data>
+  <data name="Sdv_BitmapsFormat" xml:space="preserve">
+    <value>Bitmaps „{0}“ nemá tvar posun-normálny,zameranie,stlačený (napr. 6-7,8,9)</value>
+  </data>
+  <data name="Sdv_WhatTimePoint" xml:space="preserve">
+    <value>časového bodu</value>
+  </data>
+  <data name="Sdv_TimePointN" xml:space="preserve">
+    <value>časový bod {0}</value>
+  </data>
+  <data name="Sdv_TimePointNoKey" xml:space="preserve">
+    <value>Časový bod bez kľúča – INISS diagram nenačíta</value>
+  </data>
+  <data name="Sdv_TimePointShadows" xml:space="preserve">
+    <value>Časový bod „{0}“ má kľúč zabudovaného bodu – vlastný bod je zbytočný</value>
+  </data>
+  <data name="Sdv_TimePointOperator" xml:space="preserve">
+    <value>Operator „{0}“ – povolené je len min alebo max</value>
+  </data>
+  <data name="Sdv_TimePointSourceMissing" xml:space="preserve">
+    <value>Zdrojový časový bod „{0}“ neexistuje</value>
+  </data>
+  <data name="Sdv_TimePointSelf" xml:space="preserve">
+    <value>Časový bod sa odvodzuje sám od seba</value>
+  </data>
+  <data name="Sdv_CategoryCount" xml:space="preserve">
+    <value>{0} vracia čísla 1–{1}, ale diagram má {2} kategórií</value>
+  </data>
+  <data name="Sdv_CategoryCountFewer" xml:space="preserve">
+    <value> – vlaky s vyšším číslom skončia v poslednej kategórii a v logu</value>
+  </data>
+  <data name="Sdv_CategoryCountMore" xml:space="preserve">
+    <value> – ďalšie kategórie sa nikdy nepoužijú</value>
+  </data>
+  <data name="Sdv_CategoryNoKey" xml:space="preserve">
+    <value>Kategória bez kľúča</value>
+  </data>
+  <data name="Sdv_CategoryN" xml:space="preserve">
+    <value>Kategória {0}</value>
+  </data>
+  <data name="Sdv_CategoryIcon" xml:space="preserve">
+    <value>Ikona kategórie {0} – do súboru patrí čierna podoba 0–2, červenú (+3) si INISS pridá pri rýchlikoch sám</value>
+  </data>
+  <data name="Sdv_CategoryNoStates" xml:space="preserve">
+    <value>Kategória nemá žiadny stav</value>
+  </data>
+  <data name="Sdv_WhatState" xml:space="preserve">
+    <value>stavu</value>
+  </data>
+  <data name="Sdv_StateNoKey" xml:space="preserve">
+    <value>Stav bez kľúča</value>
+  </data>
+  <data name="Sdv_PathStateN" xml:space="preserve">
+    <value>{0} › stav {1}</value>
+  </data>
+  <data name="Sdv_StateIcon" xml:space="preserve">
+    <value>Ikona stavu {0} – INISS má ikony 0–{1}</value>
+  </data>
+  <data name="Sdv_DefaultControl" xml:space="preserve">
+    <value>DefaultControl={0}, ale stav má {1} ovládačov (číslované od 1)</value>
+  </data>
+  <data name="Sdv_AutoMode" xml:space="preserve">
+    <value>AutoMode={0} – povolené 0 (ručne), 1 (poloautomat), 2 (automat); INISS by načítanie diagramu prerušil</value>
+  </data>
+  <data name="Sdv_AutoTimePoint" xml:space="preserve">
+    <value>AutoTimePoint={0} – povolené 1 (príchod), 2 (odchod); INISS by načítanie diagramu prerušil</value>
+  </data>
+  <data name="Sdv_AutoModif" xml:space="preserve">
+    <value>AutoModif={0} – povolené 1 (krátke) alebo 2 (dlhé hlásenie)</value>
+  </data>
+  <data name="Sdv_AutoNoTimePoint" xml:space="preserve">
+    <value>Automatika je zapnutá, ale chýba AutoTimePoint – INISS nemá od čoho počítať čas</value>
+  </data>
+  <data name="Sdv_AutoNoMode" xml:space="preserve">
+    <value>Časový bod automatiky bez AutoMode – do stavu sa vlak dostane len ručne</value>
+  </data>
+  <data name="Sdv_WaitWithoutIltis" xml:space="preserve">
+    <value>Wait čaká na udalosť ILTISu, ktorú stanica bez ILTISu nikdy nedostane – akcia sa nevykoná</value>
+  </data>
+  <data name="Sdv_WhatEvent" xml:space="preserve">
+    <value>akcie</value>
+  </data>
+  <data name="Sdv_PathButton" xml:space="preserve">
+    <value>{0} › tlačidlo {1}</value>
+  </data>
+  <data name="Sdv_DuplicateCtrlId" xml:space="preserve">
+    <value>Dva ovládače s CtrlID={0}</value>
+  </data>
+  <data name="Sdv_DesignMissing" xml:space="preserve">
+    <value>Vzhľad „{0}“ nie je v bloku CtrlDesign</value>
+  </data>
+  <data name="Sdv_EventMissing" xml:space="preserve">
+    <value>Akcia „{0}“ v tomto stave nie je</value>
+  </data>
+  <data name="Sdv_WhatStarter" xml:space="preserve">
+    <value>štartéra</value>
+  </data>
+  <data name="Sdv_StarterNoKey" xml:space="preserve">
+    <value>Štartér bez kľúča</value>
+  </data>
+  <data name="Sdv_TimePointMissing" xml:space="preserve">
+    <value>Časový bod „{0}“ neexistuje</value>
+  </data>
+  <data name="Sdv_StarterClass" xml:space="preserve">
+    <value>Trieda štartéra „{0}“ – INISS pozná len {1}</value>
+  </data>
+  <data name="Sdv_EventNoKey" xml:space="preserve">
+    <value>Akcia bez kľúča</value>
+  </data>
+  <data name="Sdv_EventClassUnknown" xml:space="preserve">
+    <value>Neznáma trieda akcie „{0}“</value>
+  </data>
+  <data name="Sdv_NextStateMissing" xml:space="preserve">
+    <value>NextState „{0}“ v tejto kategórii nie je</value>
+  </data>
+  <data name="Sdv_ReportKeyUnknown" xml:space="preserve">
+    <value>Typ hlásenia „{0}“ nie je v Categori.txt</value>
+  </data>
+  <data name="Sdv_NeedsNextState" xml:space="preserve">
+    <value>{0} vyžaduje NextState</value>
+  </data>
+  <data name="Sdv_DialogMissing" xml:space="preserve">
+    <value>SDEventWithDialog bez dialógu</value>
+  </data>
+  <data name="Sdv_DialogUnknown" xml:space="preserve">
+    <value>Neznámy dialóg „{0}“ – INISS má {1}</value>
+  </data>
+  <data name="Sdv_VlakAttrNoDelay" xml:space="preserve">
+    <value>SDEventVlakAttr musí mať zapnuté „{0}“ alebo „{1}“</value>
+  </data>
+  <data name="Sdv_StateUnreachable" xml:space="preserve">
+    <value>Stav sa z počiatočného stavu kategórie žiadnou akciou nedosiahne</value>
+  </data>
+  <data name="Sdv_StateDeadEnd" xml:space="preserve">
+    <value>Zo stavu nevedie žiadna akcia a nie je koncový (Shadow) – vlak v ňom ostane</value>
+  </data>
+  <data name="Sdv_ExpressionError" xml:space="preserve">
+    <value>{0}: výraz sa nepreloží – {1}; INISS by načítanie diagramu prerušil</value>
+  </data>
+  <data name="Sdv_DuplicateKey" xml:space="preserve">
+    <value>Kľúč {0} „{1}“ je použitý dvakrát (prvýkrát ako {2}.)</value>
+  </data>
+  <data name="Ttv_HeaderInSection" xml:space="preserve">
+    <value>Hlavička [{0}] vnútri sekcie – pri uložení by vznikla nová sekcia</value>
+  </data>
+  <data name="Ttv_HeaderInSection_Fix" xml:space="preserve">
+    <value>Založiť sekciu tlačidlom Pridať a riadok odstrániť</value>
+  </data>
+  <data name="Ttv_BracketUnclosed" xml:space="preserve">
+    <value>Riadok začína [ bez ] – INISS ho ignoruje</value>
+  </data>
+  <data name="Ttv_BracketUnclosed_Fix" xml:space="preserve">
+    <value>Riadok odstrániť alebo doplniť ]</value>
+  </data>
+  <data name="Ttv_LineWithoutEquals" xml:space="preserve">
+    <value>Riadok bez = : „{0}“ nie je voľba sekcie (IgnoreCase, ViewValues) – INISS ho ignoruje</value>
+  </data>
+  <data name="Ttv_LineWithoutEquals_Fix" xml:space="preserve">
+    <value>Doplniť = a pravú stranu, alebo riadok zakomentovať znakom ;</value>
+  </data>
+  <data name="Ttv_MoveCommentBeforeRule" xml:space="preserve">
+    <value>Presunúť komentár na samostatný riadok pred pravidlo</value>
+  </data>
+  <data name="Ttv_RemoveSpacesAfterSlash" xml:space="preserve">
+    <value>Odstrániť medzery za \</value>
+  </data>
+  <data name="Ttv_CommentAfterSlash" xml:space="preserve">
+    <value>Komentár za \</value>
+  </data>
+  <data name="Ttv_SpacesAfterSlash" xml:space="preserve">
+    <value>Medzery za \</value>
+  </data>
+  <data name="Ttv_SlashNotLast" xml:space="preserve">
+    <value> – INISS spája riadky len vtedy, keď je \ posledný znak riadka; takto riadok spracuje samostatne a zvyšok pravidla na ďalších riadkoch sa rozpadne</value>
+  </data>
+  <data name="Ttv_MoveCommentBeforeRuleStart" xml:space="preserve">
+    <value>Presunúť komentár pred začiatok pravidla</value>
+  </data>
+  <data name="Ttv_CommentInsideRule" xml:space="preserve">
+    <value>Komentár vnútri viacriadkového pravidla – INISS ním pravidlo ukončí a riadky pod ním spracuje ako nové pravidlo</value>
+  </data>
+  <data name="Ttv_EmptyRight" xml:space="preserve">
+    <value>Pravá strana pravidla je prázdna – pravidlo sa uplatní na prázdny text</value>
+  </data>
+  <data name="Ttv_EmptyRight_Fix" xml:space="preserve">
+    <value>Doplniť text INISSu alebo udalosť (#SWITCH …) za =</value>
+  </data>
+  <data name="Ttv_MagicItemCase" xml:space="preserve">
+    <value>unknown magic item {0} – udalosť sa píše veľkými písmenami ({1})</value>
+  </data>
+  <data name="Ttv_RewriteTo" xml:space="preserve">
+    <value>Prepísať na {0}</value>
+  </data>
+  <data name="Ttv_MagicItem_Fix" xml:space="preserve">
+    <value>Použiť #SWITCH, #MERGE, #MERGE2, #VYLUKA, #ODKLON alebo #POZODJ_&lt;koľaj&gt;; text začínajúci # sa inak nedá zapísať</value>
+  </data>
+  <data name="Ttv_PositionNotFound" xml:space="preserve">
+    <value>the position {0} was not found – koľaj nie je v Pozice.txt</value>
+  </data>
+  <data name="Ttv_UseTrackName" xml:space="preserve">
+    <value>Použiť názov koľaje z Pozice.txt</value>
+  </data>
+  <data name="Ttv_NoItems" xml:space="preserve">
+    <value>{0} bez položiek</value>
+  </data>
+  <data name="Ttv_NoItems_Fix" xml:space="preserve">
+    <value>Doplniť položky pred = alebo pravidlo odstrániť</value>
+  </data>
+  <data name="Ttv_ItemsUneven" xml:space="preserve">
+    <value>the items count is uneven – {0} potrebuje dvojice podmienka, "text" (položiek: {1})</value>
+  </data>
+  <data name="Ttv_ItemsUneven_Fix" xml:space="preserve">
+    <value>Doplniť text za poslednú podmienku alebo odstrániť prebytočnú položku; čiarka v texte musí byť v úvodzovkách</value>
+  </data>
+  <data name="Ttv_ItemsNotTriple" xml:space="preserve">
+    <value>the items count is not multiple of 3 – {0} potrebuje trojice podmienka, "oddeľovač", "text" (položiek: {1})</value>
+  </data>
+  <data name="Ttv_ItemsNotTriple_Fix" xml:space="preserve">
+    <value>Každá podmienka potrebuje oddeľovač aj text (oddeľovač môže byť prázdny: cond,,"text")</value>
+  </data>
+  <data name="Ttv_ItemAfterAlwaysTrue" xml:space="preserve">
+    <value>Položka za vždy splnenou podmienkou sa nikdy nepoužije</value>
+  </data>
+  <data name="Ttv_ItemAfterAlwaysTrue_Fix" xml:space="preserve">
+    <value>Presunúť záložnú podmienku 1 na koniec zoznamu alebo položku odstrániť</value>
+  </data>
+  <data name="Ttv_OddQuotes" xml:space="preserve">
+    <value>Nepárny počet úvodzoviek – text od poslednej úvodzovky sa berie doslovne, vrátane {n}</value>
+  </data>
+  <data name="Ttv_OddQuotes_Fix" xml:space="preserve">
+    <value>Doplniť alebo odstrániť úvodzovku</value>
+  </data>
+  <data name="Ttv_NotFont" xml:space="preserve">
+    <value>{0} nie je zápis písma – písmo sa píše ako {{číslo}} alebo {{@}} až na konci textu; takto je to text</value>
+  </data>
+  <data name="Ttv_NotFont_Fix" xml:space="preserve">
+    <value>Presunúť {n} na koniec textu alebo opraviť číslo</value>
+  </data>
+  <data name="Ttv_FontInQuotes" xml:space="preserve">
+    <value>{0} je vnútri úvodzoviek, takže je textom, nie písmom</value>
+  </data>
+  <data name="Ttv_FontInQuotes_Fix" xml:space="preserve">
+    <value>Písmo patrí za úvodzovky: "text"{n}</value>
+  </data>
+  <data name="Ttv_Fix_UnknownSymbol" xml:space="preserve">
+    <value>Skontrolovať názov funkcie alebo konštanty (Typ_ len s druhom z TrTypes.txt); zoznam je v dokumentácii Jazyk výrazov</value>
+  </data>
+  <data name="Ttv_Fix_Expected" xml:space="preserve">
+    <value>Doplniť chýbajúci znak – zátvorku, dvojbodku alebo reťazec v úvodzovkách</value>
+  </data>
+  <data name="Ttv_Fix_Unexpected" xml:space="preserve">
+    <value>Skontrolovať zápis – dvojitá negácia a reťazené porovnania potrebujú zátvorky, = je ==</value>
+  </data>
+  <data name="Ttv_Fix_UnterminatedString" xml:space="preserve">
+    <value>Doplniť uzatváraciu úvodzovku alebo #</value>
+  </data>
+  <data name="Ttv_Fix_NumberExpected" xml:space="preserve">
+    <value>Číslo nesmie obsahovať písmená (okrem 0x pre šestnástkový zápis)</value>
+  </data>
+  <data name="Ttv_Fix_BadDate" xml:space="preserve">
+    <value>Dátum sa píše #d.m.rrrr#</value>
+  </data>
+  <data name="Ttv_Fix_BadTime" xml:space="preserve">
+    <value>Čas sa píše #h:m# alebo #h:m:s#</value>
+  </data>
+  <data name="Ttv_ColumnUnknown" xml:space="preserve">
+    <value>Stĺpec „{0}“ nie je v žiadnej tabuli, ktorá túto sekciu používa</value>
+  </data>
+  <data name="Ttv_ColumnUnknown_Fix" xml:space="preserve">
+    <value>Použiť názov alebo kľúč stĺpca z katalógovej tabule</value>
+  </data>
+  <data name="Expr_AlwaysTrue" xml:space="preserve">
+    <value>Podmienka je vždy splnená</value>
+  </data>
+  <data name="Expr_NeverTrue" xml:space="preserve">
+    <value>Podmienka nie je nikdy splnená</value>
+  </data>
+  <data name="Expr_AlwaysTrue_Fix" xml:space="preserve">
+    <value>Ako záložnú podmienku na konci zoznamu píšte 1</value>
+  </data>
+  <data name="Expr_NeverTrue_Fix" xml:space="preserve">
+    <value>Položku odstráňte alebo doplňte podmienku</value>
+  </data>
+  <data name="Expr_Octal" xml:space="preserve">
+    <value>Číslo s vedúcou nulou sa číta osmičkovo: {0} = {1}</value>
+  </data>
+  <data name="Expr_Octal_Fix" xml:space="preserve">
+    <value>Zapísať desiatkovo: {0}</value>
+  </data>
+  <data name="Expr_TrainTypeNotDefined" xml:space="preserve">
+    <value>Druh vlaku {0} nie je zavedený v TrTypes.txt (použije sa zabudovaný druh {1})</value>
+  </data>
+  <data name="Expr_TrainTypeNotDefined_Fix" xml:space="preserve">
+    <value>Zaviesť druh {0} v TrTypes.txt alebo použiť druh, ktorý grafikon má</value>
+  </data>
+  <data name="Expr_TrainTypeInexact" xml:space="preserve">
+    <value>Druh vlaku {0} sa našiel len bez ohľadu na veľkosť písmen alebo diakritiku ({1})</value>
+  </data>
+  <data name="Expr_TrainTypeInexact_Fix" xml:space="preserve">
+    <value>Zapísať presne: {0}{1}</value>
+  </data>
+  <data name="Expr_Zpozdeni" xml:space="preserve">
+    <value>ZPOZDENI je meškanie príchodu na príchodovej tabuli, inak väčšie z oboch meškaní – jednoznačnejšie je ZPOZDENIPRIJ alebo ZPOZDENIODJ</value>
+  </data>
+  <data name="Expr_Vylukazde" xml:space="preserve">
+    <value>VYLUKAZDE je výluka príchodu na príchodovej tabuli, inak ktorákoľvek výluka – jednoznačnejšie je PRIZNAK(Prizn_VylP) alebo PRIZNAK(Prizn_VylO)</value>
+  </data>
+  <data name="Expr_StationUnknown" xml:space="preserve">
+    <value>Stanica {0} nie je v grafikone</value>
+  </data>
+  <data name="Expr_StationUnknown_Fix" xml:space="preserve">
+    <value>Skontrolovať ID stanice (Stanice.txt, trasy vlakov)</value>
+  </data>
+  <data name="Expr_TrackUnknown" xml:space="preserve">
+    <value>Koľaj "{0}" nie je v Pozice.txt</value>
+  </data>
+  <data name="Expr_OperatorUnknown" xml:space="preserve">
+    <value>Dopravca "{0}" nie je vo Vlastnik.txt</value>
+  </data>
+  <data name="Expr_OperatorUnknown_Fix" xml:space="preserve">
+    <value>Použiť názov dopravcu z Vlastnik.txt</value>
+  </data>
+  <data name="Expr_PriznakMask" xml:space="preserve">
+    <value>PRIZNAK(x) vracia masku príznakov, nie 0/1 – porovnávajte s 0 alebo použite bez porovnania</value>
+  </data>
+  <data name="Expr_ReplaceComparison" xml:space="preserve">
+    <value>Nahradiť porovnanie: {0}</value>
+  </data>
+  <data name="Expr_ConjunctionsRight" xml:space="preserve">
+    <value>Spojky {0} a {1} majú v INISSe rovnakú prioritu a viažu sprava: </value>
+  </data>
+  <data name="Expr_RightAssoc" xml:space="preserve">
+    <value>{0} {1} ({2} {3} {4}) – doplňte zátvorky</value>
+  </data>
+  <data name="Expr_Parenthesize" xml:space="preserve">
+    <value>Uzátvorkovať: ({0} {1} {2}) {3} …</value>
+  </data>
+  <data name="Expr_RightToLeft" xml:space="preserve">
+    <value>INISS počíta sprava: {0} {1} ({2} {3} {4}) – doplňte zátvorky</value>
+  </data>
+  <data name="Expr_ParenthesizeLeft" xml:space="preserve">
+    <value>Uzátvorkovať zľava: ({0} {1} {2}) {3} …</value>
+  </data>
+  <data name="Expr_DivideByZero" xml:space="preserve">
+    <value>Delenie nulou – INISS pri vyhodnotení spadne</value>
+  </data>
+  <data name="Expr_DivideByZero_Fix" xml:space="preserve">
+    <value>Opraviť deliteľa</value>
+  </data>
+  <data name="Expr_NegationWhole" xml:space="preserve">
+    <value>Negácia platí na celé porovnanie: {0}({1})</value>
+  </data>
+  <data name="Expr_ParenthesizeLeftSide" xml:space="preserve">
+    <value>Uzátvorkovať ľavú stranu: ({0}{1}) …</value>
+  </data>
+  <data name="Expr_SignWhole" xml:space="preserve">
+    <value>Znamienko platí na celý súčet: {0}({1})</value>
+  </data>
+  <data name="Expr_ParenthesizeFirst" xml:space="preserve">
+    <value>Uzátvorkovať prvý člen: ({0}{1}) …</value>
+  </data>
+  <data name="Ttc_FilledFromPrevious" xml:space="preserve">
+    <value>vyplnilo @ z predchádzajúceho zdroja</value>
+  </data>
+  <data name="Ttc_WaitsForNext" xml:space="preserve">
+    <value>text obsahuje @ – čaká na ďalší zdroj</value>
+  </data>
+  <data name="Ttc_HasLockout" xml:space="preserve">
+    <value>vlak má výluku</value>
+  </data>
+  <data name="Ttc_HasDeflect" xml:space="preserve">
+    <value>vlak má odklon</value>
+  </data>
+  <data name="Ttc_DepartureTrack" xml:space="preserve">
+    <value>koľaj odchodu {0}</value>
+  </data>
+  <data name="Ttc_FallbackLockout" xml:space="preserve">
+    <value>náhradný text výluky</value>
+  </data>
+  <data name="Ttc_FallbackDeflect" xml:space="preserve">
+    <value>náhradný text odklonu</value>
+  </data>
+  <data name="Ttc_OwnValue" xml:space="preserve">
+    <value>vlastná hodnota</value>
+  </data>
+  <data name="Ttc_Tab1Missing" xml:space="preserve">
+    <value>TAB1 chýba</value>
+  </data>
+  <data name="Ttc_NotInTab1Empty" xml:space="preserve">
+    <value>text nie je v TAB1 – stĺpec ostane prázdny</value>
+  </data>
+  <data name="Ttc_HashWhole" xml:space="preserve">
+    <value>text začínajúci # sa hľadá v TAB1 ako celok</value>
+  </data>
+  <data name="Ttc_HoursMinutes" xml:space="preserve">
+    <value>hodiny z TAB1, minúty po čísliciach z TAB2</value>
+  </data>
+  <data name="Ttc_TimePartMissing" xml:space="preserve">
+    <value>niektorá časť času nie je v tabuľkách – stĺpec ostane prázdny</value>
+  </data>
+  <data name="Ttc_NotInTab1Unchanged" xml:space="preserve">
+    <value>text nie je v TAB1 – pošle sa nezmenený</value>
+  </data>
+  <data name="Ttc_CharByChar" xml:space="preserve">
+    <value>znak po znaku podľa TAB1</value>
+  </data>
+  <data name="Ttc_NoRecoding" xml:space="preserve">
+    <value>bez prekódovania</value>
+  </data>
+  <data name="Ttc_UnknownDivType" xml:space="preserve">
+    <value>neznámy spôsob plnenia {0}</value>
+  </data>
+  <data name="Ttc_DivType" xml:space="preserve">
+    <value>spôsob plnenia {0}</value>
+  </data>
+  <data name="Ttc_RuleItem" xml:space="preserve">
+    <value>riadok {0}, položka {1}: {2}</value>
+  </data>
+  <data name="Ttc_RuleNoMatch" xml:space="preserve">
+    <value>riadok {0}: žiadna podmienka neplatí</value>
+  </data>
+  <data name="Ttc_RuleItems" xml:space="preserve">
+    <value>riadok {0}, položky {1}</value>
+  </data>
+  <data name="Sdr_UnknownVersion" xml:space="preserve">
+    <value>Neznáma verzia zápisu „{0}“ – očakáva sa {1} na prvom riadku</value>
+  </data>
+  <data name="Sdr_UnexpectedEof" xml:space="preserve">
+    <value>Neočakávaný koniec súboru – chýba }</value>
+  </data>
+  <data name="Sdr_UnexpectedBrace" xml:space="preserve">
+    <value>Neočakávané } mimo skupiny</value>
+  </data>
+  <data name="Sdr_ColonExpected" xml:space="preserve">
+    <value>Za „{0}“ sa očakáva :</value>
+  </data>
+  <data name="Sdr_GroupNoName" xml:space="preserve">
+    <value>Skupina bez mena</value>
+  </data>
+  <data name="Sdr_BraceExpected" xml:space="preserve">
+    <value>Za skupinou „{0}“ sa očakáva {{</value>
+  </data>
+  <data name="Sdr_StringExpected" xml:space="preserve">
+    <value>Hodnota kľúča „{0}“ musí byť reťazec v úvodzovkách</value>
+  </data>
+  <data name="Sdr_NoNumber" xml:space="preserve">
+    <value>Kľúč „{0}“ nemá číselnú hodnotu</value>
+  </data>
+  <data name="Sdr_NotNumber" xml:space="preserve">
+    <value>„{0}“ nie je číslo (kľúč „{1}“)</value>
+  </data>
+  <data name="Sdr_NoBool" xml:space="preserve">
+    <value>Kľúč „{0}“ nemá hodnotu Ano/Ne</value>
+  </data>
+  <data name="Sdr_NotBool" xml:space="preserve">
+    <value>„{0}“ nie je Ano ani Ne (kľúč „{1}“)</value>
+  </data>
+  <data name="Sdr_BinaryUnsupported" xml:space="preserve">
+    <value>Typ A: (binárne dáta) sa v StateDgm.txt nepoužíva a editor ho nepodporuje</value>
+  </data>
+  <data name="Sdr_UnknownItemType" xml:space="preserve">
+    <value>Neznámy typ položky „{0}:“</value>
+  </data>
+  <data name="Sdr_ItemNoKey" xml:space="preserve">
+    <value>Položka bez kľúča</value>
+  </data>
+  <data name="Sdr_EqualsExpected" xml:space="preserve">
+    <value>Za kľúčom „{0}“ sa očakáva =</value>
+  </data>
+  <data name="Sdr_UnterminatedString" xml:space="preserve">
+    <value>Neukončený reťazec</value>
+  </data>
+  <data name="Sdr_StringTooLong" xml:space="preserve">
+    <value>Reťazec je dlhší než {0} znakov</value>
+  </data>
+  <data name="Sdc_NoCtrls" xml:space="preserve">
+    <value>Súbor neobsahuje blok {0} – INISS v ňom nenájde diagram</value>
+  </data>
+  <data name="Sdc_BlockMissing" xml:space="preserve">
+    <value>Chýba blok {0}\{1}</value>
+  </data>
+  <data name="Sdc_WhatDesigns" xml:space="preserve">
+    <value>vzhľadov</value>
+  </data>
+  <data name="Sdc_WhatTimePoints" xml:space="preserve">
+    <value>časových bodov</value>
+  </data>
+  <data name="Sdc_WhatCategories" xml:space="preserve">
+    <value>kategórií</value>
+  </data>
+  <data name="Sdc_WhatStates" xml:space="preserve">
+    <value>stavov kategórie {0}</value>
+  </data>
+  <data name="Sdc_WhatEvents" xml:space="preserve">
+    <value>akcií stavu {0}</value>
+  </data>
+  <data name="Sdc_WhatControls" xml:space="preserve">
+    <value>ovládačov stavu {0}</value>
+  </data>
+  <data name="Sdc_WhatStarters" xml:space="preserve">
+    <value>štartérov stavu {0}</value>
+  </data>
+  <data name="Sdc_WhatStateTimePoints" xml:space="preserve">
+    <value>časových bodov stavu {0}</value>
+  </data>
+  <data name="Sdc_CountMore" xml:space="preserve">
+    <value>{0}={1}, ale {2} je {3} – INISS načíta len prvých {4}; po uložení sa počet opraví</value>
+  </data>
+  <data name="Sdc_CountLess" xml:space="preserve">
+    <value>{0}={1}, ale {2} je len {3} – po uložení sa počet opraví</value>
+  </data>
+  <data name="Ewa_NoRiff" xml:space="preserve">
+    <value>Chybný formát WAV súboru (chýba hlavička RIFF)!</value>
+  </data>
+  <data name="Ewa_BadLength" xml:space="preserve">
+    <value>Chybný formát WAV súboru (chybná dĺžka súboru)</value>
+  </data>
+  <data name="Ewa_NotWave" xml:space="preserve">
+    <value>Chybný formát WAV súboru (nie je typu WAVE)</value>
+  </data>
+  <data name="Ewa_NoFormat" xml:space="preserve">
+    <value>Chybný formát WAV súboru (nenájdený formát)</value>
+  </data>
+  <data name="Ewa_FmtTooShort" xml:space="preserve">
+    <value>Chybný formát WAV súboru (fmt chunk má dĺžku menšiu ako 16 bytov)</value>
+  </data>
+  <data name="Ewa_UnknownSubformat" xml:space="preserve">
+    <value>Chybný formát WAV súboru (neznámy subformát (GUID))</value>
+  </data>
+  <data name="Eval_StringOutsideArgument" xml:space="preserve">
+    <value>Reťazec mimo argumentu funkcie</value>
+  </data>
+  <data name="Eval_NeedsTrain" xml:space="preserve">
+    <value>Vyhodnotenie funkcie vyžaduje vlak</value>
+  </data>
+  <data name="Rbp_GroupsFileMissing" xml:space="preserve">
+    <value>Súbor s definíciou priečinkov zvukov sa na zvolenej ceste nenašiel: {0}</value>
+  </data>
+  <data name="Rbp_SoundsFileMissing" xml:space="preserve">
+    <value>Súbor s definíciou zvukov sa na zvolenej ceste nenašiel: {0}</value>
+  </data>
+  <data name="Rbp_Analyzing" xml:space="preserve">
+    <value>Analyzovanie súboru banky zvukov</value>
+  </data>
+  <data name="Utils_BadTimeFormat" xml:space="preserve">
+    <value>Neplatný formát času</value>
+  </data>
+  <data name="FyzGroupType_UNCATEGORIZED" xml:space="preserve">
+    <value>Nezaradené</value>
+  </data>
+  <data name="FyzGroupType_C1" xml:space="preserve">
+    <value>hodiny</value>
+  </data>
+  <data name="FyzGroupType_C2" xml:space="preserve">
+    <value>minúty, napr.: 2 minúty.</value>
+  </data>
+  <data name="FyzGroupType_C3" xml:space="preserve">
+    <value>minúty, napr.: 2 minúty,</value>
+  </data>
+  <data name="FyzGroupType_C9" xml:space="preserve">
+    <value>minúty pri meškaní</value>
+  </data>
+  <data name="FyzGroupType_CISLO_" xml:space="preserve">
+    <value>číslo s čiarkou, napr.: šesť,</value>
+  </data>
+  <data name="FyzGroupType_CISLO1" xml:space="preserve">
+    <value>číslo, napr.: šesť</value>
+  </data>
+  <data name="FyzGroupType_CISLO2" xml:space="preserve">
+    <value>číslo s predponami, napr.: 01</value>
+  </data>
+  <data name="FyzGroupType_CISLO3" xml:space="preserve">
+    <value>číslo na konci vety, napr.: šesť.</value>
+  </data>
+  <data name="FyzGroupType_CISLO4" xml:space="preserve">
+    <value>číslo so spojkou "a",napr.: a šesť</value>
+  </data>
+  <data name="FyzGroupType_CISLO5" xml:space="preserve">
+    <value>číslo so spojkou "a" s čiarkou,napr.: a šesť,</value>
+  </data>
+  <data name="FyzGroupType_CISLO6" xml:space="preserve">
+    <value>číslo so spojkou "a" na konci vety,napr.: a šesť.</value>
+  </data>
+  <data name="FyzGroupType_CISLO7" xml:space="preserve">
+    <value>číslo so spojkou "až",napr.: až šesť</value>
+  </data>
+  <data name="FyzGroupType_CISLO8" xml:space="preserve">
+    <value>číslo so spojkou "až",napr.: až šesť,</value>
+  </data>
+  <data name="FyzGroupType_CISLO9" xml:space="preserve">
+    <value>číslo so spojkou "až" na konci vety,napr.: až šesť.</value>
+  </data>
+  <data name="FyzGroupType_DODATKY" xml:space="preserve">
+    <value>dodatkové hlásenia</value>
+  </data>
+  <data name="FyzGroupType_DOPRAVCA" xml:space="preserve">
+    <value>názvy dopravcov</value>
+  </data>
+  <data name="FyzGroupType_DZ" xml:space="preserve">
+    <value>dôvody meškania</value>
+  </data>
+  <data name="FyzGroupType_K1" xml:space="preserve">
+    <value>názov koľaje na konci vety, napr.: koľaj dva.</value>
+  </data>
+  <data name="FyzGroupType_K2" xml:space="preserve">
+    <value>názov koľaje s čiarkou, napr.: koľaj dva,</value>
+  </data>
+  <data name="FyzGroupType_K3" xml:space="preserve">
+    <value>názov koľaje s "Po", napr.: Po koľaji dva</value>
+  </data>
+  <data name="FyzGroupType_K4" xml:space="preserve">
+    <value>názov koľaje  s predložkou "pri", napr.: pri koľaji dva</value>
+  </data>
+  <data name="FyzGroupType_LINKA" xml:space="preserve">
+    <value>názvy liniek</value>
+  </data>
+  <data name="FyzGroupType_N1" xml:space="preserve">
+    <value>názov nástupištia s predložkou "k", napr.: k nástupišťu dva,</value>
+  </data>
+  <data name="FyzGroupType_N2" xml:space="preserve">
+    <value>názov nástupištia s predložkou "pri", napr.: pri nástupišti dva,</value>
+  </data>
+  <data name="FyzGroupType_N3" xml:space="preserve">
+    <value>názov nástupištia s predložkou "na", napr.: na nástupišTE dva,</value>
+  </data>
+  <data name="FyzGroupType_N4" xml:space="preserve">
+    <value>názov nástupištia s predložkou "Pri", napr.: Pri nástupišti jedna</value>
+  </data>
+  <data name="FyzGroupType_N5" xml:space="preserve">
+    <value>názov nástupištia s predložkou "na", napr.: na nástupišTI dva,</value>
+  </data>
+  <data name="FyzGroupType_N10" xml:space="preserve">
+    <value>názov koľaje s "na" na konci vety (bez nástupíšť), napr.: na koľaj dva.</value>
+  </data>
+  <data name="FyzGroupType_N11" xml:space="preserve">
+    <value>názov koľaje s "na" s čiarkou (bez nástupíšť), napr.: na koľaj dva,</value>
+  </data>
+  <data name="FyzGroupType_N12" xml:space="preserve">
+    <value>názov koľaje s "Pri" na začiatku vety (bez nástupíšť), napr.: Pri koľaji dva</value>
+  </data>
+  <data name="FyzGroupType_N13" xml:space="preserve">
+    <value>názov koľaje s "na" na konci vety (bez nástupíšť), napr.: na koľaJI dva.</value>
+  </data>
+  <data name="FyzGroupType_POZ1" xml:space="preserve">
+    <value>poznámky k vlaku, napr.: na konci vlaku</value>
+  </data>
+  <data name="FyzGroupType_POZ2" xml:space="preserve">
+    <value>poznámky k vlaku s čiarkou, napr.: na konci vlaku,</value>
+  </data>
+  <data name="FyzGroupType_POZ3" xml:space="preserve">
+    <value>poznámky k vlaku na konci vety, napr.: na konci vlaku.</value>
+  </data>
+  <data name="FyzGroupType_POZ7" xml:space="preserve">
+    <value>poznámky k vlaku, napr.: na konci vlaku</value>
+  </data>
+  <data name="FyzGroupType_R1" xml:space="preserve">
+    <value>názov stanice s čiarkou, napr.: Abda,</value>
+  </data>
+  <data name="FyzGroupType_R2" xml:space="preserve">
+    <value>názov stanice so spojkou "a" s čiarkou, napr.: a Abda,</value>
+  </data>
+  <data name="FyzGroupType_R3" xml:space="preserve">
+    <value>názov stanice napr.: Abda</value>
+  </data>
+  <data name="FyzGroupType_R4" xml:space="preserve">
+    <value>názov stanice na konci vety.: Abda.</value>
+  </data>
+  <data name="FyzGroupType_RAZENI" xml:space="preserve">
+    <value>celé hlásenie o radení</value>
+  </data>
+  <data name="FyzGroupType_REKLAMA" xml:space="preserve">
+    <value>reklamné hlásenia</value>
+  </data>
+  <data name="FyzGroupType_SLOVA" xml:space="preserve">
+    <value>slová</value>
+  </data>
+  <data name="FyzGroupType_V1" xml:space="preserve">
+    <value>druh vlaku, napr.: osobný vlak</value>
+  </data>
+  <data name="FyzGroupType_V2" xml:space="preserve">
+    <value>druh vlaku s predložkou "do", napr.: do osobného vlaku</value>
+  </data>
+  <data name="FyzGroupType_V4" xml:space="preserve">
+    <value>druh vlaku na začiatku vety, napr.: Osobný vlak</value>
+  </data>
+  <data name="FyzGroupType_V8" xml:space="preserve">
+    <value>názvy vlakov</value>
+  </data>
+  <data name="FyzGroupType_V14" xml:space="preserve">
+    <value>druh vlaku s príponami na zač. vety</value>
+  </data>
+  <data name="FyzGroupType_VETY" xml:space="preserve">
+    <value>ucelené vetné hlásenia</value>
+  </data>
+  <data name="FyzGroupType_VLAKNUM" xml:space="preserve">
+    <value>čísla použ. na číslovanie vlakov</value>
+  </data>
+  <data name="FyzGroupType_VOZY1" xml:space="preserve">
+    <value>vlastnosti vozňa, napr.: reštauračný vozeň</value>
+  </data>
+  <data name="FyzGroupType_VOZY1M" xml:space="preserve">
+    <value>vlastnosti vozňov (množ.č), napr.: reštauračný vozeň</value>
+  </data>
+  <data name="FyzGroupType_VOZY2" xml:space="preserve">
+    <value>vlastnosti vozňa s čiarkou, napr.: reštauračný vozeň,</value>
+  </data>
+  <data name="FyzGroupType_VOZY2M" xml:space="preserve">
+    <value>vlastnosti vozňov s čiarkou (množ.č), napr.: reštauračný vozeň,</value>
+  </data>
+  <data name="FyzGroupType_VOZY3" xml:space="preserve">
+    <value>vlastnosti vozňa na konci vety, napr.: reštauračný vozeň.</value>
+  </data>
+  <data name="FyzGroupType_VOZY3M" xml:space="preserve">
+    <value>vlastnosti vozňov na konci vety (množ.č), napr.: reštauračný vozeň.</value>
+  </data>
+  <data name="FyzGroupType_VOZY4" xml:space="preserve">
+    <value>vlastnosti vozňa so spojkou "a", napr.: a reštauračný vozeň</value>
+  </data>
+  <data name="FyzGroupType_VOZY4M" xml:space="preserve">
+    <value>vlastnosti vozňov so spojkou "a" (množ.č), napr.: a reštauračný vozeň</value>
+  </data>
+  <data name="FyzGroupType_VOZY5" xml:space="preserve">
+    <value>vlastnosti vozňa so spojkou "a" s čiarkou, napr.: a reštauračný vozeň,</value>
+  </data>
+  <data name="FyzGroupType_VOZY5M" xml:space="preserve">
+    <value>vlastnosti vozňov so spojkou "a" s čiarkou (množ.č), napr.: a reštauračný vozeň,</value>
+  </data>
+  <data name="FyzGroupType_VOZY6" xml:space="preserve">
+    <value>vlastnosti vozňa so spojkou "a" na konci vety, napr.: a reštauračný vozeň,</value>
+  </data>
+  <data name="FyzGroupType_VOZY6M" xml:space="preserve">
+    <value>vlastnosti vozňov so spojkou "a" na konci vety (množ.č), napr.: a reštauračný vozeň,</value>
+  </data>
+  <data name="FyzGroupType_VOZY7" xml:space="preserve">
+    <value>vlastnosti vozňa, napr.: reštauračný vozeň</value>
+  </data>
+  <data name="FyzGroupType_VOZY7M" xml:space="preserve">
+    <value>vlastnosti vozňov (množ.č), napr.: reštauračný vozeň</value>
+  </data>
+  <data name="FyzGroupType_VOZY8" xml:space="preserve">
+    <value>vlastnosti vozňa s čiarkou, napr.: reštauračný vozeň,</value>
+  </data>
+  <data name="FyzGroupType_VOZY8M" xml:space="preserve">
+    <value>vlastnosti vozňov s čiarkou (množ.č), napr.: reštauračný vozeň,</value>
+  </data>
+  <data name="FyzGroupType_ZNELKY" xml:space="preserve">
+    <value>znelky</value>
+  </data>
+  <data name="Sdv_StarterN" xml:space="preserve">
+    <value>štartér {0}</value>
+  </data>
+  <data name="TxtProps_Missing" xml:space="preserve">
+    <value>Súbor {0}: Očakávala sa vlastnosť {1}.</value>
+  </data>
+  <data name="TxtProps_MissingInArea" xml:space="preserve">
+    <value>Súbor {0}: V oblasti {1} sa očakávala vlastnosť {2}.</value>
+  </data>
+</root>

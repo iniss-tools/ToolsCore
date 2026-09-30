@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<!-- Testy domeny INISS - bezia bez WinForms. -->
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<RootNamespace>ToolsCore.Tests</RootNamespace>
+		<AssemblyName>ToolsCore.Iniss.Tests</AssemblyName>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
+		<PackageReference Include="MSTest.TestAdapter" Version="4.4.0" />
+		<PackageReference Include="MSTest.TestFramework" Version="4.4.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ToolsCore.Iniss\ToolsCore.Iniss.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="TestData\**" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+</Project>

@@ -1,13 +1,15 @@
 ﻿using System.Globalization;
 using System.Reflection;
 using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Shell;
-using Microsoft.WindowsAPICodePack.Taskbar;
+using System.Text;
+using ToolsCore.Iniss.Tools;
+using Vanara.PInvoke;
+using Vanara.Windows.Shell;
 
 namespace ToolsCore.Tools;
 
 /// <summary>
-///     Trieda spracujuca zoznam poslednych pouzivanych projektov.
+/// Trieda spracujuca zoznam poslednych pouzivanych projektov.
 /// </summary>
 public static class AppRegistry
 {
@@ -18,36 +20,35 @@ public static class AppRegistry
 
     private static string? _jumpListCategory;
     private static bool _jumpListFailed;
-    private static bool _jumpListItemRemoved;
     
     /// <summary>
-    ///     Maximalny pocet projektov zobrazenych v zozname odkazov na paneli uloh.
+    /// Maximalny pocet projektov zobrazenych v zozname odkazov na paneli uloh.
     /// </summary>
     private const int MaxJumplistItems = 10;
 
     /// <summary>
-    ///     Nazov kluca v Registy so zoznamom poslednych pouzivanych priecinkov s datami.
+    /// Nazov kluca v Registy so zoznamom poslednych pouzivanych priecinkov s datami.
     /// </summary>
     private const string RegRecentDirs = "RecentDirs";
 
     /// <summary>
-    ///     Nazov kluca v Registy so zoznamom poslednych pouzivanych suborov.
+    /// Nazov kluca v Registy so zoznamom poslednych pouzivanych suborov.
     /// </summary>
     private const string RegRecentFiles = "RecentFiles";
 
     /// <summary>
-    ///     Nazov kluca v Registy s posledne otvorenehym projektom.
+    /// Nazov kluca v Registy s posledne otvorenehym projektom.
     /// </summary>
     private const string RegLastProject = "LastProject";
 
     /// <summary>
-    ///     Nazov kluca v Registy so zoznamom posledne pouzivanych projektu.
+    /// Nazov kluca v Registy so zoznamom posledne pouzivanych projektu.
     /// </summary>
     private const string RegOpenedProjects = "OpenedProjects";
 
     private static List<string> GetOpenedProjectsOld(bool forFiles = false)
     {
-        var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
+        using var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
         var dirs = new HashSet<string>();
 
         var value = key?.GetValue(forFiles ? RegRecentFiles : RegRecentDirs);
@@ -66,16 +67,16 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Vrati zoznam vsetkych ciest poslednych pouzivanych priecinkov s datami zoradeny od naposledy
-    ///     otvoreneho projektu.<br></br>
-    ///     Ak kluc v Registri s tymto zoznamom neexistuje, metoda vrati prazdny list.
+    /// Vrati zoznam vsetkych ciest poslednych pouzivanych priecinkov s datami zoradeny od naposledy
+    /// otvoreneho projektu.<br></br>
+    /// Ak kluc v Registri s tymto zoznamom neexistuje, metoda vrati prazdny list.
     /// </summary>
     /// <returns>zoznam ciest.</returns>
     public static ProjectInfo[] GetOpenedProjects()
     {
-        var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
+        using var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
         if (key is null)
-            return Array.Empty<ProjectInfo>();
+            return [];
 
         var projects = new HashSet<ProjectInfo>();
         var regValue = key.GetValue(RegOpenedProjects);
@@ -119,7 +120,7 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Zoradi projekty od naposledy otvoreneho po najstarsi.
+    /// Zoradi projekty od naposledy otvoreneho po najstarsi.
     /// </summary>
     /// <param name="projects">Zoznam projektov.</param>
     /// <returns>zoradene pole projektov.</returns>
@@ -127,13 +128,13 @@ public static class AppRegistry
         projects.OrderByDescending(project => project.LastAccess).ToArray();
 
     /// <summary>
-    ///     Vytvori zoznam odkazov (jump list) na paneli uloh so zoznamom poslednych pouzivanych projektov.<br/>
-    ///     Metodu treba zavolat pri starte aplikacie po vytvoreni hlavneho okna, dalej sa zoznam aktualizuje sam
-    ///     pri kazdom otvoreni projektu.
+    /// Vytvori zoznam odkazov (jump list) na paneli uloh so zoznamom poslednych pouzivanych projektov.<br/>
+    /// Metodu treba zavolat pri starte aplikacie po vytvoreni hlavneho okna, dalej sa zoznam aktualizuje sam
+    /// pri kazdom otvoreni projektu.
     /// </summary>
     /// <param name="categoryName">
-    ///     Nazov kategorie, pod ktorou sa projekty na paneli uloh zobrazia. Ak nie je zadany, pouzije sa nazov
-    ///     v jazyku nastavenom v aplikacii.
+    /// Nazov kategorie, pod ktorou sa projekty na paneli uloh zobrazia. Ak nie je zadany, pouzije sa nazov
+    /// v jazyku nastavenom v aplikacii.
     /// </param>
     public static void RegisterJumpList(string? categoryName = null)
     {
@@ -142,57 +143,39 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Nanovo vytvori a zapise zoznam odkazov na paneli uloh.
+    /// Nanovo vytvori a zapise zoznam odkazov na paneli uloh.
     /// </summary>
-    /// <param name="retryOnError">
-    ///     Ak <see langword="true"/>, po chybe sposobenej polozkou odstranenou pouzivatelom sa zapis zopakuje.
-    /// </param>
-    private static void RefreshJumpList(bool retryOnError = true)
+    private static void RefreshJumpList()
     {
         //zoznam odkazov sa vytvara len v aplikaciach, ktore o to poziadali metodou RegisterJumpList
-        if (_jumpListCategory is null || _jumpListFailed || !TaskbarManager.IsPlatformSupported)
+        if (_jumpListCategory is null || _jumpListFailed)
             return;
-        
+
         var exePath = Environment.ProcessPath;
         if (string.IsNullOrEmpty(exePath))
             return;
 
-        //zoznam projektov je uz zoradeny od naposledy otvoreneho
-        var projects = (_projects ?? GetOpenedProjects())
-            .Where(project => !string.IsNullOrWhiteSpace(project.Path))
-            .Take(MaxJumplistItems)
-            .ToArray();
-
         try
         {
+            //projekty, ktore pouzivatel odstranil zo zoznamu odkazov, zmiznu aj zo zoznamu nedavnych projektov
+            //(Windows by ich opatovne pridanie odmietol - Vanara ich pri zapise sama vynecha)
+            foreach (var path in RemovedJumpListPaths())
+                RemoveProject(path);
+
+            //zoznam projektov je uz zoradeny od naposledy otvoreneho
+            var projects = (_projects ?? GetOpenedProjects())
+                .Where(project => !string.IsNullOrWhiteSpace(project.Path))
+                .Take(MaxJumplistItems);
+
             //uz zapisane polozky sa nedaju odstranit, preto sa cely zoznam zakazdym vytvara nanovo
-            var jumpList = JumpList.CreateJumpList();
-            jumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Neither;
-            jumpList.JumpListItemsRemoved += JumpList_ItemsRemoved;
+            var jumpList = new JumpList { ShowFrequentCategory = false, ShowRecentCategory = false };
+            foreach (var project in projects)
+                jumpList.Add(CreateJumpListTask(project.Path, exePath));
 
-            if (projects.Length != 0)
-            {
-                var category = new JumpListCustomCategory(_jumpListCategory);
-                foreach (var project in projects)
-                    category.AddJumpListItems(CreateJumpListLink(project.Path, exePath));
-
-                jumpList.AddCustomCategories(category);
-            }
-
-            jumpList.Refresh();
-            _jumpListItemRemoved = false;
+            jumpList.ApplySettings();
         }
         catch (Exception e)
         {
-            //ak pouzivatel polozku zo zoznamu odstranil, Windows odmietne jej opatovne pridanie
-            //- pri zapise sa na nu prislo, takze sa zapis zopakuje uz bez nej
-            if (retryOnError && _jumpListItemRemoved)
-            {
-                _jumpListItemRemoved = false;
-                RefreshJumpList(false);
-                return;
-            }
-
             //zoznam odkazov nie je kriticka funkcia - aplikacia musi bezat aj ked sa ho nepodari vytvorit
             Log.Exception(e);
             _jumpListFailed = true;
@@ -200,44 +183,50 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Vytvori polozku zoznamu odkazov, ktora spusti aplikaciu s cestou k projektu ako argumentom.
+    /// Vytvori polozku zoznamu odkazov, ktora spusti aplikaciu s cestou k projektu ako argumentom.
     /// </summary>
     /// <param name="path">Cesta k projektu.</param>
     /// <param name="exePath">Cesta k spustitelnemu suboru aplikacie.</param>
     /// <returns>polozka zoznamu odkazov.</returns>
-    private static JumpListLink CreateJumpListLink(string path, string exePath) =>
-        new(exePath, path)
+    private static JumpListTask CreateJumpListTask(string path, string exePath) =>
+        new(path, exePath)
         {
+            Category = _jumpListCategory,
             //cesta musi byt v uvodzovkach, inak sa argument s medzerami rozpadne na viacero argumentov
             Arguments = path.Quote(),
             WorkingDirectory = Path.GetDirectoryName(exePath) ?? "",
-            IconReference = new IconReference(exePath, 0)
+            IconResourcePath = exePath,
+            IconResourceIndex = 0
         };
 
     /// <summary>
-    ///     Odstrani zo zoznamu poslednych pouzivanych projektov polozky, ktore pouzivatel odstranil
-    ///     zo zoznamu odkazov na paneli uloh.
+    /// Cesty projektov, ktore pouzivatel odstranil zo zoznamu odkazov na paneli uloh (argument odkazu).
     /// </summary>
-    private static void JumpList_ItemsRemoved(object? sender, UserRemovedJumpListItemsEventArgs e)
+    private static List<string> RemovedJumpListPaths()
     {
-        foreach (var item in e.RemovedItems)
-        {
-            var path = item switch
-            {
-                JumpListLink link when !string.IsNullOrWhiteSpace(link.Arguments) => link.Arguments.Trim('"'),
-                IJumpListItem jumpListItem => jumpListItem.Path,
-                _ => null
-            };
+        var paths = new List<string>();
+        var list = new Shell32.ICustomDestinationList();
+        if (list.GetRemovedDestinations(typeof(Shell32.IObjectArray).GUID) is not Shell32.IObjectArray removed)
+            return paths;
 
-            if (RemoveProject(path))
-                _jumpListItemRemoved = true;
+        for (var i = 0u; i < removed.GetCount(); i++)
+        {
+            if (removed.GetAt(i, typeof(Shell32.IShellLinkW).GUID) is not Shell32.IShellLinkW link)
+                continue;
+
+            var args = new StringBuilder(1024);
+            link.GetArguments(args, args.Capacity);
+            if (!string.IsNullOrWhiteSpace(args.ToString()))
+                paths.Add(args.ToString().Trim('"'));
         }
+
+        return paths;
     }
 
     /// <summary>
-    ///     Prida novu cestu na zaciatok zoznamu poslednych pouzivanych projektov, pripadne aktualizuje datum
-    ///     otvorenia uz existujuceho projektu.<br/>
-    ///     Ak kluc v Registry neexistuje, vytvori sa a prida zadanu cestu path.
+    /// Prida novu cestu na zaciatok zoznamu poslednych pouzivanych projektov, pripadne aktualizuje datum
+    /// otvorenia uz existujuceho projektu.<br/>
+    /// Ak kluc v Registry neexistuje, vytvori sa a prida zadanu cestu path.
     /// </summary>
     /// <param name="path">Cesta k projektu.</param>
     public static void SetUsageOfProject(string path)
@@ -245,8 +234,8 @@ public static class AppRegistry
         if (string.IsNullOrWhiteSpace(path))
             return;
 
-        var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
-        if (key == null!)
+        using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
+        if (key is null)
             return;
 
         var projects = (_projects ?? GetOpenedProjects()).ToList();
@@ -263,7 +252,7 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Odstrani projekt zo zoznamu poslednych pouzivanych projektov.
+    /// Odstrani projekt zo zoznamu poslednych pouzivanych projektov.
     /// </summary>
     /// <param name="path">Cesta k projektu.</param>
     /// <returns><see langword="true"/>, ak sa projekt v zozname nachadzal.</returns>
@@ -272,8 +261,8 @@ public static class AppRegistry
         if (string.IsNullOrWhiteSpace(path))
             return false;
 
-        var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
-        if (key == null!)
+        using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
+        if (key is null)
             return false;
 
         var projects = _projects ?? GetOpenedProjects();
@@ -287,7 +276,7 @@ public static class AppRegistry
     }
 
     /// <summary>
-    ///     Skonvertuje zoznam projektov na retazec zapisovany do Registry.
+    /// Skonvertuje zoznam projektov na retazec zapisovany do Registry.
     /// </summary>
     /// <param name="projects">Zoznam projektov.</param>
     /// <returns>retazec v tvare cesta*datum|cesta*datum|...</returns>
@@ -307,14 +296,14 @@ public static class AppRegistry
 
     public static string GetLastProject()
     {
-        var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
+        using var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
         var value = key?.GetValue(RegLastProject);
         return value is null ? "" : value.ToString() ?? "";
     }
 
     public static void SetLastProject(string path)
     {
-        var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
+        using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
         key?.SetValue(RegLastProject, path);
     }
 }

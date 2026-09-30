@@ -34,8 +34,8 @@ public partial class FAppSettingsBase : Form
     public Type StyleType { get; } = null!;
     protected ExBindingList<CmdShortcut> Shortcuts { get; set; } = null!;
     protected ExBindingList<DesktopColumn> Columns { get; set; } = null!;
-    protected virtual IList<CmdShortcut> DefaultShortcuts => new List<CmdShortcut>();
-    protected virtual IList<DesktopColumn> DefaultColumns => new List<DesktopColumn>();
+    protected virtual IList<CmdShortcut> DefaultShortcuts => [];
+    protected virtual IList<DesktopColumn> DefaultColumns => [];
     protected bool ShouldRestart { get; set; }
     public Style UsingStyle { get; private set; } = null!;
 
@@ -88,15 +88,15 @@ public partial class FAppSettingsBase : Form
 
         cbShowErrors.BindEnum(new Dictionary<DebugMode, string>
         {
-            [DebugMode.OnlyMessage] = "Iba krátka správa",
-            [DebugMode.DetailInfo] = "Detailné informácie",
-            [DebugMode.AppCrash] = "Spadnutie programu (systémový dialóg)"
+            [DebugMode.OnlyMessage] = Resources.Settings_DebugOnlyMessage,
+            [DebugMode.DetailInfo] = Resources.Settings_DebugDetail,
+            [DebugMode.AppCrash] = Resources.Settings_DebugCrash
         });
 
         cbStartup.BindEnum(new Dictionary<StartupType, string>
         {
-            [StartupType.EmptyWindow] = "Prázdne okno",
-            [StartupType.LastProject] = "Posledný projekt"
+            [StartupType.EmptyWindow] = Resources.Settings_StartupEmpty,
+            [StartupType.LastProject] = Resources.Settings_StartupLast
         });
 
         configBindingSource.DataSource = Config;
@@ -111,7 +111,7 @@ public partial class FAppSettingsBase : Form
 
         this.ApplyThemeAndFonts();
 
-        lShortcutMsg.Text = "Vyberte skratku zo zoznamu";
+        lShortcutMsg.Text = Resources.Settings_SelectShortcut;
         if (Shortcuts is not null) 
             FindAndCheckDuplicateShortcuts();
 
@@ -205,7 +205,7 @@ public partial class FAppSettingsBase : Form
     {
         if (ShouldRestart)
         {
-            var result = Utils.ShowQuestion("Vykonali ste zmeny vyžadujúce reštartovanie programu.\n\nReštartovať program teraz?", 
+            var result = Utils.ShowQuestion(Resources.Settings_RestartNow, 
                 MessageBoxButtons.YesNoCancel);
             switch (result)
             {
@@ -335,7 +335,7 @@ public partial class FAppSettingsBase : Form
         cboxDarkScrollbars.Checked = style.DarkScrollBar;
         cboxHighlightStatusBar.Checked = style.HighlightStatusBar;
 
-        if (style.Name is StyleNames.LIGHT or StyleNames.DARK)
+        if (style.Name is StyleNames.Light or StyleNames.Dark)
         {
             tsbRenameStyle.Enabled = false;
             tsbDeleteStyle.Enabled = false;
@@ -395,7 +395,7 @@ public partial class FAppSettingsBase : Form
         tv.Nodes.Add(controls);
     }
 
-    public TreeNode CreateParentNode(IColorScheme scheme, string name)
+    public static TreeNode CreateParentNode(IColorScheme scheme, string name)
     {
         var node = new TreeNode();
         node.Text = scheme.Name;
@@ -404,7 +404,7 @@ public partial class FAppSettingsBase : Form
         return node;
     }
 
-    public void CreateNode(ColorSetting setting, string name, TreeNode parent)
+    public static void CreateNode(ColorSetting setting, string name, TreeNode parent)
     {
         var node = new TreeNode();
         node.Text = setting.Name;
@@ -558,7 +558,7 @@ public partial class FAppSettingsBase : Form
         UsingStyle.Used = true;
         if (!previousStyle.ControlsDefaultStyle && UsingStyle.ControlsDefaultStyle)
         {
-            Utils.ShowInfo("Zmeny sa prejavia úplne až po reštartovaní programu.");
+            Utils.ShowInfo(Resources.Settings_RestartLater);
             ShouldRestart = true;
         }
         tsbApplyStyle.Enabled = false;
@@ -583,7 +583,7 @@ public partial class FAppSettingsBase : Form
             return;
 
         var style = (Style)tscbStyles.SelectedItem!;
-        var newStyle = OnResetStyle(style.Name == StyleNames.DARK);
+        var newStyle = OnResetStyle(style.Name == StyleNames.Dark);
         newStyle.Name = style.Name;
         newStyle.Used = style.Used;
         var actualIndex = tscbStyles.SelectedIndex;
@@ -612,7 +612,7 @@ public partial class FAppSettingsBase : Form
 
         var parent = selectedNode.Parent;
         var style = (Style)tscbStyles.SelectedItem!;
-        var newStyle = OnResetStyle(style.Name == StyleNames.DARK);
+        var newStyle = OnResetStyle(style.Name == StyleNames.Dark);
         var categoryFromDef = StyleType.GetProperty(parent!.Name, BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance)?.GetValue(newStyle);
 
         if (categoryFromDef?.GetType().GetProperty(selectedNode.Name)?.GetValue(categoryFromDef) is not ColorSetting settingDef)
