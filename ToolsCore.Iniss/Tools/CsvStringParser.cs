@@ -6,6 +6,20 @@
 public class CsvStringReader : TableFileReader
 {
     /// <summary>
+    /// Oddelovac buniek podla prveho riadku: tabulator (kopia z Excelu), inak bodkociarka, inak ciarka.
+    /// </summary>
+    /// <param name="text">Text v tvare .CSV suboru.</param>
+    public static char DetectSeparator(string text)
+    {
+        ArgumentNullException.ThrowIfNull(text);
+
+        var end = text.IndexOf('\n', StringComparison.Ordinal);
+        var firstLine = end == -1 ? text : text[..end];
+        if (firstLine.Contains('\t', StringComparison.Ordinal)) return '\t';
+        return firstLine.Contains(';', StringComparison.Ordinal) || !firstLine.Contains(',', StringComparison.Ordinal) ? ';' : ',';
+    }
+
+    /// <summary>
     /// Vytvori novu instanciu triedy <see cref="CsvStringReader"/>.
     /// </summary>
     /// <param name="text">Text v tvare .CSV suboru.</param>
@@ -16,20 +30,13 @@ public class CsvStringReader : TableFileReader
         text = text.Replace("\r", "");
         var rows = text.Split([linesep], StringSplitOptions.RemoveEmptyEntries);
 
-        RowCount = rows.Length;
-
-        foreach (var row in rows)
-        {
-            var count = row.Split(rowsep).Length;
-            if (ColumnCount < count) ColumnCount = count;
-        }
-
-        Data = new string[RowCount, ColumnCount];
+        // pocet stlpcov az z rozlozenych hodnot - oddelovac v uvodzovkach stlpec nepridava
+        var values = new List<string>[rows.Length];
 
         for (var i = 0; i < rows.Length; i++)
         {
             var pos = 0;
-            var col = 0;
+            values[i] = [];
 
             while (pos < rows[i].Length)
             {
@@ -76,16 +83,27 @@ public class CsvStringReader : TableFileReader
                 }
 
                 // Add field to list
-                Data[i, col] = value;
-
-                col++;
+                values[i].Add(value);
 
                 // Eat up to and including next comma
                 while (pos < rows[i].Length && rows[i][pos] != rowsep)
                     pos++;
                 if (pos < rows[i].Length)
+                {
                     pos++;
+
+                    // oddelovac na konci riadku - posledna bunka je prazdna
+                    if (pos == rows[i].Length)
+                        values[i].Add("");
+                }
             }
         }
+
+        RowCount = rows.Length;
+        ColumnCount = values.Length == 0 ? 0 : values.Max(v => v.Count);
+        Data = new string[RowCount, ColumnCount];
+        for (var i = 0; i < RowCount; i++)
+            for (var j = 0; j < ColumnCount; j++)
+                Data[i, j] = j < values[i].Count ? values[i][j] : "";
     }
 }
