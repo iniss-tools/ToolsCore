@@ -97,6 +97,15 @@ public static class InissRegistry
         TableIndices = tableIndices
     };
 
+    /// <summary>Ci je exe program INISS (popis alebo nazov produktu v informaciach o subore je INISS).</summary>
+    public static bool IsInissExe(string exePath)
+    {
+        if (!File.Exists(exePath)) return false;
+        var info = FileVersionInfo.GetVersionInfo(exePath);
+        return string.Equals(info.FileDescription?.Trim(), "INISS", StringComparison.OrdinalIgnoreCase)
+               || string.Equals(info.ProductName?.Trim(), "INISS", StringComparison.OrdinalIgnoreCase);
+    }
+
     /// <summary>Verzia INISSu z informacii o subore exe (3.00, 3.10, 3.34.6, 3.39).</summary>
     public static RegVersion? ExeVersion(string exePath)
     {
