@@ -29,6 +29,12 @@ public sealed record RegWriteOp(RegLocation Location, string Section, string Nam
 {
     /// <summary>Zmazanie hodnoty.</summary>
     public bool IsDelete => Value is null;
+
+    /// <summary>Zmazanie celej sekcie (prazdny nazov hodnoty).</summary>
+    public bool IsSectionDelete => Name.Length == 0 && Value is null;
+
+    /// <summary>Operacia, ktora zmaze celu sekciu na danom mieste.</summary>
+    public static RegWriteOp DeleteSection(RegLocation location, string section) => new(location, section, "", null);
 }
 
 /// <summary>
@@ -126,6 +132,21 @@ public static class RegWritePlanner
         }
 
         return new RegWritePlan(ops, iniStill, notRead);
+    }
+
+    /// <summary>
+    /// Plan, ktory zmaze celu sekciu (napr. linku Driver3) zo vsetkych miest, kde lezi: HKCU, VirtualStore, HKLM
+    /// aj subor .INI.
+    /// </summary>
+    public static RegWritePlan PlanRemoveSection(ResolvedConfig config, string section)
+    {
+        var src = config.Source;
+        var ops = new List<RegWriteOp>();
+        if (src.Ini?.HasSection(section) == true) ops.Add(RegWriteOp.DeleteSection(RegLocation.Ini, section));
+        foreach (var loc in new[] { RegLocation.User, RegLocation.VirtualStore, RegLocation.Machine })
+            if (Branch(src, loc).HasSection(section))
+                ops.Add(RegWriteOp.DeleteSection(loc, section));
+        return new RegWritePlan(ops, [], []);
     }
 
     private static RegLocation DefaultLocation(ResolvedConfig config, string section)

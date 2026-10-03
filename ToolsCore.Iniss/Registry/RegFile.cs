@@ -43,7 +43,8 @@ public sealed class RegFile
         foreach (var op in plan.Ops.Where(o => o.Location == location))
         {
             var path = SectionPath(root, appName, op.Section);
-            if (op.Value is null) file.Delete(path, op.Name);
+            if (op.IsSectionDelete) file.DeleteKey(path);
+            else if (op.Value is null) file.Delete(path, op.Name);
             else file.Set(path, op.Name, op.Value);
         }
 

@@ -106,6 +106,20 @@ public class RegWritePlanTests
     }
 
     [TestMethod]
+    public void OdstranenieSekcie_ZoVsetkychMiestAjZIni()
+    {
+        var config = Resolve(machine: new RegBranch().Set("Driver3", "TablePort", RegRawValue.String("COM3")),
+            virtualStore: new RegBranch().Set("Driver3", "TableClass", RegRawValue.Dword(4)),
+            ini: "[Driver3]\r\nTablePort=COM4\r\n");
+
+        var plan = RegWritePlanner.PlanRemoveSection(config, "Driver3");
+
+        CollectionAssert.AreEquivalent(new[] { RegLocation.Ini, RegLocation.VirtualStore, RegLocation.Machine }, plan.Ops.Select(o => o.Location).ToArray());
+        Assert.IsTrue(plan.Ops.All(o => o.IsSectionDelete));
+        StringAssert.Contains(RegFile.FromPlan(plan, "INISS - Test", RegLocation.Machine).ToString(), @"[-HKEY_LOCAL_MACHINE\SOFTWARE\CHAPS\INISS - Test\Driver3]");
+    }
+
+    [TestMethod]
     public void RegFile_FormatHodnotAZmazanie()
     {
         var file = new RegFile();

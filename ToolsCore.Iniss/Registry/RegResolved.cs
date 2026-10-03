@@ -183,6 +183,9 @@ public sealed class ResolvedSetting
     /// <summary>Predvolena hodnota v tomto kontexte (pri Driver podla triedy) alebo null, ak je dynamicka.</summary>
     public object? DefaultValue { get; internal set; }
 
+    /// <summary>Fyzicka tabula pri hodnotach Tables\…&lt;N&gt; (ak je znama).</summary>
+    public RegTableInfo? Table { get; internal set; }
+
     /// <summary>Koren registra, z ktoreho INISS hodnotu cita a kam ju zapisuje (User alebo Machine).</summary>
     public RegLocation RegistryLocation { get; internal set; }
 
@@ -298,6 +301,16 @@ public sealed class InissConfigSource
     /// <summary>Nazvy 42 farieb z jazykovej kniznice RCIniss.dll; null = slovenske nazvy z katalogu.</summary>
     public IReadOnlyList<string>? ColorNames { get; init; }
 
-    /// <summary>Indexy tabul, pre ktore sa maju ukazat hodnoty sekcie Tables (aj ked v registri nie su).</summary>
-    public IReadOnlyCollection<int>? TableIndices { get; init; }
+    /// <summary>
+    /// Fyzicke tabule podla indexu &lt;N&gt; v sekcii Tables (poradie v spojenom zozname tabul, ktory INISS nacita).
+    /// Ich hodnoty sa ukazu aj ked v registri nie su; vyrobca urci predvoleny vynuteny jas.
+    /// </summary>
+    public IReadOnlyDictionary<int, RegTableInfo>? Tables { get; init; }
 }
+
+/// <summary>Fyzicka tabula, na ktoru sa vztahuju hodnoty Tables\…&lt;N&gt;.</summary>
+/// <param name="Name">nazov tabule (KEY z TPhysic)</param>
+/// <param name="Grafikon">grafikon (priecinok), z ktoreho tabula pochadza</param>
+/// <param name="Manufacturer">kod vyrobcu z katalogovej predlohy alebo null</param>
+/// <param name="Line">cislo komunikacnej linky (COMUNICATION_PORT)</param>
+public sealed record RegTableInfo(string Name, string Grafikon, int? Manufacturer, int Line);

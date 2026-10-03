@@ -11,7 +11,8 @@ public class RegResolverTests
     private static readonly RegVersion V339 = new(3, 39);
 
     private static ResolvedConfig Resolve(RegBranch? user = null, RegBranch? machine = null, RegBranch? virtualStore = null, string? ini = null,
-        InissRunMode mode = InissRunMode.Normal, RegVersion? version = null, IReadOnlyList<string>? colors = null, IReadOnlyCollection<int>? tables = null) =>
+        InissRunMode mode = InissRunMode.Normal, RegVersion? version = null, IReadOnlyList<string>? colors = null,
+        IReadOnlyDictionary<int, RegTableInfo>? tables = null) =>
         RegResolver.Resolve(new InissConfigSource
         {
             AppName = "INISS - Test",
@@ -22,7 +23,7 @@ public class RegResolverTests
             VirtualStore = virtualStore ?? RegBranch.Missing,
             Ini = ini is null ? null : InissIniFile.Parse(ini),
             ColorNames = colors,
-            TableIndices = tables
+            Tables = tables
         });
 
     private static bool Has(ResolvedSetting setting, RegDiagnosticCode code) => setting.Diagnostics.Any(d => d.Code == code);
@@ -250,14 +251,29 @@ public class RegResolverTests
         var user = new RegBranch().Set("Tables", "Enabled3", RegRawValue.Dword(0));
         var machine = new RegBranch().Set("Tables", "BlackOut", RegRawValue.Dword(1)).Set("Tables", "Enabled3", RegRawValue.Dword(1));
 
-        var config = Resolve(user, machine, tables: [0]);
+        var config = Resolve(user, machine, tables: new Dictionary<int, RegTableInfo> { [0] = new("Odchodová", "Test.2025", 4, 2), [1] = new("Internet", "Test.2025", 5, 0) });
         var tables = config.FindSection("Tables")!;
 
         Assert.AreEqual(0, tables.Find("Enabled3")!.Value);
         Assert.AreEqual(RegSource.User, tables.Find("Enabled3")!.Source);
         Assert.AreEqual(1, tables.Find("BlackOut")!.Value);
         Assert.AreEqual(RegSource.Default, tables.Find("Enabled0")!.Source, "tabula zo zoznamu sa ukaze aj bez hodnoty");
-        Assert.IsNull(tables.Find("Enabled1"));
+        Assert.AreEqual("Odchodová", tables.Find("Enabled0")!.Table?.Name);
+        Assert.IsNull(tables.Find("Enabled3")!.Table, "tabula mimo dat");
+        Assert.IsNull(tables.Find("Enabled2"));
+    }
+
+    [TestMethod]
+    public void Tables_VynutenyJasPodlaVyrobcuTabule()
+    {
+        var tables = new Dictionary<int, RegTableInfo>
+        {
+            [0] = new("ELEN", "T", 8, 1), [1] = new("APEL", "T", 10, 1), [2] = new("ELEKON", "T", 13, 1), [3] = new("LCD1", "T", 5, 1), [4] = new("bez predlohy", "T", null, 1)
+        };
+
+        var section = Resolve(tables: tables).FindSection("Tables")!;
+
+        CollectionAssert.AreEqual(new object?[] { 99, 0, 5, -1, null }, Enumerable.Range(0, 5).Select(i => section.Find($"ForceLight{i}")!.Value).ToArray());
     }
 
     [TestMethod]

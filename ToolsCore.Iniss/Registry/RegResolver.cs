@@ -75,10 +75,17 @@ public static partial class RegResolver
                     if (setting.LegacyName is { } legacy) consumed.Add(legacy);
                     break;
                 case RegNameKind.Indexed:
-                    foreach (var index in Indices(setting, names, src.TableIndices))
+                    foreach (var index in Indices(setting, names, src.Tables?.Keys))
                     {
                         var n = setting.NameFor(index);
-                        settings.Add(ResolveOne(src, def, setting, name, n, fromIni, userActive, null));
+                        var table = src.Tables?.GetValueOrDefault(index);
+                        // vynuteny jas ma predvolbu podla vyrobcu tabule
+                        var tableDefaults = table?.Manufacturer is { } manufacturer && setting.Name == "ForceLight<N>"
+                            ? new Dictionary<string, object> { [setting.Name] = DriverClasses.ForceLightDefault(manufacturer) }
+                            : null;
+                        var resolved = ResolveOne(src, def, setting, name, n, fromIni, userActive, tableDefaults);
+                        resolved.Table = table;
+                        settings.Add(resolved);
                         consumed.Add(n);
                     }
 
@@ -124,7 +131,7 @@ public static partial class RegResolver
                                                              || string.Equals(s.LegacyName, name, StringComparison.OrdinalIgnoreCase)))
         || RegCatalog.IsLeftover(def.Name, name);
 
-    private static SortedSet<int> Indices(RegSetting setting, IEnumerable<string> names, IReadOnlyCollection<int>? wanted)
+    private static SortedSet<int> Indices(RegSetting setting, IEnumerable<string> names, IEnumerable<int>? wanted)
     {
         var prefix = setting.Name[..setting.Name.IndexOf("<N>", StringComparison.Ordinal)];
         var found = new SortedSet<int>(wanted ?? []);
@@ -167,7 +174,7 @@ public static partial class RegResolver
         if (classDefaults is not null && classDefaults.TryGetValue(setting.Name, out var classDefault))
         {
             r.DefaultValue = classDefault;
-            defaultSource = RegSource.ClassDefault;
+            defaultSource = setting.Kind == RegNameKind.Indexed ? RegSource.Default : RegSource.ClassDefault;
         }
         else if (DynamicDefault(def, setting, section) is { } dyn)
         {

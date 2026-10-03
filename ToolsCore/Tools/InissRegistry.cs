@@ -83,8 +83,8 @@ public static class InissRegistry
     /// <param name="appName">nazov vetvy pod CHAPS</param>
     /// <param name="exePath">exe INISSu (pre .INI, verziu a jazykovu kniznicu) alebo null</param>
     /// <param name="mode">ako sa INISS spusta</param>
-    /// <param name="tableIndices">indexy tabul pre sekciu Tables</param>
-    public static InissConfigSource LoadSource(string appName, string? exePath, InissRunMode mode, IReadOnlyCollection<int>? tableIndices = null) => new()
+    /// <param name="tables">fyzicke tabule podla indexu v sekcii Tables</param>
+    public static InissConfigSource LoadSource(string appName, string? exePath, InissRunMode mode, IReadOnlyDictionary<int, RegTableInfo>? tables = null) => new()
     {
         AppName = appName,
         RunMode = mode,
@@ -94,7 +94,7 @@ public static class InissRegistry
         Ini = exePath is null ? null : InissIniFile.Load(IniPathFor(exePath)),
         Version = exePath is null ? null : ExeVersion(exePath),
         ColorNames = exePath is null ? null : ColorNames(Path.GetDirectoryName(exePath)!),
-        TableIndices = tableIndices
+        Tables = tables
     };
 
     /// <summary>Ci je exe program INISS (popis alebo nazov produktu v informaciach o subore je INISS).</summary>
@@ -132,6 +132,16 @@ public static class InissRegistry
         }
 
         return names;
+    }
+
+    /// <summary>Seriove porty pocitaca (COM1, COM2…) podla HKLM\HARDWARE\DEVICEMAP\SERIALCOMM, zoradene podla cisla.</summary>
+    public static IReadOnlyList<string> SerialPorts()
+    {
+        using var key = Registry.LocalMachine.OpenSubKey(@"HARDWARE\DEVICEMAP\SERIALCOMM");
+        if (key is null) return [];
+        return key.GetValueNames().Select(n => key.GetValue(n) as string).OfType<string>()
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(p => DriverClasses.LineNumber(p) ?? int.MaxValue).ThenBy(p => p, StringComparer.OrdinalIgnoreCase).ToList();
     }
 
     /// <summary>Ci tento proces moze zapisovat do HKLM konfiguracie (bez zvysenia prav).</summary>
@@ -175,7 +185,8 @@ public static class InissRegistry
             ArgumentNullException.ThrowIfNull(iniPath);
             var ini = InissIniFile.Load(iniPath) ?? InissIniFile.Empty();
             foreach (var op in plan.Ops.Where(o => o.Location == RegLocation.Ini))
-                if (op.Value is null) ini.Remove(op.Section, op.Name);
+                if (op.IsSectionDelete) ini.RemoveSection(op.Section);
+                else if (op.Value is null) ini.Remove(op.Section, op.Name);
                 else ini.Set(op.Section, op.Name, op.Value.Kind == RegRawKind.Binary ? Convert.ToHexString(op.Value.Bytes!) : op.Value.ToString());
             ini.Save(iniPath);
         }
@@ -193,6 +204,12 @@ public static class InissRegistry
         foreach (var op in ops)
         {
             var path = $@"{BranchPath(location, appName)}\{op.Section}";
+            if (op.IsSectionDelete)
+            {
+                root.DeleteSubKeyTree(path, false);
+                continue;
+            }
+
             if (op.Value is null)
             {
                 using var existing = root.OpenSubKey(path, true);

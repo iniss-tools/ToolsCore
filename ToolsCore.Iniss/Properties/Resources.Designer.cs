@@ -2534,5 +2534,95 @@ namespace ToolsCore.Iniss.Properties {
                 return ResourceManager.GetString("Reg_IniInvalidNumber", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adon/BUSE.
+        /// </summary>
+        internal static string Reg_Class_0 {
+            get {
+                return ResourceManager.GetString("Reg_Class_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LCD.
+        /// </summary>
+        internal static string Reg_Class_1 {
+            get {
+                return ResourceManager.GetString("Reg_Class_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ERS.
+        /// </summary>
+        internal static string Reg_Class_2 {
+            get {
+                return ResourceManager.GetString("Reg_Class_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FERS.
+        /// </summary>
+        internal static string Reg_Class_3 {
+            get {
+                return ResourceManager.GetString("Reg_Class_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ELEN.
+        /// </summary>
+        internal static string Reg_Class_4 {
+            get {
+                return ResourceManager.GetString("Reg_Class_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elektročas.
+        /// </summary>
+        internal static string Reg_Class_5 {
+            get {
+                return ResourceManager.GetString("Reg_Class_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to APEL.
+        /// </summary>
+        internal static string Reg_Class_10 {
+            get {
+                return ResourceManager.GetString("Reg_Class_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to vzdialený INISS.
+        /// </summary>
+        internal static string Reg_Class_128 {
+            get {
+                return ResourceManager.GetString("Reg_Class_128", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ELSVO (spínanie zosilňovačov).
+        /// </summary>
+        internal static string Reg_Class_129 {
+            get {
+                return ResourceManager.GetString("Reg_Class_129", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to obal ITP (sieťový prevodník KTP).
+        /// </summary>
+        internal static string Reg_Class_130 {
+            get {
+                return ResourceManager.GetString("Reg_Class_130", resourceCulture);
+            }
+        }
     }
 }

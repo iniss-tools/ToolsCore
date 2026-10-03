@@ -942,4 +942,34 @@
   <data name="Reg_IniInvalidNumber" xml:space="preserve">
     <value>Hodnota {0}={1} v souboru .INI není desítkové číslo – INISS z ní přečte {2}.</value>
   </data>
+  <data name="Reg_Class_0" xml:space="preserve">
+    <value>Adon/BUSE</value>
+  </data>
+  <data name="Reg_Class_1" xml:space="preserve">
+    <value>LCD</value>
+  </data>
+  <data name="Reg_Class_2" xml:space="preserve">
+    <value>ERS</value>
+  </data>
+  <data name="Reg_Class_3" xml:space="preserve">
+    <value>FERS</value>
+  </data>
+  <data name="Reg_Class_4" xml:space="preserve">
+    <value>ELEN</value>
+  </data>
+  <data name="Reg_Class_5" xml:space="preserve">
+    <value>Elektročas</value>
+  </data>
+  <data name="Reg_Class_10" xml:space="preserve">
+    <value>APEL</value>
+  </data>
+  <data name="Reg_Class_128" xml:space="preserve">
+    <value>vzdálený INISS</value>
+  </data>
+  <data name="Reg_Class_129" xml:space="preserve">
+    <value>ELSVO (spínání zesilovačů)</value>
+  </data>
+  <data name="Reg_Class_130" xml:space="preserve">
+    <value>obal ITP (síťový převodník KTP)</value>
+  </data>
 </root>
