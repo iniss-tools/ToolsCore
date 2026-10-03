@@ -301,23 +301,21 @@ RESX_HEAD = '''<?xml version="1.0" encoding="utf-8"?>
 
 
 def write_resx(path, entries, comments=None):
-    lines = [RESX_HEAD.rstrip('\n')]
+    lines = RESX_HEAD.rstrip('\n').split('\n')
     for key, value in entries.items():
         lines.append(f'  <data name="{key}" xml:space="preserve">')
-        lines.append(f'    <value>{escape(value)}</value>')
+        lines.append(f'    <value>{escape(value)}</value>'.replace('\n', '\r\n'))
         if comments and key in comments:
-            lines.append(f'    <comment>{escape(comments[key])}</comment>')
+            lines.append(f'    <comment>{escape(comments[key])}</comment>'.replace('\n', '\r\n'))
         lines.append('  </data>')
     lines.append('</root>')
-    path.write_bytes(('
-'.join(lines) + '
-').encode('utf-8'))
+    path.write_bytes(('\r\n'.join(lines) + '\r\n').encode('utf-8'))
 
 
 def read_resx(path):
     if not path.exists():
         return {}
-    text = path.read_text(encoding='utf-8')
+    text = path.read_bytes().decode('utf-8').replace('\r\n', '\n')
     out = {}
     for m in re.finditer(r'<data name="([^"]+)"[^>]*>\s*<value>(.*?)</value>(?:\s*<comment>(.*?)</comment>)?', text, re.S):
         from xml.sax.saxutils import unescape
@@ -334,9 +332,7 @@ def main():
 
     sections, unused, obsolete = parse(Path(args.docs))
     code, texts = build(sections, unused, obsolete)
-    (OUT_DIR / 'RegCatalog.g.cs').write_bytes(code.replace('
-', '
-').encode('utf-8'))
+    (OUT_DIR / 'RegCatalog.g.cs').write_bytes(code.replace('\n', '\r\n').encode('utf-8'))
     write_resx(OUT_DIR / 'RegTexts.resx', texts)
     print(f'{sum(len(s["keys"]) for s in sections)} hodnot v {len(sections)} sekciach, {len(texts)} textov')
 

@@ -11,1263 +11,1263 @@
   </resheader>
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="S_Client" xml:space="preserve">
-    <value>Přijímací strana rozhraní, přes které se k INISS připojují podřízené klientské aplikace.</value>
-    <comment>Prijímacia strana rozhrania, cez ktoré sa na INISS pripájajú podriadené klientske aplikácie.</comment>
-  </data>
-  <data name="K_Client_RecvPort" xml:space="preserve">
-    <value>Číslo portu pro klientská spojení.</value>
-    <comment>Číslo portu pre klientske spojenia.</comment>
-  </data>
-  <data name="C_Client_RecvPort_0" xml:space="preserve">
-    <value>rozhraní se vůbec neotevře</value>
-    <comment>rozhranie sa vôbec neotvorí</comment>
-  </data>
-  <data name="C_Client_RecvPort_1" xml:space="preserve">
-    <value>port, na kterém program naslouchá</value>
-    <comment>port, na ktorom program počúva</comment>
-  </data>
-  <data name="S_Colors" xml:space="preserve">
-    <value>Barevná paleta seznamů a stavových indikátorů – 42 hodnot typu COLORREF, všechny se zakládají samy. Výchozí hodnotou každé z nich je barva zabudovaná v programu.</value>
-    <comment>Farebná paleta zoznamov a stavových indikátorov – 42 hodnôt typu COLORREF, všetky sa zakladajú samy. Predvolená hodnota každej z nich je farba zabudovaná v programe.</comment>
-  </data>
-  <data name="K_Colors_G0" xml:space="preserve">
-    <value>Řádek osobního vlaku – text a podklad, zvlášť pro nevybraný a vybraný řádek.</value>
-    <comment>Riadok osobného vlaku – text a podklad, zvlášť pre nevybratý a vybratý riadok.</comment>
-  </data>
-  <data name="K_Colors_G1" xml:space="preserve">
-    <value>Řádek rychlíku a vyšších kategorií vlaků.</value>
-    <comment>Riadok rýchlika a vyšších kategórií vlakov.</comment>
-  </data>
-  <data name="K_Colors_G2" xml:space="preserve">
-    <value>Vlak, který již byl odbaven.</value>
-    <comment>Vlak, ktorý už bol odbavený.</comment>
-  </data>
-  <data name="K_Colors_G3" xml:space="preserve">
-    <value>Odbavený vlak, který již není v aktuálních datech.</value>
-    <comment>Odbavený vlak, ktorý už nie je v aktuálnych dátach.</comment>
-  </data>
-  <data name="K_Colors_G4" xml:space="preserve">
-    <value>Vlak mimo vlastní grafikon nebo cizího dopravce.</value>
-    <comment>Vlak mimo vlastného grafikonu alebo cudzieho dopravcu.</comment>
-  </data>
-  <data name="K_Colors_G5" xml:space="preserve">
-    <value>Buňka bez dat.</value>
-    <comment>Bunka bez dát.</comment>
-  </data>
-  <data name="K_Colors_G6" xml:space="preserve">
-    <value>Náhled „co je právě na tabulích“.</value>
-    <comment>Náhľad „čo je práve na tabuliach“.</comment>
-  </data>
-  <data name="K_Colors_G7" xml:space="preserve">
-    <value>Kolej potvrzená výpravčím.</value>
-    <comment>Koľaj potvrdená výpravcom.</comment>
-  </data>
-  <data name="K_Colors_G8" xml:space="preserve">
-    <value>Kolej z grafikonu, zatím nepotvrzená.</value>
-    <comment>Koľaj z grafikonu, zatiaľ nepotvrdená.</comment>
-  </data>
-  <data name="K_Colors_G9" xml:space="preserve">
-    <value>Kolej odlišná od grafikonu.</value>
-    <comment>Koľaj odlišná od grafikonu.</comment>
-  </data>
-  <data name="K_Colors_G10" xml:space="preserve">
-    <value>Stavy informačních tabulí v přehledu zařízení.</value>
-    <comment>Stavy informačných tabúľ v prehľade zariadení.</comment>
-  </data>
-  <data name="K_Colors_G11" xml:space="preserve">
-    <value>Indikace osvětlení tabulí.</value>
-    <comment>Indikácia osvetlenia tabúľ.</comment>
-  </data>
-  <data name="K_Colors_G12" xml:space="preserve">
-    <value>Rámeček kolem položky hlášení.</value>
-    <comment>Rámik okolo položky hlásenia.</comment>
-  </data>
-  <data name="K_Colors_G13" xml:space="preserve">
-    <value>Životní cyklus hlášení v poloautomatu, v pořadí od „nemá se hlásit“ po „bylo hlášeno“ a „chyba“.</value>
-    <comment>Životný cyklus hlásenia v poloautomate, v poradí od „nemá sa hlásiť“ po „bolo hlásené“ a „chyba“.</comment>
-  </data>
-  <data name="D_Colors" xml:space="preserve">
-    <value>barva zabudovaná v programu</value>
-    <comment>farba zabudovaná v programe</comment>
-  </data>
-  <data name="S_ColumnWidth" xml:space="preserve">
-    <value>Navzdory názvu zde nejsou jen šířky sloupců, ale celý uložený stav rozložení okna: pozice a velikost hlavního okna, sestava a šířky sloupců jednotlivých seznamů, pořadí řazení a stav stromových pohledů. Textové hodnoty mají vlastní formát – číslo a za ním seznam dvojic "Název sloupce",šířka. Program si je přepisuje sám při zavírání okna, takže ruční úprava přežije jen do nejbližšího ukončení. Sestavu sloupců mění obsluha v programu, pokud to povoluje Environment\ChangeColumns.</value>
-    <comment>Napriek názvu tu nie sú len šírky stĺpcov, ale celý uložený stav rozloženia okna: pozícia a veľkosť hlavného okna, zostava a šírky stĺpcov jednotlivých zoznamov, poradie triedenia a stav stromových pohľadov. Textové hodnoty majú vlastný formát – číslo a za ním zoznam dvojíc "Názov stĺpca",šírka. Program si ich prepisuje sám pri zatváraní okna, takže ručná úprava prežije len do najbližšieho ukončenia. Zostavu stĺpcov mení obsluha v programe, ak to povoľuje Environment\ChangeColumns.</comment>
-  </data>
-  <data name="K_ColumnWidth_Maximized" xml:space="preserve">
-    <value>Hlavní okno bylo naposledy maximalizované; při startu se obnoví.</value>
-    <comment>Hlavné okno bolo naposledy maximalizované; pri štarte sa obnoví.</comment>
-  </data>
-  <data name="K_ColumnWidth_MainWndOrg" xml:space="preserve">
-    <value>Levý horní roh hlavního okna jako „x,y“ v pixelech. Prázdné – okno umístí Windows.</value>
-    <comment>Ľavý horný roh hlavného okna ako „x,y“ v pixeloch. Prázdne – okno umiestni Windows.</comment>
-  </data>
-  <data name="K_ColumnWidth_MainWndSize" xml:space="preserve">
-    <value>Rozměr hlavního okna jako „šířka,výška“.</value>
-    <comment>Rozmer hlavného okna ako „šírka,výška“.</comment>
-  </data>
-  <data name="K_ColumnWidth_LBDepartureTable" xml:space="preserve">
-    <value>Sestava sloupců tabule odjezdů.</value>
-    <comment>Zostava stĺpcov tabuľky odchodov.</comment>
-  </data>
-  <data name="K_ColumnWidth_LBArrivalTable" xml:space="preserve">
-    <value>Sestava sloupců tabule příjezdů.</value>
-    <comment>Zostava stĺpcov tabuľky príchodov.</comment>
-  </data>
-  <data name="K_ColumnWidth_LBPlatformTable" xml:space="preserve">
-    <value>Sestava sloupců tabule nástupiště.</value>
-    <comment>Zostava stĺpcov tabuľky nástupišťa.</comment>
-  </data>
-  <data name="K_ColumnWidth_LBSubwayTable" xml:space="preserve">
-    <value>Sestava sloupců tabule podchodu.</value>
-    <comment>Zostava stĺpcov tabuľky podchodu.</comment>
-  </data>
-  <data name="K_ColumnWidth_LBTrainsIns" xml:space="preserve">
-    <value>Šířky sloupců seznamu vkládaných vlaků.</value>
-    <comment>Šírky stĺpcov zoznamu vkladaných vlakov.</comment>
-  </data>
-  <data name="K_ColumnWidth_LBTrainsInsSort" xml:space="preserve">
-    <value>Pořadí řazení téhož seznamu – indexy sloupců oddělené čárkami.</value>
-    <comment>Poradie triedenia toho istého zoznamu – indexy stĺpcov oddelené čiarkami.</comment>
-  </data>
-  <data name="K_ColumnWidth_LBReportsQueue" xml:space="preserve">
-    <value>Rozložení fronty hlášení.</value>
-    <comment>Rozloženie fronty hlásení.</comment>
-  </data>
-  <data name="K_ColumnWidth_LBEdFyzTabTab" xml:space="preserve">
-    <value>Editor fyzických tabulí – záložky.</value>
-    <comment>Editor fyzických tabúľ – záložky.</comment>
-  </data>
-  <data name="K_ColumnWidth_LBEdFyzTabData" xml:space="preserve">
-    <value>Editor fyzických tabulí – data.</value>
-    <comment>Editor fyzických tabúľ – dáta.</comment>
-  </data>
-  <data name="K_ColumnWidth_LBFyzTabStates" xml:space="preserve">
-    <value>Editor fyzických tabulí – stavy.</value>
-    <comment>Editor fyzických tabúľ – stavy.</comment>
-  </data>
-  <data name="K_ColumnWidth_PoloAutomatLB" xml:space="preserve">
-    <value>Uložená sestava sloupců poloautomatu včetně názvů, šířek a viditelnosti. Při poškození hodnoty se seznam nezobrazí – tehdy hodnotu smažte a program si ji vytvoří znovu.</value>
-    <comment>Uložená zostava stĺpcov poloautomatu vrátane názvov, šírok a viditeľnosti. Pri poškodení hodnoty sa zoznam nezobrazí – vtedy hodnotu zmažte a program si ju vytvorí nanovo.</comment>
-  </data>
-  <data name="K_ColumnWidth_PoloAutomatSort" xml:space="preserve">
-    <value>Index sloupce, podle kterého je poloautomat seřazen.</value>
-    <comment>Index stĺpca, podľa ktorého je poloautomat zotriedený.</comment>
-  </data>
-  <data name="K_ColumnWidth_PoloAutoCollapsed" xml:space="preserve">
-    <value>Poloautomat se otevře se sbalenými skupinami.</value>
-    <comment>Poloautomat sa otvorí so zbalenými skupinami.</comment>
-  </data>
-  <data name="K_ColumnWidth_PoloAutoAllStations" xml:space="preserve">
-    <value>Poloautomat zobrazuje všechny stanice trasy, nejen vlastní. Pozor:{" "} je-li Environment\Combo nastaveno na 0, tato hodnota se při startu násilně přepíše na 1 {" "} bez ohledu na to, co je v registru.</value>
-    <comment>Poloautomat zobrazuje všetky stanice trasy, nie len vlastnú. Pozor:{" "} ak je Environment\Combo nastavené na 0, táto hodnota sa pri štarte násilne prepíše na 1 {" "} bez ohľadu na to, čo je v registri.</comment>
-  </data>
-  <data name="K_ColumnWidth_ITGrouped" xml:space="preserve">
-    <value>Strom vlaků je seskupen podle nadřazených uzlů.</value>
-    <comment>Strom vlakov je zoskupený podľa nadradených uzlov.</comment>
-  </data>
-  <data name="K_ColumnWidth_ITCollapsed" xml:space="preserve">
-    <value>Strom vlaků se otevře sbalený.</value>
-    <comment>Strom vlakov sa otvorí zbalený.</comment>
-  </data>
-  <data name="S_Driver" xml:space="preserve">
-    <value>Ovladače informačních tabulí. Každá fyzická linka k tabulím má vlastní sekci; v jedné stanici jich bývá několik – například zvlášť linka pro nástupištní tabule a zvlášť pro halové. Sekce se hledají v pořadí Driver, poté Driver0 až Driver98, a pro indexy 0 až 9 navíc také dvouciferný tvar Driver00 až Driver09. Neexistující sekce se tiše přeskočí, takže číslování nemusí být souvislé.</value>
-    <comment>Ovládače informačných tabúľ. Každá fyzická linka k tabuliam má vlastnú sekciu; v jednej stanici ich býva niekoľko – napríklad zvlášť linka pre nástupištné tabule a zvlášť pre halové. Sekcie sa hľadajú v poradí Driver, potom Driver0 až Driver98, a pre indexy 0 až 9 navyše aj dvojciferný tvar Driver00 až Driver09. Neexistujúce sekcie sa ticho preskočia, takže číslovanie nemusí byť súvislé.</comment>
-  </data>
-  <data name="K_Driver_TableClass" xml:space="preserve">
-    <value>Typ protokolu a rodina tabulí, například 4 pro tabule ELEN. Určuje i výchozí hodnoty ostatních nastavení linky: vlastní předvolby mají třídy 2, 4, 10, 128, 129 a 130, třída 5 i všechny ostatní dostanou společné.</value>
-    <comment>Typ protokolu a rodina tabúľ, napríklad 4 pre tabule ELEN. Určuje aj predvolené hodnoty ostatných nastavení linky: vlastné predvoľby majú triedy 2, 4, 10, 128, 129 a 130, trieda 5 aj všetky ostatné dostanú spoločné.</comment>
-  </data>
-  <data name="K_Driver_TablePort" xml:space="preserve">
-    <value>Komunikační kanál k tabulím: sériový port (COM1, COM2…), pojmenovaná roura (\\PIPE\…), mailslot (\\MAILSLOT\…), TCP://host:port nebo UDP://host:port. Před síťový kanál se píše číslo komunikační linky, například 3=TCP://host:port – bez něj vyjde linka 0, což INISS ohlásí jako chybu.</value>
-    <comment>Komunikačný kanál k tabuliam: sériový port (COM1, COM2…), pomenovaná rúra (\\PIPE\…), mailslot (\\MAILSLOT\…), TCP://host:port alebo UDP://host:port. Pred sieťový kanál sa píše číslo komunikačnej linky, napríklad 3=TCP://host:port – bez neho vyjde linka 0, čo INISS ohlási ako chybu.</comment>
-  </data>
-  <data name="K_Driver_TablePortParam" xml:space="preserve">
-    <value>Parametry linky ve formátu rychlost,parita,datové bity,stop bity. Parita: n žádná, e sudá, o lichá.</value>
-    <comment>Parametre linky vo formáte rýchlosť,parita,dátové bity,stop bity. Parita: n žiadna, e párna, o nepárna.</comment>
-  </data>
-  <data name="D_Driver_TablePortParam" xml:space="preserve">
-    <value>podle třídy</value>
-    <comment>podľa triedy</comment>
-  </data>
-  <data name="K_Driver_TablePortAddr" xml:space="preserve">
-    <value>Vstupně-výstupní adresa portu.</value>
-    <comment>Vstupno-výstupná adresa portu.</comment>
-  </data>
-  <data name="C_Driver_TablePortAddr_0" xml:space="preserve">
-    <value>odvodit z čísla portu: COM1 → 0x3F8, COM2 → 0x2F8, COM3 → 0x3E8, COM4 → 0x2E8</value>
-    <comment>odvodiť z čísla portu: COM1 → 0x3F8, COM2 → 0x2F8, COM3 → 0x3E8, COM4 → 0x2E8</comment>
-  </data>
-  <data name="C_Driver_TablePortAddr_1" xml:space="preserve">
-    <value>použít tuto adresu – pro nestandardní karty</value>
-    <comment>použiť túto adresu – pre neštandardné karty</comment>
-  </data>
-  <data name="K_Driver_SetRTS" xml:space="preserve">
-    <value>Držet signál RTS během vysílání – přepínání směru na lince RS-485.</value>
-    <comment>Držať signál RTS počas vysielania – prepínanie smeru na linke RS-485.</comment>
-  </data>
-  <data name="D_Driver_SetRTS" xml:space="preserve">
-    <value>podle třídy</value>
-    <comment>podľa triedy</comment>
-  </data>
-  <data name="K_Driver_CTSFlow" xml:space="preserve">
-    <value>Hardwarové řízení toku přes signál CTS.</value>
-    <comment>Hardvérové riadenie toku cez signál CTS.</comment>
-  </data>
-  <data name="D_Driver_CTSFlow" xml:space="preserve">
-    <value>podle třídy</value>
-    <comment>podľa triedy</comment>
-  </data>
-  <data name="K_Driver_CheckModem" xml:space="preserve">
-    <value>Signály oddělené čárkami, které musí být aktivní, aby se linka považovala za živou – například DCD,DSR. Prázdné znamená nekontrolovat.</value>
-    <comment>Signály oddelené čiarkami, ktoré musia byť aktívne, aby sa linka považovala za živú – napríklad DCD,DSR. Prázdne znamená nekontrolovať.</comment>
-  </data>
-  <data name="D_Driver_CheckModem" xml:space="preserve">
-    <value>podle třídy</value>
-    <comment>podľa triedy</comment>
-  </data>
-  <data name="K_Driver_TableTimeoutInterval" xml:space="preserve">
-    <value>Timeout mezi jednotlivými znaky při čtení. 0 znamená bez limitu.</value>
-    <comment>Timeout medzi jednotlivými znakmi pri čítaní. 0 znamená bez limitu.</comment>
-  </data>
-  <data name="D_Driver_TableTimeoutInterval" xml:space="preserve">
-    <value>podle třídy</value>
-    <comment>podľa triedy</comment>
-  </data>
-  <data name="K_Driver_TableTimeoutConst" xml:space="preserve">
-    <value>Pevná složka timeoutu, přičte se k vypočtenému času přenosu.</value>
-    <comment>Pevná zložka timeoutu, pripočíta sa k vypočítanému času prenosu.</comment>
-  </data>
-  <data name="D_Driver_TableTimeoutConst" xml:space="preserve">
-    <value>podle třídy</value>
-    <comment>podľa triedy</comment>
-  </data>
-  <data name="K_Driver_TableMinWriteDelay" xml:space="preserve">
-    <value>Nejmenší pauza mezi dvěma zápisy na linku. Na sdílené lince RS-485 zabrání překrytí rámců.</value>
-    <comment>Najmenšia pauza medzi dvoma zápismi na linku. Na zdieľanej linke RS-485 zabráni prekrytiu rámcov.</comment>
-  </data>
-  <data name="D_Driver_TableMinWriteDelay" xml:space="preserve">
-    <value>podle třídy</value>
-    <comment>podľa triedy</comment>
-  </data>
-  <data name="K_Driver_ComputerAddr" xml:space="preserve">
-    <value>Adresa počítače na sběrnici – odesílatel v hlavičce rámce.</value>
-    <comment>Adresa počítača na zbernici – odosielateľ v hlavičke rámca.</comment>
-  </data>
-  <data name="D_Driver_ComputerAddr" xml:space="preserve">
-    <value>podle třídy</value>
-    <comment>podľa triedy</comment>
-  </data>
-  <data name="K_Driver_TableAlign" xml:space="preserve">
-    <value>Zarovnávat text podle definice pozice. Při 0 se text posílá bez úpravy.</value>
-    <comment>Zarovnávať text podľa definície pozície. Pri 0 sa text posiela bez úpravy.</comment>
-  </data>
-  <data name="K_Driver_CmdLightOn" xml:space="preserve">
-    <value>Hodnota, kterou INISS pošle v příkazu k osvětlení, když má tabuli rozsvítit. Používají ji jen tabule LCD, LCD1 a Adon/BUSE; tabule ELEN dostávají úroveň jasu ze sekce Tables.</value>
-    <comment>Hodnota, ktorú INISS pošle v príkaze na osvetlenie, keď má tabuľu rozsvietiť. Používajú ju len tabule LCD, LCD1 a Adon/BUSE; tabule ELEN dostávajú úroveň jasu zo sekcie Tables.</comment>
-  </data>
-  <data name="K_Driver_CmdLightOff" xml:space="preserve">
-    <value>Hodnota v příkazu k osvětlení, když má tabuli zhasnout.</value>
-    <comment>Hodnota v príkaze na osvetlenie, keď má tabuľu zhasnúť.</comment>
-  </data>
-  <data name="K_Driver_NumRetries" xml:space="preserve">
-    <value>Počet opakování jednoho přenosu před vyhlášením chyby.</value>
-    <comment>Počet opakovaní jedného prenosu pred vyhlásením chyby.</comment>
-  </data>
-  <data name="K_Driver_RemRepTimeout" xml:space="preserve">
-    <value>Timeout vzdáleného hlášení. Sám se založí jen při TableClass = 128; u ostatních tříd se hodnota načte, ale v registru nevznikne.</value>
-    <comment>Timeout vzdialeného hlásenia. Sám sa založí len pri TableClass = 128; pri ostatných triedach sa hodnota načíta, ale v registri nevznikne.</comment>
-  </data>
-  <data name="K_Driver_PollingInterval" xml:space="preserve">
-    <value>Jen listové tabule ERS a FERS: pauza před každým dotazem, zda se po zápisu dotočily listy.</value>
-    <comment>Len listové tabule ERS a FERS: pauza pred každou otázkou, či sa po zápise dotočili listy.</comment>
-  </data>
-  <data name="K_Driver_PollingTimeout" xml:space="preserve">
-    <value>Jen listové tabule ERS a FERS: nejdelší čekání na dotočení listů; poté INISS zápis vzdá a ohlásí chybu.</value>
-    <comment>Len listové tabule ERS a FERS: najdlhšie čakanie na dotočenie listov; potom INISS zápis vzdá a ohlási chybu.</comment>
-  </data>
-  <data name="K_Driver_ERSLineLen" xml:space="preserve">
-    <value>Počet pozic (modulů) v řádku listové tabule ERS, 1–128. Každý zápis řádku má přesně tolik znaků.</value>
-    <comment>Počet pozícií (modulov) v riadku listovej tabule ERS, 1–128. Každý zápis riadku má presne toľko znakov.</comment>
-  </data>
-  <data name="K_Driver_StateMask" xml:space="preserve">
-    <value>Maska určující, které stavové bity hlášené tabulí se vyhodnocují. 255 znamená všech osm. Vynulováním bitu se příslušný stav ignoruje – použije se u tabule, která hlásí falešnou poruchu.</value>
-    <comment>Maska určujúca, ktoré stavové bity hlásené tabuľou sa vyhodnocujú. 255 znamená všetkých osem. Vynulovaním bitu sa príslušný stav ignoruje – použije sa pri tabuli, ktorá hlási falošnú poruchu.</comment>
-  </data>
-  <data name="K_Driver_RTCAddrs" xml:space="preserve">
-    <value>Synchronizace času na linkách Elektročas (LCD, LCD1, ERP, FERS). Na linkách APEL je to seznam šestnáctkových adres tabulí, kterým INISS nastavuje čas. Tabule ELEN dostávají čas vlastním příkazem bez ohledu na tuto hodnotu.</value>
-    <comment>Synchronizácia času na linkách Elektročas (LCD, LCD1, ERP, FERS). Na linkách APEL je to zoznam šestnástkových adries tabúľ, ktorým INISS nastavuje čas. Tabule ELEN dostávajú čas vlastným príkazom bez ohľadu na túto hodnotu.</comment>
-  </data>
-  <data name="C_Driver_RTCAddrs_0" xml:space="preserve">
-    <value>čas se nesynchronizuje</value>
-    <comment>čas sa nesynchronizuje</comment>
-  </data>
-  <data name="C_Driver_RTCAddrs_1" xml:space="preserve">
-    <value>INISS hromadně posílá svůj čas na adresu RTCBroadcastAddr</value>
-    <comment>INISS hromadne posiela svoj čas na adresu RTCBroadcastAddr</comment>
-  </data>
-  <data name="C_Driver_RTCAddrs_2" xml:space="preserve">
-    <value>šestnáctkové adresy hodin na lince (oddělené mezerou, čárkou nebo tabulátorem), podle nichž INISS nastavuje čas počítače</value>
-    <comment>šestnástkové adresy hodín na linke (oddelené medzerou, čiarkou alebo tabulátorom), podľa ktorých INISS nastavuje čas počítača</comment>
-  </data>
-  <data name="K_Driver_RTCBroadcastAddr" xml:space="preserve">
-    <value>Adresa, na kterou INISS hromadně posílá čas při RTCAddrs = * a na kterou posílají odpověď hodiny ze seznamu RTCAddrs.</value>
-    <comment>Adresa, na ktorú INISS hromadne posiela čas pri RTCAddrs = * a na ktorú posielajú odpoveď hodiny zo zoznamu RTCAddrs.</comment>
-  </data>
-  <data name="D_Driver_RTCBroadcastAddr" xml:space="preserve">
-    <value>podle třídy</value>
-    <comment>podľa triedy</comment>
-  </data>
-  <data name="K_Driver_TabClockAddr" xml:space="preserve">
-    <value>Adresa hodinové tabule na lince. 0 znamená, že na lince žádná není.</value>
-    <comment>Adresa hodinovej tabule na linke. 0 znamená, že na linke žiadna nie je.</comment>
-  </data>
-  <data name="K_Driver_RtcLight" xml:space="preserve">
-    <value>Jen tabule APEL: jas, který INISS pošle tabuli po každém nastavení času.</value>
-    <comment>Len tabule APEL: jas, ktorý INISS pošle tabuli po každom nastavení času.</comment>
-  </data>
-  <data name="C_Driver_RtcLight_0" xml:space="preserve">
-    <value>jas po nastavení času neposílat</value>
-    <comment>jas po nastavení času neposielať</comment>
-  </data>
-  <data name="C_Driver_RtcLight_1" xml:space="preserve">
-    <value>tuto úroveň jasu poslat</value>
-    <comment>túto úroveň jasu poslať</comment>
-  </data>
-  <data name="K_Driver_SyncTimeInterval" xml:space="preserve">
-    <value>Jak často se do tabulí posílá čas. 0 znamená nesynchronizovat vůbec.</value>
-    <comment>Ako často sa do tabúľ posiela čas. 0 znamená nesynchronizovať vôbec.</comment>
-  </data>
-  <data name="D_Driver_SyncTimeInterval" xml:space="preserve">
-    <value>podle třídy</value>
-    <comment>podľa triedy</comment>
-  </data>
-  <data name="K_Driver_SyncSysTm" xml:space="preserve">
-    <value>Zda smí INISS podle odpovědi hodin ze seznamu RTCAddrs nastavit čas počítače.</value>
-    <comment>Či smie INISS podľa odpovede hodín zo zoznamu RTCAddrs nastaviť čas počítača.</comment>
-  </data>
-  <data name="C_Driver_SyncSysTm_0" xml:space="preserve">
-    <value>nastavit čas počítače podle hodin na lince</value>
-    <comment>nastaviť čas počítača podľa hodín na linke</comment>
-  </data>
-  <data name="C_Driver_SyncSysTm_1" xml:space="preserve">
-    <value>čas počítače neměnit</value>
-    <comment>čas počítača nemeniť</comment>
-  </data>
-  <data name="K_Driver_WriteMethod" xml:space="preserve">
-    <value>Varianta zápisu na tabuli v rámci protokolu. 0 je standardní způsob dané třídy; nenulové hodnoty vybírají alternativní sekvence pro starší firmwary.</value>
-    <comment>Variant zápisu na tabuľu v rámci protokolu. 0 je štandardný spôsob danej triedy; nenulové hodnoty vyberajú alternatívne sekvencie pre staršie firmvéry.</comment>
-  </data>
-  <data name="S_Environment" xml:space="preserve">
-    <value>Pracovní prostředí obsluhy – která menu, tlačítka a sloupce jsou dostupné a v jakém režimu program pracuje. Většina hodnot se vyhodnocuje jednou při startu, takže změna se projeví až po restartu programu.</value>
-    <comment>Pracovné prostredie obsluhy – ktoré menu, tlačidlá a stĺpce sú dostupné a v akom režime program pracuje. Väčšina hodnôt sa vyhodnocuje raz pri štarte, takže zmena sa prejaví až po reštarte programu.</comment>
-  </data>
-  <data name="K_Environment_PyramidaMenu" xml:space="preserve">
-    <value>Přidá do hlavního menu nabídku Nastavení a v ní kromě Písmo… také položky Parametry… a Věty…. Spolu s MenuSpravce vybírá, která ze tří variant hlavního menu se načte. Vedlejší účinek: při 1 se neuplatní doplňkové logování řízené hodnotou Logging.</value>
-    <comment>Pridá do hlavného menu ponuku Nastavenia a v nej okrem Písmo… aj položky Parametre… a Vety…. Spolu s MenuSpravce vyberá, ktorý z troch variantov hlavného menu sa načíta. Vedľajší účinok: pri 1 sa neuplatní doplnkové logovanie riadené hodnotou Logging.</comment>
-  </data>
-  <data name="K_Environment_MenuVyluka" xml:space="preserve">
-    <value>Zpřístupní menu Výluky.</value>
-    <comment>Sprístupní menu Výluky.</comment>
-  </data>
-  <data name="K_Environment_MenuOdklon" xml:space="preserve">
-    <value>Zpřístupní menu Odklon.</value>
-    <comment>Sprístupní menu Odklon.</comment>
-  </data>
-  <data name="K_Environment_MenuSpravce" xml:space="preserve">
-    <value>Přidá do hlavního menu nabídku Nastavení s jedinou položkou Písmo…. Bez ní se hlavní lišta končí nabídkou Modifikace a Šepkář. Je-li zapnuto také PyramidaMenu, hodnota tohoto klíče se ignoruje.</value>
-    <comment>Pridá do hlavného menu ponuku Nastavenia s jedinou položkou Písmo…. Bez nej sa hlavná lišta končí ponukou Modifikácie a Šepkár. Ak je zapnuté aj PyramidaMenu, hodnota tohto kľúča sa ignoruje.</comment>
-  </data>
-  <data name="K_Environment_TableEdit" xml:space="preserve">
-    <value>Povolí ruční editaci obsahu tabulí, tedy přímé přepsání textu na tabuli mimo hlášení.</value>
-    <comment>Povolí ručnú editáciu obsahu tabúľ, teda priame prepísanie textu na tabuli mimo hlásenia.</comment>
-  </data>
-  <data name="K_Environment_ChangeColumns" xml:space="preserve">
-    <value>Do jaké míry smí obsluha měnit sestavu sloupců.</value>
-    <comment>Do akej miery smie obsluha meniť zostavu stĺpcov.</comment>
-  </data>
-  <data name="C_Environment_ChangeColumns_0" xml:space="preserve">
-    <value>sestava sloupců je zamčená</value>
-    <comment>zostava stĺpcov je zamknutá</comment>
-  </data>
-  <data name="C_Environment_ChangeColumns_1" xml:space="preserve">
-    <value>obsluha smí měnit šířky a pořadí sloupců</value>
-    <comment>obsluha smie meniť šírky a poradie stĺpcov</comment>
-  </data>
-  <data name="C_Environment_ChangeColumns_2" xml:space="preserve">
-    <value>navíc se zpřístupní přidávání a odebírání sloupců</value>
-    <comment>navyše sa sprístupní pridávanie a odoberanie stĺpcov</comment>
-  </data>
-  <data name="K_Environment_Combo" xml:space="preserve">
-    <value>Zapíná režim společného seznamu příjezdů a odjezdů namísto dvou oddělených. Má vedlejší účinek:{" "} při 0 se ColumnWidth\PoloAutoAllStations při startu násilně přepíše na 1, takže poloautomat vždy ukazuje všechny stanice. Hodnota se nezakládá sama – bez ručního vytvoření je režim vypnutý.</value>
-    <comment>Zapína režim spoločného zoznamu príchodov a odchodov namiesto dvoch oddelených. Má vedľajší účinok:{" "} pri 0 sa ColumnWidth\PoloAutoAllStations pri štarte násilne prepíše na 1, takže poloautomat vždy ukazuje všetky stanice. Hodnota sa nezakladá sama – bez ručného vytvorenia je režim vypnutý.</comment>
-  </data>
-  <data name="K_Environment_ExtendedComboUI" xml:space="preserve">
-    <value>Rozšířené ovládání společného seznamu – více sloupců a filtrů. Má smysl jen při zapnutém Combo.</value>
-    <comment>Rozšírené ovládanie spoločného zoznamu – viac stĺpcov a filtrov. Má zmysel len pri zapnutom Combo.</comment>
-  </data>
-  <data name="K_Environment_Mikrofon" xml:space="preserve">
-    <value>Zobrazí tlačítko mikrofonu pro živé hlášení do rozhlasu.</value>
-    <comment>Zobrazí tlačidlo mikrofónu pre živé hlásenie do rozhlasu.</comment>
-  </data>
-  <data name="K_Environment_ReportBtn" xml:space="preserve">
-    <value>Zobrazí tlačítko ručního spuštění hlášení.</value>
-    <comment>Zobrazí tlačidlo ručného spustenia hlásenia.</comment>
-  </data>
-  <data name="K_Environment_AutoBtn" xml:space="preserve">
-    <value>Tlačítko automatického režimu.</value>
-    <comment>Tlačidlo automatického režimu.</comment>
-  </data>
-  <data name="C_Environment_AutoBtn_0" xml:space="preserve">
-    <value>tlačítko se nezobrazí</value>
-    <comment>tlačidlo sa nezobrazí</comment>
-  </data>
-  <data name="C_Environment_AutoBtn_1" xml:space="preserve">
-    <value>tlačítko se zobrazí</value>
-    <comment>tlačidlo sa zobrazí</comment>
-  </data>
-  <data name="C_Environment_AutoBtn_2" xml:space="preserve">
-    <value>zobrazí se a zapne se jeho rozšířený režim</value>
-    <comment>zobrazí sa a zapne sa jeho rozšírený režim</comment>
-  </data>
-  <data name="K_Environment_RollLockCnt" xml:space="preserve">
-    <value>Pojistka proti hromadné akci nad příliš velkým počtem položek.</value>
-    <comment>Poistka proti hromadnej akcii nad príliš veľkým počtom položiek.</comment>
-  </data>
-  <data name="C_Environment_RollLockCnt_0" xml:space="preserve">
-    <value>pojistka je vypnutá</value>
-    <comment>poistka je vypnutá</comment>
-  </data>
-  <data name="C_Environment_RollLockCnt_1" xml:space="preserve">
-    <value>když počet najednou zpracovaných položek překročí N, akce se zablokuje</value>
-    <comment>keď počet naraz spracovaných položiek prekročí N, akcia sa zablokuje</comment>
-  </data>
-  <data name="K_Environment_RozlisujZpozdeni" xml:space="preserve">
-    <value>Zpoždění se vede jako samostatný údaj a zobrazuje se ve vlastním sloupci. Při 0 se započítává přímo do času.</value>
-    <comment>Meškanie sa vedie ako samostatný údaj a zobrazuje sa vo vlastnom stĺpci. Pri 0 sa započítava priamo do času.</comment>
-  </data>
-  <data name="K_Environment_HlasitZpozdeni" xml:space="preserve">
-    <value>Zpoždění se vysloví ve zvukovém hlášení.</value>
-    <comment>Meškanie sa vysloví v zvukovom hlásení.</comment>
-  </data>
-  <data name="K_Environment_HlasitKolej" xml:space="preserve">
-    <value>Přepínač „hlásit kolej“ z dialogu nastavení. Program hodnotu zapíše, ale nikde ji nečte – na chování nemá vliv.</value>
-    <comment>Prepínač „hlásiť koľaj“ z dialógu nastavení. Program hodnotu zapíše, ale nikde ju nečíta – na správanie nemá vplyv.</comment>
-  </data>
-  <data name="K_Environment_CollapseTreeColumn" xml:space="preserve">
-    <value>Index sloupce, po kterém se strom vlaků automaticky sbalí. Platný rozsah je 0 až 24; hodnota mimo rozsah se ignoruje a sbalování se neprovede.</value>
-    <comment>Index stĺpca, po ktorom sa strom vlakov automaticky zbalí. Platný rozsah je 0 až 24; hodnota mimo rozsahu sa ignoruje a zbaľovanie sa nevykoná.</comment>
-  </data>
-  <data name="K_Environment_VylukyHromadne" xml:space="preserve">
-    <value>Výluky se zadávají hromadně pro skupinu vlaků namísto po jednom.</value>
-    <comment>Výluky sa zadávajú hromadne pre skupinu vlakov namiesto po jednom.</comment>
-  </data>
-  <data name="K_Environment_ReportStatus" xml:space="preserve">
-    <value>Zobrazí stavový řádek hlášení. Ve starších instalacích se vyskytuje hodnota 2, ale program hodnotu redukuje na „nula / nenula“ – 1 i 2 dělají totéž.</value>
-    <comment>Zobrazí stavový riadok hlásení. V starších inštaláciách sa vyskytuje hodnota 2, ale program hodnotu redukuje na „nula / nenula“ – 1 aj 2 robia to isté.</comment>
-  </data>
-  <data name="K_Environment_TableStatus" xml:space="preserve">
-    <value>Maximální počet řádků se stavy tabulí zobrazovaných ve stavovém panelu tabulí.</value>
-    <comment>Maximálny počet riadkov so stavmi tabúľ zobrazujúce sa v stavovom paneli tabúľ.</comment>
-  </data>
-  <data name="C_Environment_TableStatus_0" xml:space="preserve">
-    <value>stavový panel se nezobrazí</value>
-    <comment>stavový panel sa nezobrazí</comment>
-  </data>
-  <data name="C_Environment_TableStatus_1" xml:space="preserve">
-    <value>tolik řádků panel dostane</value>
-    <comment>toľko riadkov panel dostane</comment>
-  </data>
-  <data name="C_Environment_TableStatus_2" xml:space="preserve">
-    <value>ořízne se na 10</value>
-    <comment>oreže sa na 10</comment>
-  </data>
-  <data name="K_Environment_Logging" xml:space="preserve">
-    <value>Režim evidence obsluhy: dává smysl dialogu Systém → Přihlášení… Dokud není nikdo přihlášen, jsou neaktivní tlačítka hlášení a položky menu, kterými lze něco odhlásit nebo změnit – Výběr hlášení… (F12), Doplňkové…, Přípoje… (F6), Nejbližší přípoj, Přestup (F8), Urychlený přestup, Odstranit vlak (Del), Přiřadit dodatky…, Dodatky… (F7), Upravit vlak… (Ctrl+E), Výluky…, Odklon… a Automatika… (Alt+Enter). Po přihlášení se jméno objeví v titulku okna a zapíše se do INISS.LOG (Přihlášení uživatele …) a při zapnutém Loging\ReportLogOn také do logu hlášení jako událost přihlášení / odhlášení. Jméno se nikde neověřuje – je to libovolný text – a nikam se neukládá, po restartu program nikoho přihlášeného nemá. Při 0 zůstává z dialogu jen jméno v titulku a záznam v logu. Uplatní se jen při vypnutém PyramidaMenu.</value>
-    <comment>Režim evidencie obsluhy: dáva zmysel dialógu Systém → Prihlásenie… Kým nie je nikto prihlásený, sú neaktívne tlačidlá hlásení a položky menu, ktorými sa dá niečo odhlásiť alebo zmeniť – Výber hlásení… (F12), Doplnkové…, Prípoje… (F6), Najbližší prípoj, Prestup (F8), Urýchlený prestup, Odstrániť vlak (Del), Priradiť dodatky…, Dodatky… (F7), Upraviť vlak… (Ctrl+E), Výluky…, Odklon… a Automatika… (Alt+Enter). Po prihlásení sa meno objaví v titulku okna a zapíše sa do INISS.LOG (Prihlásenie užívateľa …) a pri zapnutom Loging\ReportLogOn aj do logu hlásení ako udalosť prihlásenie / odhlásenie. Meno sa nikde neoveruje – je to ľubovoľný text – a nikam sa neukladá, po reštarte program nikoho prihláseného nemá. Pri 0 ostáva z dialógu len meno v titulku a záznam v logu. Uplatní sa len pri vypnutom PyramidaMenu.</comment>
-  </data>
-  <data name="K_Environment_UserDodatkyEnabled" xml:space="preserve">
-    <value>Obsluha smí k hlášení přidat vlastní dodatek mimo připravené vzory.</value>
-    <comment>Obsluha smie k hláseniu pridať vlastný dodatok mimo pripravených vzorov.</comment>
-  </data>
-  <data name="K_Environment_OnExitClearTables" xml:space="preserve">
-    <value>Při ukončení programu se obsah tabulí smaže. Při 0 na tabulích zůstane poslední text i po vypnutí INISS.</value>
-    <comment>Pri ukončení programu sa obsah tabúľ zmaže. Pri 0 na tabuliach ostane posledný text aj po vypnutí INISS.</comment>
-  </data>
-  <data name="K_Environment_OutToTableDriver" xml:space="preserve">
-    <value>Výstup se skutečně posílá do ovladače tabulí. Při 0 běží program v simulaci – zobrazuje, co by poslal, ale na linku nic nejde.</value>
-    <comment>Výstup sa skutočne posiela do ovládača tabúľ. Pri 0 beží program v simulácii – zobrazuje, čo by poslal, ale na linku nič nejde.</comment>
-  </data>
-  <data name="K_Environment_NahradniPrepravaTxt" xml:space="preserve">
-    <value>Text, kterým se na tabulích označí náhradní doprava. Prázdné znamená neoznačovat.</value>
-    <comment>Text, ktorým sa na tabuliach označí náhradná preprava. Prázdne znamená neoznačovať.</comment>
-  </data>
-  <data name="K_Environment_NahradniPrepravaFnt" xml:space="preserve">
-    <value>Kód písma pro tento text. -1 znamená použít výchozí písmo pozice.</value>
-    <comment>Kód písma pre tento text. -1 znamená použiť predvolené písmo pozície.</comment>
-  </data>
-  <data name="K_Environment_OdklonTxt" xml:space="preserve">
-    <value>Text pro označení odklonu.</value>
-    <comment>Text pre označenie odklonu.</comment>
-  </data>
-  <data name="K_Environment_OdklonFnt" xml:space="preserve">
-    <value>Kód písma pro text odklonu. -1 znamená výchozí.</value>
-    <comment>Kód písma pre text odklonu. -1 znamená predvolené.</comment>
-  </data>
-  <data name="K_Environment_State" xml:space="preserve">
-    <value>Uložený stav hlavního okna – pozice, rozměry, rozdělení panelů a zvolené záložky. Zapisuje se při ukončení, čte při startu. Smazání hodnoty vrátí okno do výchozího rozložení.</value>
-    <comment>Uložený stav hlavného okna – pozícia, rozmery, rozdelenie panelov a zvolené záložky. Zapisuje sa pri ukončení, číta pri štarte. Zmazanie hodnoty vráti okno do východiskového rozloženia.</comment>
-  </data>
-  <data name="S_Font" xml:space="preserve">
-    <value>Písmo seznamů v hlavním okně. Nastavuje se dialogem výběru písma, který hodnoty přepíše. Tyto hodnoty lze měnit i přímo v programu přes menu Nastavení → Písmo…. Změna se projeví až po restartu programu.</value>
-    <comment>Písmo zoznamov v hlavnom okne. Nastavuje sa dialógom výberu písma, ktorý hodnoty prepíše. Tieto hodnoty je možné meniť aj priamo v programe cez menu Nastavenia → Písmo…. Zmena sa prejaví až po reštarte programu.</comment>
-  </data>
-  <data name="K_Font_font_face" xml:space="preserve">
-    <value>Název rodiny písma, například MS Sans Serif. Prázdné znamená systémové písmo.</value>
-    <comment>Názov rodiny písma, napríklad MS Sans Serif. Prázdne znamená systémové písmo.</comment>
-  </data>
-  <data name="K_Font_font_size" xml:space="preserve">
-    <value>Velikost písma.</value>
-    <comment>Veľkosť písma.</comment>
-  </data>
-  <data name="C_Font_font_size_0" xml:space="preserve">
-    <value>výchozí velikost</value>
-    <comment>predvolená veľkosť</comment>
-  </data>
-  <data name="C_Font_font_size_1" xml:space="preserve">
-    <value>výška samotného znaku, například −18</value>
-    <comment>výška samotného znaku, napríklad −18</comment>
-  </data>
-  <data name="C_Font_font_size_2" xml:space="preserve">
-    <value>celková výška řádku včetně akcentů</value>
-    <comment>celková výška riadku vrátane akcentov</comment>
-  </data>
-  <data name="K_Font_font_char_set" xml:space="preserve">
-    <value>Znaková sada písma.</value>
-    <comment>Znaková sada písma.</comment>
-  </data>
-  <data name="C_Font_font_char_set_0" xml:space="preserve">
-    <value>výchozí znaková sada</value>
-    <comment>predvolená znaková sada</comment>
-  </data>
-  <data name="C_Font_font_char_set_1" xml:space="preserve">
-    <value>středoevropská – potřebná pro diakritiku u některých písem</value>
-    <comment>stredoeurópska – potrebná pre diakritiku pri niektorých písmach</comment>
-  </data>
-  <data name="C_Font_font_char_set_2" xml:space="preserve">
-    <value>ANSI</value>
-    <comment>ANSI</comment>
-  </data>
-  <data name="K_Font_font_weight" xml:space="preserve">
-    <value>Tloušťka písma.</value>
-    <comment>Hrúbka písma.</comment>
-  </data>
-  <data name="C_Font_font_weight_0" xml:space="preserve">
-    <value>výchozí tloušťka</value>
-    <comment>predvolená hrúbka</comment>
-  </data>
-  <data name="C_Font_font_weight_1" xml:space="preserve">
-    <value>normální</value>
-    <comment>normálne</comment>
-  </data>
-  <data name="C_Font_font_weight_2" xml:space="preserve">
-    <value>tučné</value>
-    <comment>tučné</comment>
-  </data>
-  <data name="K_Font_font_italic" xml:space="preserve">
-    <value>Kurzíva.</value>
-    <comment>Kurzíva.</comment>
-  </data>
-  <data name="S_Grafikon" xml:space="preserve">
-    <value>Pravidla práce s grafikonem vlakové dopravy: jaké odchylky od plánu program toleruje, jak dlouho drží staré záznamy a jak daleko dopředu ukazuje nastávající události. Ovlivňuje to, co se objeví v poloautomatu a kdy z něj záznamy zmizí.</value>
-    <comment>Pravidlá práce s grafikonom vlakovej dopravy: aké odchýlky od plánu program toleruje, ako dlho drží staré záznamy a ako ďaleko dopredu ukazuje nastávajúce udalosti. Ovplyvňuje to, čo sa objaví v poloautomate a kedy z neho záznamy zmiznú.</comment>
-  </data>
-  <data name="K_Grafikon_ShuntDelay" xml:space="preserve">
-    <value>Tolerance posunu v minutách – o kolik se smí skutečný posun lišit od plánu, aby se ještě spároval se stejným záznamem.</value>
-    <comment>Tolerancia posunu v minútach – o koľko sa smie skutočný posun líšiť od plánu, aby sa ešte spároval s tým istým záznamom.</comment>
-  </data>
-  <data name="K_Grafikon_TakeoffDelay" xml:space="preserve">
-    <value>Tolerance odjezdu v minutách, obdobně pro odjezd vlaku.</value>
-    <comment>Tolerancia odchodu v minútach, obdobne pre odchod vlaku.</comment>
-  </data>
-  <data name="K_Grafikon_ForceDeleteTime" xml:space="preserve">
-    <value>Po kolika hodinách se záznam vynuceně smaže, i když nebyl řádně uzavřen. Hodnota 0 znamená okamžité mazání – nepoužívat.</value>
-    <comment>Po koľkých hodinách sa záznam vynútene zmaže, aj keď nebol riadne uzavretý. Hodnota 0 znamená okamžité mazanie – nepoužívať.</comment>
-  </data>
-  <data name="K_Grafikon_EventPreviewTime" xml:space="preserve">
-    <value>Jak dlouho před plánovaným časem se událost zobrazí ve stavu „brzy nastane“.</value>
-    <comment>Ako dlho pred plánovaným časom sa udalosť zobrazí v stave „skoro nastane“.</comment>
-  </data>
-  <data name="K_Grafikon_RemoveOldTrains" xml:space="preserve">
-    <value>Vlaky, jejichž čas již uplynul, se automaticky odstraní ze seznamu.</value>
-    <comment>Vlaky, ktorých čas už uplynul, sa automaticky odstránia zo zoznamu.</comment>
-  </data>
-  <data name="K_Grafikon_RemoveOldEvents" xml:space="preserve">
-    <value>Totéž pro jednotlivé události.</value>
-    <comment>To isté pre jednotlivé udalosti.</comment>
-  </data>
-  <data name="K_Grafikon_RemovePrevEvents" xml:space="preserve">
-    <value>Při přechodu vlaku do dalšího stavu se jeho předchozí události odstraní, aby seznam neobsahoval historii.</value>
-    <comment>Pri prechode vlaku do ďalšieho stavu sa jeho predchádzajúce udalosti odstránia, aby zoznam neobsahoval históriu.</comment>
-  </data>
-  <data name="K_Grafikon_MinStay" xml:space="preserve">
-    <value>Nejkratší pobyt vlaku ve stanici v minutách. Kratší pobyt se zpracuje jako průjezd bez zastavení.</value>
-    <comment>Najkratší pobyt vlaku v stanici v minútach. Kratší pobyt sa spracuje ako prechod bez zastavenia.</comment>
-  </data>
-  <data name="S_GTN" xml:space="preserve">
-    <value>Rozhraní na nadřazený technologický systém GTN, který INISS dodává skutečné polohy a koleje vlaků. Pokud je vypnuto, INISS pracuje jen s grafikonem a s ručním zadáním.</value>
-    <comment>Rozhranie na nadradený technologický systém GTN, ktorý INISS dodáva skutočné polohy a koľaje vlakov. Ak je vypnuté, INISS pracuje len s grafikonom a s ručným zadaním.</comment>
-  </data>
-  <data name="K_GTN_RecvPort" xml:space="preserve">
-    <value>Port pro příjem zpráv z GTN.</value>
-    <comment>Port pre príjem správ z GTN.</comment>
-  </data>
-  <data name="C_GTN_RecvPort_0" xml:space="preserve">
-    <value>rozhraní se neotevře, zprávy z GTN se nepřijímají</value>
-    <comment>rozhranie sa neotvorí, správy z GTN sa neprijímajú</comment>
-  </data>
-  <data name="C_GTN_RecvPort_1" xml:space="preserve">
-    <value>port, na kterém program naslouchá</value>
-    <comment>port, na ktorom program počúva</comment>
-  </data>
-  <data name="K_GTN_IgnoreTracks" xml:space="preserve">
-    <value>Zahodí informaci o koleji přicházející z GTN a použije kolej z grafikonu. Používá se tam, kde GTN posílá koleje v jiném číslování než to, které je na tabulích.</value>
-    <comment>Zahodí informáciu o koľaji prichádzajúcu z GTN a použije koľaj z grafikonu. Používa sa tam, kde GTN posiela koľaje v inom číslovaní než to, ktoré je na tabuliach.</comment>
-  </data>
-  <data name="S_Implementation" xml:space="preserve">
-    <value>Vlastnosti konkrétního nasazení – to, čím se jedna stanice liší od druhé a co se nastavuje jednou při instalaci.</value>
-    <comment>Vlastnosti konkrétneho nasadenia – to, čím sa jedna stanica líši od druhej a čo sa nastavuje raz pri inštalácii.</comment>
-  </data>
-  <data name="K_Implementation_ShutdownTime" xml:space="preserve">
+  </resheader>
+  <data name="S_Client" xml:space="preserve">
+    <value>Přijímací strana rozhraní, přes které se k INISS připojují podřízené klientské aplikace.</value>
+    <comment>Prijímacia strana rozhrania, cez ktoré sa na INISS pripájajú podriadené klientske aplikácie.</comment>
+  </data>
+  <data name="K_Client_RecvPort" xml:space="preserve">
+    <value>Číslo portu pro klientská spojení.</value>
+    <comment>Číslo portu pre klientske spojenia.</comment>
+  </data>
+  <data name="C_Client_RecvPort_0" xml:space="preserve">
+    <value>rozhraní se vůbec neotevře</value>
+    <comment>rozhranie sa vôbec neotvorí</comment>
+  </data>
+  <data name="C_Client_RecvPort_1" xml:space="preserve">
+    <value>port, na kterém program naslouchá</value>
+    <comment>port, na ktorom program počúva</comment>
+  </data>
+  <data name="S_Colors" xml:space="preserve">
+    <value>Barevná paleta seznamů a stavových indikátorů – 42 hodnot typu COLORREF, všechny se zakládají samy. Výchozí hodnotou každé z nich je barva zabudovaná v programu.</value>
+    <comment>Farebná paleta zoznamov a stavových indikátorov – 42 hodnôt typu COLORREF, všetky sa zakladajú samy. Predvolená hodnota každej z nich je farba zabudovaná v programe.</comment>
+  </data>
+  <data name="K_Colors_G0" xml:space="preserve">
+    <value>Řádek osobního vlaku – text a podklad, zvlášť pro nevybraný a vybraný řádek.</value>
+    <comment>Riadok osobného vlaku – text a podklad, zvlášť pre nevybratý a vybratý riadok.</comment>
+  </data>
+  <data name="K_Colors_G1" xml:space="preserve">
+    <value>Řádek rychlíku a vyšších kategorií vlaků.</value>
+    <comment>Riadok rýchlika a vyšších kategórií vlakov.</comment>
+  </data>
+  <data name="K_Colors_G2" xml:space="preserve">
+    <value>Vlak, který již byl odbaven.</value>
+    <comment>Vlak, ktorý už bol odbavený.</comment>
+  </data>
+  <data name="K_Colors_G3" xml:space="preserve">
+    <value>Odbavený vlak, který již není v aktuálních datech.</value>
+    <comment>Odbavený vlak, ktorý už nie je v aktuálnych dátach.</comment>
+  </data>
+  <data name="K_Colors_G4" xml:space="preserve">
+    <value>Vlak mimo vlastní grafikon nebo cizího dopravce.</value>
+    <comment>Vlak mimo vlastného grafikonu alebo cudzieho dopravcu.</comment>
+  </data>
+  <data name="K_Colors_G5" xml:space="preserve">
+    <value>Buňka bez dat.</value>
+    <comment>Bunka bez dát.</comment>
+  </data>
+  <data name="K_Colors_G6" xml:space="preserve">
+    <value>Náhled „co je právě na tabulích“.</value>
+    <comment>Náhľad „čo je práve na tabuliach“.</comment>
+  </data>
+  <data name="K_Colors_G7" xml:space="preserve">
+    <value>Kolej potvrzená výpravčím.</value>
+    <comment>Koľaj potvrdená výpravcom.</comment>
+  </data>
+  <data name="K_Colors_G8" xml:space="preserve">
+    <value>Kolej z grafikonu, zatím nepotvrzená.</value>
+    <comment>Koľaj z grafikonu, zatiaľ nepotvrdená.</comment>
+  </data>
+  <data name="K_Colors_G9" xml:space="preserve">
+    <value>Kolej odlišná od grafikonu.</value>
+    <comment>Koľaj odlišná od grafikonu.</comment>
+  </data>
+  <data name="K_Colors_G10" xml:space="preserve">
+    <value>Stavy informačních tabulí v přehledu zařízení.</value>
+    <comment>Stavy informačných tabúľ v prehľade zariadení.</comment>
+  </data>
+  <data name="K_Colors_G11" xml:space="preserve">
+    <value>Indikace osvětlení tabulí.</value>
+    <comment>Indikácia osvetlenia tabúľ.</comment>
+  </data>
+  <data name="K_Colors_G12" xml:space="preserve">
+    <value>Rámeček kolem položky hlášení.</value>
+    <comment>Rámik okolo položky hlásenia.</comment>
+  </data>
+  <data name="K_Colors_G13" xml:space="preserve">
+    <value>Životní cyklus hlášení v poloautomatu, v pořadí od „nemá se hlásit“ po „bylo hlášeno“ a „chyba“.</value>
+    <comment>Životný cyklus hlásenia v poloautomate, v poradí od „nemá sa hlásiť“ po „bolo hlásené“ a „chyba“.</comment>
+  </data>
+  <data name="D_Colors" xml:space="preserve">
+    <value>barva zabudovaná v programu</value>
+    <comment>farba zabudovaná v programe</comment>
+  </data>
+  <data name="S_ColumnWidth" xml:space="preserve">
+    <value>Navzdory názvu zde nejsou jen šířky sloupců, ale celý uložený stav rozložení okna: pozice a velikost hlavního okna, sestava a šířky sloupců jednotlivých seznamů, pořadí řazení a stav stromových pohledů. Textové hodnoty mají vlastní formát – číslo a za ním seznam dvojic "Název sloupce",šířka. Program si je přepisuje sám při zavírání okna, takže ruční úprava přežije jen do nejbližšího ukončení. Sestavu sloupců mění obsluha v programu, pokud to povoluje Environment\ChangeColumns.</value>
+    <comment>Napriek názvu tu nie sú len šírky stĺpcov, ale celý uložený stav rozloženia okna: pozícia a veľkosť hlavného okna, zostava a šírky stĺpcov jednotlivých zoznamov, poradie triedenia a stav stromových pohľadov. Textové hodnoty majú vlastný formát – číslo a za ním zoznam dvojíc "Názov stĺpca",šírka. Program si ich prepisuje sám pri zatváraní okna, takže ručná úprava prežije len do najbližšieho ukončenia. Zostavu stĺpcov mení obsluha v programe, ak to povoľuje Environment\ChangeColumns.</comment>
+  </data>
+  <data name="K_ColumnWidth_Maximized" xml:space="preserve">
+    <value>Hlavní okno bylo naposledy maximalizované; při startu se obnoví.</value>
+    <comment>Hlavné okno bolo naposledy maximalizované; pri štarte sa obnoví.</comment>
+  </data>
+  <data name="K_ColumnWidth_MainWndOrg" xml:space="preserve">
+    <value>Levý horní roh hlavního okna jako „x,y“ v pixelech. Prázdné – okno umístí Windows.</value>
+    <comment>Ľavý horný roh hlavného okna ako „x,y“ v pixeloch. Prázdne – okno umiestni Windows.</comment>
+  </data>
+  <data name="K_ColumnWidth_MainWndSize" xml:space="preserve">
+    <value>Rozměr hlavního okna jako „šířka,výška“.</value>
+    <comment>Rozmer hlavného okna ako „šírka,výška“.</comment>
+  </data>
+  <data name="K_ColumnWidth_LBDepartureTable" xml:space="preserve">
+    <value>Sestava sloupců tabule odjezdů.</value>
+    <comment>Zostava stĺpcov tabuľky odchodov.</comment>
+  </data>
+  <data name="K_ColumnWidth_LBArrivalTable" xml:space="preserve">
+    <value>Sestava sloupců tabule příjezdů.</value>
+    <comment>Zostava stĺpcov tabuľky príchodov.</comment>
+  </data>
+  <data name="K_ColumnWidth_LBPlatformTable" xml:space="preserve">
+    <value>Sestava sloupců tabule nástupiště.</value>
+    <comment>Zostava stĺpcov tabuľky nástupišťa.</comment>
+  </data>
+  <data name="K_ColumnWidth_LBSubwayTable" xml:space="preserve">
+    <value>Sestava sloupců tabule podchodu.</value>
+    <comment>Zostava stĺpcov tabuľky podchodu.</comment>
+  </data>
+  <data name="K_ColumnWidth_LBTrainsIns" xml:space="preserve">
+    <value>Šířky sloupců seznamu vkládaných vlaků.</value>
+    <comment>Šírky stĺpcov zoznamu vkladaných vlakov.</comment>
+  </data>
+  <data name="K_ColumnWidth_LBTrainsInsSort" xml:space="preserve">
+    <value>Pořadí řazení téhož seznamu – indexy sloupců oddělené čárkami.</value>
+    <comment>Poradie triedenia toho istého zoznamu – indexy stĺpcov oddelené čiarkami.</comment>
+  </data>
+  <data name="K_ColumnWidth_LBReportsQueue" xml:space="preserve">
+    <value>Rozložení fronty hlášení.</value>
+    <comment>Rozloženie fronty hlásení.</comment>
+  </data>
+  <data name="K_ColumnWidth_LBEdFyzTabTab" xml:space="preserve">
+    <value>Editor fyzických tabulí – záložky.</value>
+    <comment>Editor fyzických tabúľ – záložky.</comment>
+  </data>
+  <data name="K_ColumnWidth_LBEdFyzTabData" xml:space="preserve">
+    <value>Editor fyzických tabulí – data.</value>
+    <comment>Editor fyzických tabúľ – dáta.</comment>
+  </data>
+  <data name="K_ColumnWidth_LBFyzTabStates" xml:space="preserve">
+    <value>Editor fyzických tabulí – stavy.</value>
+    <comment>Editor fyzických tabúľ – stavy.</comment>
+  </data>
+  <data name="K_ColumnWidth_PoloAutomatLB" xml:space="preserve">
+    <value>Uložená sestava sloupců poloautomatu včetně názvů, šířek a viditelnosti. Při poškození hodnoty se seznam nezobrazí – tehdy hodnotu smažte a program si ji vytvoří znovu.</value>
+    <comment>Uložená zostava stĺpcov poloautomatu vrátane názvov, šírok a viditeľnosti. Pri poškodení hodnoty sa zoznam nezobrazí – vtedy hodnotu zmažte a program si ju vytvorí nanovo.</comment>
+  </data>
+  <data name="K_ColumnWidth_PoloAutomatSort" xml:space="preserve">
+    <value>Index sloupce, podle kterého je poloautomat seřazen.</value>
+    <comment>Index stĺpca, podľa ktorého je poloautomat zotriedený.</comment>
+  </data>
+  <data name="K_ColumnWidth_PoloAutoCollapsed" xml:space="preserve">
+    <value>Poloautomat se otevře se sbalenými skupinami.</value>
+    <comment>Poloautomat sa otvorí so zbalenými skupinami.</comment>
+  </data>
+  <data name="K_ColumnWidth_PoloAutoAllStations" xml:space="preserve">
+    <value>Poloautomat zobrazuje všechny stanice trasy, nejen vlastní. Pozor:{" "} je-li Environment\Combo nastaveno na 0, tato hodnota se při startu násilně přepíše na 1 {" "} bez ohledu na to, co je v registru.</value>
+    <comment>Poloautomat zobrazuje všetky stanice trasy, nie len vlastnú. Pozor:{" "} ak je Environment\Combo nastavené na 0, táto hodnota sa pri štarte násilne prepíše na 1 {" "} bez ohľadu na to, čo je v registri.</comment>
+  </data>
+  <data name="K_ColumnWidth_ITGrouped" xml:space="preserve">
+    <value>Strom vlaků je seskupen podle nadřazených uzlů.</value>
+    <comment>Strom vlakov je zoskupený podľa nadradených uzlov.</comment>
+  </data>
+  <data name="K_ColumnWidth_ITCollapsed" xml:space="preserve">
+    <value>Strom vlaků se otevře sbalený.</value>
+    <comment>Strom vlakov sa otvorí zbalený.</comment>
+  </data>
+  <data name="S_Driver" xml:space="preserve">
+    <value>Ovladače informačních tabulí. Každá fyzická linka k tabulím má vlastní sekci; v jedné stanici jich bývá několik – například zvlášť linka pro nástupištní tabule a zvlášť pro halové. Sekce se hledají v pořadí Driver, poté Driver0 až Driver98, a pro indexy 0 až 9 navíc také dvouciferný tvar Driver00 až Driver09. Neexistující sekce se tiše přeskočí, takže číslování nemusí být souvislé.</value>
+    <comment>Ovládače informačných tabúľ. Každá fyzická linka k tabuliam má vlastnú sekciu; v jednej stanici ich býva niekoľko – napríklad zvlášť linka pre nástupištné tabule a zvlášť pre halové. Sekcie sa hľadajú v poradí Driver, potom Driver0 až Driver98, a pre indexy 0 až 9 navyše aj dvojciferný tvar Driver00 až Driver09. Neexistujúce sekcie sa ticho preskočia, takže číslovanie nemusí byť súvislé.</comment>
+  </data>
+  <data name="K_Driver_TableClass" xml:space="preserve">
+    <value>Typ protokolu a rodina tabulí, například 4 pro tabule ELEN. Určuje i výchozí hodnoty ostatních nastavení linky: vlastní předvolby mají třídy 2, 4, 10, 128, 129 a 130, třída 5 i všechny ostatní dostanou společné.</value>
+    <comment>Typ protokolu a rodina tabúľ, napríklad 4 pre tabule ELEN. Určuje aj predvolené hodnoty ostatných nastavení linky: vlastné predvoľby majú triedy 2, 4, 10, 128, 129 a 130, trieda 5 aj všetky ostatné dostanú spoločné.</comment>
+  </data>
+  <data name="K_Driver_TablePort" xml:space="preserve">
+    <value>Komunikační kanál k tabulím: sériový port (COM1, COM2…), pojmenovaná roura (\\PIPE\…), mailslot (\\MAILSLOT\…), TCP://host:port nebo UDP://host:port. Před síťový kanál se píše číslo komunikační linky, například 3=TCP://host:port – bez něj vyjde linka 0, což INISS ohlásí jako chybu.</value>
+    <comment>Komunikačný kanál k tabuliam: sériový port (COM1, COM2…), pomenovaná rúra (\\PIPE\…), mailslot (\\MAILSLOT\…), TCP://host:port alebo UDP://host:port. Pred sieťový kanál sa píše číslo komunikačnej linky, napríklad 3=TCP://host:port – bez neho vyjde linka 0, čo INISS ohlási ako chybu.</comment>
+  </data>
+  <data name="K_Driver_TablePortParam" xml:space="preserve">
+    <value>Parametry linky ve formátu rychlost,parita,datové bity,stop bity. Parita: n žádná, e sudá, o lichá.</value>
+    <comment>Parametre linky vo formáte rýchlosť,parita,dátové bity,stop bity. Parita: n žiadna, e párna, o nepárna.</comment>
+  </data>
+  <data name="D_Driver_TablePortParam" xml:space="preserve">
+    <value>podle třídy</value>
+    <comment>podľa triedy</comment>
+  </data>
+  <data name="K_Driver_TablePortAddr" xml:space="preserve">
+    <value>Vstupně-výstupní adresa portu.</value>
+    <comment>Vstupno-výstupná adresa portu.</comment>
+  </data>
+  <data name="C_Driver_TablePortAddr_0" xml:space="preserve">
+    <value>odvodit z čísla portu: COM1 → 0x3F8, COM2 → 0x2F8, COM3 → 0x3E8, COM4 → 0x2E8</value>
+    <comment>odvodiť z čísla portu: COM1 → 0x3F8, COM2 → 0x2F8, COM3 → 0x3E8, COM4 → 0x2E8</comment>
+  </data>
+  <data name="C_Driver_TablePortAddr_1" xml:space="preserve">
+    <value>použít tuto adresu – pro nestandardní karty</value>
+    <comment>použiť túto adresu – pre neštandardné karty</comment>
+  </data>
+  <data name="K_Driver_SetRTS" xml:space="preserve">
+    <value>Držet signál RTS během vysílání – přepínání směru na lince RS-485.</value>
+    <comment>Držať signál RTS počas vysielania – prepínanie smeru na linke RS-485.</comment>
+  </data>
+  <data name="D_Driver_SetRTS" xml:space="preserve">
+    <value>podle třídy</value>
+    <comment>podľa triedy</comment>
+  </data>
+  <data name="K_Driver_CTSFlow" xml:space="preserve">
+    <value>Hardwarové řízení toku přes signál CTS.</value>
+    <comment>Hardvérové riadenie toku cez signál CTS.</comment>
+  </data>
+  <data name="D_Driver_CTSFlow" xml:space="preserve">
+    <value>podle třídy</value>
+    <comment>podľa triedy</comment>
+  </data>
+  <data name="K_Driver_CheckModem" xml:space="preserve">
+    <value>Signály oddělené čárkami, které musí být aktivní, aby se linka považovala za živou – například DCD,DSR. Prázdné znamená nekontrolovat.</value>
+    <comment>Signály oddelené čiarkami, ktoré musia byť aktívne, aby sa linka považovala za živú – napríklad DCD,DSR. Prázdne znamená nekontrolovať.</comment>
+  </data>
+  <data name="D_Driver_CheckModem" xml:space="preserve">
+    <value>podle třídy</value>
+    <comment>podľa triedy</comment>
+  </data>
+  <data name="K_Driver_TableTimeoutInterval" xml:space="preserve">
+    <value>Timeout mezi jednotlivými znaky při čtení. 0 znamená bez limitu.</value>
+    <comment>Timeout medzi jednotlivými znakmi pri čítaní. 0 znamená bez limitu.</comment>
+  </data>
+  <data name="D_Driver_TableTimeoutInterval" xml:space="preserve">
+    <value>podle třídy</value>
+    <comment>podľa triedy</comment>
+  </data>
+  <data name="K_Driver_TableTimeoutConst" xml:space="preserve">
+    <value>Pevná složka timeoutu, přičte se k vypočtenému času přenosu.</value>
+    <comment>Pevná zložka timeoutu, pripočíta sa k vypočítanému času prenosu.</comment>
+  </data>
+  <data name="D_Driver_TableTimeoutConst" xml:space="preserve">
+    <value>podle třídy</value>
+    <comment>podľa triedy</comment>
+  </data>
+  <data name="K_Driver_TableMinWriteDelay" xml:space="preserve">
+    <value>Nejmenší pauza mezi dvěma zápisy na linku. Na sdílené lince RS-485 zabrání překrytí rámců.</value>
+    <comment>Najmenšia pauza medzi dvoma zápismi na linku. Na zdieľanej linke RS-485 zabráni prekrytiu rámcov.</comment>
+  </data>
+  <data name="D_Driver_TableMinWriteDelay" xml:space="preserve">
+    <value>podle třídy</value>
+    <comment>podľa triedy</comment>
+  </data>
+  <data name="K_Driver_ComputerAddr" xml:space="preserve">
+    <value>Adresa počítače na sběrnici – odesílatel v hlavičce rámce.</value>
+    <comment>Adresa počítača na zbernici – odosielateľ v hlavičke rámca.</comment>
+  </data>
+  <data name="D_Driver_ComputerAddr" xml:space="preserve">
+    <value>podle třídy</value>
+    <comment>podľa triedy</comment>
+  </data>
+  <data name="K_Driver_TableAlign" xml:space="preserve">
+    <value>Zarovnávat text podle definice pozice. Při 0 se text posílá bez úpravy.</value>
+    <comment>Zarovnávať text podľa definície pozície. Pri 0 sa text posiela bez úpravy.</comment>
+  </data>
+  <data name="K_Driver_CmdLightOn" xml:space="preserve">
+    <value>Hodnota, kterou INISS pošle v příkazu k osvětlení, když má tabuli rozsvítit. Používají ji jen tabule LCD, LCD1 a Adon/BUSE; tabule ELEN dostávají úroveň jasu ze sekce Tables.</value>
+    <comment>Hodnota, ktorú INISS pošle v príkaze na osvetlenie, keď má tabuľu rozsvietiť. Používajú ju len tabule LCD, LCD1 a Adon/BUSE; tabule ELEN dostávajú úroveň jasu zo sekcie Tables.</comment>
+  </data>
+  <data name="K_Driver_CmdLightOff" xml:space="preserve">
+    <value>Hodnota v příkazu k osvětlení, když má tabuli zhasnout.</value>
+    <comment>Hodnota v príkaze na osvetlenie, keď má tabuľu zhasnúť.</comment>
+  </data>
+  <data name="K_Driver_NumRetries" xml:space="preserve">
+    <value>Počet opakování jednoho přenosu před vyhlášením chyby.</value>
+    <comment>Počet opakovaní jedného prenosu pred vyhlásením chyby.</comment>
+  </data>
+  <data name="K_Driver_RemRepTimeout" xml:space="preserve">
+    <value>Timeout vzdáleného hlášení. Sám se založí jen při TableClass = 128; u ostatních tříd se hodnota načte, ale v registru nevznikne.</value>
+    <comment>Timeout vzdialeného hlásenia. Sám sa založí len pri TableClass = 128; pri ostatných triedach sa hodnota načíta, ale v registri nevznikne.</comment>
+  </data>
+  <data name="K_Driver_PollingInterval" xml:space="preserve">
+    <value>Jen listové tabule ERS a FERS: pauza před každým dotazem, zda se po zápisu dotočily listy.</value>
+    <comment>Len listové tabule ERS a FERS: pauza pred každou otázkou, či sa po zápise dotočili listy.</comment>
+  </data>
+  <data name="K_Driver_PollingTimeout" xml:space="preserve">
+    <value>Jen listové tabule ERS a FERS: nejdelší čekání na dotočení listů; poté INISS zápis vzdá a ohlásí chybu.</value>
+    <comment>Len listové tabule ERS a FERS: najdlhšie čakanie na dotočenie listov; potom INISS zápis vzdá a ohlási chybu.</comment>
+  </data>
+  <data name="K_Driver_ERSLineLen" xml:space="preserve">
+    <value>Počet pozic (modulů) v řádku listové tabule ERS, 1–128. Každý zápis řádku má přesně tolik znaků.</value>
+    <comment>Počet pozícií (modulov) v riadku listovej tabule ERS, 1–128. Každý zápis riadku má presne toľko znakov.</comment>
+  </data>
+  <data name="K_Driver_StateMask" xml:space="preserve">
+    <value>Maska určující, které stavové bity hlášené tabulí se vyhodnocují. 255 znamená všech osm. Vynulováním bitu se příslušný stav ignoruje – použije se u tabule, která hlásí falešnou poruchu.</value>
+    <comment>Maska určujúca, ktoré stavové bity hlásené tabuľou sa vyhodnocujú. 255 znamená všetkých osem. Vynulovaním bitu sa príslušný stav ignoruje – použije sa pri tabuli, ktorá hlási falošnú poruchu.</comment>
+  </data>
+  <data name="K_Driver_RTCAddrs" xml:space="preserve">
+    <value>Synchronizace času na linkách Elektročas (LCD, LCD1, ERP, FERS). Na linkách APEL je to seznam šestnáctkových adres tabulí, kterým INISS nastavuje čas. Tabule ELEN dostávají čas vlastním příkazem bez ohledu na tuto hodnotu.</value>
+    <comment>Synchronizácia času na linkách Elektročas (LCD, LCD1, ERP, FERS). Na linkách APEL je to zoznam šestnástkových adries tabúľ, ktorým INISS nastavuje čas. Tabule ELEN dostávajú čas vlastným príkazom bez ohľadu na túto hodnotu.</comment>
+  </data>
+  <data name="C_Driver_RTCAddrs_0" xml:space="preserve">
+    <value>čas se nesynchronizuje</value>
+    <comment>čas sa nesynchronizuje</comment>
+  </data>
+  <data name="C_Driver_RTCAddrs_1" xml:space="preserve">
+    <value>INISS hromadně posílá svůj čas na adresu RTCBroadcastAddr</value>
+    <comment>INISS hromadne posiela svoj čas na adresu RTCBroadcastAddr</comment>
+  </data>
+  <data name="C_Driver_RTCAddrs_2" xml:space="preserve">
+    <value>šestnáctkové adresy hodin na lince (oddělené mezerou, čárkou nebo tabulátorem), podle nichž INISS nastavuje čas počítače</value>
+    <comment>šestnástkové adresy hodín na linke (oddelené medzerou, čiarkou alebo tabulátorom), podľa ktorých INISS nastavuje čas počítača</comment>
+  </data>
+  <data name="K_Driver_RTCBroadcastAddr" xml:space="preserve">
+    <value>Adresa, na kterou INISS hromadně posílá čas při RTCAddrs = * a na kterou posílají odpověď hodiny ze seznamu RTCAddrs.</value>
+    <comment>Adresa, na ktorú INISS hromadne posiela čas pri RTCAddrs = * a na ktorú posielajú odpoveď hodiny zo zoznamu RTCAddrs.</comment>
+  </data>
+  <data name="D_Driver_RTCBroadcastAddr" xml:space="preserve">
+    <value>podle třídy</value>
+    <comment>podľa triedy</comment>
+  </data>
+  <data name="K_Driver_TabClockAddr" xml:space="preserve">
+    <value>Adresa hodinové tabule na lince. 0 znamená, že na lince žádná není.</value>
+    <comment>Adresa hodinovej tabule na linke. 0 znamená, že na linke žiadna nie je.</comment>
+  </data>
+  <data name="K_Driver_RtcLight" xml:space="preserve">
+    <value>Jen tabule APEL: jas, který INISS pošle tabuli po každém nastavení času.</value>
+    <comment>Len tabule APEL: jas, ktorý INISS pošle tabuli po každom nastavení času.</comment>
+  </data>
+  <data name="C_Driver_RtcLight_0" xml:space="preserve">
+    <value>jas po nastavení času neposílat</value>
+    <comment>jas po nastavení času neposielať</comment>
+  </data>
+  <data name="C_Driver_RtcLight_1" xml:space="preserve">
+    <value>tuto úroveň jasu poslat</value>
+    <comment>túto úroveň jasu poslať</comment>
+  </data>
+  <data name="K_Driver_SyncTimeInterval" xml:space="preserve">
+    <value>Jak často se do tabulí posílá čas. 0 znamená nesynchronizovat vůbec.</value>
+    <comment>Ako často sa do tabúľ posiela čas. 0 znamená nesynchronizovať vôbec.</comment>
+  </data>
+  <data name="D_Driver_SyncTimeInterval" xml:space="preserve">
+    <value>podle třídy</value>
+    <comment>podľa triedy</comment>
+  </data>
+  <data name="K_Driver_SyncSysTm" xml:space="preserve">
+    <value>Zda smí INISS podle odpovědi hodin ze seznamu RTCAddrs nastavit čas počítače.</value>
+    <comment>Či smie INISS podľa odpovede hodín zo zoznamu RTCAddrs nastaviť čas počítača.</comment>
+  </data>
+  <data name="C_Driver_SyncSysTm_0" xml:space="preserve">
+    <value>nastavit čas počítače podle hodin na lince</value>
+    <comment>nastaviť čas počítača podľa hodín na linke</comment>
+  </data>
+  <data name="C_Driver_SyncSysTm_1" xml:space="preserve">
+    <value>čas počítače neměnit</value>
+    <comment>čas počítača nemeniť</comment>
+  </data>
+  <data name="K_Driver_WriteMethod" xml:space="preserve">
+    <value>Varianta zápisu na tabuli v rámci protokolu. 0 je standardní způsob dané třídy; nenulové hodnoty vybírají alternativní sekvence pro starší firmwary.</value>
+    <comment>Variant zápisu na tabuľu v rámci protokolu. 0 je štandardný spôsob danej triedy; nenulové hodnoty vyberajú alternatívne sekvencie pre staršie firmvéry.</comment>
+  </data>
+  <data name="S_Environment" xml:space="preserve">
+    <value>Pracovní prostředí obsluhy – která menu, tlačítka a sloupce jsou dostupné a v jakém režimu program pracuje. Většina hodnot se vyhodnocuje jednou při startu, takže změna se projeví až po restartu programu.</value>
+    <comment>Pracovné prostredie obsluhy – ktoré menu, tlačidlá a stĺpce sú dostupné a v akom režime program pracuje. Väčšina hodnôt sa vyhodnocuje raz pri štarte, takže zmena sa prejaví až po reštarte programu.</comment>
+  </data>
+  <data name="K_Environment_PyramidaMenu" xml:space="preserve">
+    <value>Přidá do hlavního menu nabídku Nastavení a v ní kromě Písmo… také položky Parametry… a Věty…. Spolu s MenuSpravce vybírá, která ze tří variant hlavního menu se načte. Vedlejší účinek: při 1 se neuplatní doplňkové logování řízené hodnotou Logging.</value>
+    <comment>Pridá do hlavného menu ponuku Nastavenia a v nej okrem Písmo… aj položky Parametre… a Vety…. Spolu s MenuSpravce vyberá, ktorý z troch variantov hlavného menu sa načíta. Vedľajší účinok: pri 1 sa neuplatní doplnkové logovanie riadené hodnotou Logging.</comment>
+  </data>
+  <data name="K_Environment_MenuVyluka" xml:space="preserve">
+    <value>Zpřístupní menu Výluky.</value>
+    <comment>Sprístupní menu Výluky.</comment>
+  </data>
+  <data name="K_Environment_MenuOdklon" xml:space="preserve">
+    <value>Zpřístupní menu Odklon.</value>
+    <comment>Sprístupní menu Odklon.</comment>
+  </data>
+  <data name="K_Environment_MenuSpravce" xml:space="preserve">
+    <value>Přidá do hlavního menu nabídku Nastavení s jedinou položkou Písmo…. Bez ní se hlavní lišta končí nabídkou Modifikace a Šepkář. Je-li zapnuto také PyramidaMenu, hodnota tohoto klíče se ignoruje.</value>
+    <comment>Pridá do hlavného menu ponuku Nastavenia s jedinou položkou Písmo…. Bez nej sa hlavná lišta končí ponukou Modifikácie a Šepkár. Ak je zapnuté aj PyramidaMenu, hodnota tohto kľúča sa ignoruje.</comment>
+  </data>
+  <data name="K_Environment_TableEdit" xml:space="preserve">
+    <value>Povolí ruční editaci obsahu tabulí, tedy přímé přepsání textu na tabuli mimo hlášení.</value>
+    <comment>Povolí ručnú editáciu obsahu tabúľ, teda priame prepísanie textu na tabuli mimo hlásenia.</comment>
+  </data>
+  <data name="K_Environment_ChangeColumns" xml:space="preserve">
+    <value>Do jaké míry smí obsluha měnit sestavu sloupců.</value>
+    <comment>Do akej miery smie obsluha meniť zostavu stĺpcov.</comment>
+  </data>
+  <data name="C_Environment_ChangeColumns_0" xml:space="preserve">
+    <value>sestava sloupců je zamčená</value>
+    <comment>zostava stĺpcov je zamknutá</comment>
+  </data>
+  <data name="C_Environment_ChangeColumns_1" xml:space="preserve">
+    <value>obsluha smí měnit šířky a pořadí sloupců</value>
+    <comment>obsluha smie meniť šírky a poradie stĺpcov</comment>
+  </data>
+  <data name="C_Environment_ChangeColumns_2" xml:space="preserve">
+    <value>navíc se zpřístupní přidávání a odebírání sloupců</value>
+    <comment>navyše sa sprístupní pridávanie a odoberanie stĺpcov</comment>
+  </data>
+  <data name="K_Environment_Combo" xml:space="preserve">
+    <value>Zapíná režim společného seznamu příjezdů a odjezdů namísto dvou oddělených. Má vedlejší účinek:{" "} při 0 se ColumnWidth\PoloAutoAllStations při startu násilně přepíše na 1, takže poloautomat vždy ukazuje všechny stanice. Hodnota se nezakládá sama – bez ručního vytvoření je režim vypnutý.</value>
+    <comment>Zapína režim spoločného zoznamu príchodov a odchodov namiesto dvoch oddelených. Má vedľajší účinok:{" "} pri 0 sa ColumnWidth\PoloAutoAllStations pri štarte násilne prepíše na 1, takže poloautomat vždy ukazuje všetky stanice. Hodnota sa nezakladá sama – bez ručného vytvorenia je režim vypnutý.</comment>
+  </data>
+  <data name="K_Environment_ExtendedComboUI" xml:space="preserve">
+    <value>Rozšířené ovládání společného seznamu – více sloupců a filtrů. Má smysl jen při zapnutém Combo.</value>
+    <comment>Rozšírené ovládanie spoločného zoznamu – viac stĺpcov a filtrov. Má zmysel len pri zapnutom Combo.</comment>
+  </data>
+  <data name="K_Environment_Mikrofon" xml:space="preserve">
+    <value>Zobrazí tlačítko mikrofonu pro živé hlášení do rozhlasu.</value>
+    <comment>Zobrazí tlačidlo mikrofónu pre živé hlásenie do rozhlasu.</comment>
+  </data>
+  <data name="K_Environment_ReportBtn" xml:space="preserve">
+    <value>Zobrazí tlačítko ručního spuštění hlášení.</value>
+    <comment>Zobrazí tlačidlo ručného spustenia hlásenia.</comment>
+  </data>
+  <data name="K_Environment_AutoBtn" xml:space="preserve">
+    <value>Tlačítko automatického režimu.</value>
+    <comment>Tlačidlo automatického režimu.</comment>
+  </data>
+  <data name="C_Environment_AutoBtn_0" xml:space="preserve">
+    <value>tlačítko se nezobrazí</value>
+    <comment>tlačidlo sa nezobrazí</comment>
+  </data>
+  <data name="C_Environment_AutoBtn_1" xml:space="preserve">
+    <value>tlačítko se zobrazí</value>
+    <comment>tlačidlo sa zobrazí</comment>
+  </data>
+  <data name="C_Environment_AutoBtn_2" xml:space="preserve">
+    <value>zobrazí se a zapne se jeho rozšířený režim</value>
+    <comment>zobrazí sa a zapne sa jeho rozšírený režim</comment>
+  </data>
+  <data name="K_Environment_RollLockCnt" xml:space="preserve">
+    <value>Pojistka proti hromadné akci nad příliš velkým počtem položek.</value>
+    <comment>Poistka proti hromadnej akcii nad príliš veľkým počtom položiek.</comment>
+  </data>
+  <data name="C_Environment_RollLockCnt_0" xml:space="preserve">
+    <value>pojistka je vypnutá</value>
+    <comment>poistka je vypnutá</comment>
+  </data>
+  <data name="C_Environment_RollLockCnt_1" xml:space="preserve">
+    <value>když počet najednou zpracovaných položek překročí N, akce se zablokuje</value>
+    <comment>keď počet naraz spracovaných položiek prekročí N, akcia sa zablokuje</comment>
+  </data>
+  <data name="K_Environment_RozlisujZpozdeni" xml:space="preserve">
+    <value>Zpoždění se vede jako samostatný údaj a zobrazuje se ve vlastním sloupci. Při 0 se započítává přímo do času.</value>
+    <comment>Meškanie sa vedie ako samostatný údaj a zobrazuje sa vo vlastnom stĺpci. Pri 0 sa započítava priamo do času.</comment>
+  </data>
+  <data name="K_Environment_HlasitZpozdeni" xml:space="preserve">
+    <value>Zpoždění se vysloví ve zvukovém hlášení.</value>
+    <comment>Meškanie sa vysloví v zvukovom hlásení.</comment>
+  </data>
+  <data name="K_Environment_HlasitKolej" xml:space="preserve">
+    <value>Přepínač „hlásit kolej“ z dialogu nastavení. Program hodnotu zapíše, ale nikde ji nečte – na chování nemá vliv.</value>
+    <comment>Prepínač „hlásiť koľaj“ z dialógu nastavení. Program hodnotu zapíše, ale nikde ju nečíta – na správanie nemá vplyv.</comment>
+  </data>
+  <data name="K_Environment_CollapseTreeColumn" xml:space="preserve">
+    <value>Index sloupce, po kterém se strom vlaků automaticky sbalí. Platný rozsah je 0 až 24; hodnota mimo rozsah se ignoruje a sbalování se neprovede.</value>
+    <comment>Index stĺpca, po ktorom sa strom vlakov automaticky zbalí. Platný rozsah je 0 až 24; hodnota mimo rozsahu sa ignoruje a zbaľovanie sa nevykoná.</comment>
+  </data>
+  <data name="K_Environment_VylukyHromadne" xml:space="preserve">
+    <value>Výluky se zadávají hromadně pro skupinu vlaků namísto po jednom.</value>
+    <comment>Výluky sa zadávajú hromadne pre skupinu vlakov namiesto po jednom.</comment>
+  </data>
+  <data name="K_Environment_ReportStatus" xml:space="preserve">
+    <value>Zobrazí stavový řádek hlášení. Ve starších instalacích se vyskytuje hodnota 2, ale program hodnotu redukuje na „nula / nenula“ – 1 i 2 dělají totéž.</value>
+    <comment>Zobrazí stavový riadok hlásení. V starších inštaláciách sa vyskytuje hodnota 2, ale program hodnotu redukuje na „nula / nenula“ – 1 aj 2 robia to isté.</comment>
+  </data>
+  <data name="K_Environment_TableStatus" xml:space="preserve">
+    <value>Maximální počet řádků se stavy tabulí zobrazovaných ve stavovém panelu tabulí.</value>
+    <comment>Maximálny počet riadkov so stavmi tabúľ zobrazujúce sa v stavovom paneli tabúľ.</comment>
+  </data>
+  <data name="C_Environment_TableStatus_0" xml:space="preserve">
+    <value>stavový panel se nezobrazí</value>
+    <comment>stavový panel sa nezobrazí</comment>
+  </data>
+  <data name="C_Environment_TableStatus_1" xml:space="preserve">
+    <value>tolik řádků panel dostane</value>
+    <comment>toľko riadkov panel dostane</comment>
+  </data>
+  <data name="C_Environment_TableStatus_2" xml:space="preserve">
+    <value>ořízne se na 10</value>
+    <comment>oreže sa na 10</comment>
+  </data>
+  <data name="K_Environment_Logging" xml:space="preserve">
+    <value>Režim evidence obsluhy: dává smysl dialogu Systém → Přihlášení… Dokud není nikdo přihlášen, jsou neaktivní tlačítka hlášení a položky menu, kterými lze něco odhlásit nebo změnit – Výběr hlášení… (F12), Doplňkové…, Přípoje… (F6), Nejbližší přípoj, Přestup (F8), Urychlený přestup, Odstranit vlak (Del), Přiřadit dodatky…, Dodatky… (F7), Upravit vlak… (Ctrl+E), Výluky…, Odklon… a Automatika… (Alt+Enter). Po přihlášení se jméno objeví v titulku okna a zapíše se do INISS.LOG (Přihlášení uživatele …) a při zapnutém Loging\ReportLogOn také do logu hlášení jako událost přihlášení / odhlášení. Jméno se nikde neověřuje – je to libovolný text – a nikam se neukládá, po restartu program nikoho přihlášeného nemá. Při 0 zůstává z dialogu jen jméno v titulku a záznam v logu. Uplatní se jen při vypnutém PyramidaMenu.</value>
+    <comment>Režim evidencie obsluhy: dáva zmysel dialógu Systém → Prihlásenie… Kým nie je nikto prihlásený, sú neaktívne tlačidlá hlásení a položky menu, ktorými sa dá niečo odhlásiť alebo zmeniť – Výber hlásení… (F12), Doplnkové…, Prípoje… (F6), Najbližší prípoj, Prestup (F8), Urýchlený prestup, Odstrániť vlak (Del), Priradiť dodatky…, Dodatky… (F7), Upraviť vlak… (Ctrl+E), Výluky…, Odklon… a Automatika… (Alt+Enter). Po prihlásení sa meno objaví v titulku okna a zapíše sa do INISS.LOG (Prihlásenie užívateľa …) a pri zapnutom Loging\ReportLogOn aj do logu hlásení ako udalosť prihlásenie / odhlásenie. Meno sa nikde neoveruje – je to ľubovoľný text – a nikam sa neukladá, po reštarte program nikoho prihláseného nemá. Pri 0 ostáva z dialógu len meno v titulku a záznam v logu. Uplatní sa len pri vypnutom PyramidaMenu.</comment>
+  </data>
+  <data name="K_Environment_UserDodatkyEnabled" xml:space="preserve">
+    <value>Obsluha smí k hlášení přidat vlastní dodatek mimo připravené vzory.</value>
+    <comment>Obsluha smie k hláseniu pridať vlastný dodatok mimo pripravených vzorov.</comment>
+  </data>
+  <data name="K_Environment_OnExitClearTables" xml:space="preserve">
+    <value>Při ukončení programu se obsah tabulí smaže. Při 0 na tabulích zůstane poslední text i po vypnutí INISS.</value>
+    <comment>Pri ukončení programu sa obsah tabúľ zmaže. Pri 0 na tabuliach ostane posledný text aj po vypnutí INISS.</comment>
+  </data>
+  <data name="K_Environment_OutToTableDriver" xml:space="preserve">
+    <value>Výstup se skutečně posílá do ovladače tabulí. Při 0 běží program v simulaci – zobrazuje, co by poslal, ale na linku nic nejde.</value>
+    <comment>Výstup sa skutočne posiela do ovládača tabúľ. Pri 0 beží program v simulácii – zobrazuje, čo by poslal, ale na linku nič nejde.</comment>
+  </data>
+  <data name="K_Environment_NahradniPrepravaTxt" xml:space="preserve">
+    <value>Text, kterým se na tabulích označí náhradní doprava. Prázdné znamená neoznačovat.</value>
+    <comment>Text, ktorým sa na tabuliach označí náhradná preprava. Prázdne znamená neoznačovať.</comment>
+  </data>
+  <data name="K_Environment_NahradniPrepravaFnt" xml:space="preserve">
+    <value>Kód písma pro tento text. -1 znamená použít výchozí písmo pozice.</value>
+    <comment>Kód písma pre tento text. -1 znamená použiť predvolené písmo pozície.</comment>
+  </data>
+  <data name="K_Environment_OdklonTxt" xml:space="preserve">
+    <value>Text pro označení odklonu.</value>
+    <comment>Text pre označenie odklonu.</comment>
+  </data>
+  <data name="K_Environment_OdklonFnt" xml:space="preserve">
+    <value>Kód písma pro text odklonu. -1 znamená výchozí.</value>
+    <comment>Kód písma pre text odklonu. -1 znamená predvolené.</comment>
+  </data>
+  <data name="K_Environment_State" xml:space="preserve">
+    <value>Uložený stav hlavního okna – pozice, rozměry, rozdělení panelů a zvolené záložky. Zapisuje se při ukončení, čte při startu. Smazání hodnoty vrátí okno do výchozího rozložení.</value>
+    <comment>Uložený stav hlavného okna – pozícia, rozmery, rozdelenie panelov a zvolené záložky. Zapisuje sa pri ukončení, číta pri štarte. Zmazanie hodnoty vráti okno do východiskového rozloženia.</comment>
+  </data>
+  <data name="S_Font" xml:space="preserve">
+    <value>Písmo seznamů v hlavním okně. Nastavuje se dialogem výběru písma, který hodnoty přepíše. Tyto hodnoty lze měnit i přímo v programu přes menu Nastavení → Písmo…. Změna se projeví až po restartu programu.</value>
+    <comment>Písmo zoznamov v hlavnom okne. Nastavuje sa dialógom výberu písma, ktorý hodnoty prepíše. Tieto hodnoty je možné meniť aj priamo v programe cez menu Nastavenia → Písmo…. Zmena sa prejaví až po reštarte programu.</comment>
+  </data>
+  <data name="K_Font_font_face" xml:space="preserve">
+    <value>Název rodiny písma, například MS Sans Serif. Prázdné znamená systémové písmo.</value>
+    <comment>Názov rodiny písma, napríklad MS Sans Serif. Prázdne znamená systémové písmo.</comment>
+  </data>
+  <data name="K_Font_font_size" xml:space="preserve">
+    <value>Velikost písma.</value>
+    <comment>Veľkosť písma.</comment>
+  </data>
+  <data name="C_Font_font_size_0" xml:space="preserve">
+    <value>výchozí velikost</value>
+    <comment>predvolená veľkosť</comment>
+  </data>
+  <data name="C_Font_font_size_1" xml:space="preserve">
+    <value>výška samotného znaku, například −18</value>
+    <comment>výška samotného znaku, napríklad −18</comment>
+  </data>
+  <data name="C_Font_font_size_2" xml:space="preserve">
+    <value>celková výška řádku včetně akcentů</value>
+    <comment>celková výška riadku vrátane akcentov</comment>
+  </data>
+  <data name="K_Font_font_char_set" xml:space="preserve">
+    <value>Znaková sada písma.</value>
+    <comment>Znaková sada písma.</comment>
+  </data>
+  <data name="C_Font_font_char_set_0" xml:space="preserve">
+    <value>výchozí znaková sada</value>
+    <comment>predvolená znaková sada</comment>
+  </data>
+  <data name="C_Font_font_char_set_1" xml:space="preserve">
+    <value>středoevropská – potřebná pro diakritiku u některých písem</value>
+    <comment>stredoeurópska – potrebná pre diakritiku pri niektorých písmach</comment>
+  </data>
+  <data name="C_Font_font_char_set_2" xml:space="preserve">
+    <value>ANSI</value>
+    <comment>ANSI</comment>
+  </data>
+  <data name="K_Font_font_weight" xml:space="preserve">
+    <value>Tloušťka písma.</value>
+    <comment>Hrúbka písma.</comment>
+  </data>
+  <data name="C_Font_font_weight_0" xml:space="preserve">
+    <value>výchozí tloušťka</value>
+    <comment>predvolená hrúbka</comment>
+  </data>
+  <data name="C_Font_font_weight_1" xml:space="preserve">
+    <value>normální</value>
+    <comment>normálne</comment>
+  </data>
+  <data name="C_Font_font_weight_2" xml:space="preserve">
+    <value>tučné</value>
+    <comment>tučné</comment>
+  </data>
+  <data name="K_Font_font_italic" xml:space="preserve">
+    <value>Kurzíva.</value>
+    <comment>Kurzíva.</comment>
+  </data>
+  <data name="S_Grafikon" xml:space="preserve">
+    <value>Pravidla práce s grafikonem vlakové dopravy: jaké odchylky od plánu program toleruje, jak dlouho drží staré záznamy a jak daleko dopředu ukazuje nastávající události. Ovlivňuje to, co se objeví v poloautomatu a kdy z něj záznamy zmizí.</value>
+    <comment>Pravidlá práce s grafikonom vlakovej dopravy: aké odchýlky od plánu program toleruje, ako dlho drží staré záznamy a ako ďaleko dopredu ukazuje nastávajúce udalosti. Ovplyvňuje to, čo sa objaví v poloautomate a kedy z neho záznamy zmiznú.</comment>
+  </data>
+  <data name="K_Grafikon_ShuntDelay" xml:space="preserve">
+    <value>Tolerance posunu v minutách – o kolik se smí skutečný posun lišit od plánu, aby se ještě spároval se stejným záznamem.</value>
+    <comment>Tolerancia posunu v minútach – o koľko sa smie skutočný posun líšiť od plánu, aby sa ešte spároval s tým istým záznamom.</comment>
+  </data>
+  <data name="K_Grafikon_TakeoffDelay" xml:space="preserve">
+    <value>Tolerance odjezdu v minutách, obdobně pro odjezd vlaku.</value>
+    <comment>Tolerancia odchodu v minútach, obdobne pre odchod vlaku.</comment>
+  </data>
+  <data name="K_Grafikon_ForceDeleteTime" xml:space="preserve">
+    <value>Po kolika hodinách se záznam vynuceně smaže, i když nebyl řádně uzavřen. Hodnota 0 znamená okamžité mazání – nepoužívat.</value>
+    <comment>Po koľkých hodinách sa záznam vynútene zmaže, aj keď nebol riadne uzavretý. Hodnota 0 znamená okamžité mazanie – nepoužívať.</comment>
+  </data>
+  <data name="K_Grafikon_EventPreviewTime" xml:space="preserve">
+    <value>Jak dlouho před plánovaným časem se událost zobrazí ve stavu „brzy nastane“.</value>
+    <comment>Ako dlho pred plánovaným časom sa udalosť zobrazí v stave „skoro nastane“.</comment>
+  </data>
+  <data name="K_Grafikon_RemoveOldTrains" xml:space="preserve">
+    <value>Vlaky, jejichž čas již uplynul, se automaticky odstraní ze seznamu.</value>
+    <comment>Vlaky, ktorých čas už uplynul, sa automaticky odstránia zo zoznamu.</comment>
+  </data>
+  <data name="K_Grafikon_RemoveOldEvents" xml:space="preserve">
+    <value>Totéž pro jednotlivé události.</value>
+    <comment>To isté pre jednotlivé udalosti.</comment>
+  </data>
+  <data name="K_Grafikon_RemovePrevEvents" xml:space="preserve">
+    <value>Při přechodu vlaku do dalšího stavu se jeho předchozí události odstraní, aby seznam neobsahoval historii.</value>
+    <comment>Pri prechode vlaku do ďalšieho stavu sa jeho predchádzajúce udalosti odstránia, aby zoznam neobsahoval históriu.</comment>
+  </data>
+  <data name="K_Grafikon_MinStay" xml:space="preserve">
+    <value>Nejkratší pobyt vlaku ve stanici v minutách. Kratší pobyt se zpracuje jako průjezd bez zastavení.</value>
+    <comment>Najkratší pobyt vlaku v stanici v minútach. Kratší pobyt sa spracuje ako prechod bez zastavenia.</comment>
+  </data>
+  <data name="S_GTN" xml:space="preserve">
+    <value>Rozhraní na nadřazený technologický systém GTN, který INISS dodává skutečné polohy a koleje vlaků. Pokud je vypnuto, INISS pracuje jen s grafikonem a s ručním zadáním.</value>
+    <comment>Rozhranie na nadradený technologický systém GTN, ktorý INISS dodáva skutočné polohy a koľaje vlakov. Ak je vypnuté, INISS pracuje len s grafikonom a s ručným zadaním.</comment>
+  </data>
+  <data name="K_GTN_RecvPort" xml:space="preserve">
+    <value>Port pro příjem zpráv z GTN.</value>
+    <comment>Port pre príjem správ z GTN.</comment>
+  </data>
+  <data name="C_GTN_RecvPort_0" xml:space="preserve">
+    <value>rozhraní se neotevře, zprávy z GTN se nepřijímají</value>
+    <comment>rozhranie sa neotvorí, správy z GTN sa neprijímajú</comment>
+  </data>
+  <data name="C_GTN_RecvPort_1" xml:space="preserve">
+    <value>port, na kterém program naslouchá</value>
+    <comment>port, na ktorom program počúva</comment>
+  </data>
+  <data name="K_GTN_IgnoreTracks" xml:space="preserve">
+    <value>Zahodí informaci o koleji přicházející z GTN a použije kolej z grafikonu. Používá se tam, kde GTN posílá koleje v jiném číslování než to, které je na tabulích.</value>
+    <comment>Zahodí informáciu o koľaji prichádzajúcu z GTN a použije koľaj z grafikonu. Používa sa tam, kde GTN posiela koľaje v inom číslovaní než to, ktoré je na tabuliach.</comment>
+  </data>
+  <data name="S_Implementation" xml:space="preserve">
+    <value>Vlastnosti konkrétního nasazení – to, čím se jedna stanice liší od druhé a co se nastavuje jednou při instalaci.</value>
+    <comment>Vlastnosti konkrétneho nasadenia – to, čím sa jedna stanica líši od druhej a čo sa nastavuje raz pri inštalácii.</comment>
+  </data>
+  <data name="K_Implementation_ShutdownTime" xml:space="preserve">
     <value>Čas plánovaného ukončení programu ve formátu hh:mm, například 03:30. Prázdné znamená nevypínat. Při nerozpoznatelném formátu se hodnota ignoruje a do logu se zapíše upozornění unrecognized shutdown time.
 Hlavní okno kontroluje čas každou sekundu. Když nastane hh:mm (při startu po tomto čase až následující den), otevře se modální dialog Naplánované ukončení („Program bude nyní ukončen, aby mohla být provedena automatická aktualizace.“) s 30sekundovým odpočtem na tlačítku OK (%d s):
 • OK nebo uplynutí odpočtu – INISS se ukončí s návratovým kódem 78 (0x4E).
 • Odložit o 5 minut (i Esc / zavření okna) – dialog se vrátí za 300 s; lze opakovat bez omezení.
 • Dnes neaktualizovat – další termín je až zítra v hh:mm.
-Samotnou aktualizaci INISS neprovádí – nemá stahování ani spouštění instalátoru. Pouze uvolní místo externímu mechanismu (naplánovaná úloha, dávka, wrapper), který vymění soubory a INISS znovu spustí; kód 78 mu umožňuje odlišit plánované ukončení od pádu. Pro výměnu dat se k tomu hodí soubor Akt.akt.</value>
+Samotnou aktualizaci INISS neprovádí – nemá stahování ani spouštění instalátoru. Pouze uvolní místo externímu mechanismu (naplánovaná úloha, dávka, wrapper), který vymění soubory a INISS znovu spustí; kód 78 mu umožňuje odlišit plánované ukončení od pádu. Pro výměnu dat se k tomu hodí soubor Akt.akt.</value>
     <comment>Čas naplánovaného ukončenia programu vo formáte hh:mm, napríklad 03:30. Prázdne znamená nevypínať. Pri nerozpoznateľnom formáte sa hodnota ignoruje a do logu sa zapíše upozornenie unrecognized shutdown time.
 Hlavné okno kontroluje čas každú sekundu. Keď nastane hh:mm (pri štarte po tomto čase až nasledujúci deň), otvorí sa modálny dialóg Naplánované ukončenie („Program bude teraz ukončený, aby mohla byť prevedená automatická aktualizácia.“) s 30-sekundovým odpočtom na tlačidle OK (%d s):
 • OK alebo uplynutie odpočtu – INISS sa ukončí s návratovým kódom 78 (0x4E).
 • Odložiť o 5 minút (aj Esc / zatvorenie okna) – dialóg sa vráti o 300 s; dá sa opakovať bez obmedzenia.
 • Dnes neaktualizovať – ďalší termín je až zajtra o hh:mm.
-Samotnú aktualizáciu INISS nerobí – nemá sťahovanie ani spúšťanie inštalátora. Iba uvoľní miesto externému mechanizmu (naplánovaná úloha, dávka, wrapper), ktorý vymení súbory a INISS znovu spustí; kód 78 mu umožňuje odlíšiť plánované ukončenie od pádu. Na výmenu dát sa k tomu hodí súbor Akt.akt.</comment>
-  </data>
-  <data name="K_Implementation_CheckTabFull" xml:space="preserve">
-    <value>Kontroluje se, zda se text vejde na tabuli, a při přetečení se hlásí chyba. Při 0 se text tiše ořízne.</value>
-    <comment>Kontroluje sa, či sa text zmestí na tabuľu, a pri pretečení sa hlási chyba. Pri 0 sa text ticho oreže.</comment>
-  </data>
-  <data name="K_Implementation_PoslPozVyluka" xml:space="preserve">
-    <value>Při výluce se použije poslední pozice místo pozice z grafikonu.</value>
-    <comment>Pri výluke sa použije posledná pozícia namiesto pozície z grafikonu.</comment>
-  </data>
-  <data name="K_Implementation_Zvuky" xml:space="preserve">
-    <value>Příznak, zda je ve stanici zvukové hlášení. Hodnota se načte, ale nic ji dále nepoužívá – zvuk je řízen sekcí Zvuky a nastavením mixéru. Změna hodnoty nemá žádný účinek.</value>
-    <comment>Príznak, či je na stanici zvukové hlásenie. Hodnota sa načíta, ale nič ju už ďalej nepoužíva – zvuk je riadený sekciou Zvuky a nastavením mixéra. Zmena hodnoty nemá žiadny účinok.</comment>
-  </data>
-  <data name="K_Implementation_NazStanice" xml:space="preserve">
-    <value>Název stanice pro hlášení. Verze 3.0, 3.10 i 3.34 ji četly, 3.39 už ne – bere se z datových souborů. Změna hodnoty nemá účinek.</value>
-    <comment>Názov stanice pre hlásenia. Verzie 3.0, 3.10 aj 3.34 ju čítali, 3.39 už nie – berie sa z dátových súborov. Zmena hodnoty nemá účinok.</comment>
-  </data>
-  <data name="S_IntSrv" xml:space="preserve">
-    <value>Rozhraní na integrační server – kanál k nadřazené informační soustavě, oddělený od GTN i od klientského rozhraní. Struktura je záměrně stejná jako u sekcí GTN a Client, aby se tři nezávislé kanály daly nakonfigurovat stejně.</value>
-    <comment>Rozhranie na integračný server – kanál k nadradenej informačnej sústave, oddelený od GTN aj od klientskeho rozhrania. Štruktúra je zámerne rovnaká ako pri sekciách GTN a Client, aby sa tri nezávislé kanály dali nakonfigurovať rovnako.</comment>
-  </data>
-  <data name="K_IntSrv_RecvPort" xml:space="preserve">
-    <value>Port pro příjem od integračního serveru.</value>
-    <comment>Port pre príjem od integračného servera.</comment>
-  </data>
-  <data name="C_IntSrv_RecvPort_0" xml:space="preserve">
-    <value>rozhraní se neotevře</value>
-    <comment>rozhranie sa neotvorí</comment>
-  </data>
-  <data name="C_IntSrv_RecvPort_1" xml:space="preserve">
-    <value>port, na kterém program naslouchá</value>
-    <comment>port, na ktorom program počúva</comment>
-  </data>
-  <data name="S_Loging" xml:space="preserve">
-    <value>Co se zapisuje do logů a jak velké smějí být. Každý kanál – hlášení, změny, stavy, rozhlasová ústředna, GTN, integrační server, klient, tabule – má vlastní přepínač a většina i vlastní limit velikosti. Po překročení limitu se log rotuje. Názvy souborů nastavuje sekce PathNames.</value>
-    <comment>Čo sa zapisuje do logov a aké veľké smú byť. Každý kanál – hlásenia, zmeny, stavy, rozhlasová ústredňa, GTN, integračný server, klient, tabule – má vlastný prepínač a väčšina aj vlastný limit veľkosti. Po prekročení limitu sa log rotuje. Názvy súborov nastavuje sekcia PathNames.</comment>
-  </data>
-  <data name="K_Loging_ReportLogOn" xml:space="preserve">
-    <value>Zapisovat log hlášení – kdo, kdy a co bylo hlášeno.</value>
-    <comment>Zapisovať log hlásení – kto, kedy a čo bolo hlásené.</comment>
-  </data>
-  <data name="K_Loging_ReportLogMaxSize" xml:space="preserve">
-    <value>Největší velikost logu hlášení v bajtech.</value>
-    <comment>Najväčšia veľkosť logu hlásení v bajtoch.</comment>
-  </data>
-  <data name="K_Loging_ReportLogMode" xml:space="preserve">
-    <value>Podrobnost a tvar logu hlášení. Hodnota je součtem nezávislých příznaků. Příznak +2 přepne zápis z textových řádků na XML záznamy, které čte archiv INISSView; spolu s ním se nastavuje PathNames\LogReport na REP@.XML.</value>
-    <comment>Podrobnosť a tvar logu hlásení. Hodnota je súčtom nezávislých príznakov. Príznak +2 prepne zápis z textových riadkov na XML záznamy, ktoré číta archív INISSView; spolu s ním sa nastavuje PathNames\LogReport na REP@.XML.</comment>
-  </data>
-  <data name="C_Loging_ReportLogMode_0" xml:space="preserve">
-    <value>nezapisovat nic</value>
-    <comment>nezapisovať nič</comment>
-  </data>
-  <data name="C_Loging_ReportLogMode_1" xml:space="preserve">
-    <value>zapisovat i obsah hlášení, nejen záznam, že proběhlo</value>
-    <comment>zapisovať aj obsah hlásenia, nielen záznam, že prebehlo</comment>
-  </data>
-  <data name="C_Loging_ReportLogMode_2" xml:space="preserve">
-    <value>zapisovat log ve tvaru XML (záznamy) místo textu</value>
-    <comment>zapisovať log v tvare XML (záznamy) namiesto textu</comment>
-  </data>
-  <data name="K_Loging_ChangeLogOn" xml:space="preserve">
-    <value>Zapisovat změny údajů o vlacích.</value>
-    <comment>Zapisovať zmeny údajov o vlakoch.</comment>
-  </data>
-  <data name="K_Loging_StateLogOn" xml:space="preserve">
-    <value>Zapisovat přechody vlaků mezi stavy. Objemné – zapínat jen při hledání chyby.</value>
-    <comment>Zapisovať prechody vlakov medzi stavmi. Objemné – zapínať len pri hľadaní chyby.</comment>
-  </data>
-  <data name="K_Loging_TornzLogOn" xml:space="preserve">
-    <value>Log komunikace s ovladačem rozhlasové ústředny.</value>
-    <comment>Log komunikácie s ovládačom rozhlasovej ústredne.</comment>
-  </data>
-  <data name="K_Loging_TornzLogMaxSize" xml:space="preserve">
-    <value>Limit tohoto logu.</value>
-    <comment>Limit tohto logu.</comment>
-  </data>
-  <data name="K_Loging_GTNLogOn" xml:space="preserve">
-    <value>Log rozhraní GTN.</value>
-    <comment>Log rozhrania GTN.</comment>
-  </data>
-  <data name="K_Loging_GTNLogMaxSize" xml:space="preserve">
-    <value>Limit tohoto logu.</value>
-    <comment>Limit tohto logu.</comment>
-  </data>
-  <data name="K_Loging_IntSrvLogOn" xml:space="preserve">
-    <value>Log integračního serveru.</value>
-    <comment>Log integračného servera.</comment>
-  </data>
-  <data name="K_Loging_IntSrvLogMaxSize" xml:space="preserve">
-    <value>Limit tohoto logu.</value>
-    <comment>Limit tohto logu.</comment>
-  </data>
-  <data name="K_Loging_ClientLogOn" xml:space="preserve">
-    <value>Log klientského rozhraní.</value>
-    <comment>Log klientskeho rozhrania.</comment>
-  </data>
-  <data name="K_Loging_ClientLogMaxSize" xml:space="preserve">
-    <value>Limit tohoto logu.</value>
-    <comment>Limit tohto logu.</comment>
-  </data>
-  <data name="K_Loging_TableLogMode" xml:space="preserve">
-    <value>Co se zapisuje o tabulích. Hodnota je součtem nezávislých příznaků.</value>
-    <comment>Čo sa zapisuje o tabuliach. Hodnota je súčtom nezávislých príznakov.</comment>
-  </data>
-  <data name="C_Loging_TableLogMode_0" xml:space="preserve">
-    <value>bez logování tabulí</value>
-    <comment>bez logovania tabúľ</comment>
-  </data>
-  <data name="C_Loging_TableLogMode_1" xml:space="preserve">
-    <value>zapisovat přehled obsahu tabulí do souboru LogTableH</value>
-    <comment>zapisovať prehľad obsahu tabúľ do súboru LogTableH</comment>
-  </data>
-  <data name="C_Loging_TableLogMode_2" xml:space="preserve">
-    <value>podrobný log ovladače tabulí – rámce, potvrzení, opakování</value>
-    <comment>podrobný log ovládača tabúľ – rámce, potvrdenia, opakovania</comment>
-  </data>
-  <data name="C_Loging_TableLogMode_3" xml:space="preserve">
-    <value>rozšířený detail rámců, tedy obsah dat, nejen hlavičky</value>
-    <comment>rozšírený detail rámcov, teda obsah dát, nie len hlavičky</comment>
-  </data>
-  <data name="C_Loging_TableLogMode_4" xml:space="preserve">
-    <value>log správce tabulí a přechodů jejich stavů</value>
-    <comment>log správcu tabúľ a prechodov ich stavov</comment>
-  </data>
-  <data name="K_Loging_TableLogMaxSize" xml:space="preserve">
-    <value>Největší velikost logu tabulí. Při zapnutých příznacích +4 a +8 roste velmi rychle.</value>
-    <comment>Najväčšia veľkosť logu tabúľ. Pri zapnutých príznakoch +4 a +8 rastie veľmi rýchlo.</comment>
-  </data>
-  <data name="K_Loging_TableFileValidity" xml:space="preserve">
-    <value>Jak dlouho v minutách je soubor s obsahem tabulí považován za platný. Po uplynutí se obsah tabulí přepíše znovu i bez změny dat.</value>
-    <comment>Ako dlho v minútach je súbor s obsahom tabúľ považovaný za platný. Po uplynutí sa obsah tabúľ prepíše nanovo aj bez zmeny dát.</comment>
-  </data>
-  <data name="S_LogToINISS" xml:space="preserve">
-    <value>Původně evidence přihlášení do INISS – v nejstarších verzích tu byla také hodnota ActualLogin se jménem právě přihlášené obsluhy. Dnes z celé sekce zbylo jedno servisní počítadlo; přihlášení žije jen v paměti programu a jeho účinek řídí Environment\Logging.</value>
-    <comment>Pôvodne evidencia prihlásení do INISS – v najstarších verziách tu bola aj hodnota ActualLogin s menom práve prihlásenej obsluhy. Dnes z celej sekcie ostalo jedno servisné počítadlo; prihlásenie žije len v pamäti programu a jeho účinok riadi Environment\Logging.</comment>
-  </data>
-  <data name="K_LogToINISS_CountStartedProgram" xml:space="preserve">
-    <value>Počítadlo spuštění programu. Při každém startu se přečte, zvýší o jedna a hned zapíše zpět. Na chování nemá vliv – slouží k servisním účelům, například k odhadu, kolikrát pracoviště restartovalo aplikaci.</value>
-    <comment>Počítadlo spustení programu. Pri každom štarte sa prečíta, zvýši o jeden a hneď zapíše späť. Na správanie nemá vplyv – slúži na servisné účely, napríklad na odhad, koľkokrát pracovisko reštartovalo aplikáciu.</comment>
-  </data>
-  <data name="S_Modifiers" xml:space="preserve">
-    <value>Modifikátory hlášení – přepínače, které mění formulaci textu, například zda se hlásí směr, dopravce nebo důvod zpoždění. Sekce drží jejich výchozí stav, který se použije při každém novém hlášení, dokud jej obsluha nezmění.</value>
-    <comment>Modifikátory hlásení – prepínače, ktoré menia formuláciu textu, napríklad či sa hlási smer, dopravca alebo dôvod meškania. Sekcia drží ich východiskový stav, ktorý sa použije pri každom novom hlásení, kým ho obsluha nezmení.</comment>
-  </data>
-  <data name="K_Modifiers_Default" xml:space="preserve">
-    <value>Sbalený výchozí stav všech modifikátorů v jednom čísle – šestnáct modifikátorů po dvou bitech. Výchozí hodnota je vzor 10 opakovaný přes celé slovo, tedy „všechny modifikátory ve středním stavu“. Hodnotu mění dialog modifikátorů; ručně ji skládat nemá smysl.</value>
-    <comment>Zbalený východiskový stav všetkých modifikátorov v jednom čísle – šestnásť modifikátorov po dvoch bitoch. Predvolená hodnota je vzor 10 opakovaný cez celé slovo, teda „všetky modifikátory v strednom stave“. Hodnotu mení dialóg modifikátorov; ručne ju skladať nemá zmysel.</comment>
-  </data>
-  <data name="S_OnlyDebug" xml:space="preserve">
-    <value>Sekce určená k testování a ladění.</value>
-    <comment>Sekcia určená na testovanie a ladenie.</comment>
-  </data>
-  <data name="K_OnlyDebug_Acceleration" xml:space="preserve">
-    <value>Násobitel plynutí interního času. Umožňuje vyzkoušet celodenní scénář za pár minut.</value>
-    <comment>Násobič plynutia interného času. Umožňuje odskúšať celodenný scenár za pár minút.</comment>
-  </data>
-  <data name="C_OnlyDebug_Acceleration_0" xml:space="preserve">
-    <value>reálný čas – jediná správná hodnota pro provoz</value>
-    <comment>reálny čas – jediná správna hodnota pre prevádzku</comment>
-  </data>
-  <data name="C_OnlyDebug_Acceleration_1" xml:space="preserve">
-    <value>čas běží N-krát rychleji</value>
-    <comment>čas beží N-krát rýchlejšie</comment>
-  </data>
-  <data name="K_OnlyDebug_DayTimeOffset" xml:space="preserve">
-    <value>Posun interních hodin o celé dny dopředu. Slouží k testování grafikonu jiného dne.</value>
-    <comment>Posun interných hodín o celé dni dopredu. Slúži na testovanie grafikonu iného dňa.</comment>
-  </data>
-  <data name="C_OnlyDebug_DayTimeOffset_0" xml:space="preserve">
-    <value>bez posunu – povinné v provozu</value>
-    <comment>bez posunu – povinné v prevádzke</comment>
-  </data>
-  <data name="C_OnlyDebug_DayTimeOffset_1" xml:space="preserve">
-    <value>program se tváří, že je o N dní později</value>
-    <comment>program sa tvári, že je o N dní neskôr</comment>
-  </data>
-  <data name="K_OnlyDebug_UpdateInterval" xml:space="preserve">
-    <value>Jak často se obnovují data.</value>
-    <comment>Ako často sa obnovujú dáta.</comment>
-  </data>
-  <data name="K_OnlyDebug_UpdateBeep" xml:space="preserve">
-    <value>Při každé obnově dat program pípne – pomůcka při sledování, zda obnova běží.</value>
-    <comment>Pri každej obnove dát program pípne – pomôcka pri sledovaní, či obnova beží.</comment>
-  </data>
-  <data name="K_OnlyDebug_ViewActDelay" xml:space="preserve">
-    <value>V seznamech se zobrazí aktuální zpoždění místo plánovaného času.</value>
-    <comment>V zoznamoch sa zobrazí aktuálne meškanie namiesto plánovaného času.</comment>
-  </data>
-  <data name="K_OnlyDebug_LightCmdOutToFile" xml:space="preserve">
-    <value>Příkazy pro osvětlení tabulí se místo odeslání na linku zapíšou do souboru LogForLigtCmd. Umožní ověřit, co by program poslal, bez zásahu do tabulí.</value>
-    <comment>Príkazy na osvetlenie tabúľ sa namiesto odoslania na linku zapíšu do súboru LogForLigtCmd. Umožní overiť, čo by program poslal, bez zásahu do tabúľ.</comment>
-  </data>
-  <data name="S_PathNames" xml:space="preserve">
-    <value>Názvy datových a logových souborů. Sekce neurčuje, kde soubory jsou – jen jak se jmenují. Všechny hodnoty jsou relativní názvy: program před ně doplňuje buď datovou složku, nebo složku logů. Jedinou výjimkou je LogPath, který sám je touto složkou. Značka data nebo log u popisu říká, která z těch dvou složek se před název doplní.</value>
-    <comment>Názvy dátových a logových súborov. Sekcia neurčuje, kde súbory sú – len ako sa volajú. Všetky hodnoty sú relatívne názvy: program pred ne dopĺňa buď dátový priečinok, alebo priečinok logov. Jedinou výnimkou je LogPath, ktorý sám je tým priečinkom. Značka dáta alebo log pri popise hovorí, ktorý z tých dvoch priečinkov sa pred názov doplní.</comment>
-  </data>
-  <data name="K_PathNames_LogPath" xml:space="preserve">
-    <value>Složka logů, relativně ke složce programu. Sama slouží jako prefix pro logové soubory.</value>
-    <comment>Priečinok logov, relatívne k priečinku programu. Sám slúži ako prefix pre logové súbory.</comment>
-  </data>
-  <data name="K_PathNames_StationsFile" xml:space="preserve">
-    <value>Číselník stanic – místa, která INISS zná na trase.</value>
-    <comment>Číselník staníc – miesta, ktoré INISS pozná na trase.</comment>
-  </data>
-  <data name="K_PathNames_StationsTxtFile" xml:space="preserve">
-    <value>Textová podoba číselníku stanic, ze které se binární soubor generuje.</value>
-    <comment>Textová podoba číselníka staníc, z ktorej sa binárny súbor generuje.</comment>
-  </data>
-  <data name="K_PathNames_PositionsFile" xml:space="preserve">
-    <value>Definice pozic na tabulích – kde na které tabuli se co vypisuje.</value>
-    <comment>Definície pozícií na tabuliach – kde na ktorej tabuli sa čo vypisuje.</comment>
-  </data>
-  <data name="K_PathNames_PoziceTxtFile" xml:space="preserve">
-    <value>Textová podoba definic pozic.</value>
-    <comment>Textová podoba definícií pozícií.</comment>
-  </data>
-  <data name="K_PathNames_StateDgm" xml:space="preserve">
-    <value>Stavový diagram vlaku – stavy, události, přechody a navázaná hlášení.</value>
-    <comment>Stavový diagram vlaku – stavy, udalosti, prechody a naviazané hlásenia.</comment>
-  </data>
-  <data name="K_PathNames_StateDgmTxt" xml:space="preserve">
-    <value>Textová podoba stavového diagramu.</value>
-    <comment>Textová podoba stavového diagramu.</comment>
-  </data>
-  <data name="K_PathNames_CategoriTxt" xml:space="preserve">
-    <value>Kategorie vlaků a jejich zobrazení.</value>
-    <comment>Kategórie vlakov a ich zobrazenie.</comment>
-  </data>
-  <data name="K_PathNames_Zpozdeni" xml:space="preserve">
-    <value>Číselník důvodů zpoždění.</value>
-    <comment>Číselník dôvodov meškania.</comment>
-  </data>
-  <data name="K_PathNames_ZpozdeniTxt" xml:space="preserve">
-    <value>Textová podoba číselníku důvodů zpoždění.</value>
-    <comment>Textová podoba číselníka dôvodov meškania.</comment>
-  </data>
-  <data name="K_PathNames_GVGrafikon" xml:space="preserve">
-    <value>Hlavní grafikon – plán vlaků pro tuto stanici.</value>
-    <comment>Hlavný grafikon – plán vlakov pre túto stanicu.</comment>
-  </data>
-  <data name="K_PathNames_GVVlaky" xml:space="preserve">
-    <value>Seznam vlaků s jejich vlastnostmi.</value>
-    <comment>Zoznam vlakov s ich vlastnosťami.</comment>
-  </data>
-  <data name="K_PathNames_GVDoplnky" xml:space="preserve">
-    <value>Doplňkové údaje k vlakům, které se přidávají do hlášení.</value>
-    <comment>Doplnkové údaje k vlakom, ktoré sa pridávajú do hlásení.</comment>
-  </data>
-  <data name="K_PathNames_GVRazeni" xml:space="preserve">
-    <value>Řazení souprav – pořadí vozů pro hlášení nástupu.</value>
-    <comment>Radenie súprav – poradie vozňov pre hlásenie nástupu.</comment>
-  </data>
-  <data name="K_PathNames_GVVyluka" xml:space="preserve">
-    <value>Výluky a jejich platnost.</value>
-    <comment>Výluky a ich platnosť.</comment>
-  </data>
-  <data name="K_PathNames_GVVzory" xml:space="preserve">
-    <value>Vzory hlášení – šablony, ze kterých se skládá text.</value>
-    <comment>Vzory hlásení – šablóny, z ktorých sa skladá text.</comment>
-  </data>
-  <data name="K_PathNames_GVForeign" xml:space="preserve">
-    <value>Cizí vlaky a cizí dopravci.</value>
-    <comment>Cudzie vlaky a cudzí dopravcovia.</comment>
-  </data>
-  <data name="K_PathNames_GVMOS" xml:space="preserve">
-    <value>Údaje MOS.</value>
-    <comment>Údaje MOS.</comment>
-  </data>
-  <data name="K_PathNames_GVTabTexts" xml:space="preserve">
-    <value>Pevné texty pro tabule.</value>
-    <comment>Pevné texty pre tabule.</comment>
-  </data>
-  <data name="K_PathNames_GVStaHlasB" xml:space="preserve">
-    <value>Staniční hlášení, varianta B.</value>
-    <comment>Staničné hlásenia, variant B.</comment>
-  </data>
-  <data name="K_PathNames_GVStaHlasC" xml:space="preserve">
-    <value>Staniční hlášení, varianta C.</value>
-    <comment>Staničné hlásenia, variant C.</comment>
-  </data>
-  <data name="K_PathNames_GVExport3A" xml:space="preserve">
-    <value>Exportní soubor formátu 3, varianta A.</value>
-    <comment>Exportný súbor formátu 3, variant A.</comment>
-  </data>
-  <data name="K_PathNames_GVExport3B" xml:space="preserve">
-    <value>Exportní soubor formátu 3, varianta B.</value>
-    <comment>Exportný súbor formátu 3, variant B.</comment>
-  </data>
-  <data name="K_PathNames_GVExport3C" xml:space="preserve">
-    <value>Exportní soubor formátu 3, varianta C.</value>
-    <comment>Exportný súbor formátu 3, variant C.</comment>
-  </data>
-  <data name="K_PathNames_Razeni1_TXT" xml:space="preserve">
-    <value>Doplňkové řazení. Název hodnoty je shodný s názvem souboru.</value>
-    <comment>Doplnkové radenie. Názov hodnoty je zhodný s názvom súboru.</comment>
-  </data>
-  <data name="K_PathNames_Razeni1_DAT" xml:space="preserve">
-    <value>Binární podoba doplňkového řazení.</value>
-    <comment>Binárna podoba doplnkového radenia.</comment>
-  </data>
-  <data name="K_PathNames_DirList_TXT" xml:space="preserve">
-    <value>Seznam datových adresářů.</value>
-    <comment>Zoznam dátových adresárov.</comment>
-  </data>
-  <data name="K_PathNames_GrafikonError" xml:space="preserve">
-    <value>Chybový výstup zpracování grafikonu – co se nepodařilo načíst.</value>
-    <comment>Chybový výstup spracovania grafikonu – čo sa nepodarilo načítať.</comment>
-  </data>
-  <data name="K_PathNames_LogFile" xml:space="preserve">
-    <value>Hlavní log programu.</value>
-    <comment>Hlavný log programu.</comment>
-  </data>
-  <data name="K_PathNames_LogReport" xml:space="preserve">
-    <value>Log hlášení.</value>
-    <comment>Log hlásení.</comment>
-  </data>
-  <data name="K_PathNames_LogTableH" xml:space="preserve">
-    <value>Přehled obsahu tabulí. Vzniká, jen pokud má Loging\TableLogMode nastavený příznak +1.</value>
-    <comment>Prehľad obsahu tabúľ. Vzniká, len ak má Loging\TableLogMode nastavený príznak +1.</comment>
-  </data>
-  <data name="K_PathNames_LogForLigtCmd" xml:space="preserve">
-    <value>Soubor pro příkazy osvětlení při OnlyDebug\LightCmdOutToFile = 1.</value>
-    <comment>Súbor pre príkazy osvetlenia pri OnlyDebug\LightCmdOutToFile = 1.</comment>
-  </data>
-  <data name="D_PathNames_LogForLigtCmd" xml:space="preserve">
-    <value>skládá se za běhu</value>
-    <comment>skladá sa za behu</comment>
-  </data>
-  <data name="S_Pauses" xml:space="preserve">
-    <value>Časování zvukových hlášení – rytmus, v jakém se hlášení skládá z nahrávek, a jak často se vybírá z fronty. Všechny hodnoty jsou v milisekundách. Prodlužování pauz dělá hlášení srozumitelnější, ale zvyšuje riziko, že se nestihne před odjezdem vlaku.</value>
-    <comment>Časovanie zvukových hlásení – rytmus, v akom sa hlásenie skladá z nahrávok, a ako často sa vyberá z fronty. Všetky hodnoty sú v milisekundách. Predlžovanie páuz robí hlásenie zrozumiteľnejším, ale zvyšuje riziko, že sa nestihne pred odchodom vlaku.</comment>
-  </data>
-  <data name="K_Pauses_StationPause" xml:space="preserve">
-    <value>Pauza mezi názvy stanic při vyjmenovávání trasy.</value>
-    <comment>Pauza medzi názvami staníc pri vymenúvaní trasy.</comment>
-  </data>
-  <data name="K_Pauses_WordPause" xml:space="preserve">
-    <value>Pauza mezi jednotlivými slovy hlášení. 0 znamená, že nahrávky navazují bez mezery.</value>
-    <comment>Pauza medzi jednotlivými slovami hlásenia. 0 znamená, že nahrávky nadväzujú bez medzery.</comment>
-  </data>
-  <data name="K_Pauses_EndPause" xml:space="preserve">
-    <value>Ticho na konci hlášení před vypnutím zesilovače.</value>
-    <comment>Ticho na konci hlásenia pred vypnutím zosilňovača.</comment>
-  </data>
-  <data name="K_Pauses_GetMessage" xml:space="preserve">
-    <value>Jak často se vybírají zprávy z fronty hlášení.</value>
-    <comment>Ako často sa vyberajú správy z fronty hlásení.</comment>
-  </data>
-  <data name="K_Pauses_EventMin" xml:space="preserve">
-    <value>Dolní hranice intervalu, ve kterém se zpracovávají události.</value>
-    <comment>Dolná hranica intervalu, v ktorom sa spracúvajú udalosti.</comment>
-  </data>
-  <data name="K_Pauses_EventMax" xml:space="preserve">
-    <value>Horní hranice téhož intervalu. Program se mezi hranicemi přizpůsobuje zátěži.</value>
-    <comment>Horná hranica toho istého intervalu. Program sa medzi hranicami prispôsobuje záťaži.</comment>
-  </data>
-  <data name="K_Pauses_StationChangeDelay" xml:space="preserve">
-    <value>Zpoždění po přepnutí na jinou stanici, než se začne pracovat s jejími daty.</value>
-    <comment>Oneskorenie po prepnutí na inú stanicu, kým sa začne pracovať s jej dátami.</comment>
-  </data>
-  <data name="K_Pauses_LogTabTrains" xml:space="preserve">
-    <value>Jak často se do logu zapíše přehled vlaků právě zobrazených na tabulích. Totéž vlákno zapisuje i soubory SAVE_XML.xml pro INISSView – při 0 se export do XML neprovádí vůbec.</value>
-    <comment>Ako často sa do logu zapíše prehľad vlakov práve zobrazených na tabuliach. To isté vlákno zapisuje aj súbory SAVE_XML.xml pre INISSView – pri 0 sa export do XML nevykonáva vôbec.</comment>
-  </data>
-  <data name="S_Remote" xml:space="preserve">
-    <value>Linka na vzdálené nebo nadřazené pracoviště – používá se tam, kde INISS neřídí tabule přímo, ale přes centrálu. Celá sekce se čte pouze v režimu dálkového ovládání; jinak se její hodnoty ani nezakládají, a proto v registru běžné stanice sekce Remote vůbec není. Režim se zapíná parametrem /remote. Celý postup propojení dvou počítačů je v návodu Vzdálený INISS; druhou stranu linky tvoří sekce Driver* s TableClass = 128.</value>
-    <comment>Linka na vzdialené alebo nadradené pracovisko – používa sa tam, kde INISS neriadi tabule priamo, ale cez centrálu. Celá sekcia sa číta iba v režime diaľkového ovládania; inak sa jej hodnoty ani nezakladajú, a preto v registri bežnej stanice sekcia Remote vôbec nie je. Režim sa zapína parametrom /remote. Celý postup prepojenia dvoch počítačov je v návode Vzdialený INISS; druhú stranu linky tvorí sekcia Driver* s TableClass = 128.</comment>
-  </data>
-  <data name="K_Remote_Port" xml:space="preserve">
-    <value>Komunikační kanál. Stejná syntaxe jako Driver\TablePort.</value>
-    <comment>Komunikačný kanál. Rovnaká syntax ako Driver\TablePort.</comment>
-  </data>
-  <data name="K_Remote_PortParam" xml:space="preserve">
-    <value>Parametry sériové linky. U síťového kanálu se ignorují.</value>
-    <comment>Parametre sériovej linky. Pri sieťovom kanáli sa ignorujú.</comment>
-  </data>
-  <data name="K_Remote_TimeoutInterval" xml:space="preserve">
-    <value>Timeout mezi jednotlivými znaky.</value>
-    <comment>Timeout medzi jednotlivými znakmi.</comment>
-  </data>
-  <data name="K_Remote_TimeoutConst" xml:space="preserve">
-    <value>Pevná složka timeoutu.</value>
-    <comment>Pevná zložka timeoutu.</comment>
-  </data>
-  <data name="K_Remote_TimeoutMul" xml:space="preserve">
-    <value>Násobicí složka timeoutu, udávaná na 100 přenesených bajtů.</value>
-    <comment>Násobiaca zložka timeoutu, udávaná na 100 prenesených bajtov.</comment>
-  </data>
-  <data name="K_Remote_CheckModem" xml:space="preserve">
-    <value>Signály, které musí být aktivní, aby se linka považovala za spojenou. Při nesplnění se do logu zapíše Modem connection not established. Prázdné znamená nekontrolovat.</value>
-    <comment>Signály, ktoré musia byť aktívne, aby sa linka považovala za spojenú. Pri nesplnení sa do logu zapíše Modem connection not established. Prázdne znamená nekontrolovať.</comment>
-  </data>
-  <data name="K_Remote_CTSFlow" xml:space="preserve">
-    <value>Řízení toku přes signál CTS.</value>
-    <comment>Riadenie toku cez signál CTS.</comment>
-  </data>
-  <data name="S_Switch" xml:space="preserve">
-    <value>Redundantní sestava – dvě instance INISS, které si navzájem zálohují data a při výpadku se přepnou. Pokud jsou Port i URL prázdné, přepínání je vypnuto a sekce nic nedělá.</value>
-    <comment>Redundantná zostava – dve inštancie INISS, ktoré si navzájom zálohujú dáta a pri výpadku sa prepnú. Ak sú Port aj URL prázdne, prepínanie je vypnuté a sekcia nič nerobí.</comment>
-  </data>
-  <data name="K_Switch_Port" xml:space="preserve">
-    <value>Kanál k partnerské instanci; stejná syntaxe jako Remote\Port. Prázdné znamená vypnuté přepínání.</value>
-    <comment>Kanál k partnerskej inštancii; rovnaká syntax ako Remote\Port. Prázdne znamená vypnuté prepínanie.</comment>
-  </data>
-  <data name="K_Switch_URL" xml:space="preserve">
-    <value>Adresa partnerské instance pro síťové spojení.</value>
-    <comment>Adresa partnerskej inštancie pre sieťové spojenie.</comment>
-  </data>
-  <data name="K_Switch_BackupPath" xml:space="preserve">
-    <value>Cílová složka, do které se kopírují datové soubory. Prázdné znamená nezálohovat.</value>
-    <comment>Cieľový priečinok, do ktorého sa kopírujú dátové súbory. Prázdne znamená nezálohovať.</comment>
-  </data>
-  <data name="K_Switch_WaitCopyFile" xml:space="preserve">
-    <value>Timeout kopírování jednoho souboru. Při pomalé síti zvýšit, jinak se záloha přerušuje.</value>
-    <comment>Timeout kopírovania jedného súboru. Pri pomalej sieti zvýšiť, inak sa záloha prerušuje.</comment>
-  </data>
-  <data name="K_Switch_SyncInterval" xml:space="preserve">
-    <value>Jak často se synchronizuje s partnerskou instancí.</value>
-    <comment>Ako často sa synchronizuje s partnerskou inštanciou.</comment>
-  </data>
-  <data name="S_Tables" xml:space="preserve">
-    <value>Provozní nastavení jednotlivých informačních tabulí – zda je tabule v provozu a jaký má jas ve dne a v noci. Zatímco sekce Driver* popisují linku, tato sekce popisuje tabule na ní. Kromě globálního BlackOut obsahuje čtyři hodnoty na každou tabuli, kde &lt;N&gt; je index tabule od nuly – tedy Enabled0, DayLight0 a tak dále.</value>
-    <comment>Prevádzkové nastavenie jednotlivých informačných tabúľ – či je tabuľa v prevádzke a aký má jas cez deň a v noci. Zatiaľ čo sekcie Driver* popisujú linku, táto sekcia popisuje tabule na nej. Okrem globálneho BlackOut obsahuje štyri hodnoty na každú tabuľu, kde &lt;N&gt; je index tabule od nuly – teda Enabled0, DayLight0 a tak ďalej.</comment>
-  </data>
-  <data name="K_Tables_BlackOut" xml:space="preserve">
-    <value>Globální zhasnutí všech tabulí najednou, bez ohledu na jejich vlastní nastavení jasu.</value>
-    <comment>Globálne zhasnutie všetkých tabúľ naraz, bez ohľadu na ich vlastné nastavenie jasu.</comment>
-  </data>
-  <data name="K_Tables_EnabledN" xml:space="preserve">
-    <value>Tabule N je v provozu. Při 0 s ní program vůbec nekomunikuje a nehlásí ji jako nekomunikující – takto se vyřadí pokažená tabule, aniž by zaplavovala log chybami.</value>
-    <comment>Tabuľa N je v prevádzke. Pri 0 s ňou program vôbec nekomunikuje a nehlási ju ako nekomunikujúcu – takto sa vyradí pokazená tabuľa bez toho, aby zaplavovala log chybami.</comment>
-  </data>
-  <data name="K_Tables_DayLightN" xml:space="preserve">
-    <value>Denní úroveň jasu tabule N. Rozsah hodnot určuje typ tabule, 0 je zhasnuto.</value>
-    <comment>Denná úroveň jasu tabule N. Rozsah hodnôt určuje typ tabule, 0 je zhasnuté.</comment>
-  </data>
-  <data name="K_Tables_NightLightN" xml:space="preserve">
-    <value>Noční úroveň jasu tabule N.</value>
-    <comment>Nočná úroveň jasu tabule N.</comment>
-  </data>
-  <data name="K_Tables_ForceLightN" xml:space="preserve">
-    <value>Vynucená úroveň jasu bez ohledu na den a noc. Výchozí hodnota se odvodí od výrobce tabule: ELEN, ELENOLD, ELEN10, ELEN16 a ELEN16Kam dostanou 99, APEL a APEL_AN dostanou 0, ELEKON dostane 5, ostatní -1.</value>
-    <comment>Vynútená úroveň jasu bez ohľadu na deň a noc. Predvolená hodnota sa odvodí od výrobcu tabule: ELEN, ELENOLD, ELEN10, ELEN16 a ELEN16Kam dostanú 99, APEL a APEL_AN dostanú 0, ELEKON dostane 5, ostatné -1.</comment>
-  </data>
-  <data name="D_Tables_ForceLightN" xml:space="preserve">
-    <value>podle výrobce</value>
-    <comment>podľa výrobcu</comment>
-  </data>
-  <data name="C_Tables_ForceLightN_0" xml:space="preserve">
-    <value>nevynucovat, řídit se denní a noční úrovní</value>
-    <comment>nevynucovať, riadiť sa dennou a nočnou úrovňou</comment>
-  </data>
-  <data name="C_Tables_ForceLightN_1" xml:space="preserve">
-    <value>trvale držet tuto úroveň</value>
-    <comment>trvalo držať túto úroveň</comment>
-  </data>
-  <data name="S_TORNZ" xml:space="preserve">
-    <value>Řízení externího ovladače rozhlasové ústředny. INISS ho spouští jako samostatný program a komunikuje s ním přes okno, které si najde podle třídy a titulku. Sekce tedy popisuje, jak ovladač spustit, jak ho najít a jak dlouho na něj čekat.</value>
-    <comment>Riadenie externého ovládača rozhlasovej ústredne. INISS ho spúšťa ako samostatný program a komunikuje s ním cez okno, ktoré si nájde podľa triedy a titulku. Sekcia teda popisuje, ako ovládač spustiť, ako ho nájsť a ako dlho naň čakať.</comment>
-  </data>
-  <data name="K_TORNZ_TORNZName" xml:space="preserve">
-    <value>Označení typu ústředny; podle něj se vybírá varianta protokolu.</value>
-    <comment>Označenie typu ústredne; podľa neho sa vyberá variant protokolu.</comment>
-  </data>
-  <data name="K_TORNZ_CmdLine" xml:space="preserve">
-    <value>Příkazový řádek, kterým se ovladač spouští, relativně ke složce programu.</value>
-    <comment>Príkazový riadok, ktorým sa ovládač spúšťa, relatívne k priečinku programu.</comment>
-  </data>
-  <data name="K_TORNZ_WndClassName" xml:space="preserve">
-    <value>Třída okna ovladače.</value>
-    <comment>Trieda okna ovládača.</comment>
-  </data>
-  <data name="K_TORNZ_WndName" xml:space="preserve">
-    <value>Titulek okna ovladače. Podle třídy a titulku ho INISS najde – pokud ovladač naběhne s jiným titulkem, INISS ho nenajde a ohlásí chybu.</value>
-    <comment>Titulok okna ovládača. Podľa triedy a titulku ho INISS nájde – ak ovládač nabehne s iným titulkom, INISS ho nenájde a ohlási chybu.</comment>
-  </data>
-  <data name="K_TORNZ_RunTornzTimeout" xml:space="preserve">
-    <value>Jak dlouho čekat na naběhnutí ovladače po spuštění, než se vyhlásí neúspěch.</value>
-    <comment>Ako dlho čakať na nábeh ovládača po spustení, kým sa vyhlási neúspech.</comment>
-  </data>
-  <data name="K_TORNZ_ResetTimeout" xml:space="preserve">
-    <value>Timeout resetu ústředny.</value>
-    <comment>Timeout resetu ústredne.</comment>
-  </data>
-  <data name="K_TORNZ_RequestTimeout" xml:space="preserve">
-    <value>Timeout jednoho požadavku na ovladač.</value>
-    <comment>Timeout jednej požiadavky na ovládač.</comment>
-  </data>
-  <data name="K_TORNZ_ShowErrTime" xml:space="preserve">
-    <value>Jak dlouho zůstane chybové hlášení ústředny na obrazovce.</value>
-    <comment>Ako dlho ostane chybové hlásenie ústredne na obrazovke.</comment>
-  </data>
-  <data name="K_TORNZ_MaxDelkaHlaseni" xml:space="preserve">
-    <value>Nejdelší přípustné hlášení – pojistka proti zaseknutému mikrofonu, který by jinak držel rozhlas obsazený.</value>
-    <comment>Najdlhšie prípustné hlásenie – poistka proti zaseknutému mikrofónu, ktorý by inak držal rozhlas obsadený.</comment>
-  </data>
-  <data name="K_TORNZ_EndReportWait" xml:space="preserve">
-    <value>Čekání po skončení hlášení, než se ústředna uvolní. U ústředen s pomalým dozníváním nastavit nenulovou hodnotu.</value>
-    <comment>Čakanie po skončení hlásenia, kým sa ústredňa uvoľní. Pri ústredniach s pomalým doznievaním nastaviť nenulovú hodnotu.</comment>
-  </data>
-  <data name="K_TORNZ_TORNZDayMode" xml:space="preserve">
-    <value>Kód denního režimu, který se ústředně posílá při přepnutí.</value>
-    <comment>Kód denného režimu, ktorý sa ústredni posiela pri prepnutí.</comment>
-  </data>
-  <data name="K_TORNZ_TORNZNightMode" xml:space="preserve">
-    <value>Kód nočního režimu. Výchozí kódy platí pro ústřednu INOMA; jiná ústředna má jiné.</value>
-    <comment>Kód nočného režimu. Predvolené kódy platia pre ústredňu INOMA; iná ústredňa má iné.</comment>
-  </data>
-  <data name="S_Volume" xml:space="preserve">
-    <value>Nastavení zvukového mixéru pro jednotlivé kanály. Sekce Volume je mikrofonní vstup, sekce Volume0 až Volume8 jsou výstupní kanály – typicky jednotlivá nástupiště nebo zóny rozhlasu. Každá sekce má stejnou strukturu.</value>
-    <comment>Nastavenie zvukového mixéra pre jednotlivé kanály. Sekcia Volume je mikrofónový vstup, sekcie Volume0 až Volume8 sú výstupné kanály – typicky jednotlivé nástupištia alebo zóny rozhlasu. Každá sekcia má rovnakú štruktúru.</comment>
-  </data>
-  <data name="K_Volume_Mixer" xml:space="preserve">
-    <value>Název zvukového zařízení, které tento kanál ovládá. Prázdné znamená výchozí zařízení systému.</value>
-    <comment>Názov zvukového zariadenia, ktoré tento kanál ovláda. Prázdne znamená predvolené zariadenie systému.</comment>
-  </data>
-  <data name="K_Volume_Balance" xml:space="preserve">
-    <value>Vyvážení kanálů na stupnici 0 až 1000, střed je 500.</value>
-    <comment>Vyváženie kanálov na stupnici 0 až 1000, stred je 500.</comment>
-  </data>
-  <data name="K_Volume_Mikrofon" xml:space="preserve">
-    <value>Kanál je mikrofonní vstup, ne výstup. Výchozí 1 pro sekci Volume a 0 pro Volume0 až Volume8.</value>
-    <comment>Kanál je mikrofónový vstup, nie výstup. Predvolene 1 pre sekciu Volume a 0 pre Volume0 až Volume8.</comment>
-  </data>
-  <data name="D_Volume_Mikrofon" xml:space="preserve">
-    <value>1 / 0</value>
-    <comment>1 / 0</comment>
-  </data>
-  <data name="K_Volume_Time0" xml:space="preserve">
-    <value>Dva časy, kdy se hlasitost kanálu automaticky přepne – typicky denní a noční režim. Zapisují se jako číslo hhmmss, tedy 60000 je 06:00:00 a 220000 je 22:00:00.</value>
-    <comment>Dva časy, kedy sa hlasitosť kanála automaticky prepne – typicky denný a nočný režim. Zapisujú sa ako číslo hhmmss, teda 60000 je 06:00:00 a 220000 je 22:00:00.</comment>
-  </data>
-  <data name="C_Volume_Time0_0" xml:space="preserve">
-    <value>přepínání je vypnuto</value>
-    <comment>prepínanie je vypnuté</comment>
-  </data>
-  <data name="K_Volume_Time1" xml:space="preserve">
-    <value>Dva časy, kdy se hlasitost kanálu automaticky přepne – typicky denní a noční režim. Zapisují se jako číslo hhmmss, tedy 60000 je 06:00:00 a 220000 je 22:00:00.</value>
-    <comment>Dva časy, kedy sa hlasitosť kanála automaticky prepne – typicky denný a nočný režim. Zapisujú sa ako číslo hhmmss, teda 60000 je 06:00:00 a 220000 je 22:00:00.</comment>
-  </data>
-  <data name="C_Volume_Time1_0" xml:space="preserve">
-    <value>přepínání je vypnuto</value>
-    <comment>prepínanie je vypnuté</comment>
-  </data>
-  <data name="K_Volume_Value0" xml:space="preserve">
-    <value>Hlasitost platná od příslušného času. Pokud je -1, zneplatní se i odpovídající čas a přepnutí se neprovede.</value>
-    <comment>Hlasitosť platná od príslušného času. Ak je -1, zneplatní sa aj zodpovedajúci čas a prepnutie sa nevykoná.</comment>
-  </data>
-  <data name="K_Volume_Value1" xml:space="preserve">
-    <value>Hlasitost platná od příslušného času. Pokud je -1, zneplatní se i odpovídající čas a přepnutí se neprovede.</value>
-    <comment>Hlasitosť platná od príslušného času. Ak je -1, zneplatní sa aj zodpovedajúci čas a prepnutie sa nevykoná.</comment>
-  </data>
-  <data name="K_Volume_n_zov_prvku_mix_ra" xml:space="preserve">
-    <value>Pro každý ovládací prvek, který zvuková karta nabízí, vznikne hodnota pojmenovaná přesně tak, jak ji karta hlásí – například Wave nebo Line In. Názvy tedy závisejí na hardwaru: při výměně zvukové karty vzniknou nové a staré zůstanou ležet.</value>
-    <comment>Pre každý ovládací prvok, ktorý zvuková karta ponúka, vznikne hodnota pomenovaná presne tak, ako ho karta hlási – napríklad Wave alebo Line In. Názvy teda závisia od hardvéru: pri výmene zvukovej karty vzniknú nové a staré ostanú ležať.</comment>
-  </data>
-  <data name="S_Zvuky" xml:space="preserve">
-    <value>Zvuková banka a mapování skupin nahrávek. INISS skládá hlášení z jednotlivých nahraných slov; hodnoty končící na Group říkají, ve které skupině banky se hledají nahrávky pro daný druh údaje. Pokud skupina neexistuje nebo v ní nahrávka chybí, příslušná část hlášení se vynechá.</value>
-    <comment>Zvuková banka a mapovanie skupín nahrávok. INISS skladá hlásenie z jednotlivých nahraných slov; hodnoty končiace na Group hovoria, v ktorej skupine banky sa hľadajú nahrávky pre daný druh údaja. Ak skupina neexistuje alebo v nej nahrávka chýba, príslušná časť hlásenia sa vynechá.</comment>
-  </data>
-  <data name="K_Zvuky_FileNameFyzManag" xml:space="preserve">
-    <value>Soubor správce fyzické zvukové banky – index skutečných zvukových souborů.</value>
-    <comment>Súbor správcu fyzickej zvukovej banky – index skutočných zvukových súborov.</comment>
-  </data>
-  <data name="K_Zvuky_FileNameLogZvuk" xml:space="preserve">
-    <value>Soubor logické zvukové banky – mapování významů na nahrávky.</value>
-    <comment>Súbor logickej zvukovej banky – mapovanie významov na nahrávky.</comment>
-  </data>
-  <data name="K_Zvuky_AmplifierPort" xml:space="preserve">
-    <value>Sériový port, na kterém INISS před hlášením zapne signál DTR, a tím sepne zesilovač. Prázdné znamená zesilovač takto neřídit, tedy je trvale zapnutý. Se spínací jednotkou ELSVO ani s ústřednou TORNZ nesouvisí. Platí pro první zvukový výstup.</value>
-    <comment>Sériový port, na ktorom INISS pred hlásením zapne signál DTR a tým zopne zosilňovač. Prázdne znamená zosilňovač takto neriadiť, teda je trvalo zapnutý. So spínacou jednotkou ELSVO ani s ústredňou TORNZ nesúvisí. Platí pre prvý zvukový výstup.</comment>
-  </data>
-  <data name="K_Zvuky_AmplifierPortN" xml:space="preserve">
-    <value>Totéž pro další zvukové výstupy: INISS je podle Audio.txt zakládá postupně a druhý čte AmplifierPort1, třetí AmplifierPort2 a tak dále.</value>
-    <comment>To isté pre ďalšie zvukové výstupy: INISS ich podľa Audio.txt zakladá postupne a druhý číta AmplifierPort1, tretí AmplifierPort2 a tak ďalej.</comment>
-  </data>
-  <data name="K_Zvuky_AmplifierOnDelay" xml:space="preserve">
-    <value>Čekání po zapnutí zesilovače, než se začne přehrávat. Příliš krátká hodnota odřízne začátek hlášení.</value>
-    <comment>Čakanie po zapnutí zosilňovača, kým sa začne prehrávať. Príliš krátka hodnota odreže začiatok hlásenia.</comment>
-  </data>
-  <data name="K_Zvuky_TrainNameGroup" xml:space="preserve">
-    <value>Skupina banky s nahrávkami názvů vlaků.</value>
-    <comment>Skupina banky s nahrávkami názvov vlakov.</comment>
-  </data>
-  <data name="K_Zvuky_StationListGroup" xml:space="preserve">
-    <value>Skupina s nahrávkami názvů stanic pro vyjmenovávání trasy.</value>
-    <comment>Skupina s nahrávkami názvov staníc pre vymenúvanie trasy.</comment>
-  </data>
-  <data name="K_Zvuky_DelayReasonGroup" xml:space="preserve">
-    <value>Skupina s nahrávkami důvodů zpoždění.</value>
-    <comment>Skupina s nahrávkami dôvodov meškania.</comment>
-  </data>
-  <data name="K_Zvuky_OperatorGroup" xml:space="preserve">
-    <value>Skupina s nahrávkami názvů dopravců.</value>
-    <comment>Skupina s nahrávkami názvov dopravcov.</comment>
-  </data>
-  <data name="K_Zvuky_LineGroup" xml:space="preserve">
-    <value>Skupina s nahrávkami označení linek.</value>
-    <comment>Skupina s nahrávkami označení liniek.</comment>
-  </data>
-  <data name="K_Zvuky_Reklama" xml:space="preserve">
-    <value>Skupina s reklamními hlášeními, která se přehrávají mezi provozními. Prázdné znamená bez reklamy.</value>
-    <comment>Skupina s reklamnými hláseniami, ktoré sa prehrávajú medzi prevádzkovými. Prázdne znamená bez reklamy.</comment>
-  </data>
-  <data name="K_Zvuky_Order1Number" xml:space="preserve">
-    <value>Číslo nahrávky pro řadovou číslovku „první“, která se skloňuje jinak než základní číslovka.</value>
-    <comment>Číslo nahrávky pre radovú číslovku „prvý / prvá“, ktorá sa skloňuje inak než základná číslovka.</comment>
-  </data>
-  <data name="C_Zvuky_Order1Number_0" xml:space="preserve">
-    <value>nepoužívat zvláštní nahrávku</value>
-    <comment>nepoužívať zvláštnu nahrávku</comment>
-  </data>
-  <data name="C_Zvuky_Order1Number_1" xml:space="preserve">
-    <value>číslo nahrávky v bance</value>
-    <comment>číslo nahrávky v banke</comment>
-  </data>
-</root>
+Samotnú aktualizáciu INISS nerobí – nemá sťahovanie ani spúšťanie inštalátora. Iba uvoľní miesto externému mechanizmu (naplánovaná úloha, dávka, wrapper), ktorý vymení súbory a INISS znovu spustí; kód 78 mu umožňuje odlíšiť plánované ukončenie od pádu. Na výmenu dát sa k tomu hodí súbor Akt.akt.</comment>
+  </data>
+  <data name="K_Implementation_CheckTabFull" xml:space="preserve">
+    <value>Kontroluje se, zda se text vejde na tabuli, a při přetečení se hlásí chyba. Při 0 se text tiše ořízne.</value>
+    <comment>Kontroluje sa, či sa text zmestí na tabuľu, a pri pretečení sa hlási chyba. Pri 0 sa text ticho oreže.</comment>
+  </data>
+  <data name="K_Implementation_PoslPozVyluka" xml:space="preserve">
+    <value>Při výluce se použije poslední pozice místo pozice z grafikonu.</value>
+    <comment>Pri výluke sa použije posledná pozícia namiesto pozície z grafikonu.</comment>
+  </data>
+  <data name="K_Implementation_Zvuky" xml:space="preserve">
+    <value>Příznak, zda je ve stanici zvukové hlášení. Hodnota se načte, ale nic ji dále nepoužívá – zvuk je řízen sekcí Zvuky a nastavením mixéru. Změna hodnoty nemá žádný účinek.</value>
+    <comment>Príznak, či je na stanici zvukové hlásenie. Hodnota sa načíta, ale nič ju už ďalej nepoužíva – zvuk je riadený sekciou Zvuky a nastavením mixéra. Zmena hodnoty nemá žiadny účinok.</comment>
+  </data>
+  <data name="K_Implementation_NazStanice" xml:space="preserve">
+    <value>Název stanice pro hlášení. Verze 3.0, 3.10 i 3.34 ji četly, 3.39 už ne – bere se z datových souborů. Změna hodnoty nemá účinek.</value>
+    <comment>Názov stanice pre hlásenia. Verzie 3.0, 3.10 aj 3.34 ju čítali, 3.39 už nie – berie sa z dátových súborov. Zmena hodnoty nemá účinok.</comment>
+  </data>
+  <data name="S_IntSrv" xml:space="preserve">
+    <value>Rozhraní na integrační server – kanál k nadřazené informační soustavě, oddělený od GTN i od klientského rozhraní. Struktura je záměrně stejná jako u sekcí GTN a Client, aby se tři nezávislé kanály daly nakonfigurovat stejně.</value>
+    <comment>Rozhranie na integračný server – kanál k nadradenej informačnej sústave, oddelený od GTN aj od klientskeho rozhrania. Štruktúra je zámerne rovnaká ako pri sekciách GTN a Client, aby sa tri nezávislé kanály dali nakonfigurovať rovnako.</comment>
+  </data>
+  <data name="K_IntSrv_RecvPort" xml:space="preserve">
+    <value>Port pro příjem od integračního serveru.</value>
+    <comment>Port pre príjem od integračného servera.</comment>
+  </data>
+  <data name="C_IntSrv_RecvPort_0" xml:space="preserve">
+    <value>rozhraní se neotevře</value>
+    <comment>rozhranie sa neotvorí</comment>
+  </data>
+  <data name="C_IntSrv_RecvPort_1" xml:space="preserve">
+    <value>port, na kterém program naslouchá</value>
+    <comment>port, na ktorom program počúva</comment>
+  </data>
+  <data name="S_Loging" xml:space="preserve">
+    <value>Co se zapisuje do logů a jak velké smějí být. Každý kanál – hlášení, změny, stavy, rozhlasová ústředna, GTN, integrační server, klient, tabule – má vlastní přepínač a většina i vlastní limit velikosti. Po překročení limitu se log rotuje. Názvy souborů nastavuje sekce PathNames.</value>
+    <comment>Čo sa zapisuje do logov a aké veľké smú byť. Každý kanál – hlásenia, zmeny, stavy, rozhlasová ústredňa, GTN, integračný server, klient, tabule – má vlastný prepínač a väčšina aj vlastný limit veľkosti. Po prekročení limitu sa log rotuje. Názvy súborov nastavuje sekcia PathNames.</comment>
+  </data>
+  <data name="K_Loging_ReportLogOn" xml:space="preserve">
+    <value>Zapisovat log hlášení – kdo, kdy a co bylo hlášeno.</value>
+    <comment>Zapisovať log hlásení – kto, kedy a čo bolo hlásené.</comment>
+  </data>
+  <data name="K_Loging_ReportLogMaxSize" xml:space="preserve">
+    <value>Největší velikost logu hlášení v bajtech.</value>
+    <comment>Najväčšia veľkosť logu hlásení v bajtoch.</comment>
+  </data>
+  <data name="K_Loging_ReportLogMode" xml:space="preserve">
+    <value>Podrobnost a tvar logu hlášení. Hodnota je součtem nezávislých příznaků. Příznak +2 přepne zápis z textových řádků na XML záznamy, které čte archiv INISSView; spolu s ním se nastavuje PathNames\LogReport na REP@.XML.</value>
+    <comment>Podrobnosť a tvar logu hlásení. Hodnota je súčtom nezávislých príznakov. Príznak +2 prepne zápis z textových riadkov na XML záznamy, ktoré číta archív INISSView; spolu s ním sa nastavuje PathNames\LogReport na REP@.XML.</comment>
+  </data>
+  <data name="C_Loging_ReportLogMode_0" xml:space="preserve">
+    <value>nezapisovat nic</value>
+    <comment>nezapisovať nič</comment>
+  </data>
+  <data name="C_Loging_ReportLogMode_1" xml:space="preserve">
+    <value>zapisovat i obsah hlášení, nejen záznam, že proběhlo</value>
+    <comment>zapisovať aj obsah hlásenia, nielen záznam, že prebehlo</comment>
+  </data>
+  <data name="C_Loging_ReportLogMode_2" xml:space="preserve">
+    <value>zapisovat log ve tvaru XML (záznamy) místo textu</value>
+    <comment>zapisovať log v tvare XML (záznamy) namiesto textu</comment>
+  </data>
+  <data name="K_Loging_ChangeLogOn" xml:space="preserve">
+    <value>Zapisovat změny údajů o vlacích.</value>
+    <comment>Zapisovať zmeny údajov o vlakoch.</comment>
+  </data>
+  <data name="K_Loging_StateLogOn" xml:space="preserve">
+    <value>Zapisovat přechody vlaků mezi stavy. Objemné – zapínat jen při hledání chyby.</value>
+    <comment>Zapisovať prechody vlakov medzi stavmi. Objemné – zapínať len pri hľadaní chyby.</comment>
+  </data>
+  <data name="K_Loging_TornzLogOn" xml:space="preserve">
+    <value>Log komunikace s ovladačem rozhlasové ústředny.</value>
+    <comment>Log komunikácie s ovládačom rozhlasovej ústredne.</comment>
+  </data>
+  <data name="K_Loging_TornzLogMaxSize" xml:space="preserve">
+    <value>Limit tohoto logu.</value>
+    <comment>Limit tohto logu.</comment>
+  </data>
+  <data name="K_Loging_GTNLogOn" xml:space="preserve">
+    <value>Log rozhraní GTN.</value>
+    <comment>Log rozhrania GTN.</comment>
+  </data>
+  <data name="K_Loging_GTNLogMaxSize" xml:space="preserve">
+    <value>Limit tohoto logu.</value>
+    <comment>Limit tohto logu.</comment>
+  </data>
+  <data name="K_Loging_IntSrvLogOn" xml:space="preserve">
+    <value>Log integračního serveru.</value>
+    <comment>Log integračného servera.</comment>
+  </data>
+  <data name="K_Loging_IntSrvLogMaxSize" xml:space="preserve">
+    <value>Limit tohoto logu.</value>
+    <comment>Limit tohto logu.</comment>
+  </data>
+  <data name="K_Loging_ClientLogOn" xml:space="preserve">
+    <value>Log klientského rozhraní.</value>
+    <comment>Log klientskeho rozhrania.</comment>
+  </data>
+  <data name="K_Loging_ClientLogMaxSize" xml:space="preserve">
+    <value>Limit tohoto logu.</value>
+    <comment>Limit tohto logu.</comment>
+  </data>
+  <data name="K_Loging_TableLogMode" xml:space="preserve">
+    <value>Co se zapisuje o tabulích. Hodnota je součtem nezávislých příznaků.</value>
+    <comment>Čo sa zapisuje o tabuliach. Hodnota je súčtom nezávislých príznakov.</comment>
+  </data>
+  <data name="C_Loging_TableLogMode_0" xml:space="preserve">
+    <value>bez logování tabulí</value>
+    <comment>bez logovania tabúľ</comment>
+  </data>
+  <data name="C_Loging_TableLogMode_1" xml:space="preserve">
+    <value>zapisovat přehled obsahu tabulí do souboru LogTableH</value>
+    <comment>zapisovať prehľad obsahu tabúľ do súboru LogTableH</comment>
+  </data>
+  <data name="C_Loging_TableLogMode_2" xml:space="preserve">
+    <value>podrobný log ovladače tabulí – rámce, potvrzení, opakování</value>
+    <comment>podrobný log ovládača tabúľ – rámce, potvrdenia, opakovania</comment>
+  </data>
+  <data name="C_Loging_TableLogMode_3" xml:space="preserve">
+    <value>rozšířený detail rámců, tedy obsah dat, nejen hlavičky</value>
+    <comment>rozšírený detail rámcov, teda obsah dát, nie len hlavičky</comment>
+  </data>
+  <data name="C_Loging_TableLogMode_4" xml:space="preserve">
+    <value>log správce tabulí a přechodů jejich stavů</value>
+    <comment>log správcu tabúľ a prechodov ich stavov</comment>
+  </data>
+  <data name="K_Loging_TableLogMaxSize" xml:space="preserve">
+    <value>Největší velikost logu tabulí. Při zapnutých příznacích +4 a +8 roste velmi rychle.</value>
+    <comment>Najväčšia veľkosť logu tabúľ. Pri zapnutých príznakoch +4 a +8 rastie veľmi rýchlo.</comment>
+  </data>
+  <data name="K_Loging_TableFileValidity" xml:space="preserve">
+    <value>Jak dlouho v minutách je soubor s obsahem tabulí považován za platný. Po uplynutí se obsah tabulí přepíše znovu i bez změny dat.</value>
+    <comment>Ako dlho v minútach je súbor s obsahom tabúľ považovaný za platný. Po uplynutí sa obsah tabúľ prepíše nanovo aj bez zmeny dát.</comment>
+  </data>
+  <data name="S_LogToINISS" xml:space="preserve">
+    <value>Původně evidence přihlášení do INISS – v nejstarších verzích tu byla také hodnota ActualLogin se jménem právě přihlášené obsluhy. Dnes z celé sekce zbylo jedno servisní počítadlo; přihlášení žije jen v paměti programu a jeho účinek řídí Environment\Logging.</value>
+    <comment>Pôvodne evidencia prihlásení do INISS – v najstarších verziách tu bola aj hodnota ActualLogin s menom práve prihlásenej obsluhy. Dnes z celej sekcie ostalo jedno servisné počítadlo; prihlásenie žije len v pamäti programu a jeho účinok riadi Environment\Logging.</comment>
+  </data>
+  <data name="K_LogToINISS_CountStartedProgram" xml:space="preserve">
+    <value>Počítadlo spuštění programu. Při každém startu se přečte, zvýší o jedna a hned zapíše zpět. Na chování nemá vliv – slouží k servisním účelům, například k odhadu, kolikrát pracoviště restartovalo aplikaci.</value>
+    <comment>Počítadlo spustení programu. Pri každom štarte sa prečíta, zvýši o jeden a hneď zapíše späť. Na správanie nemá vplyv – slúži na servisné účely, napríklad na odhad, koľkokrát pracovisko reštartovalo aplikáciu.</comment>
+  </data>
+  <data name="S_Modifiers" xml:space="preserve">
+    <value>Modifikátory hlášení – přepínače, které mění formulaci textu, například zda se hlásí směr, dopravce nebo důvod zpoždění. Sekce drží jejich výchozí stav, který se použije při každém novém hlášení, dokud jej obsluha nezmění.</value>
+    <comment>Modifikátory hlásení – prepínače, ktoré menia formuláciu textu, napríklad či sa hlási smer, dopravca alebo dôvod meškania. Sekcia drží ich východiskový stav, ktorý sa použije pri každom novom hlásení, kým ho obsluha nezmení.</comment>
+  </data>
+  <data name="K_Modifiers_Default" xml:space="preserve">
+    <value>Sbalený výchozí stav všech modifikátorů v jednom čísle – šestnáct modifikátorů po dvou bitech. Výchozí hodnota je vzor 10 opakovaný přes celé slovo, tedy „všechny modifikátory ve středním stavu“. Hodnotu mění dialog modifikátorů; ručně ji skládat nemá smysl.</value>
+    <comment>Zbalený východiskový stav všetkých modifikátorov v jednom čísle – šestnásť modifikátorov po dvoch bitoch. Predvolená hodnota je vzor 10 opakovaný cez celé slovo, teda „všetky modifikátory v strednom stave“. Hodnotu mení dialóg modifikátorov; ručne ju skladať nemá zmysel.</comment>
+  </data>
+  <data name="S_OnlyDebug" xml:space="preserve">
+    <value>Sekce určená k testování a ladění.</value>
+    <comment>Sekcia určená na testovanie a ladenie.</comment>
+  </data>
+  <data name="K_OnlyDebug_Acceleration" xml:space="preserve">
+    <value>Násobitel plynutí interního času. Umožňuje vyzkoušet celodenní scénář za pár minut.</value>
+    <comment>Násobič plynutia interného času. Umožňuje odskúšať celodenný scenár za pár minút.</comment>
+  </data>
+  <data name="C_OnlyDebug_Acceleration_0" xml:space="preserve">
+    <value>reálný čas – jediná správná hodnota pro provoz</value>
+    <comment>reálny čas – jediná správna hodnota pre prevádzku</comment>
+  </data>
+  <data name="C_OnlyDebug_Acceleration_1" xml:space="preserve">
+    <value>čas běží N-krát rychleji</value>
+    <comment>čas beží N-krát rýchlejšie</comment>
+  </data>
+  <data name="K_OnlyDebug_DayTimeOffset" xml:space="preserve">
+    <value>Posun interních hodin o celé dny dopředu. Slouží k testování grafikonu jiného dne.</value>
+    <comment>Posun interných hodín o celé dni dopredu. Slúži na testovanie grafikonu iného dňa.</comment>
+  </data>
+  <data name="C_OnlyDebug_DayTimeOffset_0" xml:space="preserve">
+    <value>bez posunu – povinné v provozu</value>
+    <comment>bez posunu – povinné v prevádzke</comment>
+  </data>
+  <data name="C_OnlyDebug_DayTimeOffset_1" xml:space="preserve">
+    <value>program se tváří, že je o N dní později</value>
+    <comment>program sa tvári, že je o N dní neskôr</comment>
+  </data>
+  <data name="K_OnlyDebug_UpdateInterval" xml:space="preserve">
+    <value>Jak často se obnovují data.</value>
+    <comment>Ako často sa obnovujú dáta.</comment>
+  </data>
+  <data name="K_OnlyDebug_UpdateBeep" xml:space="preserve">
+    <value>Při každé obnově dat program pípne – pomůcka při sledování, zda obnova běží.</value>
+    <comment>Pri každej obnove dát program pípne – pomôcka pri sledovaní, či obnova beží.</comment>
+  </data>
+  <data name="K_OnlyDebug_ViewActDelay" xml:space="preserve">
+    <value>V seznamech se zobrazí aktuální zpoždění místo plánovaného času.</value>
+    <comment>V zoznamoch sa zobrazí aktuálne meškanie namiesto plánovaného času.</comment>
+  </data>
+  <data name="K_OnlyDebug_LightCmdOutToFile" xml:space="preserve">
+    <value>Příkazy pro osvětlení tabulí se místo odeslání na linku zapíšou do souboru LogForLigtCmd. Umožní ověřit, co by program poslal, bez zásahu do tabulí.</value>
+    <comment>Príkazy na osvetlenie tabúľ sa namiesto odoslania na linku zapíšu do súboru LogForLigtCmd. Umožní overiť, čo by program poslal, bez zásahu do tabúľ.</comment>
+  </data>
+  <data name="S_PathNames" xml:space="preserve">
+    <value>Názvy datových a logových souborů. Sekce neurčuje, kde soubory jsou – jen jak se jmenují. Všechny hodnoty jsou relativní názvy: program před ně doplňuje buď datovou složku, nebo složku logů. Jedinou výjimkou je LogPath, který sám je touto složkou. Značka data nebo log u popisu říká, která z těch dvou složek se před název doplní.</value>
+    <comment>Názvy dátových a logových súborov. Sekcia neurčuje, kde súbory sú – len ako sa volajú. Všetky hodnoty sú relatívne názvy: program pred ne dopĺňa buď dátový priečinok, alebo priečinok logov. Jedinou výnimkou je LogPath, ktorý sám je tým priečinkom. Značka dáta alebo log pri popise hovorí, ktorý z tých dvoch priečinkov sa pred názov doplní.</comment>
+  </data>
+  <data name="K_PathNames_LogPath" xml:space="preserve">
+    <value>Složka logů, relativně ke složce programu. Sama slouží jako prefix pro logové soubory.</value>
+    <comment>Priečinok logov, relatívne k priečinku programu. Sám slúži ako prefix pre logové súbory.</comment>
+  </data>
+  <data name="K_PathNames_StationsFile" xml:space="preserve">
+    <value>Číselník stanic – místa, která INISS zná na trase.</value>
+    <comment>Číselník staníc – miesta, ktoré INISS pozná na trase.</comment>
+  </data>
+  <data name="K_PathNames_StationsTxtFile" xml:space="preserve">
+    <value>Textová podoba číselníku stanic, ze které se binární soubor generuje.</value>
+    <comment>Textová podoba číselníka staníc, z ktorej sa binárny súbor generuje.</comment>
+  </data>
+  <data name="K_PathNames_PositionsFile" xml:space="preserve">
+    <value>Definice pozic na tabulích – kde na které tabuli se co vypisuje.</value>
+    <comment>Definície pozícií na tabuliach – kde na ktorej tabuli sa čo vypisuje.</comment>
+  </data>
+  <data name="K_PathNames_PoziceTxtFile" xml:space="preserve">
+    <value>Textová podoba definic pozic.</value>
+    <comment>Textová podoba definícií pozícií.</comment>
+  </data>
+  <data name="K_PathNames_StateDgm" xml:space="preserve">
+    <value>Stavový diagram vlaku – stavy, události, přechody a navázaná hlášení.</value>
+    <comment>Stavový diagram vlaku – stavy, udalosti, prechody a naviazané hlásenia.</comment>
+  </data>
+  <data name="K_PathNames_StateDgmTxt" xml:space="preserve">
+    <value>Textová podoba stavového diagramu.</value>
+    <comment>Textová podoba stavového diagramu.</comment>
+  </data>
+  <data name="K_PathNames_CategoriTxt" xml:space="preserve">
+    <value>Kategorie vlaků a jejich zobrazení.</value>
+    <comment>Kategórie vlakov a ich zobrazenie.</comment>
+  </data>
+  <data name="K_PathNames_Zpozdeni" xml:space="preserve">
+    <value>Číselník důvodů zpoždění.</value>
+    <comment>Číselník dôvodov meškania.</comment>
+  </data>
+  <data name="K_PathNames_ZpozdeniTxt" xml:space="preserve">
+    <value>Textová podoba číselníku důvodů zpoždění.</value>
+    <comment>Textová podoba číselníka dôvodov meškania.</comment>
+  </data>
+  <data name="K_PathNames_GVGrafikon" xml:space="preserve">
+    <value>Hlavní grafikon – plán vlaků pro tuto stanici.</value>
+    <comment>Hlavný grafikon – plán vlakov pre túto stanicu.</comment>
+  </data>
+  <data name="K_PathNames_GVVlaky" xml:space="preserve">
+    <value>Seznam vlaků s jejich vlastnostmi.</value>
+    <comment>Zoznam vlakov s ich vlastnosťami.</comment>
+  </data>
+  <data name="K_PathNames_GVDoplnky" xml:space="preserve">
+    <value>Doplňkové údaje k vlakům, které se přidávají do hlášení.</value>
+    <comment>Doplnkové údaje k vlakom, ktoré sa pridávajú do hlásení.</comment>
+  </data>
+  <data name="K_PathNames_GVRazeni" xml:space="preserve">
+    <value>Řazení souprav – pořadí vozů pro hlášení nástupu.</value>
+    <comment>Radenie súprav – poradie vozňov pre hlásenie nástupu.</comment>
+  </data>
+  <data name="K_PathNames_GVVyluka" xml:space="preserve">
+    <value>Výluky a jejich platnost.</value>
+    <comment>Výluky a ich platnosť.</comment>
+  </data>
+  <data name="K_PathNames_GVVzory" xml:space="preserve">
+    <value>Vzory hlášení – šablony, ze kterých se skládá text.</value>
+    <comment>Vzory hlásení – šablóny, z ktorých sa skladá text.</comment>
+  </data>
+  <data name="K_PathNames_GVForeign" xml:space="preserve">
+    <value>Cizí vlaky a cizí dopravci.</value>
+    <comment>Cudzie vlaky a cudzí dopravcovia.</comment>
+  </data>
+  <data name="K_PathNames_GVMOS" xml:space="preserve">
+    <value>Údaje MOS.</value>
+    <comment>Údaje MOS.</comment>
+  </data>
+  <data name="K_PathNames_GVTabTexts" xml:space="preserve">
+    <value>Pevné texty pro tabule.</value>
+    <comment>Pevné texty pre tabule.</comment>
+  </data>
+  <data name="K_PathNames_GVStaHlasB" xml:space="preserve">
+    <value>Staniční hlášení, varianta B.</value>
+    <comment>Staničné hlásenia, variant B.</comment>
+  </data>
+  <data name="K_PathNames_GVStaHlasC" xml:space="preserve">
+    <value>Staniční hlášení, varianta C.</value>
+    <comment>Staničné hlásenia, variant C.</comment>
+  </data>
+  <data name="K_PathNames_GVExport3A" xml:space="preserve">
+    <value>Exportní soubor formátu 3, varianta A.</value>
+    <comment>Exportný súbor formátu 3, variant A.</comment>
+  </data>
+  <data name="K_PathNames_GVExport3B" xml:space="preserve">
+    <value>Exportní soubor formátu 3, varianta B.</value>
+    <comment>Exportný súbor formátu 3, variant B.</comment>
+  </data>
+  <data name="K_PathNames_GVExport3C" xml:space="preserve">
+    <value>Exportní soubor formátu 3, varianta C.</value>
+    <comment>Exportný súbor formátu 3, variant C.</comment>
+  </data>
+  <data name="K_PathNames_Razeni1_TXT" xml:space="preserve">
+    <value>Doplňkové řazení. Název hodnoty je shodný s názvem souboru.</value>
+    <comment>Doplnkové radenie. Názov hodnoty je zhodný s názvom súboru.</comment>
+  </data>
+  <data name="K_PathNames_Razeni1_DAT" xml:space="preserve">
+    <value>Binární podoba doplňkového řazení.</value>
+    <comment>Binárna podoba doplnkového radenia.</comment>
+  </data>
+  <data name="K_PathNames_DirList_TXT" xml:space="preserve">
+    <value>Seznam datových adresářů.</value>
+    <comment>Zoznam dátových adresárov.</comment>
+  </data>
+  <data name="K_PathNames_GrafikonError" xml:space="preserve">
+    <value>Chybový výstup zpracování grafikonu – co se nepodařilo načíst.</value>
+    <comment>Chybový výstup spracovania grafikonu – čo sa nepodarilo načítať.</comment>
+  </data>
+  <data name="K_PathNames_LogFile" xml:space="preserve">
+    <value>Hlavní log programu.</value>
+    <comment>Hlavný log programu.</comment>
+  </data>
+  <data name="K_PathNames_LogReport" xml:space="preserve">
+    <value>Log hlášení.</value>
+    <comment>Log hlásení.</comment>
+  </data>
+  <data name="K_PathNames_LogTableH" xml:space="preserve">
+    <value>Přehled obsahu tabulí. Vzniká, jen pokud má Loging\TableLogMode nastavený příznak +1.</value>
+    <comment>Prehľad obsahu tabúľ. Vzniká, len ak má Loging\TableLogMode nastavený príznak +1.</comment>
+  </data>
+  <data name="K_PathNames_LogForLigtCmd" xml:space="preserve">
+    <value>Soubor pro příkazy osvětlení při OnlyDebug\LightCmdOutToFile = 1.</value>
+    <comment>Súbor pre príkazy osvetlenia pri OnlyDebug\LightCmdOutToFile = 1.</comment>
+  </data>
+  <data name="D_PathNames_LogForLigtCmd" xml:space="preserve">
+    <value>skládá se za běhu</value>
+    <comment>skladá sa za behu</comment>
+  </data>
+  <data name="S_Pauses" xml:space="preserve">
+    <value>Časování zvukových hlášení – rytmus, v jakém se hlášení skládá z nahrávek, a jak často se vybírá z fronty. Všechny hodnoty jsou v milisekundách. Prodlužování pauz dělá hlášení srozumitelnější, ale zvyšuje riziko, že se nestihne před odjezdem vlaku.</value>
+    <comment>Časovanie zvukových hlásení – rytmus, v akom sa hlásenie skladá z nahrávok, a ako často sa vyberá z fronty. Všetky hodnoty sú v milisekundách. Predlžovanie páuz robí hlásenie zrozumiteľnejším, ale zvyšuje riziko, že sa nestihne pred odchodom vlaku.</comment>
+  </data>
+  <data name="K_Pauses_StationPause" xml:space="preserve">
+    <value>Pauza mezi názvy stanic při vyjmenovávání trasy.</value>
+    <comment>Pauza medzi názvami staníc pri vymenúvaní trasy.</comment>
+  </data>
+  <data name="K_Pauses_WordPause" xml:space="preserve">
+    <value>Pauza mezi jednotlivými slovy hlášení. 0 znamená, že nahrávky navazují bez mezery.</value>
+    <comment>Pauza medzi jednotlivými slovami hlásenia. 0 znamená, že nahrávky nadväzujú bez medzery.</comment>
+  </data>
+  <data name="K_Pauses_EndPause" xml:space="preserve">
+    <value>Ticho na konci hlášení před vypnutím zesilovače.</value>
+    <comment>Ticho na konci hlásenia pred vypnutím zosilňovača.</comment>
+  </data>
+  <data name="K_Pauses_GetMessage" xml:space="preserve">
+    <value>Jak často se vybírají zprávy z fronty hlášení.</value>
+    <comment>Ako často sa vyberajú správy z fronty hlásení.</comment>
+  </data>
+  <data name="K_Pauses_EventMin" xml:space="preserve">
+    <value>Dolní hranice intervalu, ve kterém se zpracovávají události.</value>
+    <comment>Dolná hranica intervalu, v ktorom sa spracúvajú udalosti.</comment>
+  </data>
+  <data name="K_Pauses_EventMax" xml:space="preserve">
+    <value>Horní hranice téhož intervalu. Program se mezi hranicemi přizpůsobuje zátěži.</value>
+    <comment>Horná hranica toho istého intervalu. Program sa medzi hranicami prispôsobuje záťaži.</comment>
+  </data>
+  <data name="K_Pauses_StationChangeDelay" xml:space="preserve">
+    <value>Zpoždění po přepnutí na jinou stanici, než se začne pracovat s jejími daty.</value>
+    <comment>Oneskorenie po prepnutí na inú stanicu, kým sa začne pracovať s jej dátami.</comment>
+  </data>
+  <data name="K_Pauses_LogTabTrains" xml:space="preserve">
+    <value>Jak často se do logu zapíše přehled vlaků právě zobrazených na tabulích. Totéž vlákno zapisuje i soubory SAVE_XML.xml pro INISSView – při 0 se export do XML neprovádí vůbec.</value>
+    <comment>Ako často sa do logu zapíše prehľad vlakov práve zobrazených na tabuliach. To isté vlákno zapisuje aj súbory SAVE_XML.xml pre INISSView – pri 0 sa export do XML nevykonáva vôbec.</comment>
+  </data>
+  <data name="S_Remote" xml:space="preserve">
+    <value>Linka na vzdálené nebo nadřazené pracoviště – používá se tam, kde INISS neřídí tabule přímo, ale přes centrálu. Celá sekce se čte pouze v režimu dálkového ovládání; jinak se její hodnoty ani nezakládají, a proto v registru běžné stanice sekce Remote vůbec není. Režim se zapíná parametrem /remote. Celý postup propojení dvou počítačů je v návodu Vzdálený INISS; druhou stranu linky tvoří sekce Driver* s TableClass = 128.</value>
+    <comment>Linka na vzdialené alebo nadradené pracovisko – používa sa tam, kde INISS neriadi tabule priamo, ale cez centrálu. Celá sekcia sa číta iba v režime diaľkového ovládania; inak sa jej hodnoty ani nezakladajú, a preto v registri bežnej stanice sekcia Remote vôbec nie je. Režim sa zapína parametrom /remote. Celý postup prepojenia dvoch počítačov je v návode Vzdialený INISS; druhú stranu linky tvorí sekcia Driver* s TableClass = 128.</comment>
+  </data>
+  <data name="K_Remote_Port" xml:space="preserve">
+    <value>Komunikační kanál. Stejná syntaxe jako Driver\TablePort.</value>
+    <comment>Komunikačný kanál. Rovnaká syntax ako Driver\TablePort.</comment>
+  </data>
+  <data name="K_Remote_PortParam" xml:space="preserve">
+    <value>Parametry sériové linky. U síťového kanálu se ignorují.</value>
+    <comment>Parametre sériovej linky. Pri sieťovom kanáli sa ignorujú.</comment>
+  </data>
+  <data name="K_Remote_TimeoutInterval" xml:space="preserve">
+    <value>Timeout mezi jednotlivými znaky.</value>
+    <comment>Timeout medzi jednotlivými znakmi.</comment>
+  </data>
+  <data name="K_Remote_TimeoutConst" xml:space="preserve">
+    <value>Pevná složka timeoutu.</value>
+    <comment>Pevná zložka timeoutu.</comment>
+  </data>
+  <data name="K_Remote_TimeoutMul" xml:space="preserve">
+    <value>Násobicí složka timeoutu, udávaná na 100 přenesených bajtů.</value>
+    <comment>Násobiaca zložka timeoutu, udávaná na 100 prenesených bajtov.</comment>
+  </data>
+  <data name="K_Remote_CheckModem" xml:space="preserve">
+    <value>Signály, které musí být aktivní, aby se linka považovala za spojenou. Při nesplnění se do logu zapíše Modem connection not established. Prázdné znamená nekontrolovat.</value>
+    <comment>Signály, ktoré musia byť aktívne, aby sa linka považovala za spojenú. Pri nesplnení sa do logu zapíše Modem connection not established. Prázdne znamená nekontrolovať.</comment>
+  </data>
+  <data name="K_Remote_CTSFlow" xml:space="preserve">
+    <value>Řízení toku přes signál CTS.</value>
+    <comment>Riadenie toku cez signál CTS.</comment>
+  </data>
+  <data name="S_Switch" xml:space="preserve">
+    <value>Redundantní sestava – dvě instance INISS, které si navzájem zálohují data a při výpadku se přepnou. Pokud jsou Port i URL prázdné, přepínání je vypnuto a sekce nic nedělá.</value>
+    <comment>Redundantná zostava – dve inštancie INISS, ktoré si navzájom zálohujú dáta a pri výpadku sa prepnú. Ak sú Port aj URL prázdne, prepínanie je vypnuté a sekcia nič nerobí.</comment>
+  </data>
+  <data name="K_Switch_Port" xml:space="preserve">
+    <value>Kanál k partnerské instanci; stejná syntaxe jako Remote\Port. Prázdné znamená vypnuté přepínání.</value>
+    <comment>Kanál k partnerskej inštancii; rovnaká syntax ako Remote\Port. Prázdne znamená vypnuté prepínanie.</comment>
+  </data>
+  <data name="K_Switch_URL" xml:space="preserve">
+    <value>Adresa partnerské instance pro síťové spojení.</value>
+    <comment>Adresa partnerskej inštancie pre sieťové spojenie.</comment>
+  </data>
+  <data name="K_Switch_BackupPath" xml:space="preserve">
+    <value>Cílová složka, do které se kopírují datové soubory. Prázdné znamená nezálohovat.</value>
+    <comment>Cieľový priečinok, do ktorého sa kopírujú dátové súbory. Prázdne znamená nezálohovať.</comment>
+  </data>
+  <data name="K_Switch_WaitCopyFile" xml:space="preserve">
+    <value>Timeout kopírování jednoho souboru. Při pomalé síti zvýšit, jinak se záloha přerušuje.</value>
+    <comment>Timeout kopírovania jedného súboru. Pri pomalej sieti zvýšiť, inak sa záloha prerušuje.</comment>
+  </data>
+  <data name="K_Switch_SyncInterval" xml:space="preserve">
+    <value>Jak často se synchronizuje s partnerskou instancí.</value>
+    <comment>Ako často sa synchronizuje s partnerskou inštanciou.</comment>
+  </data>
+  <data name="S_Tables" xml:space="preserve">
+    <value>Provozní nastavení jednotlivých informačních tabulí – zda je tabule v provozu a jaký má jas ve dne a v noci. Zatímco sekce Driver* popisují linku, tato sekce popisuje tabule na ní. Kromě globálního BlackOut obsahuje čtyři hodnoty na každou tabuli, kde &lt;N&gt; je index tabule od nuly – tedy Enabled0, DayLight0 a tak dále.</value>
+    <comment>Prevádzkové nastavenie jednotlivých informačných tabúľ – či je tabuľa v prevádzke a aký má jas cez deň a v noci. Zatiaľ čo sekcie Driver* popisujú linku, táto sekcia popisuje tabule na nej. Okrem globálneho BlackOut obsahuje štyri hodnoty na každú tabuľu, kde &lt;N&gt; je index tabule od nuly – teda Enabled0, DayLight0 a tak ďalej.</comment>
+  </data>
+  <data name="K_Tables_BlackOut" xml:space="preserve">
+    <value>Globální zhasnutí všech tabulí najednou, bez ohledu na jejich vlastní nastavení jasu.</value>
+    <comment>Globálne zhasnutie všetkých tabúľ naraz, bez ohľadu na ich vlastné nastavenie jasu.</comment>
+  </data>
+  <data name="K_Tables_EnabledN" xml:space="preserve">
+    <value>Tabule N je v provozu. Při 0 s ní program vůbec nekomunikuje a nehlásí ji jako nekomunikující – takto se vyřadí pokažená tabule, aniž by zaplavovala log chybami.</value>
+    <comment>Tabuľa N je v prevádzke. Pri 0 s ňou program vôbec nekomunikuje a nehlási ju ako nekomunikujúcu – takto sa vyradí pokazená tabuľa bez toho, aby zaplavovala log chybami.</comment>
+  </data>
+  <data name="K_Tables_DayLightN" xml:space="preserve">
+    <value>Denní úroveň jasu tabule N. Rozsah hodnot určuje typ tabule, 0 je zhasnuto.</value>
+    <comment>Denná úroveň jasu tabule N. Rozsah hodnôt určuje typ tabule, 0 je zhasnuté.</comment>
+  </data>
+  <data name="K_Tables_NightLightN" xml:space="preserve">
+    <value>Noční úroveň jasu tabule N.</value>
+    <comment>Nočná úroveň jasu tabule N.</comment>
+  </data>
+  <data name="K_Tables_ForceLightN" xml:space="preserve">
+    <value>Vynucená úroveň jasu bez ohledu na den a noc. Výchozí hodnota se odvodí od výrobce tabule: ELEN, ELENOLD, ELEN10, ELEN16 a ELEN16Kam dostanou 99, APEL a APEL_AN dostanou 0, ELEKON dostane 5, ostatní -1.</value>
+    <comment>Vynútená úroveň jasu bez ohľadu na deň a noc. Predvolená hodnota sa odvodí od výrobcu tabule: ELEN, ELENOLD, ELEN10, ELEN16 a ELEN16Kam dostanú 99, APEL a APEL_AN dostanú 0, ELEKON dostane 5, ostatné -1.</comment>
+  </data>
+  <data name="D_Tables_ForceLightN" xml:space="preserve">
+    <value>podle výrobce</value>
+    <comment>podľa výrobcu</comment>
+  </data>
+  <data name="C_Tables_ForceLightN_0" xml:space="preserve">
+    <value>nevynucovat, řídit se denní a noční úrovní</value>
+    <comment>nevynucovať, riadiť sa dennou a nočnou úrovňou</comment>
+  </data>
+  <data name="C_Tables_ForceLightN_1" xml:space="preserve">
+    <value>trvale držet tuto úroveň</value>
+    <comment>trvalo držať túto úroveň</comment>
+  </data>
+  <data name="S_TORNZ" xml:space="preserve">
+    <value>Řízení externího ovladače rozhlasové ústředny. INISS ho spouští jako samostatný program a komunikuje s ním přes okno, které si najde podle třídy a titulku. Sekce tedy popisuje, jak ovladač spustit, jak ho najít a jak dlouho na něj čekat.</value>
+    <comment>Riadenie externého ovládača rozhlasovej ústredne. INISS ho spúšťa ako samostatný program a komunikuje s ním cez okno, ktoré si nájde podľa triedy a titulku. Sekcia teda popisuje, ako ovládač spustiť, ako ho nájsť a ako dlho naň čakať.</comment>
+  </data>
+  <data name="K_TORNZ_TORNZName" xml:space="preserve">
+    <value>Označení typu ústředny; podle něj se vybírá varianta protokolu.</value>
+    <comment>Označenie typu ústredne; podľa neho sa vyberá variant protokolu.</comment>
+  </data>
+  <data name="K_TORNZ_CmdLine" xml:space="preserve">
+    <value>Příkazový řádek, kterým se ovladač spouští, relativně ke složce programu.</value>
+    <comment>Príkazový riadok, ktorým sa ovládač spúšťa, relatívne k priečinku programu.</comment>
+  </data>
+  <data name="K_TORNZ_WndClassName" xml:space="preserve">
+    <value>Třída okna ovladače.</value>
+    <comment>Trieda okna ovládača.</comment>
+  </data>
+  <data name="K_TORNZ_WndName" xml:space="preserve">
+    <value>Titulek okna ovladače. Podle třídy a titulku ho INISS najde – pokud ovladač naběhne s jiným titulkem, INISS ho nenajde a ohlásí chybu.</value>
+    <comment>Titulok okna ovládača. Podľa triedy a titulku ho INISS nájde – ak ovládač nabehne s iným titulkom, INISS ho nenájde a ohlási chybu.</comment>
+  </data>
+  <data name="K_TORNZ_RunTornzTimeout" xml:space="preserve">
+    <value>Jak dlouho čekat na naběhnutí ovladače po spuštění, než se vyhlásí neúspěch.</value>
+    <comment>Ako dlho čakať na nábeh ovládača po spustení, kým sa vyhlási neúspech.</comment>
+  </data>
+  <data name="K_TORNZ_ResetTimeout" xml:space="preserve">
+    <value>Timeout resetu ústředny.</value>
+    <comment>Timeout resetu ústredne.</comment>
+  </data>
+  <data name="K_TORNZ_RequestTimeout" xml:space="preserve">
+    <value>Timeout jednoho požadavku na ovladač.</value>
+    <comment>Timeout jednej požiadavky na ovládač.</comment>
+  </data>
+  <data name="K_TORNZ_ShowErrTime" xml:space="preserve">
+    <value>Jak dlouho zůstane chybové hlášení ústředny na obrazovce.</value>
+    <comment>Ako dlho ostane chybové hlásenie ústredne na obrazovke.</comment>
+  </data>
+  <data name="K_TORNZ_MaxDelkaHlaseni" xml:space="preserve">
+    <value>Nejdelší přípustné hlášení – pojistka proti zaseknutému mikrofonu, který by jinak držel rozhlas obsazený.</value>
+    <comment>Najdlhšie prípustné hlásenie – poistka proti zaseknutému mikrofónu, ktorý by inak držal rozhlas obsadený.</comment>
+  </data>
+  <data name="K_TORNZ_EndReportWait" xml:space="preserve">
+    <value>Čekání po skončení hlášení, než se ústředna uvolní. U ústředen s pomalým dozníváním nastavit nenulovou hodnotu.</value>
+    <comment>Čakanie po skončení hlásenia, kým sa ústredňa uvoľní. Pri ústredniach s pomalým doznievaním nastaviť nenulovú hodnotu.</comment>
+  </data>
+  <data name="K_TORNZ_TORNZDayMode" xml:space="preserve">
+    <value>Kód denního režimu, který se ústředně posílá při přepnutí.</value>
+    <comment>Kód denného režimu, ktorý sa ústredni posiela pri prepnutí.</comment>
+  </data>
+  <data name="K_TORNZ_TORNZNightMode" xml:space="preserve">
+    <value>Kód nočního režimu. Výchozí kódy platí pro ústřednu INOMA; jiná ústředna má jiné.</value>
+    <comment>Kód nočného režimu. Predvolené kódy platia pre ústredňu INOMA; iná ústredňa má iné.</comment>
+  </data>
+  <data name="S_Volume" xml:space="preserve">
+    <value>Nastavení zvukového mixéru pro jednotlivé kanály. Sekce Volume je mikrofonní vstup, sekce Volume0 až Volume8 jsou výstupní kanály – typicky jednotlivá nástupiště nebo zóny rozhlasu. Každá sekce má stejnou strukturu.</value>
+    <comment>Nastavenie zvukového mixéra pre jednotlivé kanály. Sekcia Volume je mikrofónový vstup, sekcie Volume0 až Volume8 sú výstupné kanály – typicky jednotlivé nástupištia alebo zóny rozhlasu. Každá sekcia má rovnakú štruktúru.</comment>
+  </data>
+  <data name="K_Volume_Mixer" xml:space="preserve">
+    <value>Název zvukového zařízení, které tento kanál ovládá. Prázdné znamená výchozí zařízení systému.</value>
+    <comment>Názov zvukového zariadenia, ktoré tento kanál ovláda. Prázdne znamená predvolené zariadenie systému.</comment>
+  </data>
+  <data name="K_Volume_Balance" xml:space="preserve">
+    <value>Vyvážení kanálů na stupnici 0 až 1000, střed je 500.</value>
+    <comment>Vyváženie kanálov na stupnici 0 až 1000, stred je 500.</comment>
+  </data>
+  <data name="K_Volume_Mikrofon" xml:space="preserve">
+    <value>Kanál je mikrofonní vstup, ne výstup. Výchozí 1 pro sekci Volume a 0 pro Volume0 až Volume8.</value>
+    <comment>Kanál je mikrofónový vstup, nie výstup. Predvolene 1 pre sekciu Volume a 0 pre Volume0 až Volume8.</comment>
+  </data>
+  <data name="D_Volume_Mikrofon" xml:space="preserve">
+    <value>1 / 0</value>
+    <comment>1 / 0</comment>
+  </data>
+  <data name="K_Volume_Time0" xml:space="preserve">
+    <value>Dva časy, kdy se hlasitost kanálu automaticky přepne – typicky denní a noční režim. Zapisují se jako číslo hhmmss, tedy 60000 je 06:00:00 a 220000 je 22:00:00.</value>
+    <comment>Dva časy, kedy sa hlasitosť kanála automaticky prepne – typicky denný a nočný režim. Zapisujú sa ako číslo hhmmss, teda 60000 je 06:00:00 a 220000 je 22:00:00.</comment>
+  </data>
+  <data name="C_Volume_Time0_0" xml:space="preserve">
+    <value>přepínání je vypnuto</value>
+    <comment>prepínanie je vypnuté</comment>
+  </data>
+  <data name="K_Volume_Time1" xml:space="preserve">
+    <value>Dva časy, kdy se hlasitost kanálu automaticky přepne – typicky denní a noční režim. Zapisují se jako číslo hhmmss, tedy 60000 je 06:00:00 a 220000 je 22:00:00.</value>
+    <comment>Dva časy, kedy sa hlasitosť kanála automaticky prepne – typicky denný a nočný režim. Zapisujú sa ako číslo hhmmss, teda 60000 je 06:00:00 a 220000 je 22:00:00.</comment>
+  </data>
+  <data name="C_Volume_Time1_0" xml:space="preserve">
+    <value>přepínání je vypnuto</value>
+    <comment>prepínanie je vypnuté</comment>
+  </data>
+  <data name="K_Volume_Value0" xml:space="preserve">
+    <value>Hlasitost platná od příslušného času. Pokud je -1, zneplatní se i odpovídající čas a přepnutí se neprovede.</value>
+    <comment>Hlasitosť platná od príslušného času. Ak je -1, zneplatní sa aj zodpovedajúci čas a prepnutie sa nevykoná.</comment>
+  </data>
+  <data name="K_Volume_Value1" xml:space="preserve">
+    <value>Hlasitost platná od příslušného času. Pokud je -1, zneplatní se i odpovídající čas a přepnutí se neprovede.</value>
+    <comment>Hlasitosť platná od príslušného času. Ak je -1, zneplatní sa aj zodpovedajúci čas a prepnutie sa nevykoná.</comment>
+  </data>
+  <data name="K_Volume_n_zov_prvku_mix_ra" xml:space="preserve">
+    <value>Pro každý ovládací prvek, který zvuková karta nabízí, vznikne hodnota pojmenovaná přesně tak, jak ji karta hlásí – například Wave nebo Line In. Názvy tedy závisejí na hardwaru: při výměně zvukové karty vzniknou nové a staré zůstanou ležet.</value>
+    <comment>Pre každý ovládací prvok, ktorý zvuková karta ponúka, vznikne hodnota pomenovaná presne tak, ako ho karta hlási – napríklad Wave alebo Line In. Názvy teda závisia od hardvéru: pri výmene zvukovej karty vzniknú nové a staré ostanú ležať.</comment>
+  </data>
+  <data name="S_Zvuky" xml:space="preserve">
+    <value>Zvuková banka a mapování skupin nahrávek. INISS skládá hlášení z jednotlivých nahraných slov; hodnoty končící na Group říkají, ve které skupině banky se hledají nahrávky pro daný druh údaje. Pokud skupina neexistuje nebo v ní nahrávka chybí, příslušná část hlášení se vynechá.</value>
+    <comment>Zvuková banka a mapovanie skupín nahrávok. INISS skladá hlásenie z jednotlivých nahraných slov; hodnoty končiace na Group hovoria, v ktorej skupine banky sa hľadajú nahrávky pre daný druh údaja. Ak skupina neexistuje alebo v nej nahrávka chýba, príslušná časť hlásenia sa vynechá.</comment>
+  </data>
+  <data name="K_Zvuky_FileNameFyzManag" xml:space="preserve">
+    <value>Soubor správce fyzické zvukové banky – index skutečných zvukových souborů.</value>
+    <comment>Súbor správcu fyzickej zvukovej banky – index skutočných zvukových súborov.</comment>
+  </data>
+  <data name="K_Zvuky_FileNameLogZvuk" xml:space="preserve">
+    <value>Soubor logické zvukové banky – mapování významů na nahrávky.</value>
+    <comment>Súbor logickej zvukovej banky – mapovanie významov na nahrávky.</comment>
+  </data>
+  <data name="K_Zvuky_AmplifierPort" xml:space="preserve">
+    <value>Sériový port, na kterém INISS před hlášením zapne signál DTR, a tím sepne zesilovač. Prázdné znamená zesilovač takto neřídit, tedy je trvale zapnutý. Se spínací jednotkou ELSVO ani s ústřednou TORNZ nesouvisí. Platí pro první zvukový výstup.</value>
+    <comment>Sériový port, na ktorom INISS pred hlásením zapne signál DTR a tým zopne zosilňovač. Prázdne znamená zosilňovač takto neriadiť, teda je trvalo zapnutý. So spínacou jednotkou ELSVO ani s ústredňou TORNZ nesúvisí. Platí pre prvý zvukový výstup.</comment>
+  </data>
+  <data name="K_Zvuky_AmplifierPortN" xml:space="preserve">
+    <value>Totéž pro další zvukové výstupy: INISS je podle Audio.txt zakládá postupně a druhý čte AmplifierPort1, třetí AmplifierPort2 a tak dále.</value>
+    <comment>To isté pre ďalšie zvukové výstupy: INISS ich podľa Audio.txt zakladá postupne a druhý číta AmplifierPort1, tretí AmplifierPort2 a tak ďalej.</comment>
+  </data>
+  <data name="K_Zvuky_AmplifierOnDelay" xml:space="preserve">
+    <value>Čekání po zapnutí zesilovače, než se začne přehrávat. Příliš krátká hodnota odřízne začátek hlášení.</value>
+    <comment>Čakanie po zapnutí zosilňovača, kým sa začne prehrávať. Príliš krátka hodnota odreže začiatok hlásenia.</comment>
+  </data>
+  <data name="K_Zvuky_TrainNameGroup" xml:space="preserve">
+    <value>Skupina banky s nahrávkami názvů vlaků.</value>
+    <comment>Skupina banky s nahrávkami názvov vlakov.</comment>
+  </data>
+  <data name="K_Zvuky_StationListGroup" xml:space="preserve">
+    <value>Skupina s nahrávkami názvů stanic pro vyjmenovávání trasy.</value>
+    <comment>Skupina s nahrávkami názvov staníc pre vymenúvanie trasy.</comment>
+  </data>
+  <data name="K_Zvuky_DelayReasonGroup" xml:space="preserve">
+    <value>Skupina s nahrávkami důvodů zpoždění.</value>
+    <comment>Skupina s nahrávkami dôvodov meškania.</comment>
+  </data>
+  <data name="K_Zvuky_OperatorGroup" xml:space="preserve">
+    <value>Skupina s nahrávkami názvů dopravců.</value>
+    <comment>Skupina s nahrávkami názvov dopravcov.</comment>
+  </data>
+  <data name="K_Zvuky_LineGroup" xml:space="preserve">
+    <value>Skupina s nahrávkami označení linek.</value>
+    <comment>Skupina s nahrávkami označení liniek.</comment>
+  </data>
+  <data name="K_Zvuky_Reklama" xml:space="preserve">
+    <value>Skupina s reklamními hlášeními, která se přehrávají mezi provozními. Prázdné znamená bez reklamy.</value>
+    <comment>Skupina s reklamnými hláseniami, ktoré sa prehrávajú medzi prevádzkovými. Prázdne znamená bez reklamy.</comment>
+  </data>
+  <data name="K_Zvuky_Order1Number" xml:space="preserve">
+    <value>Číslo nahrávky pro řadovou číslovku „první“, která se skloňuje jinak než základní číslovka.</value>
+    <comment>Číslo nahrávky pre radovú číslovku „prvý / prvá“, ktorá sa skloňuje inak než základná číslovka.</comment>
+  </data>
+  <data name="C_Zvuky_Order1Number_0" xml:space="preserve">
+    <value>nepoužívat zvláštní nahrávku</value>
+    <comment>nepoužívať zvláštnu nahrávku</comment>
+  </data>
+  <data name="C_Zvuky_Order1Number_1" xml:space="preserve">
+    <value>číslo nahrávky v bance</value>
+    <comment>číslo nahrávky v banke</comment>
+  </data>
+</root>
