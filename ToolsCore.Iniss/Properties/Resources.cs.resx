@@ -888,4 +888,58 @@
   <data name="TxtProps_MissingInArea" xml:space="preserve">
     <value>Soubor {0}: V oblasti {1} se očekávala vlastnost {2}.</value>
   </data>
+  <data name="Reg_UnknownSection" xml:space="preserve">
+    <value>Sekci {0} INISS nezná – nečte ji žádná verze.</value>
+  </data>
+  <data name="Reg_IniSectionReplacesRegistry" xml:space="preserve">
+    <value>Sekce {0} je v souboru .INI – INISS její hodnoty z registru vůbec nečte, chybějící dostanou výchozí hodnotu.</value>
+  </data>
+  <data name="Reg_ColorOtherLanguage" xml:space="preserve">
+    <value>Barva {0} patří jiné jazykové verzi INISSu a nepoužívá se.</value>
+  </data>
+  <data name="Reg_Leftover" xml:space="preserve">
+    <value>Hodnotu {0} nečte žádná verze INISSu – je to pozůstatek, lze ji smazat.</value>
+  </data>
+  <data name="Reg_Unknown" xml:space="preserve">
+    <value>INISS hodnotu {0} nezná – možná je v názvu překlep.</value>
+  </data>
+  <data name="Reg_LegacyName" xml:space="preserve">
+    <value>Hodnota je uložena pod starým názvem {1} – INISS ji při startu přejmenuje na {0}.</value>
+  </data>
+  <data name="Reg_LegacyGhost" xml:space="preserve">
+    <value>Starý název {1} se už nečte, platí {0}. Starou hodnotu lze smazat.</value>
+  </data>
+  <data name="Reg_EmptyText" xml:space="preserve">
+    <value>Prázdný text v hodnotě {0} se bere jako chybějící – INISS jej při startu nahradí výchozí hodnotou {1}.</value>
+  </data>
+  <data name="Reg_WrongType" xml:space="preserve">
+    <value>Hodnota {0} je uložena jako {1} – INISS ji proto nečte a platí výchozí hodnota.</value>
+  </data>
+  <data name="Reg_WrongTypeOverwritten" xml:space="preserve">
+    <value>Hodnota {0} je uložena jako {1} – INISS ji proto nečte a při startu ji přepíše výchozí hodnotou.</value>
+  </data>
+  <data name="Reg_ShadowedByIni" xml:space="preserve">
+    <value>Hodnotu {0} v {1} přebíjí soubor .INI.</value>
+  </data>
+  <data name="Reg_ShadowedByVirtualStore" xml:space="preserve">
+    <value>Hodnotu {0} v HKEY_LOCAL_MACHINE přebíjí kopie ve VirtualStore – INISS spuštěný bez práv správce čte kopii.</value>
+  </data>
+  <data name="Reg_MachineIgnored" xml:space="preserve">
+    <value>Hodnota {0} v HKEY_LOCAL_MACHINE se nepoužije – INISS čte tuto hodnotu z HKEY_CURRENT_USER.</value>
+  </data>
+  <data name="Reg_VirtualStoreIgnored" xml:space="preserve">
+    <value>Kopie hodnoty {0} ve VirtualStore se při spuštění INISSu jako správce nepoužije.</value>
+  </data>
+  <data name="Reg_WriteOnly" xml:space="preserve">
+    <value>INISS hodnotu {0} pouze zapisuje, nečte ji – nemá vliv na chování.</value>
+  </data>
+  <data name="Reg_NotInVersion" xml:space="preserve">
+    <value>Tato verze INISSu ({1}) hodnotu {0} nečte – nemá žádný účinek.</value>
+  </data>
+  <data name="Reg_NetworkPortWithoutLine" xml:space="preserve">
+    <value>Síťový kanál {0} nemá číslo komunikační linky (například 3={0}) – INISS jej při startu ohlásí jako chybnou linku 0.</value>
+  </data>
+  <data name="Reg_IniInvalidNumber" xml:space="preserve">
+    <value>Hodnota {0}={1} v souboru .INI není desítkové číslo – INISS z ní přečte {2}.</value>
+  </data>
 </root>

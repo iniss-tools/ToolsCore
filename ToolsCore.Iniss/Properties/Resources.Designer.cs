@@ -2372,5 +2372,167 @@ namespace ToolsCore.Iniss.Properties {
                 return ResourceManager.GetString("TxtProps_MissingInArea", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sekciu {0} INISS nepozná – nečíta ju žiadna verzia..
+        /// </summary>
+        internal static string Reg_UnknownSection {
+            get {
+                return ResourceManager.GetString("Reg_UnknownSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sekcia {0} je v súbore .INI – INISS jej hodnoty z registra vôbec nečíta, chýbajúce dostanú predvolenú hodnotu..
+        /// </summary>
+        internal static string Reg_IniSectionReplacesRegistry {
+            get {
+                return ResourceManager.GetString("Reg_IniSectionReplacesRegistry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Farba {0} patrí inej jazykovej verzii INISSu a nepoužíva sa..
+        /// </summary>
+        internal static string Reg_ColorOtherLanguage {
+            get {
+                return ResourceManager.GetString("Reg_ColorOtherLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnotu {0} nečíta žiadna verzia INISSu – je to pozostatok, dá sa zmazať..
+        /// </summary>
+        internal static string Reg_Leftover {
+            get {
+                return ResourceManager.GetString("Reg_Leftover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INISS hodnotu {0} nepozná – možno je v názve preklep..
+        /// </summary>
+        internal static string Reg_Unknown {
+            get {
+                return ResourceManager.GetString("Reg_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnota je uložená pod starým názvom {1} – INISS ju pri štarte premenuje na {0}..
+        /// </summary>
+        internal static string Reg_LegacyName {
+            get {
+                return ResourceManager.GetString("Reg_LegacyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starý názov {1} sa už nečíta, platí {0}. Starú hodnotu možno zmazať..
+        /// </summary>
+        internal static string Reg_LegacyGhost {
+            get {
+                return ResourceManager.GetString("Reg_LegacyGhost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prázdny text v hodnote {0} sa berie ako chýbajúci – INISS ho pri štarte nahradí predvolenou hodnotou {1}..
+        /// </summary>
+        internal static string Reg_EmptyText {
+            get {
+                return ResourceManager.GetString("Reg_EmptyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnota {0} je uložená ako {1} – INISS ju preto nečíta a platí predvolená hodnota..
+        /// </summary>
+        internal static string Reg_WrongType {
+            get {
+                return ResourceManager.GetString("Reg_WrongType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnota {0} je uložená ako {1} – INISS ju preto nečíta a pri štarte ju prepíše predvolenou hodnotou..
+        /// </summary>
+        internal static string Reg_WrongTypeOverwritten {
+            get {
+                return ResourceManager.GetString("Reg_WrongTypeOverwritten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnotu {0} v {1} prebíja súbor .INI..
+        /// </summary>
+        internal static string Reg_ShadowedByIni {
+            get {
+                return ResourceManager.GetString("Reg_ShadowedByIni", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnotu {0} v HKEY_LOCAL_MACHINE prebíja kópia vo VirtualStore – INISS spustený bez práv správcu číta kópiu..
+        /// </summary>
+        internal static string Reg_ShadowedByVirtualStore {
+            get {
+                return ResourceManager.GetString("Reg_ShadowedByVirtualStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnota {0} v HKEY_LOCAL_MACHINE sa nepoužije – INISS číta túto hodnotu z HKEY_CURRENT_USER..
+        /// </summary>
+        internal static string Reg_MachineIgnored {
+            get {
+                return ResourceManager.GetString("Reg_MachineIgnored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kópia hodnoty {0} vo VirtualStore sa pri spustení INISSu ako správca nepoužije..
+        /// </summary>
+        internal static string Reg_VirtualStoreIgnored {
+            get {
+                return ResourceManager.GetString("Reg_VirtualStoreIgnored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INISS hodnotu {0} len zapisuje, nečíta ju – nemá vplyv na správanie..
+        /// </summary>
+        internal static string Reg_WriteOnly {
+            get {
+                return ResourceManager.GetString("Reg_WriteOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Táto verzia INISSu ({1}) hodnotu {0} nečíta – nemá žiadny účinok..
+        /// </summary>
+        internal static string Reg_NotInVersion {
+            get {
+                return ResourceManager.GetString("Reg_NotInVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sieťový kanál {0} nemá číslo komunikačnej linky (napríklad 3={0}) – INISS ho pri štarte ohlási ako chybnú linku 0..
+        /// </summary>
+        internal static string Reg_NetworkPortWithoutLine {
+            get {
+                return ResourceManager.GetString("Reg_NetworkPortWithoutLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnota {0}={1} v súbore .INI nie je desiatkové číslo – INISS z nej prečíta {2}..
+        /// </summary>
+        internal static string Reg_IniInvalidNumber {
+            get {
+                return ResourceManager.GetString("Reg_IniInvalidNumber", resourceCulture);
+            }
+        }
     }
 }
