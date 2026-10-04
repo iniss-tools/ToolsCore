@@ -27,14 +27,23 @@ public sealed record RegChange(string Section, string Name, RegValueType Type, o
 /// <param name="Value">nova hodnota; null = zmazat</param>
 public sealed record RegWriteOp(RegLocation Location, string Section, string Name, RegRawValue? Value)
 {
-    /// <summary>Zmazanie hodnoty.</summary>
-    public bool IsDelete => Value is null;
+    /// <summary>Zalozenie kluca sekcie (prazdna sekcia = kluc aplikacie) bez hodnot.</summary>
+    public bool IsKeyCreate { get; init; }
 
-    /// <summary>Zmazanie celej sekcie (prazdny nazov hodnoty).</summary>
-    public bool IsSectionDelete => Name.Length == 0 && Value is null;
+    /// <summary>Zmazanie hodnoty.</summary>
+    public bool IsDelete => Value is null && !IsKeyCreate;
+
+    /// <summary>Zmazanie celej sekcie (prazdny nazov hodnoty); pri prazdnej sekcii celej vetvy aplikacie.</summary>
+    public bool IsSectionDelete => Name.Length == 0 && Value is null && !IsKeyCreate;
 
     /// <summary>Operacia, ktora zmaze celu sekciu na danom mieste.</summary>
     public static RegWriteOp DeleteSection(RegLocation location, string section) => new(location, section, "", null);
+
+    /// <summary>Operacia, ktora zmaze celu vetvu aplikacie na danom mieste.</summary>
+    public static RegWriteOp DeleteBranch(RegLocation location) => new(location, "", "", null);
+
+    /// <summary>Operacia, ktora zalozi kluc sekcie (prazdna sekcia = kluc aplikacie).</summary>
+    public static RegWriteOp CreateKey(RegLocation location, string section) => new(location, section, "", null) { IsKeyCreate = true };
 }
 
 /// <summary>
@@ -42,6 +51,11 @@ public sealed record RegWriteOp(RegLocation Location, string Section, string Nam
 /// </summary>
 public sealed class RegWritePlan
 {
+    /// <summary>Plan z hotovych operacii (nastroje: klon, cistenie, vetva HKCU).</summary>
+    public RegWritePlan(IReadOnlyList<RegWriteOp> ops) : this(ops, [], [])
+    {
+    }
+
     internal RegWritePlan(IReadOnlyList<RegWriteOp> ops, IReadOnlyList<RegChange> iniStillOverrides, IReadOnlyList<RegChange> registryNotRead)
     {
         Ops = ops;

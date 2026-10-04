@@ -203,7 +203,13 @@ public static class InissRegistry
             : RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default);
         foreach (var op in ops)
         {
-            var path = $@"{BranchPath(location, appName)}\{op.Section}";
+            var path = op.Section.Length == 0 ? BranchPath(location, appName) : $@"{BranchPath(location, appName)}\{op.Section}";
+            if (op.IsKeyCreate)
+            {
+                root.CreateSubKey(path, true).Dispose();
+                continue;
+            }
+
             if (op.IsSectionDelete)
             {
                 root.DeleteSubKeyTree(path, false);
@@ -233,6 +239,34 @@ public static class InissRegistry
                     throw new NotSupportedException(op.Value.OtherKind);
             }
         }
+    }
+
+    /// <summary>
+    /// Vsetky vetvy konfiguracie (HKLM, HKCU, VirtualStore) ako jeden subor .reg - zaloha pred zasahom a export.
+    /// </summary>
+    /// <param name="appName">nazov vetvy pod CHAPS</param>
+    /// <param name="locations">miesta registra (null = vsetky)</param>
+    public static RegFile Export(string appName, IEnumerable<RegLocation>? locations = null)
+    {
+        var file = new RegFile();
+        foreach (var location in locations ?? [RegLocation.Machine, RegLocation.User, RegLocation.VirtualStore])
+            file.AddBranch(Load(location, appName), RegFile.Root(location), appName);
+        return file;
+    }
+
+    /// <summary>
+    /// Zalozi zalohu vsetkych vetiev konfiguracie do priecinka <paramref name="directory" /> (nazov podla vetvy
+    /// a casu) a vrati cestu k nej; ak konfiguracia v registri nie je, vrati null.
+    /// </summary>
+    public static string? Backup(string appName, string directory)
+    {
+        var file = Export(appName);
+        if (file.IsEmpty) return null;
+        Directory.CreateDirectory(directory);
+        var safe = string.Concat(appName.Select(c => Path.GetInvalidFileNameChars().Contains(c) ? '_' : c));
+        var path = Path.Combine(directory, $"{safe} {DateTime.Now:yyyy-MM-dd HHmmss}.reg");
+        file.Save(path);
+        return path;
     }
 
     /// <summary>Importuje subor .reg do 32-bitoveho pohladu registra cez reg.exe so zvysenymi pravami.</summary>
