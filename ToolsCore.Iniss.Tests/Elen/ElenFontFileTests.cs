@@ -94,6 +94,21 @@ public class ElenFontFileTests
     }
 
     [TestMethod]
+    public void SkratenySubor_ZvysneZnakyPrazdneAleboChyba()
+    {
+        var bytes = Bytes(new ElenFontFile("f", [Font("A", 6, 8, false, 1), Font("B", 6, 8, false)]));
+        // koniec v strede pisma A - za znakom 100
+        var cut = bytes[..(64 + 23 + 100 * 9 + 4)];
+
+        var read = ElenFontFile.Read(new MemoryStream(cut));
+
+        Assert.HasCount(1, read.Fonts);
+        Assert.AreEqual(6, read.Fonts[0].Glyphs[99].Width);
+        Assert.AreEqual(0, read.Fonts[0].Glyphs[200].Width);
+        Assert.ThrowsExactly<EndOfStreamException>(() => ElenFontFile.Read(new MemoryStream(cut), true));
+    }
+
+    [TestMethod]
     public void Znak_BodyOdNajvyssiehoBitu()
     {
         // 9 bodov na sirku = 2 bajty na riadok; riadok 1: 1000_0000 0100_0000

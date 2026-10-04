@@ -186,8 +186,19 @@ public sealed class ElenFontFile
             var bytesPerRow = ElenFont.BytesPerRowFor(maxWidth);
 
             var glyphs = new ElenGlyph[ElenFont.GlyphCount];
+            var truncated = false;
             for (var j = 0; j < glyphs.Length; j++)
             {
+                // skrateny subor: v prisnom rezime chyba, inak zvysne znaky prazdne (ako ich vidi panel)
+                if (truncated || stream.Position >= stream.Length)
+                {
+                    if (strict)
+                        throw new EndOfStreamException($"Font {fontName} ends inside symbol {j}.");
+                    truncated = true;
+                    glyphs[j] = new ElenGlyph(0, height, bytesPerRow, new byte[height * bytesPerRow]);
+                    continue;
+                }
+
                 int width = reader.ReadByte();
                 if (strict && !proportional && width != maxWidth && width != 0)
                     throw new FormatException($"Font {fontName} is not proportional but index symbol {j} has different width ({width}).");
@@ -196,11 +207,19 @@ public sealed class ElenFontFile
 
                 var data = reader.ReadBytes(height * bytesPerRow);
                 if (data.Length != height * bytesPerRow)
-                    throw new EndOfStreamException($"Font {fontName} ends inside symbol {j}.");
+                {
+                    if (strict)
+                        throw new EndOfStreamException($"Font {fontName} ends inside symbol {j}.");
+                    truncated = true;
+                    Array.Resize(ref data, height * bytesPerRow);
+                }
+
                 glyphs[j] = new ElenGlyph(width, height, bytesPerRow, data);
             }
 
             fonts.Add(new ElenFont(fontName, maxWidth, height, proportional, glyphs));
+            if (truncated)
+                break;
         }
 
         return new ElenFontFile(name, fonts);
