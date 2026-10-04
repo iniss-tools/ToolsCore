@@ -17,4 +17,9 @@ public static class Encodings
     /// Kodovanie UTF-8.
     /// </summary>
     public static readonly Encoding UTF8 = Encoding.UTF8;
+
+    /// <summary>
+    /// Kod Kamenickych (tabule ELEN, ELENOLD, ELEN16Kam).
+    /// </summary>
+    public static readonly Encoding Kamenicky = new KamenickyEncoding();
 }
