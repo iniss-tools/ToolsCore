@@ -65,6 +65,8 @@ public static partial class FormUtils
             ExThemer.Apply(panel.Controls, theme);
             panel.BackColor = theme.PanelBackColor;
             panel.ForeColor = theme.PanelForeColor;
+            if (panel.AutoScroll && theme.DarkScrollBars)
+                panel.SetTheme(WindowsTheme.DarkExplorer);
         });
         ExThemer.Register<SplitContainer>((sc, theme) =>
         {
