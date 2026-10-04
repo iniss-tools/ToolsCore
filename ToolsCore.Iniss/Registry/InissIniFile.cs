@@ -154,7 +154,7 @@ public sealed class InissIniFile
         return true;
     }
 
-    /// <summary>Odstrani celu sekciu (prvy vyskyt) vratane jej riadkov; vrati, ci bola v subore.</summary>
+    /// <summary>Odstrani celu sekciu (prvy vyskyt) vratane jej riadkov a prazdnych riadkov na konci suboru; vrati, ci bola v subore.</summary>
     public bool RemoveSection(string section)
     {
         var start = FindSection(section);
@@ -162,7 +162,71 @@ public sealed class InissIniFile
         var end = start + 1;
         while (end < _lines.Count && !TryHeader(_lines[end], out _)) end++;
         _lines.RemoveRange(start, end - start);
+        // oddelovac pred sekciou na konci suboru by ostal visiet
+        while (_lines.Count > 0 && _lines[^1].Trim().Length == 0) _lines.RemoveAt(_lines.Count - 1);
         return true;
+    }
+
+    /// <summary>Kopia suboru (zmeny kopie sa povodneho nedotknu).</summary>
+    public InissIniFile Clone() => new([.. _lines]);
+
+    /// <summary>Subor nema ziadny riadok okrem prazdnych (prazdna sekcia Driver* by uz INISS ovplyvnila).</summary>
+    public bool IsEmpty => _lines.All(l => l.Trim().Length == 0);
+
+    /// <summary>Komentare sekcie (text za <c>;</c> bez okrajovych medzier) v poradi suboru.</summary>
+    public IReadOnlyList<string> Comments(string section)
+    {
+        var result = new List<string>();
+        var start = FindSection(section);
+        if (start < 0) return result;
+        for (var i = start + 1; i < _lines.Count && !TryHeader(_lines[i], out _); i++)
+            if (TryComment(_lines[i], out var text))
+                result.Add(text);
+        return result;
+    }
+
+    /// <summary>Prida komentar hned za hlavicku sekcie; chybajucu sekciu zalozi na konci suboru.</summary>
+    public void AddComment(string section, string text)
+    {
+        var start = FindSection(section);
+        if (start >= 0)
+        {
+            _lines.Insert(start + 1, $"; {text}");
+            return;
+        }
+
+        if (_lines.Count > 0 && _lines[^1].Trim().Length > 0) _lines.Add("");
+        _lines.Add($"[{section}]");
+        _lines.Add($"; {text}");
+    }
+
+    /// <summary>Odstrani komentare sekcie, ktore splnaju podmienku; vrati ich pocet.</summary>
+    public int RemoveComments(string section, Func<string, bool> match)
+    {
+        var start = FindSection(section);
+        if (start < 0) return 0;
+        var removed = 0;
+        for (var i = start + 1; i < _lines.Count && !TryHeader(_lines[i], out _);)
+        {
+            if (TryComment(_lines[i], out var text) && match(text))
+            {
+                _lines.RemoveAt(i);
+                removed++;
+            }
+            else
+            {
+                i++;
+            }
+        }
+
+        return removed;
+    }
+
+    private static bool TryComment(string line, out string text)
+    {
+        var t = line.TrimStart();
+        text = t.StartsWith(';') ? t[1..].Trim() : "";
+        return t.StartsWith(';');
     }
 
     private int FindSection(string section)
