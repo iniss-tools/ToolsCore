@@ -275,7 +275,7 @@ public sealed class ResolvedConfig
 }
 
 /// <summary>Vstup vyhodnotenia - nacitane vrstvy jednej konfiguracie INISSu.</summary>
-public sealed class InissConfigSource
+public sealed record InissConfigSource
 {
     /// <summary>Nazov vetvy pod CHAPS (meno exe bez pripony alebo hodnota /Reg:).</summary>
     public required string AppName { get; init; }

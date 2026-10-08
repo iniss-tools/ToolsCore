@@ -27,55 +27,20 @@ public enum RegApplyResult
 /// </summary>
 public static class InissRegistry
 {
-    private const string MachineChaps = @"SOFTWARE\CHAPS";
-    private const string UserChaps = @"Software\CHAPS";
-
-    private static string VirtualStoreChaps => Environment.Is64BitOperatingSystem
-        ? @"Software\Classes\VirtualStore\MACHINE\SOFTWARE\WOW6432Node\CHAPS"
-        : @"Software\Classes\VirtualStore\MACHINE\SOFTWARE\CHAPS";
-
     /// <summary>Retazce s nazvami farieb v jazykovej kniznici INISSu.</summary>
     private const int ColorStringBase = 10000;
 
     /// <summary>Nazvy vsetkych konfiguracii pod CHAPS (HKLM, HKCU aj VirtualStore), zoradene.</summary>
-    public static IReadOnlyList<string> AppNames()
-    {
-        var names = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-        using (var hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
-        using (var key = hklm.OpenSubKey(MachineChaps))
-            names.UnionWith(key?.GetSubKeyNames() ?? []);
-        using (var key = Registry.CurrentUser.OpenSubKey(UserChaps)) names.UnionWith(key?.GetSubKeyNames() ?? []);
-        using (var key = Registry.CurrentUser.OpenSubKey(VirtualStoreChaps)) names.UnionWith(key?.GetSubKeyNames() ?? []);
-        return names.ToList();
-    }
+    public static IReadOnlyList<string> AppNames() => InissRegistryReader.AppNames();
 
     /// <summary>Meno vetvy pre exe INISSu: hodnota /Reg: z argumentov, inak meno suboru bez pripony.</summary>
-    public static string AppNameFor(string exePath, string? regArgument) =>
-        string.IsNullOrWhiteSpace(regArgument) ? Path.GetFileNameWithoutExtension(exePath) : regArgument;
+    public static string AppNameFor(string exePath, string? regArgument) => InissRegistryReader.AppNameFor(exePath, regArgument);
 
     /// <summary>Subor .INI vedla exe (rovnake meno, pripona .INI).</summary>
-    public static string IniPathFor(string exePath) => Path.ChangeExtension(exePath, ".INI");
+    public static string IniPathFor(string exePath) => InissRegistryReader.IniPathFor(exePath);
 
     /// <summary>Nacita vetvu konfiguracie z jedneho miesta registra.</summary>
-    public static RegBranch Load(RegLocation location, string appName)
-    {
-        using var root = location == RegLocation.Machine
-            ? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32)
-            : RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default);
-        using var app = root.OpenSubKey(BranchPath(location, appName));
-        if (app is null) return RegBranch.Missing;
-        var branch = new RegBranch();
-        foreach (var section in app.GetSubKeyNames())
-        {
-            using var key = app.OpenSubKey(section);
-            if (key is null) continue;
-            branch.AddSection(section);
-            foreach (var name in key.GetValueNames())
-                branch.Set(section, name, Read(key, name));
-        }
-
-        return branch;
-    }
+    public static RegBranch Load(RegLocation location, string appName) => InissRegistryReader.Load(location, appName);
 
     /// <summary>
     /// Nacita vsetky vrstvy konfiguracie: tri miesta registra, .INI vedla exe, verziu exe a nazvy farieb.
@@ -84,35 +49,17 @@ public static class InissRegistry
     /// <param name="exePath">exe INISSu (pre .INI, verziu a jazykovu kniznicu) alebo null</param>
     /// <param name="mode">ako sa INISS spusta</param>
     /// <param name="tables">fyzicke tabule podla indexu v sekcii Tables</param>
-    public static InissConfigSource LoadSource(string appName, string? exePath, InissRunMode mode, IReadOnlyDictionary<int, RegTableInfo>? tables = null) => new()
+    public static InissConfigSource LoadSource(string appName, string? exePath, InissRunMode mode, IReadOnlyDictionary<int, RegTableInfo>? tables = null)
     {
-        AppName = appName,
-        RunMode = mode,
-        User = Load(RegLocation.User, appName),
-        Machine = Load(RegLocation.Machine, appName),
-        VirtualStore = Load(RegLocation.VirtualStore, appName),
-        Ini = exePath is null ? null : InissIniFile.Load(IniPathFor(exePath)),
-        Version = exePath is null ? null : ExeVersion(exePath),
-        ColorNames = exePath is null ? null : ColorNames(Path.GetDirectoryName(exePath)!),
-        Tables = tables
-    };
+        var source = InissRegistryReader.LoadSource(appName, exePath, mode, tables);
+        return exePath is null ? source : source with { ColorNames = ColorNames(Path.GetDirectoryName(exePath)!) };
+    }
 
     /// <summary>Ci je exe program INISS (popis alebo nazov produktu v informaciach o subore je INISS).</summary>
-    public static bool IsInissExe(string exePath)
-    {
-        if (!File.Exists(exePath)) return false;
-        var info = FileVersionInfo.GetVersionInfo(exePath);
-        return string.Equals(info.FileDescription?.Trim(), "INISS", StringComparison.OrdinalIgnoreCase)
-               || string.Equals(info.ProductName?.Trim(), "INISS", StringComparison.OrdinalIgnoreCase);
-    }
+    public static bool IsInissExe(string exePath) => InissRegistryReader.IsInissExe(exePath);
 
     /// <summary>Verzia INISSu z informacii o subore exe (3.00, 3.10, 3.34.6, 3.39).</summary>
-    public static RegVersion? ExeVersion(string exePath)
-    {
-        if (!File.Exists(exePath)) return null;
-        var info = FileVersionInfo.GetVersionInfo(exePath);
-        return RegVersion.Parse(info.FileVersion) ?? (info.FileMajorPart > 0 ? new RegVersion(info.FileMajorPart, info.FileMinorPart) : null);
-    }
+    public static RegVersion? ExeVersion(string exePath) => InissRegistryReader.ExeVersion(exePath);
 
     /// <summary>Nazvy 42 farieb z jazykovej kniznice RCIniss.dll vedla exe; null, ak kniznica nie je.</summary>
     public static IReadOnlyList<string>? ColorNames(string exeDir)
@@ -150,7 +97,7 @@ public static class InissRegistry
         try
         {
             using var hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
-            using var key = hklm.OpenSubKey($@"{MachineChaps}\{appName}", true) ?? hklm.OpenSubKey(MachineChaps, true);
+            using var key = hklm.OpenSubKey(InissRegistryReader.BranchPath(RegLocation.Machine, appName), true) ?? hklm.OpenSubKey(InissRegistryReader.MachineChaps, true);
             return key is not null;
         }
         catch (Exception e) when (e is UnauthorizedAccessException or System.Security.SecurityException)
@@ -203,7 +150,7 @@ public static class InissRegistry
             : RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default);
         foreach (var op in ops)
         {
-            var path = op.Section.Length == 0 ? BranchPath(location, appName) : $@"{BranchPath(location, appName)}\{op.Section}";
+            var path = op.Section.Length == 0 ? InissRegistryReader.BranchPath(location, appName) : $@"{InissRegistryReader.BranchPath(location, appName)}\{op.Section}";
             if (op.IsKeyCreate)
             {
                 root.CreateSubKey(path, true).Dispose();
@@ -295,35 +242,6 @@ public static class InissRegistry
             File.Delete(temp);
         }
     }
-
-    private static string BranchPath(RegLocation location, string appName) => location switch
-    {
-        RegLocation.Machine => $@"{MachineChaps}\{appName}",
-        RegLocation.VirtualStore => $@"{VirtualStoreChaps}\{appName}",
-        _ => $@"{UserChaps}\{appName}"
-    };
-
-    private static RegRawValue Read(RegistryKey key, string name)
-    {
-        var kind = key.GetValueKind(name);
-        var value = key.GetValue(name, null, RegistryValueOptions.DoNotExpandEnvironmentNames);
-        return kind switch
-        {
-            RegistryValueKind.DWord when value is int n => RegRawValue.Dword(n),
-            RegistryValueKind.String when value is string s => RegRawValue.String(s),
-            RegistryValueKind.Binary when value is byte[] b => RegRawValue.Binary(b),
-            _ => RegRawValue.Other(KindName(kind), value is byte[] bytes ? Convert.ToHexString(bytes) : Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture))
-        };
-    }
-
-    private static string KindName(RegistryValueKind kind) => kind switch
-    {
-        RegistryValueKind.ExpandString => "REG_EXPAND_SZ",
-        RegistryValueKind.MultiString => "REG_MULTI_SZ",
-        RegistryValueKind.QWord => "REG_QWORD",
-        RegistryValueKind.None => "REG_NONE",
-        _ => "REG_" + kind.ToString().ToUpperInvariant()
-    };
 
     private const int ErrorCancelled = 1223;
 }

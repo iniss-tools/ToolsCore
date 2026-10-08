@@ -972,4 +972,262 @@
   <data name="Reg_Class_130" xml:space="preserve">
     <value>obal ITP (síťový převodník KTP)</value>
   </data>
+  <data name="Align_Center" xml:space="preserve">
+    <value>Uprostřed</value>
+  </data>
+  <data name="Align_Left" xml:space="preserve">
+    <value>Vlevo</value>
+  </data>
+  <data name="Align_Right" xml:space="preserve">
+    <value>Vpravo</value>
+  </data>
+  <data name="DirList_RootGrafikon" xml:space="preserve">
+    <value>DirList.TXT: grafikon přímo ve složce DATA se do seznamu nezapisuje – INISS ho po zápisu DirList.TXT přestane vidět.</value>
+  </data>
+  <data name="DivType_Char" xml:space="preserve">
+    <value>4: Znak po znaku podle TAB1</value>
+  </data>
+  <data name="DivType_Free" xml:space="preserve">
+    <value>0: Text bez překódování</value>
+  </data>
+  <data name="DivType_Table" xml:space="preserve">
+    <value>1: Pouze hodnoty z TAB1 (jinak prázdné)</value>
+  </data>
+  <data name="DivType_TableTime" xml:space="preserve">
+    <value>2: Čas HH:MM po částech (TAB1 a TAB2)</value>
+  </data>
+  <data name="DivType_Translate" xml:space="preserve">
+    <value>3: Překódovat podle TAB1, pokud to jde</value>
+  </data>
+  <data name="FillSection_CasOdchodu" xml:space="preserve">
+    <value>Čas odjezdu</value>
+  </data>
+  <data name="FillSection_CasPrichodu" xml:space="preserve">
+    <value>Čas příjezdu</value>
+  </data>
+  <data name="FillSection_CielovaStanica" xml:space="preserve">
+    <value>Název cílové stanice</value>
+  </data>
+  <data name="FillSection_CielovaStanicaNastupiste" xml:space="preserve">
+    <value>Název cílové stanice (nástupiště)</value>
+  </data>
+  <data name="FillSection_CielovaStanicaPodchod" xml:space="preserve">
+    <value>Název cílové stanice (podchod)</value>
+  </data>
+  <data name="FillSection_CisloVlaku" xml:space="preserve">
+    <value>Číslo vlaku (R-121)</value>
+  </data>
+  <data name="FillSection_CisloVlaku35" xml:space="preserve">
+    <value>Číslo vlaku (varianta 35)</value>
+  </data>
+  <data name="FillSection_CisloVlaku38" xml:space="preserve">
+    <value>Číslo vlaku (varianta 38)</value>
+  </data>
+  <data name="FillSection_Dopravca" xml:space="preserve">
+    <value>Dopravce</value>
+  </data>
+  <data name="FillSection_Free" xml:space="preserve">
+    <value>Prázdný text</value>
+  </data>
+  <data name="FillSection_HexTypVlaku" xml:space="preserve">
+    <value>Hex. typ vlaku (8 znaků)</value>
+  </data>
+  <data name="FillSection_KolajAltOdchod" xml:space="preserve">
+    <value>Alternativní text koleje na odjezdu (z Pozice_A)</value>
+  </data>
+  <data name="FillSection_KolajAltPrichod" xml:space="preserve">
+    <value>Alternativní text koleje na příjezdu (z Pozice_A)</value>
+  </data>
+  <data name="FillSection_KolajOdchod" xml:space="preserve">
+    <value>Text koleje na odjezdu (z Pozice_A)</value>
+  </data>
+  <data name="FillSection_KolajPrichod" xml:space="preserve">
+    <value>Text koleje na příjezdu (z Pozice_A)</value>
+  </data>
+  <data name="FillSection_LinkaOdchod" xml:space="preserve">
+    <value>Linka na odjezdu</value>
+  </data>
+  <data name="FillSection_LinkaPrichod" xml:space="preserve">
+    <value>Linka na příjezdu</value>
+  </data>
+  <data name="FillSection_MeskanieOdchod" xml:space="preserve">
+    <value>Zpoždění na odjezdu</value>
+  </data>
+  <data name="FillSection_MeskanieOdchodPopis" xml:space="preserve">
+    <value>Zpoždění na odjezdu (ve formátu Mešká X min.)</value>
+  </data>
+  <data name="FillSection_MeskaniePrichod" xml:space="preserve">
+    <value>Zpoždění na příjezdu</value>
+  </data>
+  <data name="FillSection_MeskaniePrichodPopis" xml:space="preserve">
+    <value>Zpoždění na příjezdu (ve formátu Mešká X min.)</value>
+  </data>
+  <data name="FillSection_NastupisteKolajOdchod" xml:space="preserve">
+    <value>Nástupiště a kolej na odjezdu (text z Pozice_A)</value>
+  </data>
+  <data name="FillSection_NastupisteKolajPrichod" xml:space="preserve">
+    <value>Nástupiště a kolej na příjezdu (text z Pozice_A)</value>
+  </data>
+  <data name="FillSection_NastupisteOdchod" xml:space="preserve">
+    <value>Označení nástupiště na odjezdu (z Pozice_A)</value>
+  </data>
+  <data name="FillSection_NastupistePrichod" xml:space="preserve">
+    <value>Označení nástupiště na příjezdu (z Pozice_A)</value>
+  </data>
+  <data name="FillSection_NazovVlaku" xml:space="preserve">
+    <value>Název vlaku (Košičan)</value>
+  </data>
+  <data name="FillSection_NotDefined" xml:space="preserve">
+    <value>Nedefinováno</value>
+  </data>
+  <data name="FillSection_StaniceDoSmeru" xml:space="preserve">
+    <value>Stanice do směru</value>
+  </data>
+  <data name="FillSection_StaniceDoSmeruNastupiste" xml:space="preserve">
+    <value>Stanice do směru (pro nástupištní tabuli)</value>
+  </data>
+  <data name="FillSection_StaniceZoSmeru" xml:space="preserve">
+    <value>Stanice ze směru</value>
+  </data>
+  <data name="FillSection_TextLine1" xml:space="preserve">
+    <value>Text 1. řádek</value>
+  </data>
+  <data name="FillSection_TextLine2" xml:space="preserve">
+    <value>Text 2. řádek</value>
+  </data>
+  <data name="FillSection_TypCisloVlaku" xml:space="preserve">
+    <value>Typ a číslo vlaku</value>
+  </data>
+  <data name="FillSection_TypCisloVlaku6Chars" xml:space="preserve">
+    <value>Typ a číslo vlaku na 6 znaků</value>
+  </data>
+  <data name="FillSection_TypMedzeraCisloVlaku" xml:space="preserve">
+    <value>Typ, mezera a číslo vlaku</value>
+  </data>
+  <data name="FillSection_TypNazovOrCislo" xml:space="preserve">
+    <value>Typ vlaku a název nebo číslo vlaku</value>
+  </data>
+  <data name="FillSection_TypVlaku" xml:space="preserve">
+    <value>Typ vlaku (R, Os,...)</value>
+  </data>
+  <data name="FillSection_VlakStojiVStanici" xml:space="preserve">
+    <value>Vlak stojí ve stanici</value>
+  </data>
+  <data name="FillSection_VychadzajucaStanica" xml:space="preserve">
+    <value>Název výchozí stanice</value>
+  </data>
+  <data name="InissSettings_LineDuplicate" xml:space="preserve">
+    <value>Číslo linky {0} už používá sekce {1} – INISS tuto linku ignoruje.</value>
+  </data>
+  <data name="InissSettings_LineNoTables" xml:space="preserve">
+    <value>Žádná fyzická tabule v datech nepoužívá tuto linku.</value>
+  </data>
+  <data name="InissSettings_LineOutOfRange" xml:space="preserve">
+    <value>Číslo linky {0} je mimo rozsah 1 až 100 – INISS linku nezaloží.</value>
+  </data>
+  <data name="InissSettings_LineSummary" xml:space="preserve">
+    <value>linka {0} · {1}</value>
+  </data>
+  <data name="InissSettings_LineWrongFamily" xml:space="preserve">
+    <value>Tabule {0} ({1}) nepatří na linku s protokolem {2} – INISS jí nic nepošle.</value>
+  </data>
+  <data name="InissSettings_Unserved_NoAuto" xml:space="preserve">
+    <value>nemá číslo linky a žádná linka nemá protokol jejího výrobce</value>
+  </data>
+  <data name="InissSettings_Unserved_NoDriver" xml:space="preserve">
+    <value>linku {0} neobsluhuje žádná sekce Driver</value>
+  </data>
+  <data name="TablesFile_BadAlign" xml:space="preserve">
+    <value>Katalogová tabule {0} obsahuje pro sloupec {1} neplatnou hodnotu TYPE_ITEMS_ALIGN: {2}.</value>
+  </data>
+  <data name="TablesFile_BadColumn" xml:space="preserve">
+    <value>Katalogová tabule {0} obsahuje v typu {1} v režimu {2} neplatný sloupec {3}.</value>
+  </data>
+  <data name="TablesFile_BadDivType" xml:space="preserve">
+    <value>Katalogová tabule {0} obsahuje pro sloupec {1} neplatnou hodnotu TYPE_ITEMS_DIVTYPE: {2}.</value>
+  </data>
+  <data name="TablesFile_BadFillSection" xml:space="preserve">
+    <value>Katalogová tabule {0} obsahuje pro sloupec {1} neplatnou hodnotu TYPE_ITEMS_IDX: {2}.</value>
+  </data>
+  <data name="TablesFile_BadLineCount" xml:space="preserve">
+    <value>Katalogová tabule {0} obsahuje v typu zobrazení {1} neplatný počet řádků - "{2}" (počet má být číslo).</value>
+  </data>
+  <data name="TablesFile_BadManufacturer" xml:space="preserve">
+    <value>Katalogová tabule {0} má zadaný neplatný klíč výrobce (MANUFACTURER_KEY): {1}.</value>
+  </data>
+  <data name="TablesFile_BadViewType" xml:space="preserve">
+    <value>Katalogová tabule {0} obsahuje neplatný typ zobrazení (TYPE_VIEW_TAB_KEY): {1}.</value>
+  </data>
+  <data name="TablesFile_CatalogMissing" xml:space="preserve">
+    <value>Katalogová tabule {0}, která byla použita ve fyzické tabuli {1}, neexistuje.</value>
+  </data>
+  <data name="TablesFile_DuplicateKey" xml:space="preserve">
+    <value>{0} s názvem {1} má klíč "{2}" shodný s jinou tabulí.</value>
+  </data>
+  <data name="TablesFile_LogicalBadViewKey" xml:space="preserve">
+    <value>Logická tabule {0} obsahuje neplatný klíč typu zobrazení (TYPE_VIEW_KEY_{1}_{2}): {3}.</value>
+  </data>
+  <data name="TablesFile_LogicalBadViewType" xml:space="preserve">
+    <value>Logická tabule {0} obsahuje neplatný typ zobrazení (TYPE_VIEW): {1}.</value>
+  </data>
+  <data name="TablesFile_LogicalPhysicalMissing" xml:space="preserve">
+    <value>Logická tabule {0} obsahuje neexistující fyzickou tabuli {1}.</value>
+  </data>
+  <data name="TablesFile_NoKey" xml:space="preserve">
+    <value>{0} s názvem {1} nemá zadaný klíč.</value>
+  </data>
+  <data name="TablesFile_TabTabInvalidName" xml:space="preserve">
+    <value>TabTab č. {0} má neplatný název (prázdný nebo obsahující pouze bílé znaky).</value>
+  </data>
+  <data name="TablesFile_TabTabMissing" xml:space="preserve">
+    <value>Katalogová tabule {0} obsahuje pro sloupec {1} neexistující {2} {3}.</value>
+  </data>
+  <data name="TypeName_Catalog" xml:space="preserve">
+    <value>Katalogová tabule</value>
+  </data>
+  <data name="TypeName_Item" xml:space="preserve">
+    <value>Řádek tabule</value>
+  </data>
+  <data name="TypeName_Logical" xml:space="preserve">
+    <value>Logická tabule</value>
+  </data>
+  <data name="TypeName_Physical" xml:space="preserve">
+    <value>Fyzická tabule</value>
+  </data>
+  <data name="ViewMode_Nothing" xml:space="preserve">
+    <value>Prázdná tabule</value>
+  </data>
+  <data name="ViewMode_Vlak" xml:space="preserve">
+    <value>Vlak bez zpoždění</value>
+  </data>
+  <data name="ViewMode_VlakZmeskany" xml:space="preserve">
+    <value>Na příjezdu i odjezdu zpožděný vlak</value>
+  </data>
+  <data name="ViewMode_VlakZmeskanyOdchod" xml:space="preserve">
+    <value>Na odjezdu zpožděný vlak</value>
+  </data>
+  <data name="ViewMode_VlakZmeskanyPrichod" xml:space="preserve">
+    <value>Na příjezdu zpožděný vlak</value>
+  </data>
+  <data name="ViewType_Ina" xml:space="preserve">
+    <value>Jiná</value>
+  </data>
+  <data name="ViewType_Nastupistna" xml:space="preserve">
+    <value>Nástupištní</value>
+  </data>
+  <data name="ViewType_Odchodova" xml:space="preserve">
+    <value>Odjezdová</value>
+  </data>
+  <data name="ViewType_Podchodova" xml:space="preserve">
+    <value>Podchodová</value>
+  </data>
+  <data name="ViewType_Prichodova" xml:space="preserve">
+    <value>Příjezdová</value>
+  </data>
+  <data name="ViewType_Reklamna" xml:space="preserve">
+    <value>Reklamní</value>
+  </data>
+  <data name="FormatCommon_Error" xml:space="preserve">
+    <value>Chyba v souboru {0} na řádku {1}. </value>
+  </data>
 </root>
