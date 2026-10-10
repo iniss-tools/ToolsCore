@@ -142,13 +142,13 @@
     <value>časový bod {0}</value>
   </data>
   <data name="Sdv_TimePointNoKey" xml:space="preserve">
-    <value>Časový bod bez kľúča – INISS diagram nenačíta</value>
+    <value>Časový bod bez kľúča, INISS diagram nenačíta</value>
   </data>
   <data name="Sdv_TimePointShadows" xml:space="preserve">
-    <value>Časový bod „{0}“ má kľúč zabudovaného bodu – vlastný bod je zbytočný</value>
+    <value>Časový bod „{0}“ má kľúč zabudovaného bodu, vlastný bod je zbytočný</value>
   </data>
   <data name="Sdv_TimePointOperator" xml:space="preserve">
-    <value>Operator „{0}“ – povolené je len min alebo max</value>
+    <value>Operator „{0}“: povolené je len min alebo max</value>
   </data>
   <data name="Sdv_TimePointSourceMissing" xml:space="preserve">
     <value>Zdrojový časový bod „{0}“ neexistuje</value>
@@ -160,10 +160,10 @@
     <value>{0} vracia čísla 1–{1}, ale diagram má {2} kategórií</value>
   </data>
   <data name="Sdv_CategoryCountFewer" xml:space="preserve">
-    <value> – vlaky s vyšším číslom skončia v poslednej kategórii a v logu</value>
+    <value>, vlaky s vyšším číslom skončia v poslednej kategórii a v logu</value>
   </data>
   <data name="Sdv_CategoryCountMore" xml:space="preserve">
-    <value> – ďalšie kategórie sa nikdy nepoužijú</value>
+    <value>, ďalšie kategórie sa nikdy nepoužijú</value>
   </data>
   <data name="Sdv_CategoryNoKey" xml:space="preserve">
     <value>Kategória bez kľúča</value>
@@ -172,7 +172,7 @@
     <value>Kategória {0}</value>
   </data>
   <data name="Sdv_CategoryIcon" xml:space="preserve">
-    <value>Ikona kategórie {0} – do súboru patrí čierna podoba 0–2, červenú (+3) si INISS pridá pri rýchlikoch sám</value>
+    <value>Ikona kategórie {0}: do súboru patrí čierna podoba 0–2. Červenú (+3) si INISS pridá pri rýchlikoch sám</value>
   </data>
   <data name="Sdv_CategoryNoStates" xml:space="preserve">
     <value>Kategória nemá žiadny stav</value>
@@ -187,28 +187,28 @@
     <value>{0} › stav {1}</value>
   </data>
   <data name="Sdv_StateIcon" xml:space="preserve">
-    <value>Ikona stavu {0} – INISS má ikony 0–{1}</value>
+    <value>Ikona stavu {0}: INISS má ikony 0–{1}</value>
   </data>
   <data name="Sdv_DefaultControl" xml:space="preserve">
     <value>DefaultControl={0}, ale stav má {1} ovládačov (číslované od 1)</value>
   </data>
   <data name="Sdv_AutoMode" xml:space="preserve">
-    <value>AutoMode={0} – povolené 0 (ručne), 1 (poloautomat), 2 (automat); INISS by načítanie diagramu prerušil</value>
+    <value>AutoMode={0}: povolené je 0 (ručne), 1 (poloautomat) alebo 2 (automat). INISS by načítanie diagramu prerušil</value>
   </data>
   <data name="Sdv_AutoTimePoint" xml:space="preserve">
-    <value>AutoTimePoint={0} – povolené 1 (príchod), 2 (odchod); INISS by načítanie diagramu prerušil</value>
+    <value>AutoTimePoint={0}: povolené je 1 (príchod) alebo 2 (odchod). INISS by načítanie diagramu prerušil</value>
   </data>
   <data name="Sdv_AutoModif" xml:space="preserve">
-    <value>AutoModif={0} – povolené 1 (krátke) alebo 2 (dlhé hlásenie)</value>
+    <value>AutoModif={0}: povolené je 1 (krátke) alebo 2 (dlhé hlásenie)</value>
   </data>
   <data name="Sdv_AutoNoTimePoint" xml:space="preserve">
-    <value>Automatika je zapnutá, ale chýba AutoTimePoint – INISS nemá od čoho počítať čas</value>
+    <value>Automatika je zapnutá, ale chýba AutoTimePoint, INISS nemá od čoho počítať čas</value>
   </data>
   <data name="Sdv_AutoNoMode" xml:space="preserve">
-    <value>Časový bod automatiky bez AutoMode – do stavu sa vlak dostane len ručne</value>
+    <value>Časový bod automatiky bez AutoMode, do stavu sa vlak dostane len ručne</value>
   </data>
   <data name="Sdv_WaitWithoutIltis" xml:space="preserve">
-    <value>Wait čaká na udalosť ILTISu, ktorú stanica bez ILTISu nikdy nedostane – akcia sa nevykoná</value>
+    <value>Wait čaká na udalosť ILTISu, ktorú stanica bez ILTISu nikdy nedostane, akcia sa nevykoná</value>
   </data>
   <data name="Sdv_WhatEvent" xml:space="preserve">
     <value>akcie</value>
@@ -235,7 +235,7 @@
     <value>Časový bod „{0}“ neexistuje</value>
   </data>
   <data name="Sdv_StarterClass" xml:space="preserve">
-    <value>Trieda štartéra „{0}“ – INISS pozná len {1}</value>
+    <value>Trieda štartéra „{0}“: INISS pozná len {1}</value>
   </data>
   <data name="Sdv_EventNoKey" xml:space="preserve">
     <value>Akcia bez kľúča</value>
@@ -256,7 +256,7 @@
     <value>SDEventWithDialog bez dialógu</value>
   </data>
   <data name="Sdv_DialogUnknown" xml:space="preserve">
-    <value>Neznámy dialóg „{0}“ – INISS má {1}</value>
+    <value>Neznámy dialóg „{0}“: INISS má {1}</value>
   </data>
   <data name="Sdv_VlakAttrNoDelay" xml:space="preserve">
     <value>SDEventVlakAttr musí mať zapnuté „{0}“ alebo „{1}“</value>
@@ -265,28 +265,28 @@
     <value>Stav sa z počiatočného stavu kategórie žiadnou akciou nedosiahne</value>
   </data>
   <data name="Sdv_StateDeadEnd" xml:space="preserve">
-    <value>Zo stavu nevedie žiadna akcia a nie je koncový (Shadow) – vlak v ňom ostane</value>
+    <value>Zo stavu nevedie žiadna akcia a nie je koncový (Shadow), vlak v ňom ostane</value>
   </data>
   <data name="Sdv_ExpressionError" xml:space="preserve">
-    <value>{0}: výraz sa nepreloží – {1}; INISS by načítanie diagramu prerušil</value>
+    <value>{0}: výraz sa nepreloží ({1}). INISS by načítanie diagramu prerušil</value>
   </data>
   <data name="Sdv_DuplicateKey" xml:space="preserve">
     <value>Kľúč {0} „{1}“ je použitý dvakrát (prvýkrát ako {2}.)</value>
   </data>
   <data name="Ttv_HeaderInSection" xml:space="preserve">
-    <value>Hlavička [{0}] vnútri sekcie – pri uložení by vznikla nová sekcia</value>
+    <value>Hlavička [{0}] vnútri sekcie, pri uložení by vznikla nová sekcia</value>
   </data>
   <data name="Ttv_HeaderInSection_Fix" xml:space="preserve">
     <value>Založiť sekciu tlačidlom Pridať a riadok odstrániť</value>
   </data>
   <data name="Ttv_BracketUnclosed" xml:space="preserve">
-    <value>Riadok začína [ bez ] – INISS ho ignoruje</value>
+    <value>Riadok začína [ bez ], INISS ho ignoruje</value>
   </data>
   <data name="Ttv_BracketUnclosed_Fix" xml:space="preserve">
     <value>Riadok odstrániť alebo doplniť ]</value>
   </data>
   <data name="Ttv_LineWithoutEquals" xml:space="preserve">
-    <value>Riadok bez = : „{0}“ nie je voľba sekcie (IgnoreCase, ViewValues) – INISS ho ignoruje</value>
+    <value>Riadok bez = : „{0}“ nie je voľba sekcie (IgnoreCase, ViewValues), INISS ho ignoruje</value>
   </data>
   <data name="Ttv_LineWithoutEquals_Fix" xml:space="preserve">
     <value>Doplniť = a pravú stranu, alebo riadok zakomentovať znakom ;</value>
@@ -304,31 +304,31 @@
     <value>Medzery za \</value>
   </data>
   <data name="Ttv_SlashNotLast" xml:space="preserve">
-    <value> – INISS spája riadky len vtedy, keď je \ posledný znak riadka; takto riadok spracuje samostatne a zvyšok pravidla na ďalších riadkoch sa rozpadne</value>
+    <value>. INISS spája riadky len vtedy, keď je \ posledný znak riadka. Takto riadok spracuje samostatne a zvyšok pravidla na ďalších riadkoch sa rozpadne</value>
   </data>
   <data name="Ttv_MoveCommentBeforeRuleStart" xml:space="preserve">
     <value>Presunúť komentár pred začiatok pravidla</value>
   </data>
   <data name="Ttv_CommentInsideRule" xml:space="preserve">
-    <value>Komentár vnútri viacriadkového pravidla – INISS ním pravidlo ukončí a riadky pod ním spracuje ako nové pravidlo</value>
+    <value>Komentár vnútri viacriadkového pravidla, INISS ním pravidlo ukončí a riadky pod ním spracuje ako nové pravidlo</value>
   </data>
   <data name="Ttv_EmptyRight" xml:space="preserve">
-    <value>Pravá strana pravidla je prázdna – pravidlo sa uplatní na prázdny text</value>
+    <value>Pravá strana pravidla je prázdna, pravidlo sa uplatní na prázdny text</value>
   </data>
   <data name="Ttv_EmptyRight_Fix" xml:space="preserve">
     <value>Doplniť text INISSu alebo udalosť (#SWITCH …) za =</value>
   </data>
   <data name="Ttv_MagicItemCase" xml:space="preserve">
-    <value>unknown magic item {0} – udalosť sa píše veľkými písmenami ({1})</value>
+    <value>unknown magic item {0}: udalosť sa píše veľkými písmenami ({1})</value>
   </data>
   <data name="Ttv_RewriteTo" xml:space="preserve">
     <value>Prepísať na {0}</value>
   </data>
   <data name="Ttv_MagicItem_Fix" xml:space="preserve">
-    <value>Použiť #SWITCH, #MERGE, #MERGE2, #VYLUKA, #ODKLON alebo #POZODJ_&lt;koľaj&gt;; text začínajúci # sa inak nedá zapísať</value>
+    <value>Použiť #SWITCH, #MERGE, #MERGE2, #VYLUKA, #ODKLON alebo #POZODJ_&lt;koľaj&gt;. Text začínajúci # sa inak nedá zapísať</value>
   </data>
   <data name="Ttv_PositionNotFound" xml:space="preserve">
-    <value>the position {0} was not found – koľaj nie je v Pozice.txt</value>
+    <value>the position {0} was not found: koľaj nie je v zozname koľají</value>
   </data>
   <data name="Ttv_UseTrackName" xml:space="preserve">
     <value>Použiť názov koľaje z Pozice.txt</value>
@@ -340,13 +340,13 @@
     <value>Doplniť položky pred = alebo pravidlo odstrániť</value>
   </data>
   <data name="Ttv_ItemsUneven" xml:space="preserve">
-    <value>the items count is uneven – {0} potrebuje dvojice podmienka, "text" (položiek: {1})</value>
+    <value>the items count is uneven: {0} potrebuje dvojice podmienka, "text" (položiek: {1})</value>
   </data>
   <data name="Ttv_ItemsUneven_Fix" xml:space="preserve">
-    <value>Doplniť text za poslednú podmienku alebo odstrániť prebytočnú položku; čiarka v texte musí byť v úvodzovkách</value>
+    <value>Doplniť text za poslednú podmienku alebo odstrániť prebytočnú položku. Čiarka v texte musí byť v úvodzovkách</value>
   </data>
   <data name="Ttv_ItemsNotTriple" xml:space="preserve">
-    <value>the items count is not multiple of 3 – {0} potrebuje trojice podmienka, "oddeľovač", "text" (položiek: {1})</value>
+    <value>the items count is not multiple of 3: {0} potrebuje trojice podmienka, "oddeľovač", "text" (položiek: {1})</value>
   </data>
   <data name="Ttv_ItemsNotTriple_Fix" xml:space="preserve">
     <value>Každá podmienka potrebuje oddeľovač aj text (oddeľovač môže byť prázdny: cond,,"text")</value>
@@ -358,13 +358,13 @@
     <value>Presunúť záložnú podmienku 1 na koniec zoznamu alebo položku odstrániť</value>
   </data>
   <data name="Ttv_OddQuotes" xml:space="preserve">
-    <value>Nepárny počet úvodzoviek – text od poslednej úvodzovky sa berie doslovne, vrátane {n}</value>
+    <value>Nepárny počet úvodzoviek, text od poslednej úvodzovky sa berie doslovne, vrátane {n}</value>
   </data>
   <data name="Ttv_OddQuotes_Fix" xml:space="preserve">
     <value>Doplniť alebo odstrániť úvodzovku</value>
   </data>
   <data name="Ttv_NotFont" xml:space="preserve">
-    <value>{0} nie je zápis písma – písmo sa píše ako {{číslo}} alebo {{@}} až na konci textu; takto je to text</value>
+    <value>{0} nie je zápis písma, takto je to text. Písmo sa píše ako {{číslo}} alebo {{@}} až na konci textu</value>
   </data>
   <data name="Ttv_NotFont_Fix" xml:space="preserve">
     <value>Presunúť {n} na koniec textu alebo opraviť číslo</value>
@@ -376,13 +376,13 @@
     <value>Písmo patrí za úvodzovky: "text"{n}</value>
   </data>
   <data name="Ttv_Fix_UnknownSymbol" xml:space="preserve">
-    <value>Skontrolovať názov funkcie alebo konštanty (Typ_ len s druhom z TrTypes.txt); zoznam je v dokumentácii Jazyk výrazov</value>
+    <value>Skontrolovať názov funkcie alebo konštanty (Typ_ len s druhom vlaku zo zoznamu druhov). Zoznam je v dokumentácii Jazyk výrazov</value>
   </data>
   <data name="Ttv_Fix_Expected" xml:space="preserve">
-    <value>Doplniť chýbajúci znak – zátvorku, dvojbodku alebo reťazec v úvodzovkách</value>
+    <value>Doplniť chýbajúci znak: zátvorku, dvojbodku alebo reťazec v úvodzovkách</value>
   </data>
   <data name="Ttv_Fix_Unexpected" xml:space="preserve">
-    <value>Skontrolovať zápis – dvojitá negácia a reťazené porovnania potrebujú zátvorky, = je ==</value>
+    <value>Skontrolovať zápis: dvojitá negácia a reťazené porovnania potrebujú zátvorky, = je ==</value>
   </data>
   <data name="Ttv_Fix_UnterminatedString" xml:space="preserve">
     <value>Doplniť uzatváraciu úvodzovku alebo #</value>
@@ -433,10 +433,10 @@
     <value>Zapísať presne: {0}{1}</value>
   </data>
   <data name="Expr_Zpozdeni" xml:space="preserve">
-    <value>ZPOZDENI je meškanie príchodu na príchodovej tabuli, inak väčšie z oboch meškaní – jednoznačnejšie je ZPOZDENIPRIJ alebo ZPOZDENIODJ</value>
+    <value>ZPOZDENI je meškanie príchodu na príchodovej tabuli, inak väčšie z oboch meškaní. Jednoznačnejšie je ZPOZDENIPRIJ alebo ZPOZDENIODJ</value>
   </data>
   <data name="Expr_Vylukazde" xml:space="preserve">
-    <value>VYLUKAZDE je výluka príchodu na príchodovej tabuli, inak ktorákoľvek výluka – jednoznačnejšie je PRIZNAK(Prizn_VylP) alebo PRIZNAK(Prizn_VylO)</value>
+    <value>VYLUKAZDE je výluka príchodu na príchodovej tabuli, inak ktorákoľvek výluka. Jednoznačnejšie je PRIZNAK(Prizn_VylP) alebo PRIZNAK(Prizn_VylO)</value>
   </data>
   <data name="Expr_StationUnknown" xml:space="preserve">
     <value>Stanica {0} nie je v grafikone</value>
@@ -454,7 +454,7 @@
     <value>Použiť názov dopravcu z Vlastnik.txt</value>
   </data>
   <data name="Expr_PriznakMask" xml:space="preserve">
-    <value>PRIZNAK(x) vracia masku príznakov, nie 0/1 – porovnávajte s 0 alebo použite bez porovnania</value>
+    <value>PRIZNAK(x) vracia masku príznakov, nie 0/1. Porovnávajte s 0 alebo použite bez porovnania</value>
   </data>
   <data name="Expr_ReplaceComparison" xml:space="preserve">
     <value>Nahradiť porovnanie: {0}</value>
@@ -463,19 +463,19 @@
     <value>Spojky {0} a {1} majú v INISSe rovnakú prioritu a viažu sprava: </value>
   </data>
   <data name="Expr_RightAssoc" xml:space="preserve">
-    <value>{0} {1} ({2} {3} {4}) – doplňte zátvorky</value>
+    <value>{0} {1} ({2} {3} {4}), doplňte zátvorky</value>
   </data>
   <data name="Expr_Parenthesize" xml:space="preserve">
     <value>Uzátvorkovať: ({0} {1} {2}) {3} …</value>
   </data>
   <data name="Expr_RightToLeft" xml:space="preserve">
-    <value>INISS počíta sprava: {0} {1} ({2} {3} {4}) – doplňte zátvorky</value>
+    <value>INISS počíta sprava: {0} {1} ({2} {3} {4}), doplňte zátvorky</value>
   </data>
   <data name="Expr_ParenthesizeLeft" xml:space="preserve">
     <value>Uzátvorkovať zľava: ({0} {1} {2}) {3} …</value>
   </data>
   <data name="Expr_DivideByZero" xml:space="preserve">
-    <value>Delenie nulou – INISS pri vyhodnotení spadne</value>
+    <value>Delenie nulou, INISS pri vyhodnotení spadne</value>
   </data>
   <data name="Expr_DivideByZero_Fix" xml:space="preserve">
     <value>Opraviť deliteľa</value>
@@ -496,7 +496,7 @@
     <value>vyplnilo @ z predchádzajúceho zdroja</value>
   </data>
   <data name="Ttc_WaitsForNext" xml:space="preserve">
-    <value>text obsahuje @ – čaká na ďalší zdroj</value>
+    <value>text obsahuje @, čaká na ďalší zdroj</value>
   </data>
   <data name="Ttc_HasLockout" xml:space="preserve">
     <value>vlak má výluku</value>
@@ -520,7 +520,7 @@
     <value>TAB1 chýba</value>
   </data>
   <data name="Ttc_NotInTab1Empty" xml:space="preserve">
-    <value>text nie je v TAB1 – stĺpec ostane prázdny</value>
+    <value>text nie je v TAB1, stĺpec ostane prázdny</value>
   </data>
   <data name="Ttc_HashWhole" xml:space="preserve">
     <value>text začínajúci # sa hľadá v TAB1 ako celok</value>
@@ -529,10 +529,10 @@
     <value>hodiny z TAB1, minúty po čísliciach z TAB2</value>
   </data>
   <data name="Ttc_TimePartMissing" xml:space="preserve">
-    <value>niektorá časť času nie je v tabuľkách – stĺpec ostane prázdny</value>
+    <value>niektorá časť času nie je v tabuľkách, stĺpec ostane prázdny</value>
   </data>
   <data name="Ttc_NotInTab1Unchanged" xml:space="preserve">
-    <value>text nie je v TAB1 – pošle sa nezmenený</value>
+    <value>text nie je v TAB1, pošle sa nezmenený</value>
   </data>
   <data name="Ttc_CharByChar" xml:space="preserve">
     <value>znak po znaku podľa TAB1</value>
@@ -556,10 +556,10 @@
     <value>riadok {0}, položky {1}</value>
   </data>
   <data name="Sdr_UnknownVersion" xml:space="preserve">
-    <value>Neznáma verzia zápisu „{0}“ – očakáva sa {1} na prvom riadku</value>
+    <value>Neznáma verzia zápisu „{0}“, očakáva sa {1} na prvom riadku</value>
   </data>
   <data name="Sdr_UnexpectedEof" xml:space="preserve">
-    <value>Neočakávaný koniec súboru – chýba }</value>
+    <value>Neočakávaný koniec súboru, chýba }</value>
   </data>
   <data name="Sdr_UnexpectedBrace" xml:space="preserve">
     <value>Neočakávané } mimo skupiny</value>
@@ -607,7 +607,7 @@
     <value>Reťazec je dlhší než {0} znakov</value>
   </data>
   <data name="Sdc_NoCtrls" xml:space="preserve">
-    <value>Súbor neobsahuje blok {0} – INISS v ňom nenájde diagram</value>
+    <value>Súbor neobsahuje blok {0}, INISS v ňom nenájde diagram</value>
   </data>
   <data name="Sdc_BlockMissing" xml:space="preserve">
     <value>Chýba blok {0}\{1}</value>
@@ -637,10 +637,10 @@
     <value>časových bodov stavu {0}</value>
   </data>
   <data name="Sdc_CountMore" xml:space="preserve">
-    <value>{0}={1}, ale {2} je {3} – INISS načíta len prvých {4}; po uložení sa počet opraví</value>
+    <value>{0}={1}, ale {2} je {3}. INISS načíta len prvých {4}, po uložení sa počet opraví</value>
   </data>
   <data name="Sdc_CountLess" xml:space="preserve">
-    <value>{0}={1}, ale {2} je len {3} – po uložení sa počet opraví</value>
+    <value>{0}={1}, ale {2} je len {3}, po uložení sa počet opraví</value>
   </data>
   <data name="Ewa_NoRiff" xml:space="preserve">
     <value>Chybný formát WAV súboru (chýba hlavička RIFF)!</value>
@@ -889,58 +889,58 @@
     <value>Súbor {0}: V oblasti {1} sa očakávala vlastnosť {2}.</value>
   </data>
   <data name="Reg_UnknownSection" xml:space="preserve">
-    <value>Sekciu {0} INISS nepozná – nečíta ju žiadna verzia.</value>
+    <value>Sekciu {0} INISS nepozná. Nečíta ju žiadna verzia.</value>
   </data>
   <data name="Reg_IniSectionReplacesRegistry" xml:space="preserve">
-    <value>Sekcia {0} je v súbore .INI – INISS jej hodnoty z registra vôbec nečíta, chýbajúce dostanú predvolenú hodnotu.</value>
+    <value>Sekcia {0} je v súbore .INI. INISS jej hodnoty z registra vôbec nečíta a chýbajúce dostanú predvolenú hodnotu.</value>
   </data>
   <data name="Reg_ColorOtherLanguage" xml:space="preserve">
     <value>Farba {0} patrí inej jazykovej verzii INISSu a nepoužíva sa.</value>
   </data>
   <data name="Reg_Leftover" xml:space="preserve">
-    <value>Hodnotu {0} nečíta žiadna verzia INISSu – je to pozostatok, dá sa zmazať.</value>
+    <value>Hodnotu {0} nečíta žiadna verzia INISSu. Je to pozostatok a dá sa zmazať.</value>
   </data>
   <data name="Reg_Unknown" xml:space="preserve">
-    <value>INISS hodnotu {0} nepozná – možno je v názve preklep.</value>
+    <value>INISS hodnotu {0} nepozná. Možno je v názve preklep.</value>
   </data>
   <data name="Reg_LegacyName" xml:space="preserve">
-    <value>Hodnota je uložená pod starým názvom {1} – INISS ju pri štarte premenuje na {0}.</value>
+    <value>Hodnota je uložená pod starým názvom {1}. INISS ju pri štarte premenuje na {0}.</value>
   </data>
   <data name="Reg_LegacyGhost" xml:space="preserve">
     <value>Starý názov {1} sa už nečíta, platí {0}. Starú hodnotu možno zmazať.</value>
   </data>
   <data name="Reg_EmptyText" xml:space="preserve">
-    <value>Prázdny text v hodnote {0} sa berie ako chýbajúci – INISS ho pri štarte nahradí predvolenou hodnotou {1}.</value>
+    <value>Prázdny text v hodnote {0} sa berie ako chýbajúci. INISS ho pri štarte nahradí predvolenou hodnotou {1}.</value>
   </data>
   <data name="Reg_WrongType" xml:space="preserve">
-    <value>Hodnota {0} je uložená ako {1} – INISS ju preto nečíta a platí predvolená hodnota.</value>
+    <value>Hodnota {0} je uložená ako {1}. INISS ju preto nečíta a platí predvolená hodnota.</value>
   </data>
   <data name="Reg_WrongTypeOverwritten" xml:space="preserve">
-    <value>Hodnota {0} je uložená ako {1} – INISS ju preto nečíta a pri štarte ju prepíše predvolenou hodnotou.</value>
+    <value>Hodnota {0} je uložená ako {1}. INISS ju preto nečíta a pri štarte ju prepíše predvolenou hodnotou.</value>
   </data>
   <data name="Reg_ShadowedByIni" xml:space="preserve">
     <value>Hodnotu {0} v {1} prebíja súbor .INI.</value>
   </data>
   <data name="Reg_ShadowedByVirtualStore" xml:space="preserve">
-    <value>Hodnotu {0} v HKEY_LOCAL_MACHINE prebíja kópia vo VirtualStore – INISS spustený bez práv správcu číta kópiu.</value>
+    <value>Hodnotu {0} v HKEY_LOCAL_MACHINE prebíja kópia vo VirtualStore. INISS spustený bez práv správcu číta kópiu.</value>
   </data>
   <data name="Reg_MachineIgnored" xml:space="preserve">
-    <value>Hodnota {0} v HKEY_LOCAL_MACHINE sa nepoužije – INISS číta túto hodnotu z HKEY_CURRENT_USER.</value>
+    <value>Hodnota {0} v HKEY_LOCAL_MACHINE sa nepoužije. INISS číta túto hodnotu z HKEY_CURRENT_USER.</value>
   </data>
   <data name="Reg_VirtualStoreIgnored" xml:space="preserve">
     <value>Kópia hodnoty {0} vo VirtualStore sa pri spustení INISSu ako správca nepoužije.</value>
   </data>
   <data name="Reg_WriteOnly" xml:space="preserve">
-    <value>INISS hodnotu {0} len zapisuje, nečíta ju – nemá vplyv na správanie.</value>
+    <value>INISS hodnotu {0} len zapisuje, nečíta ju. Nemá vplyv na správanie.</value>
   </data>
   <data name="Reg_NotInVersion" xml:space="preserve">
-    <value>Táto verzia INISSu ({1}) hodnotu {0} nečíta – nemá žiadny účinok.</value>
+    <value>Táto verzia INISSu ({1}) hodnotu {0} nečíta, nemá žiadny účinok.</value>
   </data>
   <data name="Reg_NetworkPortWithoutLine" xml:space="preserve">
-    <value>Sieťový kanál {0} nemá číslo komunikačnej linky (napríklad 3={0}) – INISS ho pri štarte ohlási ako chybnú linku 0.</value>
+    <value>Sieťový kanál {0} nemá číslo komunikačnej linky (napríklad 3={0}). INISS ho pri štarte ohlási ako chybnú linku 0.</value>
   </data>
   <data name="Reg_IniInvalidNumber" xml:space="preserve">
-    <value>Hodnota {0}={1} v súbore .INI nie je desiatkové číslo – INISS z nej prečíta {2}.</value>
+    <value>Hodnota {0}={1} v súbore .INI nie je desiatkové číslo. INISS z nej prečíta {2}.</value>
   </data>
   <data name="Reg_Class_0" xml:space="preserve">
     <value>Adon/BUSE</value>
@@ -982,7 +982,7 @@
     <value>Vpravo</value>
   </data>
   <data name="DirList_RootGrafikon" xml:space="preserve">
-    <value>DirList.TXT: grafikon priamo v priečinku DATA sa do zoznamu nezapisuje – INISS ho po zápise DirList.TXT prestane vidieť.</value>
+    <value>Zoznam grafikonov: grafikon priamo v priečinku DATA sa do zoznamu nezapisuje. INISS ho po zápise zoznamu prestane vidieť.</value>
   </data>
   <data name="DivType_Char" xml:space="preserve">
     <value>4: Znak po znaku podľa TAB1</value>
@@ -1117,19 +1117,19 @@
     <value>Názov vychádzajúcej stanice</value>
   </data>
   <data name="InissSettings_LineDuplicate" xml:space="preserve">
-    <value>Číslo linky {0} už používa sekcia {1} – INISS túto linku ignoruje.</value>
+    <value>Číslo linky {0} už používa sekcia {1}. INISS túto linku ignoruje.</value>
   </data>
   <data name="InissSettings_LineNoTables" xml:space="preserve">
     <value>Žiadna fyzická tabuľa v dátach nepoužíva túto linku.</value>
   </data>
   <data name="InissSettings_LineOutOfRange" xml:space="preserve">
-    <value>Číslo linky {0} je mimo rozsahu 1 až 100 – INISS linku nezaloží.</value>
+    <value>Číslo linky {0} je mimo rozsahu 1 až 100. INISS linku nezaloží.</value>
   </data>
   <data name="InissSettings_LineSummary" xml:space="preserve">
     <value>linka {0} · {1}</value>
   </data>
   <data name="InissSettings_LineWrongFamily" xml:space="preserve">
-    <value>Tabuľa {0} ({1}) nepatrí na linku s protokolom {2} – INISS jej nič nepošle.</value>
+    <value>Tabuľa {0} ({1}) nepatrí na linku s protokolom {2}. INISS jej nič nepošle.</value>
   </data>
   <data name="InissSettings_Unserved_NoAuto" xml:space="preserve">
     <value>nemá číslo linky a žiadna linka nemá protokol jej výrobcu</value>
@@ -1150,7 +1150,7 @@
     <value>Katalógová tabuľa {0} obsahuje pre stĺpec {1} neplatnú hodnotu TYPE_ITEMS_IDX: {2}.</value>
   </data>
   <data name="TablesFile_BadLineCount" xml:space="preserve">
-    <value>Katalógová tabuľa {0} obsahuje v type zobrazenia {1} neplatný počet riadkov - "{2}" (počet má byť číslo).</value>
+    <value>Katalógová tabuľa {0} obsahuje v type zobrazenia {1} neplatný počet riadkov „{2}“ (počet má byť číslo).</value>
   </data>
   <data name="TablesFile_BadManufacturer" xml:space="preserve">
     <value>Katalógová tabuľa {0} má zadaný neplatný kľúč výrobcu (MANUFACTURER_KEY): {1}.</value>

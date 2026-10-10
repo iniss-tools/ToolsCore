@@ -133,7 +133,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Časový bod bez kľúča – INISS diagram nenačíta.
+        ///   Looks up a localized string similar to Časový bod bez kľúča, INISS diagram nenačíta.
         /// </summary>
         internal static string Sdv_TimePointNoKey {
             get {
@@ -142,7 +142,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Časový bod „{0}“ má kľúč zabudovaného bodu – vlastný bod je zbytočný.
+        ///   Looks up a localized string similar to Časový bod „{0}“ má kľúč zabudovaného bodu, vlastný bod je zbytočný.
         /// </summary>
         internal static string Sdv_TimePointShadows {
             get {
@@ -151,7 +151,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Operator „{0}“ – povolené je len min alebo max.
+        ///   Looks up a localized string similar to Operator „{0}“: povolené je len min alebo max.
         /// </summary>
         internal static string Sdv_TimePointOperator {
             get {
@@ -187,7 +187,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  – vlaky s vyšším číslom skončia v poslednej kategórii a v logu.
+        ///   Looks up a localized string similar to , vlaky s vyšším číslom skončia v poslednej kategórii a v logu.
         /// </summary>
         internal static string Sdv_CategoryCountFewer {
             get {
@@ -196,7 +196,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  – ďalšie kategórie sa nikdy nepoužijú.
+        ///   Looks up a localized string similar to , ďalšie kategórie sa nikdy nepoužijú.
         /// </summary>
         internal static string Sdv_CategoryCountMore {
             get {
@@ -223,7 +223,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ikona kategórie {0} – do súboru patrí čierna podoba 0–2, červenú (+3) si INISS pridá pri rýchlikoch sám.
+        ///   Looks up a localized string similar to Ikona kategórie {0}: do súboru patrí čierna podoba 0–2. Červenú (+3) si INISS pridá pri rýchlikoch ....
         /// </summary>
         internal static string Sdv_CategoryIcon {
             get {
@@ -268,7 +268,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ikona stavu {0} – INISS má ikony 0–{1}.
+        ///   Looks up a localized string similar to Ikona stavu {0}: INISS má ikony 0–{1}.
         /// </summary>
         internal static string Sdv_StateIcon {
             get {
@@ -286,7 +286,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AutoMode={0} – povolené 0 (ručne), 1 (poloautomat), 2 (automat); INISS by načítanie diagramu prerušil.
+        ///   Looks up a localized string similar to AutoMode={0}: povolené je 0 (ručne), 1 (poloautomat) alebo 2 (automat). INISS by načítanie diagramu ....
         /// </summary>
         internal static string Sdv_AutoMode {
             get {
@@ -295,7 +295,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AutoTimePoint={0} – povolené 1 (príchod), 2 (odchod); INISS by načítanie diagramu prerušil.
+        ///   Looks up a localized string similar to AutoTimePoint={0}: povolené je 1 (príchod) alebo 2 (odchod). INISS by načítanie diagramu prerušil.
         /// </summary>
         internal static string Sdv_AutoTimePoint {
             get {
@@ -304,7 +304,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AutoModif={0} – povolené 1 (krátke) alebo 2 (dlhé hlásenie).
+        ///   Looks up a localized string similar to AutoModif={0}: povolené je 1 (krátke) alebo 2 (dlhé hlásenie).
         /// </summary>
         internal static string Sdv_AutoModif {
             get {
@@ -313,7 +313,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatika je zapnutá, ale chýba AutoTimePoint – INISS nemá od čoho počítať čas.
+        ///   Looks up a localized string similar to Automatika je zapnutá, ale chýba AutoTimePoint, INISS nemá od čoho počítať čas.
         /// </summary>
         internal static string Sdv_AutoNoTimePoint {
             get {
@@ -322,7 +322,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Časový bod automatiky bez AutoMode – do stavu sa vlak dostane len ručne.
+        ///   Looks up a localized string similar to Časový bod automatiky bez AutoMode, do stavu sa vlak dostane len ručne.
         /// </summary>
         internal static string Sdv_AutoNoMode {
             get {
@@ -331,7 +331,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wait čaká na udalosť ILTISu, ktorú stanica bez ILTISu nikdy nedostane – akcia sa nevykoná.
+        ///   Looks up a localized string similar to Wait čaká na udalosť ILTISu, ktorú stanica bez ILTISu nikdy nedostane, akcia sa nevykoná.
         /// </summary>
         internal static string Sdv_WaitWithoutIltis {
             get {
@@ -412,7 +412,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trieda štartéra „{0}“ – INISS pozná len {1}.
+        ///   Looks up a localized string similar to Trieda štartéra „{0}“: INISS pozná len {1}.
         /// </summary>
         internal static string Sdv_StarterClass {
             get {
@@ -475,7 +475,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Neznámy dialóg „{0}“ – INISS má {1}.
+        ///   Looks up a localized string similar to Neznámy dialóg „{0}“: INISS má {1}.
         /// </summary>
         internal static string Sdv_DialogUnknown {
             get {
@@ -502,7 +502,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zo stavu nevedie žiadna akcia a nie je koncový (Shadow) – vlak v ňom ostane.
+        ///   Looks up a localized string similar to Zo stavu nevedie žiadna akcia a nie je koncový (Shadow), vlak v ňom ostane.
         /// </summary>
         internal static string Sdv_StateDeadEnd {
             get {
@@ -511,7 +511,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: výraz sa nepreloží – {1}; INISS by načítanie diagramu prerušil.
+        ///   Looks up a localized string similar to {0}: výraz sa nepreloží ({1}). INISS by načítanie diagramu prerušil.
         /// </summary>
         internal static string Sdv_ExpressionError {
             get {
@@ -529,7 +529,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hlavička [{0}] vnútri sekcie – pri uložení by vznikla nová sekcia.
+        ///   Looks up a localized string similar to Hlavička [{0}] vnútri sekcie, pri uložení by vznikla nová sekcia.
         /// </summary>
         internal static string Ttv_HeaderInSection {
             get {
@@ -547,7 +547,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Riadok začína [ bez ] – INISS ho ignoruje.
+        ///   Looks up a localized string similar to Riadok začína [ bez ], INISS ho ignoruje.
         /// </summary>
         internal static string Ttv_BracketUnclosed {
             get {
@@ -565,7 +565,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Riadok bez = : „{0}“ nie je voľba sekcie (IgnoreCase, ViewValues) – INISS ho ignoruje.
+        ///   Looks up a localized string similar to Riadok bez = : „{0}“ nie je voľba sekcie (IgnoreCase, ViewValues), INISS ho ignoruje.
         /// </summary>
         internal static string Ttv_LineWithoutEquals {
             get {
@@ -619,7 +619,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  – INISS spája riadky len vtedy, keď je \ posledný znak riadka; takto riadok spracuje samostatne a zvyšok pravidla na ďalších riadkoch sa rozpadne.
+        ///   Looks up a localized string similar to . INISS spája riadky len vtedy, keď je \ posledný znak riadka. Takto riadok spracuje samostatne a ....
         /// </summary>
         internal static string Ttv_SlashNotLast {
             get {
@@ -637,7 +637,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Komentár vnútri viacriadkového pravidla – INISS ním pravidlo ukončí a riadky pod ním spracuje ako nové pravidlo.
+        ///   Looks up a localized string similar to Komentár vnútri viacriadkového pravidla, INISS ním pravidlo ukončí a riadky pod ním spracuje ako ....
         /// </summary>
         internal static string Ttv_CommentInsideRule {
             get {
@@ -646,7 +646,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pravá strana pravidla je prázdna – pravidlo sa uplatní na prázdny text.
+        ///   Looks up a localized string similar to Pravá strana pravidla je prázdna, pravidlo sa uplatní na prázdny text.
         /// </summary>
         internal static string Ttv_EmptyRight {
             get {
@@ -664,7 +664,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to unknown magic item {0} – udalosť sa píše veľkými písmenami ({1}).
+        ///   Looks up a localized string similar to unknown magic item {0}: udalosť sa píše veľkými písmenami ({1}).
         /// </summary>
         internal static string Ttv_MagicItemCase {
             get {
@@ -682,7 +682,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Použiť #SWITCH, #MERGE, #MERGE2, #VYLUKA, #ODKLON alebo #POZODJ_&lt;koľaj&gt;; text začínajúci # sa inak nedá zapísať.
+        ///   Looks up a localized string similar to Použiť #SWITCH, #MERGE, #MERGE2, #VYLUKA, #ODKLON alebo #POZODJ_&lt;koľaj&gt;. Text začínajúci # sa inak ....
         /// </summary>
         internal static string Ttv_MagicItem_Fix {
             get {
@@ -691,7 +691,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to the position {0} was not found – koľaj nie je v Pozice.txt.
+        ///   Looks up a localized string similar to the position {0} was not found: koľaj nie je v zozname koľají.
         /// </summary>
         internal static string Ttv_PositionNotFound {
             get {
@@ -727,7 +727,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to the items count is uneven – {0} potrebuje dvojice podmienka, "text" (položiek: {1}).
+        ///   Looks up a localized string similar to the items count is uneven: {0} potrebuje dvojice podmienka, "text" (položiek: {1}).
         /// </summary>
         internal static string Ttv_ItemsUneven {
             get {
@@ -736,7 +736,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doplniť text za poslednú podmienku alebo odstrániť prebytočnú položku; čiarka v texte musí byť v úvodzovkách.
+        ///   Looks up a localized string similar to Doplniť text za poslednú podmienku alebo odstrániť prebytočnú položku. Čiarka v texte musí byť v ....
         /// </summary>
         internal static string Ttv_ItemsUneven_Fix {
             get {
@@ -745,7 +745,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to the items count is not multiple of 3 – {0} potrebuje trojice podmienka, "oddeľovač", "text" (položiek: {1}).
+        ///   Looks up a localized string similar to the items count is not multiple of 3: {0} potrebuje trojice podmienka, "oddeľovač", "text" ....
         /// </summary>
         internal static string Ttv_ItemsNotTriple {
             get {
@@ -781,7 +781,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nepárny počet úvodzoviek – text od poslednej úvodzovky sa berie doslovne, vrátane {n}.
+        ///   Looks up a localized string similar to Nepárny počet úvodzoviek, text od poslednej úvodzovky sa berie doslovne, vrátane {n}.
         /// </summary>
         internal static string Ttv_OddQuotes {
             get {
@@ -799,7 +799,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} nie je zápis písma – písmo sa píše ako {{číslo}} alebo {{@}} až na konci textu; takto je to text.
+        ///   Looks up a localized string similar to {0} nie je zápis písma, takto je to text. Písmo sa píše ako {{číslo}} alebo {{@}} až na konci textu.
         /// </summary>
         internal static string Ttv_NotFont {
             get {
@@ -835,7 +835,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skontrolovať názov funkcie alebo konštanty (Typ_ len s druhom z TrTypes.txt); zoznam je v dokumentácii Jazyk výrazov.
+        ///   Looks up a localized string similar to Skontrolovať názov funkcie alebo konštanty (Typ_ len s druhom vlaku zo zoznamu druhov). Zoznam je v ....
         /// </summary>
         internal static string Ttv_Fix_UnknownSymbol {
             get {
@@ -844,7 +844,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doplniť chýbajúci znak – zátvorku, dvojbodku alebo reťazec v úvodzovkách.
+        ///   Looks up a localized string similar to Doplniť chýbajúci znak: zátvorku, dvojbodku alebo reťazec v úvodzovkách.
         /// </summary>
         internal static string Ttv_Fix_Expected {
             get {
@@ -853,7 +853,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skontrolovať zápis – dvojitá negácia a reťazené porovnania potrebujú zátvorky, = je ==.
+        ///   Looks up a localized string similar to Skontrolovať zápis: dvojitá negácia a reťazené porovnania potrebujú zátvorky, = je ==.
         /// </summary>
         internal static string Ttv_Fix_Unexpected {
             get {
@@ -1006,7 +1006,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ZPOZDENI je meškanie príchodu na príchodovej tabuli, inak väčšie z oboch meškaní – jednoznačnejšie je ZPOZDENIPRIJ alebo ZPOZDENIODJ.
+        ///   Looks up a localized string similar to ZPOZDENI je meškanie príchodu na príchodovej tabuli, inak väčšie z oboch meškaní. Jednoznačnejšie ....
         /// </summary>
         internal static string Expr_Zpozdeni {
             get {
@@ -1015,7 +1015,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VYLUKAZDE je výluka príchodu na príchodovej tabuli, inak ktorákoľvek výluka – jednoznačnejšie je PRIZNAK(Prizn_VylP) alebo PRIZNAK(Prizn_VylO).
+        ///   Looks up a localized string similar to VYLUKAZDE je výluka príchodu na príchodovej tabuli, inak ktorákoľvek výluka. Jednoznačnejšie je ....
         /// </summary>
         internal static string Expr_Vylukazde {
             get {
@@ -1069,7 +1069,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PRIZNAK(x) vracia masku príznakov, nie 0/1 – porovnávajte s 0 alebo použite bez porovnania.
+        ///   Looks up a localized string similar to PRIZNAK(x) vracia masku príznakov, nie 0/1. Porovnávajte s 0 alebo použite bez porovnania.
         /// </summary>
         internal static string Expr_PriznakMask {
             get {
@@ -1096,7 +1096,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} {1} ({2} {3} {4}) – doplňte zátvorky.
+        ///   Looks up a localized string similar to {0} {1} ({2} {3} {4}), doplňte zátvorky.
         /// </summary>
         internal static string Expr_RightAssoc {
             get {
@@ -1114,7 +1114,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INISS počíta sprava: {0} {1} ({2} {3} {4}) – doplňte zátvorky.
+        ///   Looks up a localized string similar to INISS počíta sprava: {0} {1} ({2} {3} {4}), doplňte zátvorky.
         /// </summary>
         internal static string Expr_RightToLeft {
             get {
@@ -1132,7 +1132,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delenie nulou – INISS pri vyhodnotení spadne.
+        ///   Looks up a localized string similar to Delenie nulou, INISS pri vyhodnotení spadne.
         /// </summary>
         internal static string Expr_DivideByZero {
             get {
@@ -1195,7 +1195,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to text obsahuje @ – čaká na ďalší zdroj.
+        ///   Looks up a localized string similar to text obsahuje @, čaká na ďalší zdroj.
         /// </summary>
         internal static string Ttc_WaitsForNext {
             get {
@@ -1267,7 +1267,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to text nie je v TAB1 – stĺpec ostane prázdny.
+        ///   Looks up a localized string similar to text nie je v TAB1, stĺpec ostane prázdny.
         /// </summary>
         internal static string Ttc_NotInTab1Empty {
             get {
@@ -1294,7 +1294,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to niektorá časť času nie je v tabuľkách – stĺpec ostane prázdny.
+        ///   Looks up a localized string similar to niektorá časť času nie je v tabuľkách, stĺpec ostane prázdny.
         /// </summary>
         internal static string Ttc_TimePartMissing {
             get {
@@ -1303,7 +1303,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to text nie je v TAB1 – pošle sa nezmenený.
+        ///   Looks up a localized string similar to text nie je v TAB1, pošle sa nezmenený.
         /// </summary>
         internal static string Ttc_NotInTab1Unchanged {
             get {
@@ -1375,7 +1375,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Neznáma verzia zápisu „{0}“ – očakáva sa {1} na prvom riadku.
+        ///   Looks up a localized string similar to Neznáma verzia zápisu „{0}“, očakáva sa {1} na prvom riadku.
         /// </summary>
         internal static string Sdr_UnknownVersion {
             get {
@@ -1384,7 +1384,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Neočakávaný koniec súboru – chýba }.
+        ///   Looks up a localized string similar to Neočakávaný koniec súboru, chýba }.
         /// </summary>
         internal static string Sdr_UnexpectedEof {
             get {
@@ -1528,7 +1528,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Súbor neobsahuje blok {0} – INISS v ňom nenájde diagram.
+        ///   Looks up a localized string similar to Súbor neobsahuje blok {0}, INISS v ňom nenájde diagram.
         /// </summary>
         internal static string Sdc_NoCtrls {
             get {
@@ -1618,7 +1618,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}={1}, ale {2} je {3} – INISS načíta len prvých {4}; po uložení sa počet opraví.
+        ///   Looks up a localized string similar to {0}={1}, ale {2} je {3}. INISS načíta len prvých {4}, po uložení sa počet opraví.
         /// </summary>
         internal static string Sdc_CountMore {
             get {
@@ -1627,7 +1627,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}={1}, ale {2} je len {3} – po uložení sa počet opraví.
+        ///   Looks up a localized string similar to {0}={1}, ale {2} je len {3}, po uložení sa počet opraví.
         /// </summary>
         internal static string Sdc_CountLess {
             get {
@@ -2374,7 +2374,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sekciu {0} INISS nepozná – nečíta ju žiadna verzia..
+        ///   Looks up a localized string similar to Sekciu {0} INISS nepozná. Nečíta ju žiadna verzia..
         /// </summary>
         internal static string Reg_UnknownSection {
             get {
@@ -2383,7 +2383,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sekcia {0} je v súbore .INI – INISS jej hodnoty z registra vôbec nečíta, chýbajúce dostanú predvolenú hodnotu..
+        ///   Looks up a localized string similar to Sekcia {0} je v súbore .INI. INISS jej hodnoty z registra vôbec nečíta a chýbajúce dostanú ....
         /// </summary>
         internal static string Reg_IniSectionReplacesRegistry {
             get {
@@ -2401,7 +2401,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hodnotu {0} nečíta žiadna verzia INISSu – je to pozostatok, dá sa zmazať..
+        ///   Looks up a localized string similar to Hodnotu {0} nečíta žiadna verzia INISSu. Je to pozostatok a dá sa zmazať..
         /// </summary>
         internal static string Reg_Leftover {
             get {
@@ -2410,7 +2410,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INISS hodnotu {0} nepozná – možno je v názve preklep..
+        ///   Looks up a localized string similar to INISS hodnotu {0} nepozná. Možno je v názve preklep..
         /// </summary>
         internal static string Reg_Unknown {
             get {
@@ -2419,7 +2419,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hodnota je uložená pod starým názvom {1} – INISS ju pri štarte premenuje na {0}..
+        ///   Looks up a localized string similar to Hodnota je uložená pod starým názvom {1}. INISS ju pri štarte premenuje na {0}..
         /// </summary>
         internal static string Reg_LegacyName {
             get {
@@ -2437,7 +2437,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prázdny text v hodnote {0} sa berie ako chýbajúci – INISS ho pri štarte nahradí predvolenou hodnotou {1}..
+        ///   Looks up a localized string similar to Prázdny text v hodnote {0} sa berie ako chýbajúci. INISS ho pri štarte nahradí predvolenou hodnotou ....
         /// </summary>
         internal static string Reg_EmptyText {
             get {
@@ -2446,7 +2446,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hodnota {0} je uložená ako {1} – INISS ju preto nečíta a platí predvolená hodnota..
+        ///   Looks up a localized string similar to Hodnota {0} je uložená ako {1}. INISS ju preto nečíta a platí predvolená hodnota..
         /// </summary>
         internal static string Reg_WrongType {
             get {
@@ -2455,7 +2455,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hodnota {0} je uložená ako {1} – INISS ju preto nečíta a pri štarte ju prepíše predvolenou hodnotou..
+        ///   Looks up a localized string similar to Hodnota {0} je uložená ako {1}. INISS ju preto nečíta a pri štarte ju prepíše predvolenou hodnotou..
         /// </summary>
         internal static string Reg_WrongTypeOverwritten {
             get {
@@ -2473,7 +2473,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hodnotu {0} v HKEY_LOCAL_MACHINE prebíja kópia vo VirtualStore – INISS spustený bez práv správcu číta kópiu..
+        ///   Looks up a localized string similar to Hodnotu {0} v HKEY_LOCAL_MACHINE prebíja kópia vo VirtualStore. INISS spustený bez práv správcu ....
         /// </summary>
         internal static string Reg_ShadowedByVirtualStore {
             get {
@@ -2482,7 +2482,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hodnota {0} v HKEY_LOCAL_MACHINE sa nepoužije – INISS číta túto hodnotu z HKEY_CURRENT_USER..
+        ///   Looks up a localized string similar to Hodnota {0} v HKEY_LOCAL_MACHINE sa nepoužije. INISS číta túto hodnotu z HKEY_CURRENT_USER..
         /// </summary>
         internal static string Reg_MachineIgnored {
             get {
@@ -2500,7 +2500,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INISS hodnotu {0} len zapisuje, nečíta ju – nemá vplyv na správanie..
+        ///   Looks up a localized string similar to INISS hodnotu {0} len zapisuje, nečíta ju. Nemá vplyv na správanie..
         /// </summary>
         internal static string Reg_WriteOnly {
             get {
@@ -2509,7 +2509,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Táto verzia INISSu ({1}) hodnotu {0} nečíta – nemá žiadny účinok..
+        ///   Looks up a localized string similar to Táto verzia INISSu ({1}) hodnotu {0} nečíta, nemá žiadny účinok..
         /// </summary>
         internal static string Reg_NotInVersion {
             get {
@@ -2518,7 +2518,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sieťový kanál {0} nemá číslo komunikačnej linky (napríklad 3={0}) – INISS ho pri štarte ohlási ako chybnú linku 0..
+        ///   Looks up a localized string similar to Sieťový kanál {0} nemá číslo komunikačnej linky (napríklad 3={0}). INISS ho pri štarte ohlási ako ....
         /// </summary>
         internal static string Reg_NetworkPortWithoutLine {
             get {
@@ -2527,7 +2527,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hodnota {0}={1} v súbore .INI nie je desiatkové číslo – INISS z nej prečíta {2}..
+        ///   Looks up a localized string similar to Hodnota {0}={1} v súbore .INI nie je desiatkové číslo. INISS z nej prečíta {2}..
         /// </summary>
         internal static string Reg_IniInvalidNumber {
             get {
@@ -2653,7 +2653,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DirList.TXT: grafikon priamo v priečinku DATA sa do zoznamu nezapisuje – INISS ho po zápise DirList.TXT prestane vidieť..
+        ///   Looks up a localized string similar to Zoznam grafikonov: grafikon priamo v priečinku DATA sa do zoznamu nezapisuje. INISS ho po zápise ....
         /// </summary>
         internal static string DirList_RootGrafikon {
             get {
@@ -3058,7 +3058,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Číslo linky {0} už používa sekcia {1} – INISS túto linku ignoruje..
+        ///   Looks up a localized string similar to Číslo linky {0} už používa sekcia {1}. INISS túto linku ignoruje..
         /// </summary>
         internal static string InissSettings_LineDuplicate {
             get {
@@ -3076,7 +3076,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Číslo linky {0} je mimo rozsahu 1 až 100 – INISS linku nezaloží..
+        ///   Looks up a localized string similar to Číslo linky {0} je mimo rozsahu 1 až 100. INISS linku nezaloží..
         /// </summary>
         internal static string InissSettings_LineOutOfRange {
             get {
@@ -3094,7 +3094,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tabuľa {0} ({1}) nepatrí na linku s protokolom {2} – INISS jej nič nepošle..
+        ///   Looks up a localized string similar to Tabuľa {0} ({1}) nepatrí na linku s protokolom {2}. INISS jej nič nepošle..
         /// </summary>
         internal static string InissSettings_LineWrongFamily {
             get {
@@ -3157,7 +3157,7 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Katalógová tabuľa {0} obsahuje v type zobrazenia {1} neplatný počet riadkov - "{2}" (počet má byť číslo)..
+        ///   Looks up a localized string similar to Katalógová tabuľa {0} obsahuje v type zobrazenia {1} neplatný počet riadkov „{2}“ (počet má byť ....
         /// </summary>
         internal static string TablesFile_BadLineCount {
             get {
