@@ -21,6 +21,10 @@ public static class GvdFileConsts
     public const string FileStahlasc = "STAHLASC.txt";
     public const string FileStanice = "STANICE.txt";
     public const string FileElismap = "ELISMAP.txt";
+    /// <summary>Stanice kratkeho hlasenia zvolene pri importe z ELIS (len GVDEditor, INISS subor nepozna).</summary>
+    public const string FileElisShort = "ELISKRAT.txt";
+    /// <summary>Priradenie poznamok vlakov z ELIS k priznakom, doplnkom a vylukam (len GVDEditor).</summary>
+    public const string FileElisRemarks = "ELISPOZN.txt";
     public const string FileStatedgm = "STATEDGM.txt";
     public const string FileStatedgmDat = "STATEDGM.dat";
     public const string FileTabtab = "TABTAB.txt";
