@@ -15,6 +15,9 @@ public sealed record InissTable(int Index, string Grafikon, TablePhysical Table)
 
     /// <summary>Udaj pre vyhodnotenie registra.</summary>
     public RegTableInfo ToInfo() => new(Table.Key, Grafikon, Manufacturer, Table.CommunicationPort);
+
+    /// <summary>Co o cele tabule vedia data stanice (druh, stlpce, kolaje); null = tabula nema katalog.</summary>
+    public TableFaceInfo? Face { get; init; }
 }
 
 /// <summary>
@@ -35,18 +38,37 @@ public static class InissTableMap
             if (DirListFlags.Parse(dir.Flags).TrainCreation == DirListTrainCreation.CreateWithoutCategori) continue;
             try
             {
-                var station = InfoGvdFile.Read(dir.FullPath).ThisStation.ID;
-                if (!stations.Add(station)) continue;
-                var (_, _, physicals, _) = TablesFile.Read(dir.FullPath);
+                var station = InfoGvdFile.Read(dir.FullPath).ThisStation;
+                if (!stations.Add(station.ID)) continue;
+                var (_, _, physicals, logicals) = TablesFile.Read(dir.FullPath);
+                var tracks = ReadTracks(dir.FullPath);
                 foreach (var table in physicals)
-                    result.Add(new InissTable(result.Count, dir.IsDataRoot ? "DATA" : dir.DirName, table));
+                    result.Add(new InissTable(result.Count, dir.IsDataRoot ? "DATA" : dir.DirName, table)
+                    {
+                        Face = TableFaces.Build(table, logicals, tracks, station.Name)
+                    });
             }
-            catch (Exception e) when (e is IOException or FormatException or UnauthorizedAccessException or InvalidOperationException)
+            // chybny subor grafikonu (aj chybajuca povinna vlastnost - ArgumentException) sa preskoci, ostatne grafikony sa nacitaju
+            catch (Exception e) when (e is IOException or FormatException or UnauthorizedAccessException or InvalidOperationException or ArgumentException)
             {
                 Log.Exception(e);
             }
         }
 
         return result;
+    }
+
+    /// <summary>Kolaje grafikonu; bez nich (chybny subor) len tabule bez cisla kolaje.</summary>
+    private static IReadOnlyList<StationTrack> ReadTracks(string dir)
+    {
+        try
+        {
+            return StationTracks.Read(dir);
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            Log.Exception(e);
+            return [];
+        }
     }
 }
