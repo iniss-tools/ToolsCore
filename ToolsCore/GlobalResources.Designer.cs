@@ -173,6 +173,16 @@ namespace ToolsCore {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap artificial_intelligence {
+            get {
+                object obj = ResourceManager.GetObject("artificial_intelligence", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap debugging {
             get {
                 object obj = ResourceManager.GetObject("debugging", resourceCulture);
