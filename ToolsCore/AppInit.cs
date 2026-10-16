@@ -7,6 +7,7 @@ using ToolsCore.Forms;
 using ToolsCore.Iniss.Tools;
 using ToolsCore.Tools;
 using ToolsCore.XML;
+using Vanara.PInvoke;
 using Application = System.Windows.Forms.Application;
 using Style = ToolsCore.XML.Style;
 
@@ -164,13 +165,13 @@ public static class AppInit
 
         if (crash)
         {
-            Application.Run(createMainForm());
+            Application.Run(WithTaskbarIcon(createMainForm()));
         }
         else
         {
             try
             {
-                Application.Run(createMainForm());
+                Application.Run(WithTaskbarIcon(createMainForm()));
             }
             catch (Exception exception)
             {
@@ -180,6 +181,31 @@ public static class AppInit
         }
 
         Log.Info("Program sa ukončuje\r\n");
+    }
+
+    // ikony triedy hlavneho okna - trieda ich pouziva, kym program bezi
+    private static (Icon Big, Icon Small)? _classIcons;
+
+    /// <summary>
+    /// Ikona hlavneho okna aj ako ikona jeho triedy okna. Panel uloh si ikonu okna vypyta hned po jeho zobrazeni;
+    /// ak vlakno okna prave pracuje (nacitanie pri starte), neodpovie vcas a panel vezme ikonu triedy. Tu WinForms
+    /// nenastavuje, takze by panel ukazal vseobecnu ikonu Windows, kym sa okno nezmeni (napr. titulok).
+    /// </summary>
+    private static Form WithTaskbarIcon(Form form)
+    {
+        void Apply()
+        {
+            if (form.Icon is not { } icon)
+                return;
+            _classIcons ??= (new Icon(icon, SystemInformation.IconSize), new Icon(icon, SystemInformation.SmallIconSize));
+            User32.SetClassLong(form.Handle, User32.GetClassLongFlag.GCLP_HICON, _classIcons.Value.Big.Handle);
+            User32.SetClassLong(form.Handle, User32.GetClassLongFlag.GCLP_HICONSM, _classIcons.Value.Small.Handle);
+        }
+
+        if (form.IsHandleCreated)
+            Apply();
+        form.HandleCreated += (_, _) => Apply();
+        return form;
     }
 
     private static void ReportException(Exception exception, ConfigBase config)
