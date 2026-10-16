@@ -238,6 +238,7 @@ namespace ToolsCore.Forms
             optionsView.Margin = new Padding(4, 3, 4, 3);
             optionsView.Name = "optionsView";
             optionsView.Padding = new Padding(6);
+            optionsView.TreeWidth = 230;
             optionsView.Panels.Add(pGeneral);
             optionsView.Panels.Add(pDesktop);
             optionsView.Panels.Add(pDesktopComponents);
