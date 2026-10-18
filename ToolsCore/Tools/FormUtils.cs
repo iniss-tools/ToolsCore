@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Runtime.CompilerServices;
 using ExControls;
 
 namespace ToolsCore.Tools;
@@ -10,6 +11,16 @@ public static partial class FormUtils
 {
     private static readonly System.Reflection.PropertyInfo? DgvDoubleBuffered =
         typeof(DataGridView).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+    // velkost ikon panela nastrojov z navrhara pri 96 DPI - zapamata sa pred prvou zmenou podla pisma
+    private static readonly ConditionalWeakTable<ToolStrip, StrongBox<int>> DesignedImageSizes = new();
+
+    private static StrongBox<int> DesignedImageSize(ToolStrip strip)
+    {
+        var size = Math.Min(strip.ImageScalingSize.Width, strip.ImageScalingSize.Height);
+        // predvolenu velkost 16 uz panel prepocital podla DPI
+        return new StrongBox<int>(size == strip.LogicalToDeviceUnits(16) ? 16 : size);
+    }
 
     /// <summary>
     /// Zmena farebnej schémy dialogu alebo ovladacieho prvku.
@@ -109,7 +120,11 @@ public static partial class FormUtils
 
     private static void SetFontToolStripItems(ToolStrip strip)
     {
-        var size = GlobSettings.Fonts.Menu.Font.Height;
+        // panel nastrojov ma ikony vo velkosti z navrhara prepocitanej podla DPI (ikony SVG su ostre len v nej),
+        // ponuky a stavovy riadok podla pisma
+        var size = strip is MenuStrip or StatusStrip or ToolStripDropDown
+            ? GlobSettings.Fonts.Menu.Font.Height
+            : strip.LogicalToDeviceUnits(DesignedImageSizes.GetValue(strip, DesignedImageSize).Value);
         strip.ImageScalingSize = new Size(size, size);
 
         foreach (ToolStripItem toolStripItem in strip.Items)

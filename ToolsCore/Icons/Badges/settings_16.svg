@@ -1,0 +1,4 @@
+<!-- Odznak banky ikon ToolsCore (tools/gen_badges.py), pravy dolny roh ikony. -->
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" d="M14.69 10.97L15.93 11.25L15.93 12.75L14.69 13.03L14.24 13.81L14.61 15.03L13.32 15.78L12.45 14.84L11.55 14.84L10.68 15.78L9.39 15.03L9.76 13.81L9.31 13.03L8.07 12.75L8.07 11.25L9.31 10.97L9.76 10.19L9.39 8.97L10.68 8.22L11.55 9.16L12.45 9.16L13.32 8.22L14.61 8.97L14.24 10.19ZM13.16 12A1.16 1.16 0 1 0 10.84 12A1.16 1.16 0 1 0 13.16 12Z" fill="#6C707E"/>
+</svg>

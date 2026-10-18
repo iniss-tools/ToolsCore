@@ -1,6 +1,7 @@
 ﻿using ToolsCore.XML;
 using ExControls;
 using ToolsCore.Properties;
+using ToolsCore.Icons;
 
 namespace ToolsCore.Forms
 {
@@ -48,7 +49,6 @@ namespace ToolsCore.Forms
             panelBottom = new Panel();
             bSave = new ExButton();
             bStorno = new ExButton();
-            listIcons = new ImageList(components);
             optionsView = new ExOptionsView();
             pGeneral = new ExOptionsPanel(optionsView);
             pConcreteGeneral = new Panel();
@@ -98,13 +98,13 @@ namespace ToolsCore.Forms
             toolStrip1 = new ToolStrip();
             toolStripLabel1 = new ToolStripLabel();
             tscbStyles = new ExToolStripComboBox();
-            tsbApplyStyle = new ToolStripButton();
+            tsbApplyStyle = new IconToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
-            tsbAddStyle = new ToolStripButton();
-            tsbRenameStyle = new ToolStripButton();
-            tsbDeleteStyle = new ToolStripButton();
+            tsbAddStyle = new IconToolStripButton();
+            tsbRenameStyle = new IconToolStripButton();
+            tsbDeleteStyle = new IconToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
-            tsbResetStyle = new ToolStripButton();
+            tsbResetStyle = new IconToolStripButton();
             exGroupBox1 = new ExGroupBox();
             lFontStyleExample = new Label();
             tvStyles = new ExTreeView();
@@ -212,22 +212,6 @@ namespace ToolsCore.Forms
             bStorno.UseVisualStyleBackColor = true;
             bStorno.Click += BStorno_Click;
             // 
-            // listIcons
-            // 
-            listIcons.ColorDepth = ColorDepth.Depth32Bit;
-            listIcons.ImageStream = (ImageListStreamer)resources.GetObject("listIcons.ImageStream");
-            listIcons.TransparentColor = Color.Transparent;
-            listIcons.Images.SetKeyName(0, "general.png");
-            listIcons.Images.SetKeyName(1, "environment.png");
-            listIcons.Images.SetKeyName(2, "desktop.png");
-            listIcons.Images.SetKeyName(3, "columns.png");
-            listIcons.Images.SetKeyName(4, "localization.png");
-            listIcons.Images.SetKeyName(5, "shortcut.png");
-            listIcons.Images.SetKeyName(6, "colors.png");
-            listIcons.Images.SetKeyName(7, "font.png");
-            listIcons.Images.SetKeyName(8, "debugging.png");
-            listIcons.Images.SetKeyName(9, "start.png");
-            // 
             // optionsView
             // 
             resources.ApplyResources(optionsView, "optionsView");
@@ -267,12 +251,9 @@ namespace ToolsCore.Forms
             optionsView.TreeView.Dock = DockStyle.Fill;
             optionsView.TreeView.FullRowSelect = true;
             optionsView.TreeView.HideSelection = false;
-            optionsView.TreeView.ImageIndex = 0;
-            optionsView.TreeView.ImageList = listIcons;
             optionsView.TreeView.ItemHeight = 22;
             optionsView.TreeView.Name = "treeView";
             optionsView.TreeView.PathSeparator = " / ";
-            optionsView.TreeView.SelectedImageIndex = 0;
             optionsView.TreeView.ShowLines = false;
             optionsView.TreeView.ShowNodeToolTips = true;
             optionsView.TreeView.Style = ExTreeViewStyle.Light;
@@ -284,9 +265,7 @@ namespace ToolsCore.Forms
             pGeneral.Controls.Add(gboxGeneralProgram);
             pGeneral.Margin = new Padding(4, 3, 4, 3);
             pGeneral.Name = "pGeneral";
-            optionsNode1.ImageKey = "general.png";
             optionsNode1.Name = "";
-            optionsNode1.SelectedImageKey = "general.png";
             optionsNode1.Text = resources.GetString("optionsNode1.Text");
             pGeneral.Node = optionsNode1;
             pGeneral.NodeText = resources.GetString("pGeneral.NodeText");
@@ -383,15 +362,11 @@ namespace ToolsCore.Forms
             pDesktop.GenerateLinksToChildren = true;
             pDesktop.Margin = new Padding(4, 3, 4, 3);
             pDesktop.Name = "pDesktop";
-            optionsNode2.ImageKey = "desktop.png";
             optionsNode2.Name = "";
-            optionsNode2.SelectedImageKey = "desktop.png";
             optionsNode2.Text = resources.GetString("optionsNode2.Text");
             pDesktop.Node = optionsNode2;
             pDesktop.NodeText = resources.GetString("pDesktop.NodeText");
-            optionsNode3.ImageKey = "environment.png";
             optionsNode3.Name = "";
-            optionsNode3.SelectedImageKey = "environment.png";
             optionsNode3.Text = resources.GetString("optionsNode3.Text");
             pDesktop.ParentNode = optionsNode3;
             // 
@@ -401,9 +376,7 @@ namespace ToolsCore.Forms
             pDesktopComponents.Controls.Add(ppDesktopComponents);
             pDesktopComponents.Margin = new Padding(4, 3, 4, 3);
             pDesktopComponents.Name = "pDesktopComponents";
-            optionsNode4.ImageKey = "desktop.png";
             optionsNode4.Name = "";
-            optionsNode4.SelectedImageKey = "desktop.png";
             optionsNode4.Text = resources.GetString("optionsNode4.Text");
             pDesktopComponents.Node = optionsNode4;
             pDesktopComponents.NodeText = resources.GetString("pDesktopComponents.NodeText");
@@ -468,9 +441,7 @@ namespace ToolsCore.Forms
             pDesktopColumns.Controls.Add(panel2);
             pDesktopColumns.Margin = new Padding(4, 3, 4, 3);
             pDesktopColumns.Name = "pDesktopColumns";
-            optionsNode5.ImageKey = "columns.png";
             optionsNode5.Name = "";
-            optionsNode5.SelectedImageKey = "columns.png";
             optionsNode5.Text = resources.GetString("optionsNode5.Text");
             pDesktopColumns.Node = optionsNode5;
             pDesktopColumns.NodeText = resources.GetString("pDesktopColumns.NodeText");
@@ -573,9 +544,7 @@ namespace ToolsCore.Forms
             pLocalization.Controls.Add(panel3);
             pLocalization.Margin = new Padding(4, 3, 4, 3);
             pLocalization.Name = "pLocalization";
-            optionsNode6.ImageKey = "localization.png";
             optionsNode6.Name = "";
-            optionsNode6.SelectedImageKey = "localization.png";
             optionsNode6.Text = resources.GetString("optionsNode6.Text");
             pLocalization.Node = optionsNode6;
             pLocalization.NodeText = resources.GetString("pLocalization.NodeText");
@@ -646,9 +615,7 @@ namespace ToolsCore.Forms
             pShortcuts.Controls.Add(panel1);
             pShortcuts.Margin = new Padding(4, 3, 4, 3);
             pShortcuts.Name = "pShortcuts";
-            optionsNode7.ImageKey = "shortcut.png";
             optionsNode7.Name = "";
-            optionsNode7.SelectedImageKey = "shortcut.png";
             optionsNode7.Text = resources.GetString("optionsNode7.Text");
             pShortcuts.Node = optionsNode7;
             pShortcuts.NodeText = resources.GetString("pShortcuts.NodeText");
@@ -748,9 +715,7 @@ namespace ToolsCore.Forms
             pStyles.Controls.Add(ppStyles);
             pStyles.Margin = new Padding(4, 3, 4, 3);
             pStyles.Name = "pStyles";
-            optionsNode8.ImageKey = "colors.png";
             optionsNode8.Name = "";
-            optionsNode8.SelectedImageKey = "colors.png";
             optionsNode8.Text = resources.GetString("optionsNode8.Text");
             pStyles.Node = optionsNode8;
             pStyles.NodeText = resources.GetString("pStyles.NodeText");
@@ -793,9 +758,8 @@ namespace ToolsCore.Forms
             // tsbApplyStyle
             // 
             tsbApplyStyle.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbApplyStyle.Image = GlobalResources.correct;
-            tsbApplyStyle.ImageTransparentColor = Color.Magenta;
             tsbApplyStyle.Name = "tsbApplyStyle";
+            tsbApplyStyle.IconName = "checkmark";
             resources.ApplyResources(tsbApplyStyle, "tsbApplyStyle");
             tsbApplyStyle.Click += TsbApplyStyle_Click;
             // 
@@ -807,27 +771,24 @@ namespace ToolsCore.Forms
             // tsbAddStyle
             // 
             tsbAddStyle.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbAddStyle.Image = GlobalResources.add;
-            tsbAddStyle.ImageTransparentColor = Color.Magenta;
             tsbAddStyle.Name = "tsbAddStyle";
+            tsbAddStyle.IconName = "add";
             resources.ApplyResources(tsbAddStyle, "tsbAddStyle");
             tsbAddStyle.Click += TsbAddStyle_Click;
             // 
             // tsbRenameStyle
             // 
             tsbRenameStyle.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbRenameStyle.Image = GlobalResources.rename;
-            tsbRenameStyle.ImageTransparentColor = Color.Magenta;
             tsbRenameStyle.Name = "tsbRenameStyle";
+            tsbRenameStyle.IconName = "rename";
             resources.ApplyResources(tsbRenameStyle, "tsbRenameStyle");
             tsbRenameStyle.Click += TsbRenameStyle_Click;
             // 
             // tsbDeleteStyle
             // 
             tsbDeleteStyle.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbDeleteStyle.Image = GlobalResources.delete;
-            tsbDeleteStyle.ImageTransparentColor = Color.Magenta;
             tsbDeleteStyle.Name = "tsbDeleteStyle";
+            tsbDeleteStyle.IconName = "delete";
             resources.ApplyResources(tsbDeleteStyle, "tsbDeleteStyle");
             tsbDeleteStyle.Click += TsbDeleteStyle_Click;
             // 
@@ -839,9 +800,8 @@ namespace ToolsCore.Forms
             // tsbResetStyle
             // 
             tsbResetStyle.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbResetStyle.Image = GlobalResources.restart;
-            tsbResetStyle.ImageTransparentColor = Color.Magenta;
             tsbResetStyle.Name = "tsbResetStyle";
+            tsbResetStyle.IconName = "arrow-reset";
             resources.ApplyResources(tsbResetStyle, "tsbResetStyle");
             tsbResetStyle.Click += TsbResetStyle_Click;
             // 
@@ -1067,9 +1027,7 @@ namespace ToolsCore.Forms
             pFonts.Controls.Add(exGroupBox3);
             pFonts.Margin = new Padding(4, 3, 4, 3);
             pFonts.Name = "pFonts";
-            optionsNode9.ImageKey = "font.png";
             optionsNode9.Name = "";
-            optionsNode9.SelectedImageKey = "font.png";
             optionsNode9.Text = resources.GetString("optionsNode9.Text");
             pFonts.Node = optionsNode9;
             pFonts.NodeText = resources.GetString("pFonts.NodeText");
@@ -1161,9 +1119,7 @@ namespace ToolsCore.Forms
             pLogging.Controls.Add(ppLogging);
             pLogging.Margin = new Padding(4, 3, 4, 3);
             pLogging.Name = "pLogging";
-            optionsNode10.ImageKey = "debugging.png";
             optionsNode10.Name = "";
-            optionsNode10.SelectedImageKey = "debugging.png";
             optionsNode10.Text = resources.GetString("optionsNode10.Text");
             pLogging.Node = optionsNode10;
             pLogging.NodeText = resources.GetString("pLogging.NodeText");
@@ -1340,7 +1296,6 @@ namespace ToolsCore.Forms
         private ExControls.ExButton bSave;
         private ExControls.ExButton bStorno;
         private Panel panelBottom;
-        private ImageList listIcons;
         protected ExControls.ExOptionsPanel pGeneral;
         private Panel panel1;
         private ExControls.ExButton bShortcutsReset;
@@ -1379,11 +1334,11 @@ namespace ToolsCore.Forms
         private ToolStrip toolStrip1;
         private ToolStripLabel toolStripLabel1;
         private ExToolStripComboBox tscbStyles;
-        private ToolStripButton tsbApplyStyle;
+        private IconToolStripButton tsbApplyStyle;
         private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton tsbAddStyle;
-        private ToolStripButton tsbRenameStyle;
-        private ToolStripButton tsbDeleteStyle;
+        private IconToolStripButton tsbAddStyle;
+        private IconToolStripButton tsbRenameStyle;
+        private IconToolStripButton tsbDeleteStyle;
         private ExGroupBox exGroupBox1;
         private Label lFontStyleExample;
         private ExTreeView tvStyles;
@@ -1430,7 +1385,7 @@ namespace ToolsCore.Forms
         private DataGridViewButtonColumn cShortcutReset;
         private ExButton bResetColorSetting;
         private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton tsbResetStyle;
+        private IconToolStripButton tsbResetStyle;
         private ExCheckBox cboxHighlightStatusBar;
     }
 }

@@ -12,7 +12,14 @@
 		<!-- len pre Rider ([UsedImplicitly]); atributy su [Conditional], za behu sa DLL nepotrebuje -->
 		<PackageReference Include="ExcelDataReader" Version="3.9.0" />
 		<PackageReference Include="JetBrains.Annotations" Version="2026.2.0" PrivateAssets="all" ExcludeAssets="runtime" />
+		<PackageReference Include="Svg" Version="3.4.8" />
 		<PackageReference Include="Vanara.Windows.Shell" Version="5.0.7" />
+	</ItemGroup>
+	<ItemGroup>
+		<!-- banka ikon SVG (Icons/AppIcons) - nazvy prostriedkov icons/<subor>, badges/<subor> -->
+		<None Remove="Icons\**\*.svg" />
+		<EmbeddedResource Include="Icons\Svg\*.svg" LogicalName="icons/%(Filename)%(Extension)" />
+		<EmbeddedResource Include="Icons\Badges\*.svg" LogicalName="badges/%(Filename)%(Extension)" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\ExControls\ExControls\ExControls.csproj" />

@@ -1,0 +1,4 @@
+<!-- Odznak banky ikon ToolsCore (tools/gen_badges.py), pravy dolny roh ikony. -->
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.5 16.5L26.5 26.5M26.5 16.5L16.5 26.5" stroke="#DB5C5C" stroke-width="3" stroke-linecap="round"/>
+</svg>

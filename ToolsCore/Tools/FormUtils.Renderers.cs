@@ -84,6 +84,30 @@ public static partial class FormUtils
             base.OnRenderArrow(e);
         }
 
+        protected override void OnRenderItemImage(ToolStripItemImageRenderEventArgs e)
+        {
+            if (e.Item is not { Enabled: false } item || e.Image is not { } image || e.ImageRectangle.IsEmpty)
+            {
+                base.OnRenderItemImage(e);
+                return;
+            }
+
+            // neaktivna ikona siva a polopriehladna ako v IntelliJ - CreateDisabledImage ju zosvetli, na tmavom pozadi svieti
+            using var attributes = new ImageAttributes();
+            attributes.SetColorMatrix(DisabledImageMatrix);
+            var source = item.ImageScaling == ToolStripItemImageScaling.None ? e.ImageRectangle.Size : image.Size;
+            e.Graphics.DrawImage(image, e.ImageRectangle, 0, 0, source.Width, source.Height, GraphicsUnit.Pixel, attributes);
+        }
+
+        private static readonly ColorMatrix DisabledImageMatrix = new(
+        [
+            [0.30f, 0.30f, 0.30f, 0, 0],
+            [0.59f, 0.59f, 0.59f, 0, 0],
+            [0.11f, 0.11f, 0.11f, 0, 0],
+            [0, 0, 0, 0.35f, 0],
+            [0, 0, 0, 0, 1]
+        ]);
+
         protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
         {
             var bitmap = new Bitmap(e.Image!);
