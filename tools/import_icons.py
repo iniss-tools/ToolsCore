@@ -105,6 +105,7 @@ ICONS = {
     'status-warning': ('Warning', 'yellow', 'filled'),
     'status-info': ('Info', 'blue', 'filled'),
     'status-ok': ('Checkmark Circle', 'green', 'filled'),
+    'status-question': ('Question Circle', 'blue', 'filled'),
 }
 
 

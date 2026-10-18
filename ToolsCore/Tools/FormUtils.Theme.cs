@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using ExControls;
+using ToolsCore.Icons;
 using ToolsCore.XML;
 
 namespace ToolsCore.Tools;
@@ -226,6 +227,9 @@ public static partial class FormUtils
 
     private static void ApplyDataGridView(DataGridView dgv, ExTheme theme)
     {
+        // ikona chyby bunky a riadka z banky namiesto systemovej
+        GridErrorIcons.Attach(dgv);
+
         // DoubleBuffered je u DataGridView protected a predvolene vypnute
         DgvDoubleBuffered?.SetValue(dgv, true);
 

@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Xml;
 using ExControls;
 using ToolsCore.Forms;
+using ToolsCore.Icons;
 using ToolsCore.Iniss.Tools;
 using ToolsCore.Tools;
 using ToolsCore.XML;
@@ -41,6 +42,9 @@ public static class AppInit
     {
         // vedomie o DPI pred akymkolvek oknom (aj hlasenim o poskodenej konfiguracii); predtym dpiAware v app.manifest
         Application.SetHighDpiMode(HighDpiMode.SystemAware);
+
+        // dialogy so spravou s ikonami z banky (chyba, varovanie, informacia, otazka) namiesto systemovych
+        ExMessageBox.IconProvider = IconImages.ForMessage;
 
         //Nastavenie cesty, kde sa budu ukladat logovacie subory - musi byt pred konfiguraciou,
         //aby uz aj chyba pri nacitani konfiguracie mala kam zapisat

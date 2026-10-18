@@ -1,4 +1,4 @@
-﻿using ExControls;
+﻿using ToolsCore.Icons;
 using ToolsCore.Tools;
 
 namespace ToolsCore.Forms;
@@ -10,7 +10,7 @@ public partial class FError : Form
         InitializeComponent();
         this.ApplyThemeAndFonts();
 
-        pbIcon.Image = new ShellIcon(ShellIconType.Error,ShellIconSize.Large).ToBitmap();
+        pbIcon.Image = IconImages.For(pbIcon, "status-error", IconImages.DialogSize);
         rtbMessage.Text = msg;
         rtbMessage.Font = new Font("Consolas", 10);
     }
