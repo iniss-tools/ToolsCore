@@ -39,11 +39,16 @@ public record ColorSetting
     }
 
     /// <summary>
-    /// Názov nastavenia, ktoré sa bude zobrazovať v GUI.
-    /// Lokalizovateľná
+    /// Názov nastavenia, ktoré sa bude zobrazovať v GUI - v aktuálnom jazyku programu.
     /// </summary>
-    [XmlIgnore, Localizable(true)]  
-    public string Name { get; set; } = null!;
+    [XmlIgnore]
+    public string Name => NameSource();
+
+    /// <summary>
+    /// Zdroj názvu nastavenia. Číta sa až pri použití - štýly sa načítajú skôr, než sa nastaví jazyk programu.
+    /// </summary>
+    [XmlIgnore]
+    public Func<string> NameSource { get; set; } = () => "";
 
     /// <summary>
     /// Farba pozadia.

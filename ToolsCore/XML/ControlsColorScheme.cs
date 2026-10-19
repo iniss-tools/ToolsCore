@@ -19,17 +19,17 @@ public record ControlsColorScheme() : IColorScheme
     /// <inheritdoc />
     [XmlIgnore] 
     public string Name => Resources.ColorScheme_Controls;
-
+    
     [XmlIgnore]
     private static readonly Dictionary<string, ColorSetting> Props = new()
     {
-        [nameof(Button)] = new(SystemColors.ButtonFace, SystemColors.ControlText, true) {Name = GlobalResources.NameColorSettings_Button},
-        [nameof(Label)] = new(SystemColors.Control, SystemColors.ControlText, true) { Name = GlobalResources.NameColorSettings_Label },
-        [nameof(Box)] = new(Color.White, SystemColors.ControlText, true) { Name = GlobalResources.NameColorSettings_Box },
-        [nameof(Border)] = new(SystemColors.WindowFrame, true) { Name = GlobalResources.NameColorSettings_Border },
-        [nameof(Panel)] = new(SystemColors.Control, SystemColors.ControlText, true) { Name = GlobalResources.NameColorSettings_Panel },
-        [nameof(Mark)] = new(SystemColors.ControlText, true) { Name = GlobalResources.NameColorSettings_Mark },
-        [nameof(Highlight)] = new(SystemColors.Highlight, SystemColors.HighlightText, true) { Name = GlobalResources.NameColorSettings_Highlight },
+        [nameof(Button)] = new(SystemColors.ButtonFace, SystemColors.ControlText, true) { NameSource = () => GlobalResources.NameColorSettings_Button },
+        [nameof(Label)] = new(SystemColors.Control, SystemColors.ControlText, true) { NameSource = () => GlobalResources.NameColorSettings_Label },
+        [nameof(Box)] = new(Color.White, SystemColors.ControlText, true) { NameSource = () => GlobalResources.NameColorSettings_Box },
+        [nameof(Border)] = new(SystemColors.WindowFrame, true) { NameSource = () => GlobalResources.NameColorSettings_Border },
+        [nameof(Panel)] = new(SystemColors.Control, SystemColors.ControlText, true) { NameSource = () => GlobalResources.NameColorSettings_Panel },
+        [nameof(Mark)] = new(SystemColors.ControlText, true) { NameSource = () => GlobalResources.NameColorSettings_Mark },
+        [nameof(Highlight)] = new(SystemColors.Highlight, SystemColors.HighlightText, true) { NameSource = () => GlobalResources.NameColorSettings_Highlight },
     };
 
     #region Properties
@@ -137,10 +137,10 @@ public record ControlsColorScheme() : IColorScheme
     private static void AssignProperty(ref ColorSetting? prop, string propname)
     {
         if (prop is null)
-            InitProperty(propname);
+            prop = InitProperty(propname);
         else
         {
-            prop.Name = Props[propname].Name;
+            prop.NameSource = Props[propname].NameSource;
             prop.DisableBackColorEdit = Props[propname].DisableBackColorEdit;
             prop.DisableFontBoldEdit = Props[propname].DisableFontBoldEdit;
         }
