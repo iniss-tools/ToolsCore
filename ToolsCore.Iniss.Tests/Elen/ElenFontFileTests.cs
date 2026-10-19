@@ -72,25 +72,133 @@ public class ElenFontFileTests
     }
 
     [TestMethod]
-    public void Nacitanie_DuplicitnyNazovPisma_Preskoci()
+    public void Nacitanie_RovnomennePisma_ZachovaVsetkyNaSvojichMiestach()
     {
+        // poradie je cislo pisma - vynechane pismo by posunulo cisla vsetkych dalsich
         var bytes = Bytes(new ElenFontFile("f", [Font("A", 6, 8, false), Font("A", 6, 8, false, 3), Font("C", 6, 8, false)]));
 
-        var read = ElenFontFile.Read(new MemoryStream(bytes));
+        var read = ElenFontFile.Read(new MemoryStream(bytes), true);
 
-        CollectionAssert.AreEqual(new[] { "A", "C" }, read.Fonts.Select(f => f.Name).ToArray());
+        CollectionAssert.AreEqual(new[] { "A", "A", "C" }, read.Fonts.Select(f => f.Name).ToArray());
+        Assert.AreEqual(3, read.Fonts[1].Glyphs[0].Data[0]);
+        CollectionAssert.AreEqual(bytes, Bytes(read));
     }
 
     [TestMethod]
-    public void Prisny_SirkaZnakuNeproporcionalneho_Chyba()
+    public void Prisny_SirkyZnakov_NekontrolujeAkoINISS2()
     {
+        // neproporcne pismo s inou sirkou znaku a znak sirsi ako pismo (riadiace kody v suboroch vyrobcu maju 24)
         var font = Font("A", 6, 8, false);
         var glyphs = font.Glyphs.ToArray();
         glyphs[65] = new ElenGlyph(5, 8, 1, new byte[8]);
+        glyphs[1] = new ElenGlyph(24, 8, 1, new byte[8]);
         var bytes = Bytes(new ElenFontFile("f", [new ElenFont("A", 6, 8, false, glyphs)]));
 
-        Assert.AreEqual(5, ElenFontFile.Read(new MemoryStream(bytes)).Fonts[0].Glyphs[65].Width);
+        var read = ElenFontFile.Read(new MemoryStream(bytes), true);
+
+        Assert.AreEqual(5, read.Fonts[0].Glyphs[65].Width);
+        Assert.AreEqual(24, read.Fonts[0].Glyphs[1].Width);
+    }
+
+    [TestMethod]
+    [DataRow("len-hlavicka", "too short")]
+    [DataRow("prilis-dlhy", "too long")]
+    [DataRow("bez-pisiem", "no fonts")]
+    [DataRow("medzera-pred-pismom", "starts at")]
+    [DataRow("pismo-za-volnym-miestom", "after free slot")]
+    [DataRow("nazov-s-riadiacim-znakom", "invalid name")]
+    [DataRow("prazdny-nazov", "invalid name")]
+    [DataRow("sirka-0", "max width")]
+    [DataRow("sirka-17", "max width")]
+    [DataRow("vyska-0", "zero height")]
+    [DataRow("priznak-2", "proportional flag")]
+    [DataRow("bez-koncoveho-a", "byte 'a'")]
+    [DataRow("bajty-za-koncom", "byte 'a'")]
+    public void Prisny_PoskodenySubor_Chyba(string damage, string message)
+    {
+        var bytes = Bytes(new ElenFontFile("f", [Font("A", 6, 8, false), Font("B", 12, 8, true)]));
+        const int second = 64 + 20 + 3 + 256 * (1 + 8);
+        switch (damage)
+        {
+            case "len-hlavicka":
+                bytes = bytes[..64];
+                break;
+            case "prilis-dlhy":
+                Array.Resize(ref bytes, ElenFontFile.MaxFileSize + 1);
+                break;
+            case "bez-pisiem":
+                bytes = Bytes(new ElenFontFile("f", []));
+                break;
+            case "medzera-pred-pismom":
+                bytes[3]++;
+                break;
+            case "pismo-za-volnym-miestom":
+                (bytes[2], bytes[3], bytes[4], bytes[5]) = (0, 64, bytes[2], bytes[3]);
+                break;
+            case "nazov-s-riadiacim-znakom":
+                bytes[64 + 1] = 0x01;
+                break;
+            case "prazdny-nazov":
+                bytes[second] = 0;
+                break;
+            case "sirka-0":
+                bytes[64 + 20] = 0;
+                break;
+            case "sirka-17":
+                bytes[second + 20] = 17;
+                break;
+            case "vyska-0":
+                bytes[64 + 21] = 0;
+                break;
+            case "priznak-2":
+                bytes[64 + 22] = 2;
+                break;
+            case "bez-koncoveho-a":
+                bytes[^1] = 0;
+                break;
+            case "bajty-za-koncom":
+                bytes = [.. bytes, (byte)'a'];
+                break;
+        }
+
+        var e = Assert.ThrowsExactly<FormatException>(() => ElenFontFile.Read(new MemoryStream(bytes), true));
+        Assert.Contains(message, e.Message);
+    }
+
+    [TestMethod]
+    public void Volny_PosunZaKoncomSuboru_NacitaPismaPredNim()
+    {
+        var bytes = Bytes(new ElenFontFile("f", [Font("A", 6, 8, false), Font("B", 6, 8, false)]));
+        (bytes[2], bytes[3]) = (0xFF, 0x00);
+
+        var read = ElenFontFile.Read(new MemoryStream(bytes));
+
+        Assert.AreEqual("A", read.Fonts.Single().Name);
         Assert.ThrowsExactly<FormatException>(() => ElenFontFile.Read(new MemoryStream(bytes), true));
+    }
+
+    [TestMethod]
+    [DataRow("PISMA_10", "PISMA_10", true)]
+    [DataRow("PISMA_10", "pisma_10", false)]
+    [DataRow("PISMA_10", "INE", false)]
+    public void Prisny_NazovVHlavicke_MusiBytMenomSuboru(string header, string fileName, bool valid)
+    {
+        var dir = Directory.CreateTempSubdirectory("elenfont-");
+        try
+        {
+            var path = Path.Combine(dir.FullName, fileName + ".bin");
+            File.WriteAllBytes(path, Bytes(new ElenFontFile(header, [Font("A", 6, 8, false)])));
+
+            if (valid)
+                Assert.AreEqual(header, ElenFontFile.Load(path, true).Name);
+            else
+                Assert.ThrowsExactly<FormatException>(() => ElenFontFile.Load(path, true));
+            Assert.AreEqual(header, ElenFontFile.Load(path).Name);
+        }
+        finally
+        {
+            dir.Delete(true);
+        }
     }
 
     [TestMethod]

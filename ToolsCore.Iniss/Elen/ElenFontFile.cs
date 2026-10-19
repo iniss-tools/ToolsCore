@@ -52,6 +52,11 @@ public sealed class ElenFont
     /// <summary>Pocet znakov v pisme.</summary>
     public const int GlyphCount = 256;
 
+    /// <summary>
+    /// Najvacsia sirka pisma, s ktorou pocita INISS2 - bitova mapu cita len s 1 alebo 2 bajtmi na riadok.
+    /// </summary>
+    public const int MaxSupportedWidth = 16;
+
     /// <param name="name">nazov pisma (najviac 20 znakov ASCII)</param>
     /// <param name="maxWidth">najvacsia sirka znaku v bodoch</param>
     /// <param name="height">vyska v bodoch</param>
@@ -97,21 +102,25 @@ public sealed class ElenFont
 }
 
 /// <summary>
-/// Subor pisiem tabul ELEN (.bin) - rovnaky format pouzivaju tabule, ElenFontEditor aj ELEN Monitor.
+/// Subor pisiem tabul ELEN (.bin) - rovnaky format pouzivaju tabule, INISS2, ElenFontEditor aj ELEN Monitor.
 /// </summary>
 /// <remarks>
 /// Hlavicka: 16 posunov pisiem (ushort big-endian; 64 = volne miesto, okrem prveho pisma), 32 B nazov suboru.
 /// Pismo: 20 B nazov, sirka, vyska, proporcionalne (po 1 B), potom 256 × (sirka znaku + vyska × bajtov na riadok).
-/// Za poslednym pismom nasleduje bajt 'a'.
+/// Za poslednym pismom nasleduje bajt 'a'. Format popisuje docs <c>formaty-suborov/pisma-elen.mdx</c>.
 /// </remarks>
 public sealed class ElenFontFile
 {
     /// <summary>Najviac pisiem v subore.</summary>
     public const int MaxFonts = 16;
 
+    /// <summary>Najvacsi subor, ktory INISS2 nacita.</summary>
+    public const int MaxFileSize = 131_071;
+
     private const int HeaderSize = MaxFonts * 2 + FileNameSize;
     private const int FileNameSize = 32;
     private const int FontNameSize = 20;
+    private const int FontHeaderSize = FontNameSize + 3;
     private const byte Terminator = (byte)'a';
 
     /// <param name="name">nazov suboru zapisany v hlavicke (najviac 32 znakov ASCII)</param>
@@ -134,7 +143,10 @@ public sealed class ElenFontFile
     /// Nacita subor pisiem.
     /// </summary>
     /// <param name="path">cesta k suboru .bin</param>
-    /// <param name="strict">prisna kontrola - nazov v hlavicke musi byt meno suboru, sirky znakov musia sediet s pismom</param>
+    /// <param name="strict">
+    /// prisna kontrola ako INISS2 (dlzka suboru, nazov v hlavicke = meno suboru s rozlisenim velkosti pismen) a celistvost
+    /// suboru - vid <see cref="Read" />
+    /// </param>
     public static ElenFontFile Load(string path, bool strict = false)
     {
         ArgumentException.ThrowIfNullOrEmpty(path);
@@ -152,13 +164,28 @@ public sealed class ElenFontFile
     }
 
     /// <summary>
-    /// Precita subor pisiem z prudu, ktory sa da posuvat.
+    /// Precita subor pisiem z prudu, ktory sa da posuvat. Pisma zostanu na svojich miestach - poradie je cislo pisma,
+    /// ktore tabuli posiela INISS, preto sa ziadne pismo nevynecha (ani rovnomenne).
     /// </summary>
+    /// <remarks>
+    /// Volne citanie nacita, co sa da: skrateny subor doplni prazdnymi znakmi (ako ich vidi panel). Prisne citanie
+    /// prijme len subor, ktory INISS2 nacita a ktory je cely: dlzka 65 B az <see cref="MaxFileSize" />, aspon jedno
+    /// pismo, pisma za sebou od konca hlavicky bez medzier a volnych miest medzi nimi, nazvy v ASCII, sirka pisma
+    /// 1 az <see cref="ElenFont.MaxSupportedWidth" />, nenulova vyska, priznak proporcneho pisma 0 alebo 1 a za
+    /// poslednym pismom len bajt 'a'. Sirky znakov sa nekontroluju - v suboroch vyrobcu byvaju vacsie ako sirka pisma
+    /// (riadiace kody so sirkou 24) a neproporcne pismo ich nepouziva.
+    /// </remarks>
     /// <param name="stream">prud</param>
-    /// <param name="strict">prisna kontrola sirok znakov</param>
+    /// <param name="strict">prisna kontrola celistvosti suboru</param>
     public static ElenFontFile Read(Stream stream, bool strict = false)
     {
         ArgumentNullException.ThrowIfNull(stream);
+        var length = stream.Length;
+        if (strict && length <= HeaderSize)
+            throw new FormatException($"File is too short ({length} B) - it has no fonts.");
+        if (strict && length > MaxFileSize)
+            throw new FormatException($"File is too long ({length} B), INISS2 reads at most {MaxFileSize} B.");
+
         using var reader = new BinaryReader(stream, Encoding.ASCII, true);
 
         var positions = new ushort[MaxFonts];
@@ -167,30 +194,45 @@ public sealed class ElenFontFile
 
         var name = ReadText(reader.ReadBytes(FileNameSize));
         var fonts = new List<ElenFont>();
+        // koniec hlavicky alebo predchadzajuceho pisma - tam ma zacinat dalsie pismo
+        long end = HeaderSize;
 
         for (var i = 0; i < positions.Length; i++)
         {
             // 64 = hned za hlavickou: prve pismo, inak volne miesto; prve miesto je volne, len ak za hlavickou
             // nie je nic okrem koncoveho bajtu
-            if (positions[i] == HeaderSize && (i != 0 || stream.Length <= HeaderSize + 1))
+            if (positions[i] == HeaderSize && (i != 0 || length <= HeaderSize + 1))
+            {
+                if (strict && Array.FindIndex(positions, i, p => p != HeaderSize) is var used and >= 0)
+                    throw new FormatException($"Font slot {used} is used after free slot {i}.");
                 break;
+            }
+
+            if (strict && positions[i] != end)
+                throw new FormatException($"Font {i} starts at {positions[i]}, but the previous data end at {end}.");
+            if (positions[i] + FontHeaderSize > length)
+            {
+                if (strict)
+                    throw new EndOfStreamException($"Font {i} starts beyond the end of the file.");
+                break;
+            }
 
             stream.Position = positions[i];
-            var fontName = ReadText(reader.ReadBytes(FontNameSize));
-            if (fonts.Any(f => f.Name == fontName))
-                continue;
-
+            var nameBytes = reader.ReadBytes(FontNameSize);
+            var fontName = ReadText(nameBytes);
             int maxWidth = reader.ReadByte();
             int height = reader.ReadByte();
-            var proportional = reader.ReadBoolean();
-            var bytesPerRow = ElenFont.BytesPerRowFor(maxWidth);
+            int proportional = reader.ReadByte();
+            if (strict)
+                CheckFont(i, nameBytes, fontName, maxWidth, height, proportional);
 
+            var bytesPerRow = ElenFont.BytesPerRowFor(maxWidth);
             var glyphs = new ElenGlyph[ElenFont.GlyphCount];
             var truncated = false;
             for (var j = 0; j < glyphs.Length; j++)
             {
                 // skrateny subor: v prisnom rezime chyba, inak zvysne znaky prazdne (ako ich vidi panel)
-                if (truncated || stream.Position >= stream.Length)
+                if (truncated || stream.Position >= length)
                 {
                     if (strict)
                         throw new EndOfStreamException($"Font {fontName} ends inside symbol {j}.");
@@ -200,11 +242,6 @@ public sealed class ElenFontFile
                 }
 
                 int width = reader.ReadByte();
-                if (strict && !proportional && width != maxWidth && width != 0)
-                    throw new FormatException($"Font {fontName} is not proportional but index symbol {j} has different width ({width}).");
-                if (strict && width > maxWidth)
-                    throw new FormatException($"Font {fontName} have max width {maxWidth} but index symbol {j} has bigger width ({width}).");
-
                 var data = reader.ReadBytes(height * bytesPerRow);
                 if (data.Length != height * bytesPerRow)
                 {
@@ -217,12 +254,40 @@ public sealed class ElenFontFile
                 glyphs[j] = new ElenGlyph(width, height, bytesPerRow, data);
             }
 
-            fonts.Add(new ElenFont(fontName, maxWidth, height, proportional, glyphs));
+            fonts.Add(new ElenFont(fontName, maxWidth, height, proportional != 0, glyphs));
+            end = stream.Position;
             if (truncated)
                 break;
         }
 
+        if (strict && fonts.Count == 0)
+            throw new FormatException("File contains no fonts.");
+        if (strict && (length != end + 1 || ReadByteAt(stream, end) != Terminator))
+            throw new FormatException($"File does not end with byte 'a' right after the last font (at {end}).");
+
         return new ElenFontFile(name, fonts);
+    }
+
+    /// <summary>
+    /// Prisna kontrola hlavicky pisma: nazov v ASCII, sirka, s ktorou pocita INISS2, nenulova vyska a priznak 0 alebo 1.
+    /// </summary>
+    private static void CheckFont(int index, byte[] nameBytes, string name, int maxWidth, int height, int proportional)
+    {
+        var nameEnd = Array.IndexOf(nameBytes, (byte)0);
+        if (name.Length == 0 || nameBytes.AsSpan(0, nameEnd < 0 ? nameBytes.Length : nameEnd).ContainsAnyExceptInRange((byte)' ', (byte)'~'))
+            throw new FormatException($"Font {index} has an invalid name.");
+        if (maxWidth is < 1 or > ElenFont.MaxSupportedWidth)
+            throw new FormatException($"Font {name} has max width {maxWidth}, supported is 1 to {ElenFont.MaxSupportedWidth}.");
+        if (height < 1)
+            throw new FormatException($"Font {name} has zero height.");
+        if (proportional is not (0 or 1))
+            throw new FormatException($"Font {name} has invalid proportional flag {proportional}.");
+    }
+
+    private static int ReadByteAt(Stream stream, long position)
+    {
+        stream.Position = position;
+        return stream.ReadByte();
     }
 
     /// <summary>
