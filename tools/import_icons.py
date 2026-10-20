@@ -108,6 +108,7 @@ ICONS = {
     'target': ('Target', 'gray'),
     'link-dismiss': ('Link Dismiss', 'gray'),
     'road-cone': ('Road Cone', 'orange'),
+    'gantt-chart': ('Gantt Chart', 'gray'),
     'status-error': ('Error Circle', 'red', 'filled'),
     'status-warning': ('Warning', 'yellow', 'filled'),
     'status-info': ('Info', 'blue', 'filled'),
