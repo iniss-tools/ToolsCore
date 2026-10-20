@@ -118,15 +118,21 @@ public static partial class FormUtils
                 : new MyMenuRenderer(new MyColorTable(), false);
             ApplyToolStripItems(ms.Items, theme, false);
         });
-        ExThemer.Register<ToolStrip>((ts, theme) =>
+        ExThemer.Register<ToolStrip>(ApplyToolStrip);
+        ExThemer.Register<StatusStrip>((ss, theme) =>
         {
-            ts.BackColor = theme.PanelBackColor;
-            ts.ForeColor = theme.PanelForeColor;
-            ts.RenderMode = ToolStripRenderMode.Professional;
-            ts.Renderer = theme.UseSystemStyle
-                ? new MyMenuRenderer(new LightColorTable(), true)
-                : new MyMenuRenderer(new MyColorTable(), false);
-            ApplyToolStripItems(ts.Items, theme, true);
+            ApplyToolStrip(ss, theme);
+
+            // stavovy riadok ma vlastnu farbu stylu (predvolene ako panel); polozky ju dostanu tiez, inak by mali
+            // pozadie panela - rozbalovacie ponuky tlacidiel ostavaju vo farbach panela
+            var bar = GlobSettings.UsingStyle.ControlsColorScheme.StatusBar;
+            ss.BackColor = bar.BackColor;
+            ss.ForeColor = bar.ForeColor;
+            foreach (ToolStripItem item in ss.Items)
+            {
+                item.BackColor = bar.BackColor;
+                item.ForeColor = bar.ForeColor;
+            }
         });
         ExThemer.Register<DataGridView>(ApplyDataGridView);
         ExThemer.Register<UserControl>((uc, theme) =>
@@ -137,6 +143,17 @@ public static partial class FormUtils
             if (theme.DarkScrollBars)
                 uc.SetTheme(WindowsTheme.DarkExplorer);
         });
+    }
+
+    private static void ApplyToolStrip(ToolStrip ts, ExTheme theme)
+    {
+        ts.BackColor = theme.PanelBackColor;
+        ts.ForeColor = theme.PanelForeColor;
+        ts.RenderMode = ToolStripRenderMode.Professional;
+        ts.Renderer = theme.UseSystemStyle
+            ? new MyMenuRenderer(new LightColorTable(), true)
+            : new MyMenuRenderer(new MyColorTable(), false);
+        ApplyToolStripItems(ts.Items, theme, true);
     }
 
     private static void ApplyContextMenu(ContextMenuStrip strip, ExTheme theme)
@@ -189,6 +206,10 @@ public static partial class FormUtils
                     break;
                 case IThemeable themeable:
                     themeable.ApplyTheme(theme);
+                    break;
+                // prvok vlozeny do panela cez hostitela (napr. ExDateTimePicker) - inak by ostal vo farbach systemu
+                case ToolStripControlHost host:
+                    ExThemer.Apply(host.Control, theme);
                     break;
             }
         }

@@ -38,12 +38,6 @@ public record Style
     public bool DarkScrollBar { get; set; }
 
     /// <summary>
-    /// Ci sa ma stavovy riadok zafarbit podla farby zafarbenia daneho stylu.
-    /// </summary>
-    [XmlElement("HighlightStatusBar"), DefaultValue(true)]
-    public bool HighlightStatusBar { get; set; } = true;
-
-    /// <summary>
     /// Farebna schema pre ovladacie prvky v GUI
     /// </summary>
     [XmlElement("ControlsColorScheme")] 
@@ -57,7 +51,6 @@ public record Style
         ControlsDefaultStyle = true;
         DarkScrollBar = false;
         DarkTitleBar = false;
-        HighlightStatusBar = true;
     }
 
     /// <summary>Returns a string that represents the current object.</summary>

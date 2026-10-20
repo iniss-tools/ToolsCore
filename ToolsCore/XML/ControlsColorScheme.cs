@@ -132,6 +132,31 @@ public record ControlsColorScheme() : IColorScheme
         }
     } = InitProperty(nameof(Highlight));
 
+    // stavovy riadok mal v starsich styloch farbu zvyraznenia (volba HighlightStatusBar); bez zaznamu v styles.xml
+    // dostane farbu panela daneho stylu - preto sa odvodzuje az pri prvom pouziti, ked je panel nacitany
+    private ColorSetting? _statusBar;
+
+    /// <summary>
+    /// Farby stavoveho riadka hlavneho okna. Predvolene ako panel stylu.
+    /// </summary>
+    [XmlElement("StatusBar")]
+    public ColorSetting StatusBar
+    {
+        get => _statusBar ??= new ColorSetting(Panel.BackColor, Panel.ForeColor, true) { NameSource = StatusBarName };
+        set
+        {
+            _statusBar = value;
+            if (_statusBar is not null)
+            {
+                _statusBar.NameSource = StatusBarName;
+                _statusBar.DisableBackColorEdit = false;
+                _statusBar.DisableFontBoldEdit = true;
+            }
+        }
+    }
+
+    private static string StatusBarName() => GlobalResources.NameColorSettings_StatusBar;
+
     private static ColorSetting InitProperty(string propname) => Props[propname] with { };
 
     private static void AssignProperty(ref ColorSetting? prop, string propname)
@@ -156,6 +181,7 @@ public record ControlsColorScheme() : IColorScheme
         if (original.Panel != null) Panel = original.Panel with { };
         if (original.Mark != null) Mark = original.Mark with { };
         if (original.Highlight != null) Highlight = original.Highlight with { };
+        if (original._statusBar != null) StatusBar = original._statusBar with { };
         Font = original.Font;
     }
 

@@ -76,6 +76,43 @@ public static partial class FormUtils
             }
         }
 
+        /// <summary>
+        /// Okraj popisu stavoveho riadka (<see cref="ToolStripStatusLabel.BorderSides" />) ako oddelovac panela nastrojov.
+        /// WinForms ho kresli ako 3D okraj systemovymi farbami - v tmavom style by bol biely a dvojity.
+        /// </summary>
+        protected override void OnRenderLabelBackground(ToolStripItemRenderEventArgs e)
+        {
+            if (e.Item is not ToolStripStatusLabel { BorderSides: not ToolStripStatusLabelBorderSides.None } label)
+            {
+                base.OnRenderLabelBackground(e);
+                return;
+            }
+
+            var bounds = new Rectangle(Point.Empty, label.Size);
+            if (label.BackColor != label.Owner?.BackColor)
+            {
+                using var brush = new SolidBrush(label.BackColor);
+                e.Graphics.FillRectangle(brush, bounds);
+            }
+
+            // rovnake odsadenie ako zvisly oddelovac panela - ciara nesiaha az po okraj riadka
+            var inset = label.Owner?.LogicalToDeviceUnits(3) ?? 3;
+            var sides = label.BorderSides;
+            DrawSeparatorLine(e.Graphics, sides.HasFlag(ToolStripStatusLabelBorderSides.Left), bounds.Left, bounds.Top + inset, bounds.Left, bounds.Bottom - inset - 1);
+            DrawSeparatorLine(e.Graphics, sides.HasFlag(ToolStripStatusLabelBorderSides.Right), bounds.Right - 1, bounds.Top + inset, bounds.Right - 1, bounds.Bottom - inset - 1);
+            DrawSeparatorLine(e.Graphics, sides.HasFlag(ToolStripStatusLabelBorderSides.Top), bounds.Left, bounds.Top, bounds.Right - 1, bounds.Top);
+            DrawSeparatorLine(e.Graphics, sides.HasFlag(ToolStripStatusLabelBorderSides.Bottom), bounds.Left, bounds.Bottom - 1, bounds.Right - 1, bounds.Bottom - 1);
+        }
+
+        private void DrawSeparatorLine(Graphics graphics, bool draw, int x1, int y1, int x2, int y2)
+        {
+            if (!draw)
+                return;
+
+            using var pen = new Pen(ColorTable.SeparatorDark);
+            graphics.DrawLine(pen, x1, y1, x2, y2);
+        }
+
         protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
         {
             if (e.Item?.Enabled == true)

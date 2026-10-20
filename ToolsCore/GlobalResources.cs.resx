@@ -77,6 +77,9 @@
   <data name="NameColorSettings_Panel" xml:space="preserve">
     <value>Panel</value>
   </data>
+  <data name="NameColorSettings_StatusBar" xml:space="preserve">
+    <value>Stavový řádek</value>
+  </data>
   <data name="NameColorSettings_Button" xml:space="preserve">
     <value>Tlačítko</value>
   </data>

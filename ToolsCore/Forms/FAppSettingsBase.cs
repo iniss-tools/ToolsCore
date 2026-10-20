@@ -333,7 +333,6 @@ public partial class FAppSettingsBase : Form
         cboxDefaultVisual.Checked = style.ControlsDefaultStyle;
         cboxDarkTitlebar.Checked = style.DarkTitleBar;
         cboxDarkScrollbars.Checked = style.DarkScrollBar;
-        cboxHighlightStatusBar.Checked = style.HighlightStatusBar;
 
         if (style.Name is StyleNames.Light or StyleNames.Dark)
         {
@@ -371,13 +370,6 @@ public partial class FAppSettingsBase : Form
             style.DarkScrollBar = cboxDarkScrollbars.Checked;
     }
 
-    private void CboxHighlightStatusBar_CheckedChanged(object sender, EventArgs e)
-    {
-        var style = (Style?)tscbStyles.SelectedItem;
-        if (style is not null)
-            style.HighlightStatusBar = cboxHighlightStatusBar.Checked;
-    }
-
     protected virtual void FillTreeViewStyles(object selectedStyle, ExTreeView tv)
     {
         if (selectedStyle is not Style style)
@@ -387,6 +379,7 @@ public partial class FAppSettingsBase : Form
         var controls = CreateParentNode(style.ControlsColorScheme, nameof(style.ControlsColorScheme));
         CreateNode(style.ControlsColorScheme.Label, nameof(style.ControlsColorScheme.Label), controls);
         CreateNode(style.ControlsColorScheme.Panel, nameof(style.ControlsColorScheme.Panel), controls);
+        CreateNode(style.ControlsColorScheme.StatusBar, nameof(style.ControlsColorScheme.StatusBar), controls);
         CreateNode(style.ControlsColorScheme.Border, nameof(style.ControlsColorScheme.Border), controls);
         CreateNode(style.ControlsColorScheme.Box, nameof(style.ControlsColorScheme.Box), controls);
         CreateNode(style.ControlsColorScheme.Button, nameof(style.ControlsColorScheme.Button), controls);

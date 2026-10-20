@@ -49,6 +49,49 @@ public class ControlsColorSchemeTests
         Assert.IsFalse(loaded.Button.DisableBackColorEdit);
     }
 
+    [TestMethod]
+    public void StavovyRiadok_PredvoleneAkoPanelStylu()
+    {
+        var dark = Style.DefaultDarkStyle.ControlsColorScheme;
+
+        Assert.AreEqual(dark.Panel.BackColor.ToArgb(), dark.StatusBar.BackColor.ToArgb());
+        Assert.AreEqual(dark.Panel.ForeColor.ToArgb(), dark.StatusBar.ForeColor.ToArgb());
+        Assert.IsTrue(dark.StatusBar.DisableFontBoldEdit);
+        Assert.IsFalse(dark.StatusBar.DisableBackColorEdit);
+    }
+
+    // styly ulozene pred zavedenim farby stavoveho riadka (s volbou HighlightStatusBar) ju v styles.xml nemaju
+    [TestMethod]
+    public void StavovyRiadok_StaryStylBezZaznamuDostaneFarbuPanela()
+    {
+        var xml = Serialize(Style.DefaultDarkStyle);
+        var start = xml.IndexOf("<StatusBar", StringComparison.Ordinal);
+        var end = xml.IndexOf("/>", start, StringComparison.Ordinal) + "/>".Length;
+        var old = xml[..start] + xml[end..];
+        Assert.IsFalse(old.Contains("StatusBar", StringComparison.Ordinal));
+
+        var loaded = Deserialize(old).ControlsColorScheme;
+
+        Assert.AreEqual(Color.FromArgb(30, 30, 30).ToArgb(), loaded.StatusBar.BackColor.ToArgb());
+        Assert.AreEqual(Color.White.ToArgb(), loaded.StatusBar.ForeColor.ToArgb());
+    }
+
+    [TestMethod]
+    public void StavovyRiadok_VlastnaFarbaSaUlozi()
+    {
+        var style = Style.DefaultLightStyle;
+        style.ControlsColorScheme.StatusBar.BackColor = Color.FromArgb(0, 122, 204);
+        style.ControlsColorScheme.StatusBar.ForeColor = Color.White;
+
+        var loaded = Deserialize(Serialize(style)).ControlsColorScheme;
+        var copy = loaded with { };
+        copy.StatusBar.BackColor = Color.Orange;
+
+        Assert.AreEqual(Color.FromArgb(0, 122, 204).ToArgb(), loaded.StatusBar.BackColor.ToArgb());
+        Assert.AreEqual(Color.White.ToArgb(), loaded.StatusBar.ForeColor.ToArgb());
+        Assert.AreEqual(Color.FromArgb(0, 122, 204).ToArgb(), loaded.StatusBar.BackColor.ToArgb(), "kópia schémy nezdieľa farbu");
+    }
+
     private static string Serialize(Style style)
     {
         using var writer = new StringWriter();

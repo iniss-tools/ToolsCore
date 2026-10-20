@@ -240,9 +240,6 @@
   <data name="exGroupBox8.Text" xml:space="preserve">
     <value>Nastavení stylu</value>
   </data>
-  <data name="cboxHighlightStatusBar.Text" xml:space="preserve">
-    <value>Obarvit stavový řádek podle barvy zvýraznění</value>
-  </data>
   <data name="cboxDarkScrollbars.Text" xml:space="preserve">
     <value>Použít tmavé posuvníky (&gt;Win10)</value>
   </data>

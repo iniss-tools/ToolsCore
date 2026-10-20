@@ -311,6 +311,15 @@ namespace ToolsCore {
             }
         }
 
+        /// <summary>
+        ///   Looks up a localized string similar to Stavový riadok.
+        /// </summary>
+        public static string NameColorSettings_StatusBar {
+            get {
+                return ResourceManager.GetString("NameColorSettings_StatusBar", resourceCulture);
+            }
+        }
+
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.

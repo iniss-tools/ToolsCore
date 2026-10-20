@@ -121,7 +121,6 @@ namespace ToolsCore.Forms
             nudFontSize = new ExNumericUpDown();
             cboxOnlyNonPropFont = new ExCheckBox();
             exGroupBox8 = new ExGroupBox();
-            cboxHighlightStatusBar = new ExCheckBox();
             cboxDarkScrollbars = new ExCheckBox();
             cboxDarkTitlebar = new ExCheckBox();
             cboxDefaultVisual = new ExCheckBox();
@@ -975,7 +974,6 @@ namespace ToolsCore.Forms
             // exGroupBox8
             // 
             resources.ApplyResources(exGroupBox8, "exGroupBox8");
-            exGroupBox8.Controls.Add(cboxHighlightStatusBar);
             exGroupBox8.Controls.Add(cboxDarkScrollbars);
             exGroupBox8.Controls.Add(cboxDarkTitlebar);
             exGroupBox8.Controls.Add(cboxDefaultVisual);
@@ -984,15 +982,6 @@ namespace ToolsCore.Forms
             exGroupBox8.Name = "exGroupBox8";
             exGroupBox8.Padding = new Padding(2);
             exGroupBox8.TabStop = false;
-            // 
-            // cboxHighlightStatusBar
-            // 
-            resources.ApplyResources(cboxHighlightStatusBar, "cboxHighlightStatusBar");
-            cboxHighlightStatusBar.BoxBackColor = Color.White;
-            cboxHighlightStatusBar.HighlightColor = SystemColors.Highlight;
-            cboxHighlightStatusBar.Margin = new Padding(4, 3, 4, 3);
-            cboxHighlightStatusBar.Name = "cboxHighlightStatusBar";
-            cboxHighlightStatusBar.CheckedChanged += CboxHighlightStatusBar_CheckedChanged;
             // 
             // cboxDarkScrollbars
             // 
@@ -1386,6 +1375,5 @@ namespace ToolsCore.Forms
         private ExButton bResetColorSetting;
         private ToolStripSeparator toolStripSeparator2;
         private IconToolStripButton tsbResetStyle;
-        private ExCheckBox cboxHighlightStatusBar;
     }
 }
