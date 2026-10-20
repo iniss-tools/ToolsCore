@@ -107,6 +107,7 @@ ICONS = {
     'filter': ('Filter', 'gray'),
     'target': ('Target', 'gray'),
     'link-dismiss': ('Link Dismiss', 'gray'),
+    'road-cone': ('Road Cone', 'orange'),
     'status-error': ('Error Circle', 'red', 'filled'),
     'status-warning': ('Warning', 'yellow', 'filled'),
     'status-info': ('Info', 'blue', 'filled'),
