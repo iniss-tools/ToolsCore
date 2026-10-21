@@ -75,7 +75,7 @@ public class DirListFileTests
 
         // posun A.2019 na zaciatok a nove priznaky pre C.2021
         (dirs[0], dirs[1]) = (dirs[1], dirs[0]);
-        dirs[2].Flags = new DirListFlags(false, false, DirListTrainCreation.CreateWithoutCategori, 2).ToString();
+        dirs[2].Flags = new DirListFlags(false, false, DirListMissingTrain.ApplyToRouteWithoutCategori, 2).ToString();
         DirListFile.Write(_dir, dirs);
 
         var after = System.IO.File.ReadAllLines(File, Encodings.Win1250);

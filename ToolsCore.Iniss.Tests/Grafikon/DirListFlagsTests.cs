@@ -31,8 +31,8 @@ public class DirListFlagsTests
         var flags = DirListFlags.Parse("OM9");
 
         Assert.IsFalse(flags.Spread);
-        Assert.IsTrue(flags.DepartureTrack);
-        Assert.AreEqual(DirListTrainCreation.CreateWithoutCategori, flags.TrainCreation);
+        Assert.IsTrue(flags.DepartureSetsBothTracks);
+        Assert.AreEqual(DirListMissingTrain.ApplyToRouteWithoutCategori, flags.MissingTrain);
         Assert.AreEqual(9, flags.Switch);
         Assert.IsFalse(flags.IsEmpty);
         Assert.IsTrue(DirListFlags.Parse(" ").IsEmpty);

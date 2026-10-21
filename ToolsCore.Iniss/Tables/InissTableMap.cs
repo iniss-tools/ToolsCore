@@ -35,7 +35,7 @@ public static class InissTableMap
         foreach (var dir in dirs)
         {
             if (dir.DirName.TrimStart().StartsWith(';')) continue;
-            if (DirListFlags.Parse(dir.Flags).TrainCreation == DirListTrainCreation.CreateWithoutCategori) continue;
+            if (DirListFlags.Parse(dir.Flags).MissingTrain == DirListMissingTrain.ApplyToRouteWithoutCategori) continue;
             try
             {
                 var station = InfoGvdFile.Read(dir.FullPath).ThisStation;
