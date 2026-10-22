@@ -58,6 +58,7 @@ namespace ToolsCore.Forms
             label3 = new Label();
             cboxClassicGui = new ExCheckBox();
             cboxMultipleInstances = new ExCheckBox();
+            cboxCheckUpdates = new ExCheckBox();
             pDesktop = new ExOptionsPanel(optionsView);
             pDesktopComponents = new ExOptionsPanel(optionsView);
             pConcreteDesktopComponents = new Panel();
@@ -283,6 +284,7 @@ namespace ToolsCore.Forms
             gboxGeneralProgram.Controls.Add(label3);
             gboxGeneralProgram.Controls.Add(cboxClassicGui);
             gboxGeneralProgram.Controls.Add(cboxMultipleInstances);
+            gboxGeneralProgram.Controls.Add(cboxCheckUpdates);
             gboxGeneralProgram.DisabledForeColor = SystemColors.GrayText;
             gboxGeneralProgram.Margin = new Padding(4, 3, 4, 3);
             gboxGeneralProgram.Name = "gboxGeneralProgram";
@@ -355,7 +357,16 @@ namespace ToolsCore.Forms
             cboxMultipleInstances.HighlightColor = SystemColors.Highlight;
             cboxMultipleInstances.Margin = new Padding(4, 3, 4, 3);
             cboxMultipleInstances.Name = "cboxMultipleInstances";
-            // 
+            //
+            // cboxCheckUpdates
+            //
+            resources.ApplyResources(cboxCheckUpdates, "cboxCheckUpdates");
+            cboxCheckUpdates.BoxBackColor = Color.White;
+            cboxCheckUpdates.DataBindings.Add(new Binding("Checked", configBindingSource, "CheckUpdates", true));
+            cboxCheckUpdates.HighlightColor = SystemColors.Highlight;
+            cboxCheckUpdates.Margin = new Padding(4, 3, 4, 3);
+            cboxCheckUpdates.Name = "cboxCheckUpdates";
+            //
             // pDesktop
             // 
             pDesktop.GenerateLinksToChildren = true;
@@ -1300,6 +1311,7 @@ namespace ToolsCore.Forms
         private ExControls.ExGroupBox gboxGeneralProgram;
         private ExControls.ExCheckBox cboxClassicGui;
         private ExControls.ExCheckBox cboxMultipleInstances;
+        private ExControls.ExCheckBox cboxCheckUpdates;
         private BindingSource appLanguageBindingSource;
         private BindingSource debugModeBindingSource;
         private BindingSource commandShortcutBindingSource;

@@ -39,7 +39,17 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: de
 [Run]
 ; spustenie programu ponukne posledna stranka sprievodcu (zaskrtavacie pole); pri tichej instalacii sa nespusti
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+; Aktualizacia z programu (ToolsCore AppUpdates) spusti tichu instalaciu s /RELAUNCH=1 - po nej sa program spusti znova,
+; ako povodny pouzivatel aj vtedy, ked instalacia potrebovala prava spravcu.
+Filename: "{app}\{#MyAppExeName}"; Flags: nowait runasoriginaluser; Check: RelaunchAfterUpdate
 
 ; programy WinForms - Desktop Runtime (s nim aj zakladny .NET Runtime)
 #define NeedDesktopRuntime
 #include "DotNet.iss"
+
+[Code]
+// /RELAUNCH=1 - instalaciu spustila aktualizacia z programu
+function RelaunchAfterUpdate: Boolean;
+begin
+  Result := ExpandConstant('{param:RELAUNCH|0}') = '1';
+end;

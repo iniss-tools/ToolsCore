@@ -1,0 +1,19 @@
+<Project>
+	<!--
+	  Spolocne vlastnosti programov INISSTools, ktore sa vydavaju s instalatorom (GVDEditor, RawBankEditor, ElenFontEditor,
+	  ILTISSimulator, TableSimulator). Projekt programu ho importuje na konci.
+
+	  Verzia programu je <Version> v jeho projekte a plati pre lokalne zostavy. Vydanie (workflow release-app.yml v ToolsCore)
+	  ju prepise verziou zo znacky vX.Y (-p:Version=X.Y) a prida adresu update.json posledneho vydania v repozitari
+	  programu (-p:UpdateIndex=https://github.com/<repozitar>/releases/latest/download/update.json).
+	  Zostava bez indexu (lokalna, Debug) aktualizacie nekontroluje - ToolsCore UpdateSource.
+	-->
+	<PropertyGroup>
+		<Company>iniss.6f.sk</Company>
+		<!-- ProductVersion bez +commit: zobrazuje sa v okne O programe a v hlavickach suborov, ktore program zapisuje -->
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+	</PropertyGroup>
+	<ItemGroup Condition="'$(UpdateIndex)' != ''">
+		<AssemblyMetadata Include="UpdateIndex" Value="$(UpdateIndex)" />
+	</ItemGroup>
+</Project>

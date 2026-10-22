@@ -1,0 +1,130 @@
+# Spolocne vydanie programu INISSTools: zo znacky vX.Y zostavi instalator a zverejni ho medzi vydaniami na GitHube.
+# Vola ho kratky .github/workflows/release.yml v repozitari programu; postup a jednorazove nastavenie
+# su v ToolsCore/Installer/README.md.
+name: Vydanie programu
+
+on:
+  workflow_call:
+    inputs:
+      program:
+        description: Nazov programu - nazov zostavy, AppName instalatora a kluc v indexe aktualizacii
+        type: string
+        required: true
+      tag:
+        description: Znacka vydania vX.Y alebo vX.Y.Z v repozitari programu
+        type: string
+        required: true
+      project:
+        description: Projekt programu od korena pracovneho priecinka (GVDEditor/GVDEditor/GVDEditor.csproj)
+        type: string
+        required: true
+      installer:
+        description: Skript instalatora od korena pracovneho priecinka (GVDEditor/GVDEditorInstaller.iss)
+        type: string
+        required: true
+      publish:
+        description: dotnet publish namiesto dotnet build (TableSimulator)
+        type: boolean
+        default: false
+      dependencies:
+        description: Dalsie repozitare, ktore projekt odkazuje (vlastnik/nazov, bez vlastnika iniss-tools; ToolsCore je vzdy)
+        type: string
+        default: ''
+      bun:
+        description: Program potrebuje bun (webove rozhranie TableSimulatora)
+        type: boolean
+        default: false
+
+jobs:
+  release:
+    name: ${{ inputs.program }} ${{ inputs.tag }}
+    runs-on: windows-2025
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    env:
+      PROGRAM: ${{ inputs.program }}
+      TAG: ${{ inputs.tag }}
+    steps:
+      - name: Verzia zo znacky
+        id: meta
+        shell: pwsh
+        run: |
+          if ($env:TAG -notmatch '^v((0|[1-9]\d*)\.(0|[1-9]\d*)(\.(0|[1-9]\d*))?)$') {
+            throw "Znacka '$env:TAG' nie je vydanie vX.Y alebo vX.Y.Z"
+          }
+          "version=$($Matches[1])" >> $env:GITHUB_OUTPUT
+          "dir=$($env:GITHUB_REPOSITORY.Split('/')[1])" >> $env:GITHUB_OUTPUT
+
+      - name: Program
+        uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ inputs.tag }}
+          path: ${{ steps.meta.outputs.dir }}
+          # cela historia a znacky: text vydania z anotovanej znacky alebo z commitov od predchadzajucej
+          fetch-depth: 0
+
+      - name: Zavislosti
+        shell: pwsh
+        env:
+          DEPENDENCIES: ${{ inputs.dependencies }}
+          DIR: ${{ steps.meta.outputs.dir }}
+          # zavislosti su verejne - sukromny alebo chybajuci repozitar skonci chybou, nie cakanim na prihlasenie
+          GIT_TERMINAL_PROMPT: '0'
+        run: |
+          # checkout anotovanu znacku nestiahne ako objekt - bez nej by sa stratil jej text
+          git -C $env:DIR fetch --force origin "refs/tags/$($env:TAG):refs/tags/$($env:TAG)"
+          $repos = @('ToolsCore') + ($env:DEPENDENCIES -split '\s+' | Where-Object { $_ })
+          foreach ($repo in ($repos | Select-Object -Unique)) {
+            if ($repo -notmatch '/') { $repo = "iniss-tools/$repo" }
+            $name = $repo.Split('/')[1]
+            git -c credential.helper= clone --depth 1 "https://github.com/$repo.git" $name
+            if ($LASTEXITCODE -ne 0) { throw "Repozitar $repo sa nepodarilo stiahnut - je verejny?" }
+            Write-Host "$repo $(git -C $name rev-parse --short=10 HEAD)"
+          }
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - uses: oven-sh/setup-bun@v2
+        if: inputs.bun
+        with:
+          # rovnaka verzia ako pri vyvoji (bun.lock)
+          bun-version: 1.4.2
+
+      - name: Inno Setup
+        shell: pwsh
+        run: |
+          $url = 'https://github.com/jrsoftware/issrc/releases/download/is-7_1_0/innosetup-7.1.0-x64.exe'
+          $sha256 = '0362a383ed217d4c4239b5933866dd96d3eb2102737da92f80f6057a4b40df2f'
+          $setup = Join-Path $env:RUNNER_TEMP 'innosetup.exe'
+          Invoke-WebRequest $url -OutFile $setup
+          if ((Get-FileHash $setup -Algorithm SHA256).Hash -ne $sha256) { throw 'Instalator Inno Setup ma iny kontrolny sucet' }
+          Start-Process $setup -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/SP-', '/ALLUSERS', '/DIR="C:\Program Files\Inno Setup 7"' -Wait
+          if (-not (Test-Path 'C:\Program Files\Inno Setup 7\ISCC.exe')) { throw 'Inno Setup sa nenainstaloval' }
+
+      - name: Zostavenie a instalator
+        shell: pwsh
+        env:
+          PROJECT: ${{ inputs.project }}
+          INSTALLER: ${{ inputs.installer }}
+          PUBLISH: ${{ inputs.publish }}
+          VERSION: ${{ steps.meta.outputs.version }}
+        run: |
+          # program zistuje novu verziu z update.json posledneho vydania vo svojom repozitari
+          ./ToolsCore/Installer/Build-Installer.ps1 -Project $env:PROJECT -Installer $env:INSTALLER -Version $env:VERSION `
+            -Publish:($env:PUBLISH -eq 'true') -UpdateIndex "https://github.com/$env:GITHUB_REPOSITORY/releases/latest/download/update.json" `
+            -OutDir artifacts
+
+      - name: Vydanie
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DIR: ${{ steps.meta.outputs.dir }}
+          DEPENDENCIES: ${{ inputs.dependencies }}
+        run: |
+          $deps = @('ToolsCore') + ($env:DEPENDENCIES -split '\s+' | Where-Object { $_ } | ForEach-Object { $_.Split('/')[-1] }) |
+            Select-Object -Unique
+          ./ToolsCore/Installer/Publish-Release.ps1 -Program $env:PROGRAM -Tag $env:TAG -Repo $env:GITHUB_REPOSITORY `
+            -SourceDir $env:DIR -InstallerInfo artifacts/installer.json -Dependencies $deps

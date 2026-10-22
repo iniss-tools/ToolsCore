@@ -164,4 +164,38 @@ Restartovat program nyní?</value>
   <data name="FAppSettings_lShortcutHelp2" xml:space="preserve">
     <value>Neplatná klávesová zkratka. Stiskněte jinou.</value>
   </data>
+  <data name="Update_Available" xml:space="preserve">
+    <value>Je dostupná nová verze programu {0}</value>
+  </data>
+  <data name="Update_Versions" xml:space="preserve">
+    <value>Nová verze: {0}
+Nainstalovaná verze: {1}</value>
+  </data>
+  <data name="Update_NoNotes" xml:space="preserve">
+    <value>Popis změn není k dispozici.</value>
+  </data>
+  <data name="Update_Install" xml:space="preserve">
+    <value>Aktualizovat</value>
+  </data>
+  <data name="Update_Download" xml:space="preserve">
+    <value>Stáhnout</value>
+  </data>
+  <data name="Update_UpToDate" xml:space="preserve">
+    <value>Máte nejnovější verzi programu {0} ({1}).</value>
+  </data>
+  <data name="Update_CheckFailed" xml:space="preserve">
+    <value>Nepodařilo se zjistit, zda je dostupná nová verze.
+
+{0}</value>
+  </data>
+  <data name="Update_DownloadFailed" xml:space="preserve">
+    <value>Instalační program nové verze se nepodařilo stáhnout.
+
+{0}</value>
+  </data>
+  <data name="Update_StartFailed" xml:space="preserve">
+    <value>Instalaci nové verze se nepodařilo spustit.
+
+{0}</value>
+  </data>
 </root>

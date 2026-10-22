@@ -269,10 +269,10 @@
     <value>Fill</value>
   </data>
   <data name="pConcreteGeneral.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 123</value>
+    <value>0, 150</value>
   </data>
   <data name="pConcreteGeneral.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 342</value>
+    <value>630, 315</value>
   </data>
   <data name="pConcreteGeneral.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -299,7 +299,7 @@
     <value>0, 0</value>
   </data>
   <data name="gboxGeneralProgram.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 123</value>
+    <value>630, 150</value>
   </data>
   <data name="gboxGeneralProgram.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -426,6 +426,33 @@
   </data>
   <data name="&gt;&gt;cboxMultipleInstances.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="cboxCheckUpdates.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxCheckUpdates.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 107</value>
+  </data>
+  <data name="cboxCheckUpdates.Size" type="System.Drawing.Size, System.Drawing">
+    <value>284, 19</value>
+  </data>
+  <data name="cboxCheckUpdates.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="cboxCheckUpdates.Text" xml:space="preserve">
+    <value>Kontrolovať aktualizácie pri spustení programu</value>
+  </data>
+  <data name="&gt;&gt;cboxCheckUpdates.Name" xml:space="preserve">
+    <value>cboxCheckUpdates</value>
+  </data>
+  <data name="&gt;&gt;cboxCheckUpdates.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxCheckUpdates.Parent" xml:space="preserve">
+    <value>gboxGeneralProgram</value>
+  </data>
+  <data name="&gt;&gt;cboxCheckUpdates.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;pDesktop.Name" xml:space="preserve">
     <value>pDesktop</value>

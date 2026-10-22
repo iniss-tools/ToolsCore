@@ -135,6 +135,9 @@
   <data name="cboxMultipleInstances.Text" xml:space="preserve">
     <value>Povolit duplicitní instance programu</value>
   </data>
+  <data name="cboxCheckUpdates.Text" xml:space="preserve">
+    <value>Kontrolovat aktualizace při spuštění programu</value>
+  </data>
   <data name="rbMenuToolStrip.Text" xml:space="preserve">
     <value>MenuStrip i ToolStrip</value>
   </data>

@@ -2,6 +2,10 @@
 
 Pomocná knižnica pre INISSTools projekty.
 
+> Nezávislý projekt, nie je spojený so spoločnosťou CHAPS a nie je ňou podporovaný. INISS je produkt spoločnosti
+> CHAPS. Projekt neobsahuje žiadnu časť programu INISS ani jeho dáta; formáty súborov INISSu boli zistené kvôli
+> interoperabilite.
+
 ## Projekty
 
 | Projekt | Cieľ | Obsah |
@@ -53,5 +57,7 @@ meno skupiny = ďalšia skupina, `Num…` nepovinné). Popis formátu je v
 
 Hodnoty, ktoré INISS číta ako číslo aj ako výraz (`AutoMode`, `AutoTimePointAdd`, `Wait`…),
 drží `StateDgmDynamic`; číselný `WaitPath` sa pri načítaní prevedie na `Wait=VVC`.
-Test `LiveData_RoundTrip` prejde všetky `StateDgm.txt` pod `D:\INISSroot` a overí, že
-zápis a opätovné načítanie dajú rovnaký význam.
+
+## Licencia
+
+GNU General Public License v3.0, pozri [LICENSE](LICENSE).

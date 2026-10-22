@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="pbIcon.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="pbIcon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 40</value>
+  </data>
+  <data name="pbIcon.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;pbIcon.Name" xml:space="preserve">
+    <value>pbIcon</value>
+  </data>
+  <data name="&gt;&gt;pbIcon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pbIcon.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pbIcon.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lTitle.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lTitle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 14</value>
+  </data>
+  <data name="lTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 15</value>
+  </data>
+  <data name="lTitle.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="lTitle.Text" xml:space="preserve">
+    <value>Je dostupná nová verzia programu</value>
+  </data>
+  <data name="&gt;&gt;lTitle.Name" xml:space="preserve">
+    <value>lTitle</value>
+  </data>
+  <data name="&gt;&gt;lTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lTitle.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lTitle.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lVersions.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lVersions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 36</value>
+  </data>
+  <data name="lVersions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 30</value>
+  </data>
+  <data name="lVersions.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="lVersions.Text" xml:space="preserve">
+    <value>Nová verzia:
+Nainštalovaná verzia:</value>
+  </data>
+  <data name="&gt;&gt;lVersions.Name" xml:space="preserve">
+    <value>lVersions</value>
+  </data>
+  <data name="&gt;&gt;lVersions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lVersions.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lVersions.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lNotes.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lNotes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 80</value>
+  </data>
+  <data name="lNotes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 15</value>
+  </data>
+  <data name="lNotes.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lNotes.Text" xml:space="preserve">
+    <value>Čo je nové:</value>
+  </data>
+  <data name="&gt;&gt;lNotes.Name" xml:space="preserve">
+    <value>lNotes</value>
+  </data>
+  <data name="&gt;&gt;lNotes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lNotes.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lNotes.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="rtbNotes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="rtbNotes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 100</value>
+  </data>
+  <data name="rtbNotes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>496, 218</value>
+  </data>
+  <data name="rtbNotes.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="rtbNotes.Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="&gt;&gt;rtbNotes.Name" xml:space="preserve">
+    <value>rtbNotes</value>
+  </data>
+  <data name="&gt;&gt;rtbNotes.Type" xml:space="preserve">
+    <value>ExControls.ExRichTextBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;rtbNotes.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;rtbNotes.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="linkPage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="linkPage.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 326</value>
+  </data>
+  <data name="linkPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 15</value>
+  </data>
+  <data name="linkPage.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="linkPage.Text" xml:space="preserve">
+    <value>Zobraziť vydanie na GitHube</value>
+  </data>
+  <data name="&gt;&gt;linkPage.Name" xml:space="preserve">
+    <value>linkPage</value>
+  </data>
+  <data name="&gt;&gt;linkPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkPage.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;linkPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pFooter.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="pFooter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 352</value>
+  </data>
+  <data name="pFooter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>520, 48</value>
+  </data>
+  <data name="pFooter.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;pFooter.Name" xml:space="preserve">
+    <value>pFooter</value>
+  </data>
+  <data name="&gt;&gt;pFooter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pFooter.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pFooter.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="progress.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="progress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 16</value>
+  </data>
+  <data name="progress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 16</value>
+  </data>
+  <data name="progress.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="progress.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;progress.Name" xml:space="preserve">
+    <value>progress</value>
+  </data>
+  <data name="&gt;&gt;progress.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;progress.Parent" xml:space="preserve">
+    <value>pFooter</value>
+  </data>
+  <data name="&gt;&gt;progress.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="bUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="bUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 10</value>
+  </data>
+  <data name="bUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 28</value>
+  </data>
+  <data name="bUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="bUpdate.Text" xml:space="preserve">
+    <value>Aktualizovať</value>
+  </data>
+  <data name="&gt;&gt;bUpdate.Name" xml:space="preserve">
+    <value>bUpdate</value>
+  </data>
+  <data name="&gt;&gt;bUpdate.Type" xml:space="preserve">
+    <value>ExControls.ExButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bUpdate.Parent" xml:space="preserve">
+    <value>pFooter</value>
+  </data>
+  <data name="&gt;&gt;bUpdate.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="bSkip.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="bSkip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>262, 10</value>
+  </data>
+  <data name="bSkip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 28</value>
+  </data>
+  <data name="bSkip.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="bSkip.Text" xml:space="preserve">
+    <value>Preskočiť túto verziu</value>
+  </data>
+  <data name="&gt;&gt;bSkip.Name" xml:space="preserve">
+    <value>bSkip</value>
+  </data>
+  <data name="&gt;&gt;bSkip.Type" xml:space="preserve">
+    <value>ExControls.ExButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bSkip.Parent" xml:space="preserve">
+    <value>pFooter</value>
+  </data>
+  <data name="&gt;&gt;bSkip.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="bLater.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="bLater.Location" type="System.Drawing.Point, System.Drawing">
+    <value>418, 10</value>
+  </data>
+  <data name="bLater.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 28</value>
+  </data>
+  <data name="bLater.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="bLater.Text" xml:space="preserve">
+    <value>Neskôr</value>
+  </data>
+  <data name="&gt;&gt;bLater.Name" xml:space="preserve">
+    <value>bLater</value>
+  </data>
+  <data name="&gt;&gt;bLater.Type" xml:space="preserve">
+    <value>ExControls.ExButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bLater.Parent" xml:space="preserve">
+    <value>pFooter</value>
+  </data>
+  <data name="&gt;&gt;bLater.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>520, 400</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>480, 360</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Aktualizácia programu</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FUpdateApp</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

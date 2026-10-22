@@ -306,6 +306,47 @@ public static class AppRegistry
         using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
         key?.SetValue(RegLastProject, path);
     }
+
+    /// <summary>
+    /// Nazov hodnoty v Registri s casom poslednej uspesnej kontroly aktualizacii (UTC, ISO 8601).
+    /// </summary>
+    private const string RegUpdateChecked = "UpdateChecked";
+
+    /// <summary>
+    /// Nazov hodnoty v Registri s verziou, na ktoru program pri spusteni neupozornuje (Preskocit tuto verziu).
+    /// </summary>
+    private const string RegUpdateSkipped = "UpdateSkipped";
+
+    /// <summary>
+    /// Cas poslednej uspesnej kontroly aktualizacii v UTC; <c>null</c> = este nebola.
+    /// </summary>
+    public static DateTime? GetUpdateChecked()
+    {
+        using var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
+        return DateTime.TryParse(key?.GetValue(RegUpdateChecked) as string, CultureInfo.InvariantCulture,
+            DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal, out var value) ? value : null;
+    }
+
+    public static void SetUpdateChecked(DateTime utc)
+    {
+        using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
+        key?.SetValue(RegUpdateChecked, utc.ToString("O", CultureInfo.InvariantCulture));
+    }
+
+    /// <summary>
+    /// Preskocena verzia vydania; prazdna = ziadna.
+    /// </summary>
+    public static string GetUpdateSkipped()
+    {
+        using var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{ProductName}");
+        return key?.GetValue(RegUpdateSkipped) as string ?? "";
+    }
+
+    public static void SetUpdateSkipped(string version)
+    {
+        using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
+        key?.SetValue(RegUpdateSkipped, version);
+    }
 }
 
 public class ProjectInfo

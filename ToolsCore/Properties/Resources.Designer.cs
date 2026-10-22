@@ -194,5 +194,86 @@ namespace ToolsCore.Properties {
                 return ResourceManager.GetString("Shortcut_None", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Je dostupná nová verzia programu {0}.
+        /// </summary>
+        internal static string Update_Available {
+            get {
+                return ResourceManager.GetString("Update_Available", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nová verzia: {0} Nainštalovaná verzia: {1}.
+        /// </summary>
+        internal static string Update_Versions {
+            get {
+                return ResourceManager.GetString("Update_Versions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Popis zmien nie je k dispozícii..
+        /// </summary>
+        internal static string Update_NoNotes {
+            get {
+                return ResourceManager.GetString("Update_NoNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktualizovať.
+        /// </summary>
+        internal static string Update_Install {
+            get {
+                return ResourceManager.GetString("Update_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stiahnuť.
+        /// </summary>
+        internal static string Update_Download {
+            get {
+                return ResourceManager.GetString("Update_Download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Máte najnovšiu verziu programu {0} ({1})..
+        /// </summary>
+        internal static string Update_UpToDate {
+            get {
+                return ResourceManager.GetString("Update_UpToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nepodarilo sa zistiť, či je dostupná nová verzia.  {0}.
+        /// </summary>
+        internal static string Update_CheckFailed {
+            get {
+                return ResourceManager.GetString("Update_CheckFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inštalátor novej verzie sa nepodarilo stiahnuť.  {0}.
+        /// </summary>
+        internal static string Update_DownloadFailed {
+            get {
+                return ResourceManager.GetString("Update_DownloadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inštaláciu novej verzie sa nepodarilo spustiť.  {0}.
+        /// </summary>
+        internal static string Update_StartFailed {
+            get {
+                return ResourceManager.GetString("Update_StartFailed", resourceCulture);
+            }
+        }
     }
 }

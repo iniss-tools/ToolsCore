@@ -76,6 +76,12 @@ public record ConfigBase()
     [XmlElement("LoggingError"), DefaultValue(true)]
     public bool LoggingError { get; set; } = true;
 
+    /// <summary>
+    /// Vrati alebo nastavi, ci program pri spusteni zistuje novu verziu (najviac raz za den, len zostava z vydania).
+    /// </summary>
+    [XmlElement("CheckUpdates"), DefaultValue(true)]
+    public bool CheckUpdates { get; set; } = true;
+
     [XmlIgnore]
     public virtual string? LinkAppSettingsGuide { get; }
 
@@ -92,6 +98,7 @@ public record ConfigBase()
         ShowRowsHeader = original.ShowRowsHeader;
         LoggingInfo = original.LoggingInfo;
         LoggingError = original.LoggingError;
+        CheckUpdates = original.CheckUpdates;
     }
 }
 

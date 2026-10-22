@@ -164,4 +164,38 @@ Reštartovať program teraz?</value>
   <data name="Shortcut_None" xml:space="preserve">
     <value>(Žiadna)</value>
   </data>
+  <data name="Update_Available" xml:space="preserve">
+    <value>Je dostupná nová verzia programu {0}</value>
+  </data>
+  <data name="Update_Versions" xml:space="preserve">
+    <value>Nová verzia: {0}
+Nainštalovaná verzia: {1}</value>
+  </data>
+  <data name="Update_NoNotes" xml:space="preserve">
+    <value>Popis zmien nie je k dispozícii.</value>
+  </data>
+  <data name="Update_Install" xml:space="preserve">
+    <value>Aktualizovať</value>
+  </data>
+  <data name="Update_Download" xml:space="preserve">
+    <value>Stiahnuť</value>
+  </data>
+  <data name="Update_UpToDate" xml:space="preserve">
+    <value>Máte najnovšiu verziu programu {0} ({1}).</value>
+  </data>
+  <data name="Update_CheckFailed" xml:space="preserve">
+    <value>Nepodarilo sa zistiť, či je dostupná nová verzia.
+
+{0}</value>
+  </data>
+  <data name="Update_DownloadFailed" xml:space="preserve">
+    <value>Inštalátor novej verzie sa nepodarilo stiahnuť.
+
+{0}</value>
+  </data>
+  <data name="Update_StartFailed" xml:space="preserve">
+    <value>Inštaláciu novej verzie sa nepodarilo spustiť.
+
+{0}</value>
+  </data>
 </root>
