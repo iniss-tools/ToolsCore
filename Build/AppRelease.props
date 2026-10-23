@@ -9,7 +9,7 @@
 	  Zostava bez indexu (lokalna, Debug) aktualizacie nekontroluje - ToolsCore UpdateSource.
 	-->
 	<PropertyGroup>
-		<Company>iniss.6f.sk</Company>
+		<Company>iniss-tools.fvat.sk</Company>
 		<!-- ProductVersion bez +commit: zobrazuje sa v okne O programe a v hlavickach suborov, ktore program zapisuje -->
 		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	</PropertyGroup>

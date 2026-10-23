@@ -9,8 +9,8 @@
 ; a volitelne:
 ;   MyPrivilegesRequired - predvoleny rozsah instalacie: lowest (len pouzivatel, predvolene) alebo admin (vsetci)
 
-#define MyAppPublisher "iniss.6f.sk"
-#define MyAppURL "https://iniss.6f.sk/"
+#define MyAppPublisher "iniss-tools.fvat.sk"
+#define MyAppURL "https://iniss-tools.fvat.sk/"
 
 #ifndef MyPrivilegesRequired
   #define MyPrivilegesRequired "lowest"
