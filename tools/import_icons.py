@@ -109,6 +109,8 @@ ICONS = {
     'link-dismiss': ('Link Dismiss', 'gray'),
     'road-cone': ('Road Cone', 'orange'),
     'gantt-chart': ('Gantt Chart', 'gray'),
+    'sparkle': ('Sparkle', 'blue', 'duotone'),
+    'speaker-edit': ('Speaker Edit', 'gray'),
     'status-error': ('Error Circle', 'red', 'filled'),
     'status-warning': ('Warning', 'yellow', 'filled'),
     'status-info': ('Info', 'blue', 'filled'),
