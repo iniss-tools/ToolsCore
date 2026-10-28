@@ -54,6 +54,7 @@ public static partial class FormUtils
         if (c is Form f)
         {
             f.BackColor = style.ControlsColorScheme.Panel.BackColor;
+            f.ForeColor = style.ControlsColorScheme.Panel.ForeColor;
             f.SetImmersiveDarkMode(style.DarkTitleBar);
             f.HandleCreated -= ReapplyTitleBar;
             f.HandleCreated += ReapplyTitleBar;
