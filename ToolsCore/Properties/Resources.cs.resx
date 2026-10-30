@@ -117,24 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Settings_DebugOnlyMessage" xml:space="preserve">
-    <value>Pouze krátká zpráva</value>
-  </data>
-  <data name="Settings_DebugDetail" xml:space="preserve">
-    <value>Podrobné informace</value>
-  </data>
-  <data name="Settings_DebugCrash" xml:space="preserve">
-    <value>Pád programu (systémový dialog)</value>
-  </data>
-  <data name="Settings_StartupEmpty" xml:space="preserve">
-    <value>Prázdné okno</value>
-  </data>
-  <data name="Settings_StartupLast" xml:space="preserve">
-    <value>Poslední projekt</value>
-  </data>
-  <data name="Settings_SelectShortcut" xml:space="preserve">
-    <value>Vyberte zkratku ze seznamu</value>
-  </data>
   <data name="Settings_RestartNow" xml:space="preserve">
     <value>Provedli jste změny vyžadující restartování programu.
 
@@ -157,12 +139,6 @@ Restartovat program nyní?</value>
   </data>
   <data name="Shortcut_None" xml:space="preserve">
     <value>(Žádná)</value>
-  </data>
-  <data name="FAppSettings_lShortcutHelp1" xml:space="preserve">
-    <value>Stiskněte klávesovou zkratku pro přiřazení k příkazu.</value>
-  </data>
-  <data name="FAppSettings_lShortcutHelp2" xml:space="preserve">
-    <value>Neplatná klávesová zkratka. Stiskněte jinou.</value>
   </data>
   <data name="Update_Available" xml:space="preserve">
     <value>Je dostupná nová verze programu {0}</value>
@@ -197,5 +173,35 @@ Nainstalovaná verze: {1}</value>
     <value>Instalaci nové verze se nepodařilo spustit.
 
 {0}</value>
+  </data>
+  <data name="Settings_SearchHint" xml:space="preserve">
+    <value>Hledat v nastavení</value>
+  </data>
+  <data name="Error_ShowDetails" xml:space="preserve">
+    <value>Zobrazit podrobnosti</value>
+  </data>
+  <data name="Error_HideDetails" xml:space="preserve">
+    <value>Skrýt podrobnosti</value>
+  </data>
+  <data name="Keymap_MainWindow" xml:space="preserve">
+    <value>Hlavní okno</value>
+  </data>
+  <data name="Keymap_SearchHint" xml:space="preserve">
+    <value>Hledat příkaz</value>
+  </data>
+  <data name="Keymap_PressKeys" xml:space="preserve">
+    <value>Stiskněte klávesy</value>
+  </data>
+  <data name="Keymap_RestoreDefault" xml:space="preserve">
+    <value>Obnovit výchozí ({0})</value>
+  </data>
+  <data name="Keymap_Conflict" xml:space="preserve">
+    <value>Zkratku má i: {0}</value>
+  </data>
+  <data name="Keymap_Invalid" xml:space="preserve">
+    <value>{0} není platná zkratka. Použijte Ctrl nebo Alt s klávesou nebo funkční klávesu.</value>
+  </data>
+  <data name="Fonts_Preview" xml:space="preserve">
+    <value>Příliš žluťoučký kůň úpěl ďábelské ódy. 0123456789</value>
   </data>
 </root>

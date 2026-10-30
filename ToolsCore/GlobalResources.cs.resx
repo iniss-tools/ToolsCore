@@ -47,32 +47,11 @@
   <data name="Global_Yes" xml:space="preserve">
     <value>Ano</value>
   </data>
-  <data name="NameAppFontSetting_Buttons" xml:space="preserve">
-    <value>Tlačítka formulářů</value>
-  </data>
-  <data name="NameAppFontSetting_ChartData" xml:space="preserve">
-    <value>Buňky tabulek</value>
-  </data>
-  <data name="NameAppFontSetting_ChartHeaders" xml:space="preserve">
-    <value>Záhlaví tabulek</value>
-  </data>
-  <data name="NameAppFontSetting_Labels" xml:space="preserve">
-    <value>Text ve formulářích</value>
-  </data>
-  <data name="NameAppFontSetting_StateRow" xml:space="preserve">
-    <value>Stavový řádek</value>
-  </data>
-  <data name="NameAppFontSetting_Menu" xml:space="preserve">
-    <value>Menu</value>
-  </data>
   <data name="RRecentFiles" xml:space="preserve">
     <value>Poslední soubory</value>
   </data>
   <data name="RRecentProjects" xml:space="preserve">
     <value>Poslední projekty</value>
-  </data>
-  <data name="NameAppFontSetting_Category" xml:space="preserve">
-    <value>Písma</value>
   </data>
   <data name="NameColorSettings_Panel" xml:space="preserve">
     <value>Panel</value>

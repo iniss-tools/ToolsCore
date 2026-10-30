@@ -126,29 +126,11 @@
   <data name="gboxGeneralProgram.Text" xml:space="preserve">
     <value>Obecné</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Při spuštění programu otevřít:</value>
-  </data>
-  <data name="cboxClassicGui.Text" xml:space="preserve">
-    <value>Používat klasický design ovládacích prvků</value>
-  </data>
   <data name="cboxMultipleInstances.Text" xml:space="preserve">
-    <value>Povolit duplicitní instance programu</value>
+    <value>Povolit více spuštěných instancí programu</value>
   </data>
   <data name="cboxCheckUpdates.Text" xml:space="preserve">
     <value>Kontrolovat aktualizace při spuštění programu</value>
-  </data>
-  <data name="rbMenuToolStrip.Text" xml:space="preserve">
-    <value>MenuStrip i ToolStrip</value>
-  </data>
-  <data name="cboxShowRowHeaders.Text" xml:space="preserve">
-    <value>Zobrazovat záhlaví řádků v tabulce</value>
-  </data>
-  <data name="rbMenuOnly.Text" xml:space="preserve">
-    <value>Pouze MenuStrip</value>
-  </data>
-  <data name="rbToolOnly.Text" xml:space="preserve">
-    <value>Pouze ToolStrip</value>
   </data>
   <data name="cColName.HeaderText" xml:space="preserve">
     <value>Název</value>
@@ -162,38 +144,8 @@
   <data name="bResetColumns.Text" xml:space="preserve">
     <value>Obnovit</value>
   </data>
-  <data name="cboxFitLastCol.Text" xml:space="preserve">
-    <value>Přizpůsobit poslední sloupec</value>
-  </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Jazyk uživatelského rozhraní:</value>
-  </data>
-  <data name="cShortcutName.HeaderText" xml:space="preserve">
-    <value>Název</value>
-  </data>
-  <data name="cShortcut.HeaderText" xml:space="preserve">
-    <value>Zkratka</value>
-  </data>
-  <data name="cShortcutAttach.HeaderText" xml:space="preserve">
-    <value>Přiřadit</value>
-  </data>
-  <data name="cShortcutAttach.Text" xml:space="preserve">
-    <value>Přiřadit</value>
-  </data>
-  <data name="cShortcutDeattach.HeaderText" xml:space="preserve">
-    <value>Odebrat</value>
-  </data>
-  <data name="cShortcutDeattach.Text" xml:space="preserve">
-    <value>Odebrat</value>
-  </data>
-  <data name="cShortcutReset.HeaderText" xml:space="preserve">
-    <value>Obnovit</value>
-  </data>
-  <data name="cShortcutReset.Text" xml:space="preserve">
-    <value>Obnovit</value>
-  </data>
-  <data name="bShortcutsReset.Text" xml:space="preserve">
-    <value>Obnovit všechny</value>
   </data>
   <data name="toolStripLabel1.Text" xml:space="preserve">
     <value>Styl:</value>
@@ -231,15 +183,6 @@
   <data name="lStyleForeColor.Text" xml:space="preserve">
     <value>Barva popředí (textu):</value>
   </data>
-  <data name="gbCategorySettings.Text" xml:space="preserve">
-    <value>Nastavení kategorie</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Velikost (pt):</value>
-  </data>
-  <data name="cboxOnlyNonPropFont.Text" xml:space="preserve">
-    <value>Zobrazit pouze neproporcionální písma</value>
-  </data>
   <data name="exGroupBox8.Text" xml:space="preserve">
     <value>Nastavení stylu</value>
   </data>
@@ -252,26 +195,8 @@
   <data name="cboxDefaultVisual.Text" xml:space="preserve">
     <value>Použít klasický vzhled ovládacích prvků</value>
   </data>
-  <data name="exGroupBox3.Text" xml:space="preserve">
-    <value>Ukázka písma</value>
-  </data>
-  <data name="gbLogging.Text" xml:space="preserve">
-    <value>Logování</value>
-  </data>
-  <data name="cboxLoggingInfo.Text" xml:space="preserve">
-    <value>Logování informací o stavu programu do souboru</value>
-  </data>
-  <data name="cboxLoggingError.Text" xml:space="preserve">
-    <value>Logování chyb a výjimek do souboru</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Zobrazovat chybová hlášení:</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Nastavení programu</value>
-  </data>
-  <data name="desktopMenuModeLabel.Text" xml:space="preserve">
-    <value>Zobrazovat:</value>
   </data>
   <data name="optionsNode1.Text" xml:space="preserve">
     <value>Obecné</value>
@@ -279,32 +204,14 @@
   <data name="pGeneral.NodeText" xml:space="preserve">
     <value>Obecné</value>
   </data>
-  <data name="optionsNode2.Text" xml:space="preserve">
-    <value>Pracovní plocha</value>
-  </data>
-  <data name="pDesktop.NodeText" xml:space="preserve">
-    <value>Pracovní plocha</value>
-  </data>
   <data name="optionsNode3.Text" xml:space="preserve">
-    <value>Prostředí</value>
-  </data>
-  <data name="optionsNode4.Text" xml:space="preserve">
-    <value>Komponenty</value>
-  </data>
-  <data name="pDesktopComponents.NodeText" xml:space="preserve">
-    <value>Komponenty</value>
+    <value>Vzhled</value>
   </data>
   <data name="optionsNode5.Text" xml:space="preserve">
     <value>Sloupce</value>
   </data>
   <data name="pDesktopColumns.NodeText" xml:space="preserve">
     <value>Sloupce</value>
-  </data>
-  <data name="optionsNode6.Text" xml:space="preserve">
-    <value>Lokalizace</value>
-  </data>
-  <data name="pLocalization.NodeText" xml:space="preserve">
-    <value>Lokalizace</value>
   </data>
   <data name="optionsNode7.Text" xml:space="preserve">
     <value>Klávesové zkratky</value>
@@ -324,13 +231,19 @@
   <data name="pFonts.NodeText" xml:space="preserve">
     <value>Písma</value>
   </data>
-  <data name="pEnvironment.NodeText" xml:space="preserve">
-    <value>Prostředí</value>
+  <data name="pAppearance.NodeText" xml:space="preserve">
+    <value>Vzhled</value>
   </data>
-  <data name="optionsNode10.Text" xml:space="preserve">
-    <value>Logování a ladění</value>
+  <data name="cboxReopenLast.Text" xml:space="preserve">
+    <value>Při spuštění otevřít naposledy otevřený projekt</value>
   </data>
-  <data name="pLogging.NodeText" xml:space="preserve">
-    <value>Logování a ladění</value>
+  <data name="gbAppearance.Text" xml:space="preserve">
+    <value>Vzhled</value>
+  </data>
+  <data name="lStyle.Text" xml:space="preserve">
+    <value>Styl:</value>
+  </data>
+  <data name="cboxShowToolbar.Text" xml:space="preserve">
+    <value>Zobrazit panel nástrojů</value>
   </data>
 </root>

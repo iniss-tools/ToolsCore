@@ -108,20 +108,22 @@
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Při běhu programu došlo k chybě:
-</value>
+  <data name="lTitle.Text" xml:space="preserve">
+    <value>Při běhu programu došlo k chybě:</value>
+  </data>
+  <data name="llDetails.Text" xml:space="preserve">
+    <value>Zobrazit podrobnosti</value>
+  </data>
+  <data name="bCopy.Text" xml:space="preserve">
+    <value>Kopírovat</value>
+  </data>
+  <data name="bLogs.Text" xml:space="preserve">
+    <value>Otevřít složku s logy</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Chyba</value>
+  </data>
+  <data name="lTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 15</value>
   </data>
 </root>

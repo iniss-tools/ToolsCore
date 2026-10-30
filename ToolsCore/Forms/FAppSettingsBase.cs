@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Reflection;
 using ExControls;
+using ToolsCore.Commands;
 using ToolsCore.Properties;
 using ToolsCore.Tools;
 using ToolsCore.XML;
@@ -14,28 +15,48 @@ public partial class FAppSettingsBase : Form
 {
     private const string STYLES_EXAMPLE_TEXT = "ij = I.\":/{018Abc()Os";
 
-    [Localizable(true)] 
-    private readonly string _lShortcutHelp1 = Resources.FAppSettings_lShortcutHelp1;
-
-    [Localizable(true)] 
-    private readonly string _lShortcutHelp2 = Resources.FAppSettings_lShortcutHelp2;
-
     private string? _preselectMenuItem;
-    private int _shortcutSetIndex = -1;
-    // _allSystemFonts/_monospacedFonts, and the properties below, are only ever populated by the
-    // "real" constructor - the parameterless one exists purely for the WinForms visual designer and
-    // is documented as such ("Not use - only for designer"), so they're guaranteed non-null in real use.
-    private readonly List<string> _allSystemFonts = null!;
-    private List<string> _monospacedFonts = null!;
+    // vlastnosti nizsie nastavuje len "skutocny" konstruktor - bezparametrovy je len pre navrhara
     private bool _changingStyleSelection;
+
+    // konfiguracia pri otvoreni okna - na zistenie zmien, ktore sa prejavia az po restarte
+    private readonly ConfigBase _original = null!;
 
     public ConfigBase Config { get; } = null!;
     public IList Styles { get; } = null!;
     public Type StyleType { get; } = null!;
-    protected ExBindingList<CmdShortcut> Shortcuts { get; set; } = null!;
     protected ExBindingList<DesktopColumn> Columns { get; set; } = null!;
-    protected virtual IList<CmdShortcut> DefaultShortcuts => [];
     protected virtual IList<DesktopColumn> DefaultColumns => [];
+
+    private IReadOnlyList<CommandInfo> _commandCatalog = [];
+    private IEnumerable<AppCommand>? _boundCommands;
+
+    /// <summary>
+    /// Prikazy pre stranku klavesovych skratiek: vsetky prikazy programu a prikazy hlavneho okna naviazane na ponuku
+    /// (strom potom kopiruje jej poradie); bez okna (<see langword="null" />) sa zoradia podla katalogu.
+    /// </summary>
+    protected void SetCommands(IReadOnlyList<CommandInfo> catalog, IEnumerable<AppCommand>? bound)
+    {
+        _commandCatalog = catalog;
+        _boundCommands = bound;
+    }
+
+    /// <summary>
+    /// Text volby, ktora pri spusteni otvori naposledy otvoreny projekt programu (instalaciu, banku, subor...);
+    /// <see langword="null" /> = vseobecny text.
+    /// </summary>
+    protected virtual string? ReopenLastText => null;
+
+    /// <summary>
+    /// Nazov stranky so stlpcami tabulky hlavneho okna; <see langword="null" /> = vseobecny nazov.
+    /// </summary>
+    protected virtual string? ColumnsPageText => null;
+
+    /// <summary>
+    /// Popis pouzitia pisma editora na stranke Pisma; <see langword="null" /> = program editor nema.
+    /// </summary>
+    protected virtual string? EditorFontText => null;
+
     protected bool ShouldRestart { get; set; }
     public Style UsingStyle { get; private set; } = null!;
 
@@ -51,56 +72,34 @@ public partial class FAppSettingsBase : Form
     {
         InitializeComponent();
 
+        _original = config;
         Config = config with {};
         Styles = copiedStyles;
         StyleType = styleType;
 
         optionsView.HeaderNodeNameFont = new Font(optionsView.HeaderNodeNameFont, FontStyle.Bold);
-
-        _allSystemFonts = Utils.GetSystemFontNames();
-        InitMonospacedFonts();
+        optionsView.SearchBox.HintText = Resources.Settings_SearchHint;
 
         UsingStyle = usingStyle;
     }
 
     private void LoadComponents()
     {
-        switch (Config.DesktopMenuMode)
-        {
-            case DesktopMenu.MsTs:
-                rbMenuToolStrip.Checked = true;
-                break;
-            case DesktopMenu.TsOnly:
-                rbToolOnly.Checked = true;
-                break;
-            case DesktopMenu.MsOnly:
-                rbMenuOnly.Checked = true;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-
         cbAppLanguage.BindEnum(new Dictionary<AppLanguage, string>
         {
             [AppLanguage.Slovak] = "Slovenčina",
             [AppLanguage.Czech] = "Čeština" 
         });
 
-        cbShowErrors.BindEnum(new Dictionary<DebugMode, string>
-        {
-            [DebugMode.OnlyMessage] = Resources.Settings_DebugOnlyMessage,
-            [DebugMode.DetailInfo] = Resources.Settings_DebugDetail,
-            [DebugMode.AppCrash] = Resources.Settings_DebugCrash
-        });
+        if (ReopenLastText is { } reopenText)
+            cboxReopenLast.Text = reopenText;
+        cboxReopenLast.Checked = Config.Startup == StartupType.LastProject;
+        if (ColumnsPageText is { } columnsText)
+            pDesktopColumns.NodeText = columnsText;
 
-        cbStartup.BindEnum(new Dictionary<StartupType, string>
-        {
-            [StartupType.EmptyWindow] = Resources.Settings_StartupEmpty,
-            [StartupType.LastProject] = Resources.Settings_StartupLast
-        });
-
+        keymapPage.LoadCommands(KeymapTree.Build(_commandCatalog, _boundCommands, Resources.Keymap_MainWindow), Config.Shortcuts);
         configBindingSource.DataSource = Config;
-        pgFonts.SelectedObject = Config.Fonts;
+        fontsPage.LoadFonts(Config.Fonts, EditorFontText);
         tvStyles.SelectedNode = tvStyles.Nodes.Count == 0 ? null : tvStyles.Nodes[0];
     }
 
@@ -111,13 +110,9 @@ public partial class FAppSettingsBase : Form
 
         this.ApplyThemeAndFonts();
 
-        lShortcutMsg.Text = Resources.Settings_SelectShortcut;
-        if (Shortcuts is not null) 
-            FindAndCheckDuplicateShortcuts();
-
-        cbFont.DataSource = _allSystemFonts;
         tscbStyles.ComboBox.DataSource = Styles;
         tscbStyles.SelectedItem = Styles.Cast<Style>().FirstOrDefault(s => s.Name == UsingStyle.Name);
+        RefreshStyleChoice();
         tsbApplyStyle.Enabled = false;
         optionsView.TreeView.ExpandAll();
         OnLoad();
@@ -144,61 +139,25 @@ public partial class FAppSettingsBase : Form
     private void BSave_Click(object sender, EventArgs e)
     {
         configBindingSource.EndEdit();
+        Config.Startup = cboxReopenLast.Checked ? StartupType.LastProject : StartupType.EmptyWindow;
+        fontsPage.SaveTo(Config.Fonts);
+        if (Config.Language != _original.Language || !Equals(Config.Fonts.Interface, _original.Fonts.Interface))
+            ShouldRestart = true;
         var result = OnSaving();
         DialogResult = result ? DialogResult.OK : DialogResult.None;
-        if (result) SaveData();
+        if (!result)
+            return;
+
+        SaveData();
+        // tabulky a editory prevezmu pisma hned; pismo rozhrania az po restarte (meni rozlozenie okien)
+        GlobSettings.Fonts = Config.Fonts with { Interface = GlobSettings.Fonts.Interface };
+        FormUtils.RefreshFonts();
     }
 
     private void BStorno_Click(object sender, EventArgs e)
     {
         configBindingSource.CancelEdit();
         DialogResult = DialogResult.Cancel;
-    }
-
-    private void PgFonts_SelectedGridItemChanged(object sender, SelectedGridItemChangedEventArgs e)
-    {
-        if (e.NewSelection?.Value is not AppFont fnt)
-            return;
-
-        lFontExample.Font = fnt.Font;
-    }
-
-    private void DgvShortcuts_CellContentClick(object sender, DataGridViewCellEventArgs e)
-    {
-        if (e.RowIndex < 0 || e.ColumnIndex < 0)
-            return;
-        var shortcut = (CmdShortcut) dgvShortcuts.Rows[e.RowIndex].DataBoundItem!;
-        switch (dgvShortcuts.Columns[e.ColumnIndex].Name)
-        {
-            case nameof(cShortcutAttach):
-                OnShortcutAttach(e.RowIndex, shortcut);
-                break;
-            case nameof(cShortcutDeattach):
-                OnShortcutDeattach(e.RowIndex, shortcut);
-                break;
-            case nameof(cShortcutReset):
-                OnShortcutReset(e.RowIndex, shortcut);
-                break;
-        }
-    }
-
-    protected virtual void OnShortcutAttach(int index, CmdShortcut shortcut)
-    {
-        _shortcutSetIndex = index;
-        lShortcutMsg.Text = _lShortcutHelp1;
-        KeyPreview = true;
-    }
-
-    protected virtual void OnShortcutDeattach(int index, CmdShortcut shortcut)
-    {
-        shortcut.Shortcut = Shortcut.None;
-        Shortcuts.ResetBindings();
-    }
-
-    protected virtual void OnShortcutReset(int index, CmdShortcut shortcut)
-    {
-        shortcut.Shortcut = DefaultShortcuts.First(s => s.PropertyName == shortcut.PropertyName).Shortcut;
-        Shortcuts.ResetBindings();
     }
 
     protected virtual bool OnSaving()
@@ -223,62 +182,6 @@ public partial class FAppSettingsBase : Form
 
     protected virtual void SaveData()
     {
-    }
-
-    private void FAppSettingsBase_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (_shortcutSetIndex == -1)
-            return;
-
-        if (Utils.ValidateShortcut(e.KeyData))
-        {
-            Shortcuts[_shortcutSetIndex].Shortcut = (Shortcut) e.KeyData;
-            Shortcuts.ResetBindings();
-
-            FindAndCheckDuplicateShortcuts();
-
-            KeyPreview = false;
-            _shortcutSetIndex = -1;
-            lShortcutMsg.Text = "";
-        }
-        else
-        {
-            lShortcutMsg.Text = _lShortcutHelp2;
-        }
-
-        e.Handled = true;
-    }
-
-    private void FindAndCheckDuplicateShortcuts()
-    {
-        ResetColorShortcutDuplicates();
-
-        for (var i = 0; i < Shortcuts.Count; i++)
-        {
-            var s1 = Shortcuts[i].Shortcut.Value;
-            for (var j = 0; j < Shortcuts.Count; j++)
-            {
-                var s2 = Shortcuts[j].Shortcut.Value;
-                if (i != j && s1 == s2 && s1 != Shortcut.None)
-                {
-                    dgvShortcuts.Rows[i].Cells["cShortcut"].Style.ForeColor = Color.Red;
-                    dgvShortcuts.Rows[j].Cells["cShortcut"].Style.ForeColor = Color.Red;
-                }
-            }
-        }
-    }
-
-    private void ResetColorShortcutDuplicates()
-    {
-        for (var i = 0; i < Shortcuts.Count; i++) 
-            dgvShortcuts.Rows[i].Cells["cShortcut"].Style.ForeColor = dgvShortcuts.ForeColor;
-    }
-
-    private void BShortcutsReset_Click(object sender, EventArgs e)
-    {
-        foreach (var shortcut in Shortcuts)
-            shortcut.Shortcut = DefaultShortcuts.First(s => s.PropertyName == shortcut.PropertyName).Shortcut;
-        Shortcuts.ResetBindings();
     }
 
     private void BColUp_Click(object sender, EventArgs e)
@@ -411,13 +314,10 @@ public partial class FAppSettingsBase : Form
         _changingStyleSelection = true;
         var node = e.Node!;
 
-        if (node.Tag is IColorScheme sc)
+        if (node.Tag is IColorScheme)
         {
             //tag je katagoria poloziek
-            gbCategorySettings.Enabled = !sc.DisableFontEdit;
             gbColorItemSettings.Enabled = false;
-            cbFont.SelectedItem = sc.DisableFontEdit ? null : sc.Font.FontFamily.Name;
-            nudFontSize.Value = sc.DisableFontEdit ? 1 : (decimal) sc.Font.Size;
             csForeColor.SelectedColor = Color.Transparent;
             csForeColor.BorderColor = SystemColors.ButtonShadow;
             csBackColor.SelectedColor = Color.Transparent;
@@ -436,9 +336,7 @@ public partial class FAppSettingsBase : Form
         }
         
         //tag je nastavenie polozky
-        gbCategorySettings.Enabled = false;
         gbColorItemSettings.Enabled = true;
-        cbFont.SelectedItem = (node.Parent?.Tag as IColorScheme)?.Font?.FontFamily.Name;
         cboxBold.Enabled = !setting.DisableFontBoldEdit;
         csForeColor.Enabled = true;
         csBackColor.Enabled = !setting.DisableBackColorEdit;
@@ -455,26 +353,6 @@ public partial class FAppSettingsBase : Form
         _changingStyleSelection = false;
     }
 
-    private void CboxOnlyNonPropFont_CheckedChanged(object sender, EventArgs e)
-    {
-        var selected = cbFont.SelectedItem;
-        var fonts = cboxOnlyNonPropFont.Checked ? _monospacedFonts : _allSystemFonts;
-        cbFont.DataSource = fonts;
-        cbFont.SelectedIndex = fonts.IndexOf(selected);
-    }
-
-    private void InitMonospacedFonts()
-    {
-        var graphics = CreateGraphics();
-        _monospacedFonts = new List<string>(_allSystemFonts);
-        foreach (var fontStr in _allSystemFonts)
-        {
-            var font = new Font(fontStr, 12);
-            if (!Utils.IsFontMonospaced(graphics, font)) 
-                _monospacedFonts.Remove(fontStr);
-        }
-    }
-
     private void CsForeColor_SelectedColorChanged(object sender, EventArgs e)
     {
         RefreshColorSetting();
@@ -485,17 +363,7 @@ public partial class FAppSettingsBase : Form
         RefreshColorSetting();
     }
 
-    private void CbFont_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        RefreshColorSetting();
-    }
-
     private void CboxBold_CheckedChanged(object sender, EventArgs e)
-    {
-        RefreshColorSetting();
-    }
-
-    private void NudFontSize_ValueChanged(object sender, EventArgs e)
     {
         RefreshColorSetting();
     }
@@ -509,21 +377,16 @@ public partial class FAppSettingsBase : Form
             return;
 
         //je vybrata kategoria
-        if (selectedNode.Tag is IColorScheme scheme)
-        {
-            if (!scheme.DisableFontEdit && !_changingStyleSelection)
-            {
-                var fam = new FontFamily(cbFont.SelectedItem?.ToString() ?? string.Empty);
-                scheme.Font = new Font(fam, decimal.ToInt32(nudFontSize.Value), FontStyle.Regular);
-            }
+        if (selectedNode.Tag is IColorScheme)
             return;
-        }
 
         //je vybrata polozka kategorie
-        var fnt = (selectedNode.Parent?.Tag as IColorScheme)?.Font ?? SystemFonts.DefaultFont;
         lFontStyleExample.ForeColor = csForeColor.SelectedColor;
         lFontStyleExample.BackColor = csBackColor.SelectedColor;
-        lFontStyleExample.Font = new Font(fnt, cboxBold.Checked ? FontStyle.Bold : FontStyle.Regular);
+        var oldFont = lFontStyleExample.Font;
+        lFontStyleExample.Font = new Font(Font, cboxBold.Checked ? FontStyle.Bold : FontStyle.Regular);
+        if (oldFont != Font)
+            oldFont.Dispose();
 
         if (_changingStyleSelection)
             return;
@@ -540,13 +403,26 @@ public partial class FAppSettingsBase : Form
 
     private void TsbApplyStyle_Click(object sender, EventArgs e)
     {
-        var previousStyle = UsingStyle;
-        UsingStyle = (tscbStyles.SelectedItem as Style)!;
-        if (UsingStyle is null)
-            return;
+        if (tscbStyles.SelectedItem is Style style)
+            ApplyStyle(style);
+    }
 
-        foreach (Style style in Styles) 
-            style.Used = false;
+    private void CbStyle_SelectionChangeCommitted(object? sender, EventArgs e)
+    {
+        if (cbStyle.SelectedItem is Style style)
+            ApplyStyle(style);
+    }
+
+    /// <summary>
+    /// Nastavi pouzivany styl (prejavi sa po ulozeni nastaveni).
+    /// </summary>
+    private void ApplyStyle(Style style)
+    {
+        var previousStyle = UsingStyle;
+        UsingStyle = style;
+
+        foreach (Style s in Styles) 
+            s.Used = false;
 
         UsingStyle.Used = true;
         if (!previousStyle.ControlsDefaultStyle && UsingStyle.ControlsDefaultStyle)
@@ -554,7 +430,18 @@ public partial class FAppSettingsBase : Form
             Utils.ShowInfo(Resources.Settings_RestartLater);
             ShouldRestart = true;
         }
-        tsbApplyStyle.Enabled = false;
+        tsbApplyStyle.Enabled = !ReferenceEquals(tscbStyles.SelectedItem, UsingStyle);
+        RefreshStyleChoice();
+    }
+
+    /// <summary>
+    /// Zoznam stylov na stranke Vzhlad s vybranym pouzivanym stylom.
+    /// </summary>
+    private void RefreshStyleChoice()
+    {
+        cbStyle.DataSource = null;
+        cbStyle.DataSource = Styles.Cast<Style>().ToList();
+        cbStyle.SelectedItem = UsingStyle;
     }
 
     private void TsbAddStyle_Click(object sender, EventArgs e)
@@ -567,6 +454,7 @@ public partial class FAppSettingsBase : Form
             tscbStyles.ComboBox.DataSource = null;
             tscbStyles.ComboBox.DataSource = Styles;
             tscbStyles.SelectedItem = newStyle;
+            RefreshStyleChoice();
         }
     }
 
@@ -629,6 +517,7 @@ public partial class FAppSettingsBase : Form
         {
             ((Style)tscbStyles.SelectedItem!).Name = form.NewValue;
             tscbStyles.ComboBox.ResetBindings();
+            RefreshStyleChoice();
         }
     }
 
@@ -639,5 +528,6 @@ public partial class FAppSettingsBase : Form
 
         Styles.Remove(tscbStyles.SelectedItem);
         tscbStyles.ComboBox.ResetBindings();
+        RefreshStyleChoice();
     }
 }

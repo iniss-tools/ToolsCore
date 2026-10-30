@@ -117,41 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="desktopMenuModeLabel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
   <metadata name="configBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>821, 17</value>
   </metadata>
   <metadata name="desktopColumnBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>374, 17</value>
   </metadata>
-  <metadata name="cShortcutAttach.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cShortcutDeattach.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cShortcutReset.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="commandShortcutBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>590, 17</value>
-  </metadata>
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>986, 17</value>
-  </metadata>
-  <metadata name="pgFonts.InnerToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>149, 17</value>
   </metadata>
   <metadata name="optionsView.ToolStripMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <metadata name="appLanguageBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1091, 17</value>
-  </metadata>
-  <metadata name="debugModeBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 54</value>
   </metadata>
   <metadata name="styleBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>213, 54</value>
@@ -299,7 +278,7 @@
     <value>0, 0</value>
   </data>
   <data name="gboxGeneralProgram.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 150</value>
+    <value>630, 132</value>
   </data>
   <data name="gboxGeneralProgram.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -319,101 +298,26 @@
   <data name="&gt;&gt;gboxGeneralProgram.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="cbStartup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 78</value>
-  </data>
-  <data name="cbStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 23</value>
-  </data>
-  <data name="cbStartup.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;cbStartup.Name" xml:space="preserve">
-    <value>cbStartup</value>
-  </data>
-  <data name="&gt;&gt;cbStartup.Type" xml:space="preserve">
-    <value>ExControls.ExComboBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;cbStartup.Parent" xml:space="preserve">
-    <value>gboxGeneralProgram</value>
-  </data>
-  <data name="&gt;&gt;cbStartup.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;configBindingSource.Name" xml:space="preserve">
     <value>configBindingSource</value>
   </data>
   <data name="&gt;&gt;configBindingSource.Type" xml:space="preserve">
     <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 84</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Pri spustení programu otvoriť:</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>gboxGeneralProgram</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cboxClassicGui.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cboxClassicGui.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 50</value>
-  </data>
-  <data name="cboxClassicGui.Size" type="System.Drawing.Size, System.Drawing">
-    <value>249, 19</value>
-  </data>
-  <data name="cboxClassicGui.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="cboxClassicGui.Text" xml:space="preserve">
-    <value>Používať klasický dizajn ovládacích prvkov</value>
-  </data>
-  <data name="&gt;&gt;cboxClassicGui.Name" xml:space="preserve">
-    <value>cboxClassicGui</value>
-  </data>
-  <data name="&gt;&gt;cboxClassicGui.Type" xml:space="preserve">
-    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;cboxClassicGui.Parent" xml:space="preserve">
-    <value>gboxGeneralProgram</value>
-  </data>
-  <data name="&gt;&gt;cboxClassicGui.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="cboxMultipleInstances.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="cboxMultipleInstances.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 23</value>
+    <value>8, 79</value>
   </data>
   <data name="cboxMultipleInstances.Size" type="System.Drawing.Size, System.Drawing">
     <value>226, 19</value>
   </data>
   <data name="cboxMultipleInstances.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="cboxMultipleInstances.Text" xml:space="preserve">
-    <value>Povoliť duplicitné inštancie programu</value>
+    <value>Povoliť viac spustených inštancií programu</value>
   </data>
   <data name="&gt;&gt;cboxMultipleInstances.Name" xml:space="preserve">
     <value>cboxMultipleInstances</value>
@@ -431,13 +335,13 @@
     <value>True</value>
   </data>
   <data name="cboxCheckUpdates.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 107</value>
+    <value>8, 104</value>
   </data>
   <data name="cboxCheckUpdates.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 19</value>
   </data>
   <data name="cboxCheckUpdates.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="cboxCheckUpdates.Text" xml:space="preserve">
     <value>Kontrolovať aktualizácie pri spustení programu</value>
@@ -452,177 +356,6 @@
     <value>gboxGeneralProgram</value>
   </data>
   <data name="&gt;&gt;cboxCheckUpdates.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;pDesktop.Name" xml:space="preserve">
-    <value>pDesktop</value>
-  </data>
-  <data name="&gt;&gt;pDesktop.Type" xml:space="preserve">
-    <value>ExControls.ExOptionsPanel, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;pDesktopComponents.Name" xml:space="preserve">
-    <value>pDesktopComponents</value>
-  </data>
-  <data name="&gt;&gt;pDesktopComponents.Type" xml:space="preserve">
-    <value>ExControls.ExOptionsPanel, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="pConcreteDesktopComponents.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="pConcreteDesktopComponents.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 76</value>
-  </data>
-  <data name="pConcreteDesktopComponents.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 389</value>
-  </data>
-  <data name="pConcreteDesktopComponents.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;pConcreteDesktopComponents.Name" xml:space="preserve">
-    <value>pConcreteDesktopComponents</value>
-  </data>
-  <data name="&gt;&gt;pConcreteDesktopComponents.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pConcreteDesktopComponents.Parent" xml:space="preserve">
-    <value>pDesktopComponents</value>
-  </data>
-  <data name="&gt;&gt;pConcreteDesktopComponents.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="ppDesktopComponents.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ppDesktopComponents.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="ppDesktopComponents.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="ppDesktopComponents.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 76</value>
-  </data>
-  <data name="ppDesktopComponents.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;ppDesktopComponents.Name" xml:space="preserve">
-    <value>ppDesktopComponents</value>
-  </data>
-  <data name="&gt;&gt;ppDesktopComponents.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ppDesktopComponents.Parent" xml:space="preserve">
-    <value>pDesktopComponents</value>
-  </data>
-  <data name="&gt;&gt;ppDesktopComponents.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="rbMenuToolStrip.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="rbMenuToolStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>108, 14</value>
-  </data>
-  <data name="rbMenuToolStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 19</value>
-  </data>
-  <data name="rbMenuToolStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="rbMenuToolStrip.Text" xml:space="preserve">
-    <value>MenuStrip aj ToolStrip</value>
-  </data>
-  <data name="&gt;&gt;rbMenuToolStrip.Name" xml:space="preserve">
-    <value>rbMenuToolStrip</value>
-  </data>
-  <data name="&gt;&gt;rbMenuToolStrip.Type" xml:space="preserve">
-    <value>ExControls.ExRadioButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;rbMenuToolStrip.Parent" xml:space="preserve">
-    <value>ppDesktopComponents</value>
-  </data>
-  <data name="&gt;&gt;rbMenuToolStrip.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cboxShowRowHeaders.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cboxShowRowHeaders.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 54</value>
-  </data>
-  <data name="cboxShowRowHeaders.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 19</value>
-  </data>
-  <data name="cboxShowRowHeaders.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="cboxShowRowHeaders.Text" xml:space="preserve">
-    <value>Zobrazovať hlavičku riadkov v tabuľke</value>
-  </data>
-  <data name="&gt;&gt;cboxShowRowHeaders.Name" xml:space="preserve">
-    <value>cboxShowRowHeaders</value>
-  </data>
-  <data name="&gt;&gt;cboxShowRowHeaders.Type" xml:space="preserve">
-    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;cboxShowRowHeaders.Parent" xml:space="preserve">
-    <value>ppDesktopComponents</value>
-  </data>
-  <data name="&gt;&gt;cboxShowRowHeaders.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="rbMenuOnly.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="rbMenuOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>298, 14</value>
-  </data>
-  <data name="rbMenuOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 19</value>
-  </data>
-  <data name="rbMenuOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="rbMenuOnly.Text" xml:space="preserve">
-    <value>Len MenuStrip</value>
-  </data>
-  <data name="&gt;&gt;rbMenuOnly.Name" xml:space="preserve">
-    <value>rbMenuOnly</value>
-  </data>
-  <data name="&gt;&gt;rbMenuOnly.Type" xml:space="preserve">
-    <value>ExControls.ExRadioButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;rbMenuOnly.Parent" xml:space="preserve">
-    <value>ppDesktopComponents</value>
-  </data>
-  <data name="&gt;&gt;rbMenuOnly.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="rbToolOnly.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="rbToolOnly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>444, 14</value>
-  </data>
-  <data name="rbToolOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 19</value>
-  </data>
-  <data name="rbToolOnly.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="rbToolOnly.Text" xml:space="preserve">
-    <value>Len ToolStrip</value>
-  </data>
-  <data name="&gt;&gt;rbToolOnly.Name" xml:space="preserve">
-    <value>rbToolOnly</value>
-  </data>
-  <data name="&gt;&gt;rbToolOnly.Type" xml:space="preserve">
-    <value>ExControls.ExRadioButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;rbToolOnly.Parent" xml:space="preserve">
-    <value>ppDesktopComponents</value>
-  </data>
-  <data name="&gt;&gt;rbToolOnly.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
   <data name="&gt;&gt;pDesktopColumns.Name" xml:space="preserve">
@@ -799,98 +532,14 @@
   <data name="&gt;&gt;bColUp.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="cboxFitLastCol.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cboxFitLastCol.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 10</value>
-  </data>
-  <data name="cboxFitLastCol.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 19</value>
-  </data>
-  <data name="cboxFitLastCol.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="cboxFitLastCol.Text" xml:space="preserve">
-    <value>Prispôsobiť posledný stĺpec</value>
-  </data>
-  <data name="&gt;&gt;cboxFitLastCol.Name" xml:space="preserve">
-    <value>cboxFitLastCol</value>
-  </data>
-  <data name="&gt;&gt;cboxFitLastCol.Type" xml:space="preserve">
-    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;cboxFitLastCol.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;cboxFitLastCol.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;pLocalization.Name" xml:space="preserve">
-    <value>pLocalization</value>
-  </data>
-  <data name="&gt;&gt;pLocalization.Type" xml:space="preserve">
-    <value>ExControls.ExOptionsPanel, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="pConcreteLocalization.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="pConcreteLocalization.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 58</value>
-  </data>
-  <data name="pConcreteLocalization.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 407</value>
-  </data>
-  <data name="pConcreteLocalization.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;pConcreteLocalization.Name" xml:space="preserve">
-    <value>pConcreteLocalization</value>
-  </data>
-  <data name="&gt;&gt;pConcreteLocalization.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pConcreteLocalization.Parent" xml:space="preserve">
-    <value>pLocalization</value>
-  </data>
-  <data name="&gt;&gt;pConcreteLocalization.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panel3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="panel3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 58</value>
-  </data>
-  <data name="panel3.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;panel3.Name" xml:space="preserve">
-    <value>panel3</value>
-  </data>
-  <data name="&gt;&gt;panel3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel3.Parent" xml:space="preserve">
-    <value>pLocalization</value>
-  </data>
-  <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="cbAppLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 32</value>
+    <value>216, 22</value>
   </data>
   <data name="cbAppLanguage.Size" type="System.Drawing.Size, System.Drawing">
     <value>235, 23</value>
   </data>
   <data name="cbAppLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;cbAppLanguage.Name" xml:space="preserve">
     <value>cbAppLanguage</value>
@@ -899,7 +548,7 @@
     <value>ExControls.ExComboBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;cbAppLanguage.Parent" xml:space="preserve">
-    <value>panel3</value>
+    <value>gboxGeneralProgram</value>
   </data>
   <data name="&gt;&gt;cbAppLanguage.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -908,7 +557,7 @@
     <value>True</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 14</value>
+    <value>7, 26</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>178, 15</value>
@@ -926,7 +575,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>panel3</value>
+    <value>gboxGeneralProgram</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -936,180 +585,6 @@
   </data>
   <data name="&gt;&gt;pShortcuts.Type" xml:space="preserve">
     <value>ExControls.ExOptionsPanel, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="dgvShortcuts.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="dgvShortcuts.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 37</value>
-  </data>
-  <data name="dgvShortcuts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 428</value>
-  </data>
-  <data name="dgvShortcuts.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dgvShortcuts.Name" xml:space="preserve">
-    <value>dgvShortcuts</value>
-  </data>
-  <data name="&gt;&gt;dgvShortcuts.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dgvShortcuts.Parent" xml:space="preserve">
-    <value>pShortcuts</value>
-  </data>
-  <data name="&gt;&gt;dgvShortcuts.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="cShortcutName.HeaderText" xml:space="preserve">
-    <value>Názov</value>
-  </data>
-  <data name="cShortcutName.Width" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="&gt;&gt;cShortcutName.Name" xml:space="preserve">
-    <value>cShortcutName</value>
-  </data>
-  <data name="&gt;&gt;cShortcutName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cShortcut.HeaderText" xml:space="preserve">
-    <value>Skratka</value>
-  </data>
-  <data name="cShortcut.Width" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="&gt;&gt;cShortcut.Name" xml:space="preserve">
-    <value>cShortcut</value>
-  </data>
-  <data name="&gt;&gt;cShortcut.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cShortcutAttach.HeaderText" xml:space="preserve">
-    <value>Priradiť</value>
-  </data>
-  <data name="cShortcutAttach.Text" xml:space="preserve">
-    <value>Priradiť</value>
-  </data>
-  <data name="cShortcutAttach.Width" type="System.Int32, mscorlib">
-    <value>125</value>
-  </data>
-  <data name="&gt;&gt;cShortcutAttach.Name" xml:space="preserve">
-    <value>cShortcutAttach</value>
-  </data>
-  <data name="&gt;&gt;cShortcutAttach.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cShortcutDeattach.HeaderText" xml:space="preserve">
-    <value>Odobrať</value>
-  </data>
-  <data name="cShortcutDeattach.Text" xml:space="preserve">
-    <value>Odobrať</value>
-  </data>
-  <data name="cShortcutDeattach.Width" type="System.Int32, mscorlib">
-    <value>125</value>
-  </data>
-  <data name="&gt;&gt;cShortcutDeattach.Name" xml:space="preserve">
-    <value>cShortcutDeattach</value>
-  </data>
-  <data name="&gt;&gt;cShortcutDeattach.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cShortcutReset.HeaderText" xml:space="preserve">
-    <value>Resetovať</value>
-  </data>
-  <data name="cShortcutReset.Text" xml:space="preserve">
-    <value>Resetovať</value>
-  </data>
-  <data name="&gt;&gt;cShortcutReset.Name" xml:space="preserve">
-    <value>cShortcutReset</value>
-  </data>
-  <data name="&gt;&gt;cShortcutReset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;commandShortcutBindingSource.Name" xml:space="preserve">
-    <value>commandShortcutBindingSource</value>
-  </data>
-  <data name="&gt;&gt;commandShortcutBindingSource.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 37</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>pShortcuts</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="bShortcutsReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="bShortcutsReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>493, 3</value>
-  </data>
-  <data name="bShortcutsReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 27</value>
-  </data>
-  <data name="bShortcutsReset.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="bShortcutsReset.Text" xml:space="preserve">
-    <value>Resetovať všetky</value>
-  </data>
-  <data name="&gt;&gt;bShortcutsReset.Name" xml:space="preserve">
-    <value>bShortcutsReset</value>
-  </data>
-  <data name="&gt;&gt;bShortcutsReset.Type" xml:space="preserve">
-    <value>ExControls.ExButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;bShortcutsReset.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;bShortcutsReset.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="lShortcutMsg.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lShortcutMsg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 9</value>
-  </data>
-  <data name="lShortcutMsg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>20, 15</value>
-  </data>
-  <data name="lShortcutMsg.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="lShortcutMsg.Text" xml:space="preserve">
-    <value>txt</value>
-  </data>
-  <data name="&gt;&gt;lShortcutMsg.Name" xml:space="preserve">
-    <value>lShortcutMsg</value>
-  </data>
-  <data name="&gt;&gt;lShortcutMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lShortcutMsg.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;lShortcutMsg.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="&gt;&gt;pStyles.Name" xml:space="preserve">
     <value>pStyles</value>
@@ -1343,7 +818,7 @@
     <value>Top, Right</value>
   </data>
   <data name="gbColorItemSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>338, 231</value>
+    <value>338, 108</value>
   </data>
   <data name="gbColorItemSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>287, 133</value>
@@ -1519,135 +994,6 @@
   <data name="&gt;&gt;csBackColor.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="gbCategorySettings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="gbCategorySettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>338, 108</value>
-  </data>
-  <data name="gbCategorySettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 122</value>
-  </data>
-  <data name="gbCategorySettings.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="gbCategorySettings.Text" xml:space="preserve">
-    <value>Nastavenia kategórie</value>
-  </data>
-  <data name="&gt;&gt;gbCategorySettings.Name" xml:space="preserve">
-    <value>gbCategorySettings</value>
-  </data>
-  <data name="&gt;&gt;gbCategorySettings.Type" xml:space="preserve">
-    <value>ExControls.ExGroupBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;gbCategorySettings.Parent" xml:space="preserve">
-    <value>ppStyles</value>
-  </data>
-  <data name="&gt;&gt;gbCategorySettings.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 85</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 15</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Veľkosť (pt):</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>ExControls.ExLabel, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>gbCategorySettings</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="cbFont.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="cbFont.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 16</value>
-  </data>
-  <data name="cbFont.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 23</value>
-  </data>
-  <data name="cbFont.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cbFont.Name" xml:space="preserve">
-    <value>cbFont</value>
-  </data>
-  <data name="&gt;&gt;cbFont.Type" xml:space="preserve">
-    <value>ExControls.ExComboBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;cbFont.Parent" xml:space="preserve">
-    <value>gbCategorySettings</value>
-  </data>
-  <data name="&gt;&gt;cbFont.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="nudFontSize.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="nudFontSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>144, 83</value>
-  </data>
-  <data name="nudFontSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 23</value>
-  </data>
-  <data name="nudFontSize.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;nudFontSize.Name" xml:space="preserve">
-    <value>nudFontSize</value>
-  </data>
-  <data name="&gt;&gt;nudFontSize.Type" xml:space="preserve">
-    <value>ExControls.ExNumericUpDown, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;nudFontSize.Parent" xml:space="preserve">
-    <value>gbCategorySettings</value>
-  </data>
-  <data name="&gt;&gt;nudFontSize.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cboxOnlyNonPropFont.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cboxOnlyNonPropFont.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 53</value>
-  </data>
-  <data name="cboxOnlyNonPropFont.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 19</value>
-  </data>
-  <data name="cboxOnlyNonPropFont.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="cboxOnlyNonPropFont.Text" xml:space="preserve">
-    <value>Zobraziť len neproporcionálne písma</value>
-  </data>
-  <data name="&gt;&gt;cboxOnlyNonPropFont.Name" xml:space="preserve">
-    <value>cboxOnlyNonPropFont</value>
-  </data>
-  <data name="&gt;&gt;cboxOnlyNonPropFont.Type" xml:space="preserve">
-    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;cboxOnlyNonPropFont.Parent" xml:space="preserve">
-    <value>gbCategorySettings</value>
-  </data>
-  <data name="&gt;&gt;cboxOnlyNonPropFont.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="exGroupBox8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -1765,239 +1111,11 @@
   <data name="&gt;&gt;pFonts.Type" xml:space="preserve">
     <value>ExControls.ExOptionsPanel, ExControls, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="pgFonts.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;pAppearance.Name" xml:space="preserve">
+    <value>pAppearance</value>
   </data>
-  <data name="&gt;&gt;pgFonts.Name" xml:space="preserve">
-    <value>pgFonts</value>
-  </data>
-  <data name="&gt;&gt;pgFonts.Type" xml:space="preserve">
-    <value>ExControls.ExPropertyGrid, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;pgFonts.Parent" xml:space="preserve">
-    <value>pFonts</value>
-  </data>
-  <data name="&gt;&gt;pgFonts.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="exGroupBox3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="exGroupBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 397</value>
-  </data>
-  <data name="exGroupBox3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 68</value>
-  </data>
-  <data name="exGroupBox3.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="exGroupBox3.Text" xml:space="preserve">
-    <value>Ukážka písma</value>
-  </data>
-  <data name="&gt;&gt;exGroupBox3.Name" xml:space="preserve">
-    <value>exGroupBox3</value>
-  </data>
-  <data name="&gt;&gt;exGroupBox3.Type" xml:space="preserve">
-    <value>ExControls.ExGroupBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;exGroupBox3.Parent" xml:space="preserve">
-    <value>pFonts</value>
-  </data>
-  <data name="&gt;&gt;exGroupBox3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="lFontExample.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="lFontExample.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 19</value>
-  </data>
-  <data name="lFontExample.Size" type="System.Drawing.Size, System.Drawing">
-    <value>622, 46</value>
-  </data>
-  <data name="lFontExample.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="lFontExample.Text" xml:space="preserve">
-    <value>AaČčXxLl+*1!</value>
-  </data>
-  <data name="&gt;&gt;lFontExample.Name" xml:space="preserve">
-    <value>lFontExample</value>
-  </data>
-  <data name="&gt;&gt;lFontExample.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lFontExample.Parent" xml:space="preserve">
-    <value>exGroupBox3</value>
-  </data>
-  <data name="&gt;&gt;lFontExample.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;pEnvironment.Name" xml:space="preserve">
-    <value>pEnvironment</value>
-  </data>
-  <data name="&gt;&gt;pEnvironment.Type" xml:space="preserve">
+  <data name="&gt;&gt;pAppearance.Type" xml:space="preserve">
     <value>ExControls.ExOptionsPanel, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;pLogging.Name" xml:space="preserve">
-    <value>pLogging</value>
-  </data>
-  <data name="&gt;&gt;pLogging.Type" xml:space="preserve">
-    <value>ExControls.ExOptionsPanel, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="ppLogging.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="ppLogging.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="ppLogging.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 465</value>
-  </data>
-  <data name="ppLogging.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;ppLogging.Name" xml:space="preserve">
-    <value>ppLogging</value>
-  </data>
-  <data name="&gt;&gt;ppLogging.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ppLogging.Parent" xml:space="preserve">
-    <value>pLogging</value>
-  </data>
-  <data name="&gt;&gt;ppLogging.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="cbShowErrors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 122</value>
-  </data>
-  <data name="cbShowErrors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 23</value>
-  </data>
-  <data name="cbShowErrors.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;cbShowErrors.Name" xml:space="preserve">
-    <value>cbShowErrors</value>
-  </data>
-  <data name="&gt;&gt;cbShowErrors.Type" xml:space="preserve">
-    <value>ExControls.ExComboBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;cbShowErrors.Parent" xml:space="preserve">
-    <value>ppLogging</value>
-  </data>
-  <data name="&gt;&gt;cbShowErrors.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="gbLogging.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="gbLogging.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 3</value>
-  </data>
-  <data name="gbLogging.Size" type="System.Drawing.Size, System.Drawing">
-    <value>622, 81</value>
-  </data>
-  <data name="gbLogging.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="gbLogging.Text" xml:space="preserve">
-    <value>Logovanie</value>
-  </data>
-  <data name="&gt;&gt;gbLogging.Name" xml:space="preserve">
-    <value>gbLogging</value>
-  </data>
-  <data name="&gt;&gt;gbLogging.Type" xml:space="preserve">
-    <value>ExControls.ExGroupBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;gbLogging.Parent" xml:space="preserve">
-    <value>ppLogging</value>
-  </data>
-  <data name="&gt;&gt;gbLogging.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cboxLoggingInfo.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cboxLoggingInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 22</value>
-  </data>
-  <data name="cboxLoggingInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 19</value>
-  </data>
-  <data name="cboxLoggingInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="cboxLoggingInfo.Text" xml:space="preserve">
-    <value>Logovanie informácií o stave programu do súboru</value>
-  </data>
-  <data name="&gt;&gt;cboxLoggingInfo.Name" xml:space="preserve">
-    <value>cboxLoggingInfo</value>
-  </data>
-  <data name="&gt;&gt;cboxLoggingInfo.Type" xml:space="preserve">
-    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;cboxLoggingInfo.Parent" xml:space="preserve">
-    <value>gbLogging</value>
-  </data>
-  <data name="&gt;&gt;cboxLoggingInfo.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="cboxLoggingError.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cboxLoggingError.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 48</value>
-  </data>
-  <data name="cboxLoggingError.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 19</value>
-  </data>
-  <data name="cboxLoggingError.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="cboxLoggingError.Text" xml:space="preserve">
-    <value>Logovanie chýb a výnimiek do súboru</value>
-  </data>
-  <data name="&gt;&gt;cboxLoggingError.Name" xml:space="preserve">
-    <value>cboxLoggingError</value>
-  </data>
-  <data name="&gt;&gt;cboxLoggingError.Type" xml:space="preserve">
-    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;cboxLoggingError.Parent" xml:space="preserve">
-    <value>gbLogging</value>
-  </data>
-  <data name="&gt;&gt;cboxLoggingError.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 104</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 15</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Zobrazovať chybové hlášky:</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>ppLogging</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="&gt;&gt;appLanguageBindingSource.Name" xml:space="preserve">
     <value>appLanguageBindingSource</value>
@@ -2005,29 +1123,11 @@
   <data name="&gt;&gt;appLanguageBindingSource.Type" xml:space="preserve">
     <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;debugModeBindingSource.Name" xml:space="preserve">
-    <value>debugModeBindingSource</value>
-  </data>
-  <data name="&gt;&gt;debugModeBindingSource.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;styleBindingSource.Name" xml:space="preserve">
     <value>styleBindingSource</value>
   </data>
   <data name="&gt;&gt;styleBindingSource.Type" xml:space="preserve">
     <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;desktopMenuModeLabel.Name" xml:space="preserve">
-    <value>desktopMenuModeLabel</value>
-  </data>
-  <data name="&gt;&gt;desktopMenuModeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;desktopMenuModeLabel.Parent" xml:space="preserve">
-    <value>ppDesktopComponents</value>
-  </data>
-  <data name="&gt;&gt;desktopMenuModeLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="&gt;&gt;AutoScaleDimensions.Name" xml:space="preserve">
     <value>AutoScaleDimensions</value>
@@ -2059,41 +1159,20 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Nastavenia programu</value>
   </data>
-  <data name="desktopMenuModeLabel.Text" xml:space="preserve">
-    <value>Zobrazovať:</value>
-  </data>
   <data name="optionsNode1.Text" xml:space="preserve">
     <value>Všeobecné</value>
   </data>
   <data name="pGeneral.NodeText" xml:space="preserve">
     <value>Všeobecné</value>
   </data>
-  <data name="optionsNode2.Text" xml:space="preserve">
-    <value>Pracovná plocha</value>
-  </data>
-  <data name="pDesktop.NodeText" xml:space="preserve">
-    <value>Pracovná plocha</value>
-  </data>
   <data name="optionsNode3.Text" xml:space="preserve">
-    <value>Prostredie</value>
-  </data>
-  <data name="optionsNode4.Text" xml:space="preserve">
-    <value>Komponenty</value>
-  </data>
-  <data name="pDesktopComponents.NodeText" xml:space="preserve">
-    <value>Komponenty</value>
+    <value>Vzhľad</value>
   </data>
   <data name="optionsNode5.Text" xml:space="preserve">
     <value>Stĺpce</value>
   </data>
   <data name="pDesktopColumns.NodeText" xml:space="preserve">
     <value>Stĺpce</value>
-  </data>
-  <data name="optionsNode6.Text" xml:space="preserve">
-    <value>Lokalizácia</value>
-  </data>
-  <data name="pLocalization.NodeText" xml:space="preserve">
-    <value>Lokalizácia</value>
   </data>
   <data name="optionsNode7.Text" xml:space="preserve">
     <value>Klávesové skratky</value>
@@ -2113,14 +1192,8 @@
   <data name="pFonts.NodeText" xml:space="preserve">
     <value>Písma</value>
   </data>
-  <data name="pEnvironment.NodeText" xml:space="preserve">
-    <value>Prostredie</value>
-  </data>
-  <data name="optionsNode10.Text" xml:space="preserve">
-    <value>Logovanie a debugging</value>
-  </data>
-  <data name="pLogging.NodeText" xml:space="preserve">
-    <value>Logovanie a debugging</value>
+  <data name="pAppearance.NodeText" xml:space="preserve">
+    <value>Vzhľad</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FAppSettingsBase</value>
@@ -2128,4 +1201,184 @@
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="cboxReopenLast.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxReopenLast.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 54</value>
+  </data>
+  <data name="cboxReopenLast.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 19</value>
+  </data>
+  <data name="cboxReopenLast.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cboxReopenLast.Text" xml:space="preserve">
+    <value>Pri spustení otvoriť naposledy otvorený projekt</value>
+  </data>
+  <data name="&gt;&gt;cboxReopenLast.Name" xml:space="preserve">
+    <value>cboxReopenLast</value>
+  </data>
+  <data name="&gt;&gt;cboxReopenLast.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxReopenLast.Parent" xml:space="preserve">
+    <value>gboxGeneralProgram</value>
+  </data>
+  <data name="&gt;&gt;cboxReopenLast.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="gbAppearance.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="gbAppearance.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="gbAppearance.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="gbAppearance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>630, 84</value>
+  </data>
+  <data name="gbAppearance.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="gbAppearance.Text" xml:space="preserve">
+    <value>Vzhľad</value>
+  </data>
+  <data name="&gt;&gt;gbAppearance.Name" xml:space="preserve">
+    <value>gbAppearance</value>
+  </data>
+  <data name="&gt;&gt;gbAppearance.Type" xml:space="preserve">
+    <value>ExControls.ExGroupBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;gbAppearance.Parent" xml:space="preserve">
+    <value>pAppearance</value>
+  </data>
+  <data name="&gt;&gt;gbAppearance.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lStyle.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lStyle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 26</value>
+  </data>
+  <data name="lStyle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>31, 15</value>
+  </data>
+  <data name="lStyle.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lStyle.Text" xml:space="preserve">
+    <value>Štýl:</value>
+  </data>
+  <data name="&gt;&gt;lStyle.Name" xml:space="preserve">
+    <value>lStyle</value>
+  </data>
+  <data name="&gt;&gt;lStyle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lStyle.Parent" xml:space="preserve">
+    <value>gbAppearance</value>
+  </data>
+  <data name="&gt;&gt;lStyle.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="cbStyle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 22</value>
+  </data>
+  <data name="cbStyle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>219, 23</value>
+  </data>
+  <data name="cbStyle.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;cbStyle.Name" xml:space="preserve">
+    <value>cbStyle</value>
+  </data>
+  <data name="&gt;&gt;cbStyle.Type" xml:space="preserve">
+    <value>ExControls.ExComboBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cbStyle.Parent" xml:space="preserve">
+    <value>gbAppearance</value>
+  </data>
+  <data name="&gt;&gt;cbStyle.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cboxShowToolbar.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxShowToolbar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 54</value>
+  </data>
+  <data name="cboxShowToolbar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 19</value>
+  </data>
+  <data name="cboxShowToolbar.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="cboxShowToolbar.Text" xml:space="preserve">
+    <value>Zobraziť panel nástrojov</value>
+  </data>
+  <data name="&gt;&gt;cboxShowToolbar.Name" xml:space="preserve">
+    <value>cboxShowToolbar</value>
+  </data>
+  <data name="&gt;&gt;cboxShowToolbar.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxShowToolbar.Parent" xml:space="preserve">
+    <value>gbAppearance</value>
+  </data>
+  <data name="&gt;&gt;cboxShowToolbar.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="keymapPage.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="keymapPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="keymapPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>630, 465</value>
+  </data>
+  <data name="keymapPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;keymapPage.Name" xml:space="preserve">
+    <value>keymapPage</value>
+  </data>
+  <data name="&gt;&gt;keymapPage.Type" xml:space="preserve">
+    <value>ToolsCore.Forms.KeymapPage, ToolsCore, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;keymapPage.Parent" xml:space="preserve">
+    <value>pShortcuts</value>
+  </data>
+  <data name="&gt;&gt;keymapPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="fontsPage.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="fontsPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="fontsPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>630, 465</value>
+  </data>
+  <data name="fontsPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;fontsPage.Name" xml:space="preserve">
+    <value>fontsPage</value>
+  </data>
+  <data name="&gt;&gt;fontsPage.Type" xml:space="preserve">
+    <value>ToolsCore.Forms.FontsPage, ToolsCore, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;fontsPage.Parent" xml:space="preserve">
+    <value>pFonts</value>
+  </data>
+  <data name="&gt;&gt;fontsPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
 </root>

@@ -52,7 +52,7 @@ public sealed class CommandSet : IEnumerable<AppCommand>
     public void ApplyShortcuts(ShortcutMap map)
     {
         foreach (var command in _commands)
-            command.SetShortcut((Keys)map.Get(command.Info));
+            command.SetShortcut(map.Get(command.Info));
     }
 
     /// <summary>

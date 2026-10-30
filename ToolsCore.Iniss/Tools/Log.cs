@@ -36,6 +36,11 @@ public static class Log
     public static string DataDirPath { get; set; } = AppContext.BaseDirectory;
 
     /// <summary>
+    /// Priecinok s logmi (<c>info.log</c>, <c>error.log</c> a ich starsie casti).
+    /// </summary>
+    public static string LogDirectory => PathUtils.CombinePath(DataDirPath, LogPath)!;
+
+    /// <summary>
     /// Vykonavaj logy informacii.
     /// </summary>
     public static bool DoAppLogs { get; set; }  = true;

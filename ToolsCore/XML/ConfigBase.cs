@@ -9,22 +9,25 @@ namespace ToolsCore.XML;
 public record ConfigBase()
 {
     /// <summary>
-    /// Mod zobrazovania chybovych hlasok v GUI.
+    /// Zobrazit panel nastrojov hlavneho okna (ponuka je vzdy).
     /// </summary>
-    [XmlElement("DebugModeGUI")]
-    public DebugMode DebugModeGUI { get; set; } = DebugMode.OnlyMessage;
+    [XmlElement("ShowToolbar"), DefaultValue(true)]
+    public bool ShowToolbar { get; set; } = true;
 
     /// <summary>
-    /// Zobrazenie menu v hlavnom dialogu programu.
+    /// Povodne nastavenie ponuky a panela nastrojov (<c>0</c> = oboje, <c>1</c> = len panel, <c>2</c> = len ponuka) -
+    /// len na prevzatie do <see cref="ShowToolbar" /> zo starsej konfiguracie, nezapisuje sa.
     /// </summary>
-    [XmlElement("DesktopMenu")]
-    public DesktopMenu DesktopMenuMode { get; set; } = DesktopMenu.MsTs;
-
-    /// <summary>
-    /// Pouzivat klasicky dizajn komponetov v GUI.
-    /// </summary>
-    [XmlElement("ClassicGUI"), DefaultValue(false)]
-    public bool ClassicGUI { get; set; }
+    [XmlElement("DesktopMenu"), Browsable(false)]
+    public string? LegacyDesktopMenu
+    {
+        get => null;
+        set
+        {
+            if (value == "2")
+                ShowToolbar = false;
+        }
+    }
 
     /// <summary>
     /// Nastavi jazyk pouzivatelskeho rozhrania (GUI).
@@ -45,36 +48,31 @@ public record ConfigBase()
     public bool MoreInstance { get; set; }
 
     /// <summary>
-    /// Ci sa ma prisposobit posledny stlpec v tabulke na pracovnej ploche programu.
+    /// Pisma rozhrania, tabuliek a editora.
     /// </summary>
-    [XmlElement("FitLastColumn"), DefaultValue(true)]
-    public bool FitLastColumn { get; set; } = true;
+    [XmlElement("Fonts")]
+    public AppFonts Fonts { get; set; } = new();
 
     /// <summary>
-    /// Nastavenia pisiem pre jednotlive komponenty GUI.
+    /// Pisma starsej konfiguracie (pismo pre kazdy druh prvku) - len na prevzatie do <see cref="Fonts" />,
+    /// nezapisuje sa.
     /// </summary>
-    [XmlElement("ControlFonts"), TypeConverter(typeof(ExpandableObjectConverter))]
-    public ControlFonts Fonts { get; set; } = new();
+    [XmlElement("ControlFonts"), Browsable(false)]
+    public LegacyControlFonts? LegacyFonts
+    {
+        get => null;
+        set
+        {
+            if (value is not null)
+                Fonts.TakeLegacy(value);
+        }
+    }
 
     /// <summary>
-    /// Vrati alebo nastavi, ci sa maju zobrazovat hlavicky riadkov v tabulke na pracovnej ploche programu.
+    /// Klavesove skratky prikazov programu (zmenene oproti predvolenym).
     /// </summary>
-    [XmlElement("ShowRowsHeader"), DefaultValue(true)]
-    public bool ShowRowsHeader { get; set; } = true;
-
-    /// <summary>
-    /// Vrati alebo nastavi ci sa maju logovat informacie a oznamy.
-    /// <see langword="true"/> ak logovat informacie o aplikacii, inak <see langword="false"/>.
-    /// </summary>
-    [XmlElement("LoggingInfo"), DefaultValue(true)]
-    public bool LoggingInfo { get; set; } = true;
-
-    /// <summary>
-    /// Vrati alebo nastavi ci sa maju logovat chyby.
-    /// <see langword="true"/> ak logovat chyby a vynimky, inak <see langword="false"/>.
-    /// </summary>
-    [XmlElement("LoggingError"), DefaultValue(true)]
-    public bool LoggingError { get; set; } = true;
+    [XmlElement("Shortcuts")]
+    public ShortcutMap Shortcuts { get; set; } = new();
 
     /// <summary>
     /// Vrati alebo nastavi, ci program pri spusteni zistuje novu verziu (najviac raz za den, len zostava z vydania).
@@ -87,67 +85,14 @@ public record ConfigBase()
 
     protected ConfigBase(ConfigBase original)
     {
-        DebugModeGUI = original.DebugModeGUI;
-        DesktopMenuMode = original.DesktopMenuMode;
+        ShowToolbar = original.ShowToolbar;
         Startup = original.Startup;
-        ClassicGUI = original.ClassicGUI;
         Language = original.Language;
         MoreInstance = original.MoreInstance;
-        FitLastColumn = original.FitLastColumn;
         Fonts = original.Fonts with { };
-        ShowRowsHeader = original.ShowRowsHeader;
-        LoggingInfo = original.LoggingInfo;
-        LoggingError = original.LoggingError;
         CheckUpdates = original.CheckUpdates;
+        Shortcuts = original.Shortcuts.Clone();
     }
-}
-
-/// <summary>
-/// Typ zobrazenia MenuStrip alebo ToolStrip na pracovnej ploche programu.
-/// </summary>
-public enum DesktopMenu
-{
-    /// <summary>
-    /// ToolStrip aj MenuStrip.
-    /// </summary>
-    [XmlEnum(Name = "0")]
-    MsTs,
-
-    /// <summary>
-    /// Len ToolStrip.
-    /// </summary>
-    [XmlEnum(Name = "1")] 
-    TsOnly,
-
-    /// <summary>
-    /// Len MenuStrip.
-    /// </summary>
-    [XmlEnum(Name = "2")] 
-    MsOnly
-}
-
-/// <summary>
-/// Typ debuggovania.
-/// </summary>
-public enum DebugMode
-{
-    /// <summary>
-    /// Normalne chybove hlasky.
-    /// </summary>
-    [XmlEnum(Name = "0")] 
-    OnlyMessage,
-
-    /// <summary>
-    /// Zobrazovanie detailnejsich chyb. hlasok.
-    /// </summary>
-    [XmlEnum(Name = "1")] 
-    DetailInfo,
-
-    /// <summary>
-    /// Bez chybovych hlasok (spadnutie programu).
-    /// </summary>
-    [XmlEnum(Name = "2")] 
-    AppCrash
 }
 
 /// <summary>

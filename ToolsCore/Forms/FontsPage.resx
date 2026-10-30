@@ -1,0 +1,684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>630, 465</value>
+  </data>
+  <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="gbInterface.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="gbInterface.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="gbInterface.Size" type="System.Drawing.Size, System.Drawing">
+    <value>630, 120</value>
+  </data>
+  <data name="gbInterface.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="gbInterface.Text" xml:space="preserve">
+    <value>Rozhranie</value>
+  </data>
+  <data name="&gt;&gt;gbInterface.Name" xml:space="preserve">
+    <value>gbInterface</value>
+  </data>
+  <data name="&gt;&gt;gbInterface.Type" xml:space="preserve">
+    <value>ExControls.ExGroupBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;gbInterface.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gbInterface.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lInterfaceHint.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lInterfaceHint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 22</value>
+  </data>
+  <data name="lInterfaceHint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 15</value>
+  </data>
+  <data name="lInterfaceHint.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lInterfaceHint.Text" xml:space="preserve">
+    <value>Okná, ponuky a tlačidlá. Zmena sa prejaví po reštarte programu.</value>
+  </data>
+  <data name="&gt;&gt;lInterfaceHint.Name" xml:space="preserve">
+    <value>lInterfaceHint</value>
+  </data>
+  <data name="&gt;&gt;lInterfaceHint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lInterfaceHint.Parent" xml:space="preserve">
+    <value>gbInterface</value>
+  </data>
+  <data name="&gt;&gt;lInterfaceHint.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cboxInterfaceCustom.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxInterfaceCustom.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 47</value>
+  </data>
+  <data name="cboxInterfaceCustom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 19</value>
+  </data>
+  <data name="cboxInterfaceCustom.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cboxInterfaceCustom.Text" xml:space="preserve">
+    <value>Vlastné písmo:</value>
+  </data>
+  <data name="&gt;&gt;cboxInterfaceCustom.Name" xml:space="preserve">
+    <value>cboxInterfaceCustom</value>
+  </data>
+  <data name="&gt;&gt;cboxInterfaceCustom.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxInterfaceCustom.Parent" xml:space="preserve">
+    <value>gbInterface</value>
+  </data>
+  <data name="&gt;&gt;cboxInterfaceCustom.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cbInterfaceFamily.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 45</value>
+  </data>
+  <data name="cbInterfaceFamily.Size" type="System.Drawing.Size, System.Drawing">
+    <value>219, 23</value>
+  </data>
+  <data name="cbInterfaceFamily.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;cbInterfaceFamily.Name" xml:space="preserve">
+    <value>cbInterfaceFamily</value>
+  </data>
+  <data name="&gt;&gt;cbInterfaceFamily.Type" xml:space="preserve">
+    <value>ExControls.ExComboBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cbInterfaceFamily.Parent" xml:space="preserve">
+    <value>gbInterface</value>
+  </data>
+  <data name="&gt;&gt;cbInterfaceFamily.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lInterfaceSize.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lInterfaceSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>450, 48</value>
+  </data>
+  <data name="lInterfaceSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 15</value>
+  </data>
+  <data name="lInterfaceSize.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lInterfaceSize.Text" xml:space="preserve">
+    <value>Veľkosť:</value>
+  </data>
+  <data name="&gt;&gt;lInterfaceSize.Name" xml:space="preserve">
+    <value>lInterfaceSize</value>
+  </data>
+  <data name="&gt;&gt;lInterfaceSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lInterfaceSize.Parent" xml:space="preserve">
+    <value>gbInterface</value>
+  </data>
+  <data name="&gt;&gt;lInterfaceSize.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="nudInterfaceSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>520, 45</value>
+  </data>
+  <data name="nudInterfaceSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 23</value>
+  </data>
+  <data name="nudInterfaceSize.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;nudInterfaceSize.Name" xml:space="preserve">
+    <value>nudInterfaceSize</value>
+  </data>
+  <data name="&gt;&gt;nudInterfaceSize.Type" xml:space="preserve">
+    <value>ExControls.ExNumericUpDown, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudInterfaceSize.Parent" xml:space="preserve">
+    <value>gbInterface</value>
+  </data>
+  <data name="&gt;&gt;nudInterfaceSize.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lInterfacePreview.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lInterfacePreview.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 76</value>
+  </data>
+  <data name="lInterfacePreview.Size" type="System.Drawing.Size, System.Drawing">
+    <value>614, 36</value>
+  </data>
+  <data name="lInterfacePreview.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="lInterfacePreview.Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="&gt;&gt;lInterfacePreview.Name" xml:space="preserve">
+    <value>lInterfacePreview</value>
+  </data>
+  <data name="&gt;&gt;lInterfacePreview.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lInterfacePreview.Parent" xml:space="preserve">
+    <value>gbInterface</value>
+  </data>
+  <data name="&gt;&gt;lInterfacePreview.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="gbTables.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="gbTables.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 120</value>
+  </data>
+  <data name="gbTables.Size" type="System.Drawing.Size, System.Drawing">
+    <value>630, 120</value>
+  </data>
+  <data name="gbTables.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="gbTables.Text" xml:space="preserve">
+    <value>Tabuľky</value>
+  </data>
+  <data name="&gt;&gt;gbTables.Name" xml:space="preserve">
+    <value>gbTables</value>
+  </data>
+  <data name="&gt;&gt;gbTables.Type" xml:space="preserve">
+    <value>ExControls.ExGroupBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;gbTables.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gbTables.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lTablesHint.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lTablesHint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 22</value>
+  </data>
+  <data name="lTablesHint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 15</value>
+  </data>
+  <data name="lTablesHint.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lTablesHint.Text" xml:space="preserve">
+    <value>Bunky aj hlavičky stĺpcov. V tabuľke ho dočasne zväčšíte Ctrl + kolieskom myši.</value>
+  </data>
+  <data name="&gt;&gt;lTablesHint.Name" xml:space="preserve">
+    <value>lTablesHint</value>
+  </data>
+  <data name="&gt;&gt;lTablesHint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lTablesHint.Parent" xml:space="preserve">
+    <value>gbTables</value>
+  </data>
+  <data name="&gt;&gt;lTablesHint.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cboxTablesCustom.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxTablesCustom.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 47</value>
+  </data>
+  <data name="cboxTablesCustom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 19</value>
+  </data>
+  <data name="cboxTablesCustom.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cboxTablesCustom.Text" xml:space="preserve">
+    <value>Vlastné písmo:</value>
+  </data>
+  <data name="&gt;&gt;cboxTablesCustom.Name" xml:space="preserve">
+    <value>cboxTablesCustom</value>
+  </data>
+  <data name="&gt;&gt;cboxTablesCustom.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxTablesCustom.Parent" xml:space="preserve">
+    <value>gbTables</value>
+  </data>
+  <data name="&gt;&gt;cboxTablesCustom.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cbTablesFamily.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 45</value>
+  </data>
+  <data name="cbTablesFamily.Size" type="System.Drawing.Size, System.Drawing">
+    <value>219, 23</value>
+  </data>
+  <data name="cbTablesFamily.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;cbTablesFamily.Name" xml:space="preserve">
+    <value>cbTablesFamily</value>
+  </data>
+  <data name="&gt;&gt;cbTablesFamily.Type" xml:space="preserve">
+    <value>ExControls.ExComboBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cbTablesFamily.Parent" xml:space="preserve">
+    <value>gbTables</value>
+  </data>
+  <data name="&gt;&gt;cbTablesFamily.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lTablesSize.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lTablesSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>450, 48</value>
+  </data>
+  <data name="lTablesSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 15</value>
+  </data>
+  <data name="lTablesSize.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lTablesSize.Text" xml:space="preserve">
+    <value>Veľkosť:</value>
+  </data>
+  <data name="&gt;&gt;lTablesSize.Name" xml:space="preserve">
+    <value>lTablesSize</value>
+  </data>
+  <data name="&gt;&gt;lTablesSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lTablesSize.Parent" xml:space="preserve">
+    <value>gbTables</value>
+  </data>
+  <data name="&gt;&gt;lTablesSize.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="nudTablesSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>520, 45</value>
+  </data>
+  <data name="nudTablesSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 23</value>
+  </data>
+  <data name="nudTablesSize.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;nudTablesSize.Name" xml:space="preserve">
+    <value>nudTablesSize</value>
+  </data>
+  <data name="&gt;&gt;nudTablesSize.Type" xml:space="preserve">
+    <value>ExControls.ExNumericUpDown, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudTablesSize.Parent" xml:space="preserve">
+    <value>gbTables</value>
+  </data>
+  <data name="&gt;&gt;nudTablesSize.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lTablesPreview.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lTablesPreview.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 76</value>
+  </data>
+  <data name="lTablesPreview.Size" type="System.Drawing.Size, System.Drawing">
+    <value>614, 36</value>
+  </data>
+  <data name="lTablesPreview.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="lTablesPreview.Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="&gt;&gt;lTablesPreview.Name" xml:space="preserve">
+    <value>lTablesPreview</value>
+  </data>
+  <data name="&gt;&gt;lTablesPreview.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lTablesPreview.Parent" xml:space="preserve">
+    <value>gbTables</value>
+  </data>
+  <data name="&gt;&gt;lTablesPreview.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="gbEditor.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="gbEditor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 240</value>
+  </data>
+  <data name="gbEditor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>630, 144</value>
+  </data>
+  <data name="gbEditor.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="gbEditor.Text" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="&gt;&gt;gbEditor.Name" xml:space="preserve">
+    <value>gbEditor</value>
+  </data>
+  <data name="&gt;&gt;gbEditor.Type" xml:space="preserve">
+    <value>ExControls.ExGroupBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;gbEditor.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gbEditor.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lEditorHint.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lEditorHint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 22</value>
+  </data>
+  <data name="lEditorHint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 15</value>
+  </data>
+  <data name="lEditorHint.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lEditorHint.Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="&gt;&gt;lEditorHint.Name" xml:space="preserve">
+    <value>lEditorHint</value>
+  </data>
+  <data name="&gt;&gt;lEditorHint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lEditorHint.Parent" xml:space="preserve">
+    <value>gbEditor</value>
+  </data>
+  <data name="&gt;&gt;lEditorHint.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cboxEditorCustom.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxEditorCustom.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 47</value>
+  </data>
+  <data name="cboxEditorCustom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 19</value>
+  </data>
+  <data name="cboxEditorCustom.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cboxEditorCustom.Text" xml:space="preserve">
+    <value>Vlastné písmo:</value>
+  </data>
+  <data name="&gt;&gt;cboxEditorCustom.Name" xml:space="preserve">
+    <value>cboxEditorCustom</value>
+  </data>
+  <data name="&gt;&gt;cboxEditorCustom.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxEditorCustom.Parent" xml:space="preserve">
+    <value>gbEditor</value>
+  </data>
+  <data name="&gt;&gt;cboxEditorCustom.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cbEditorFamily.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 45</value>
+  </data>
+  <data name="cbEditorFamily.Size" type="System.Drawing.Size, System.Drawing">
+    <value>219, 23</value>
+  </data>
+  <data name="cbEditorFamily.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;cbEditorFamily.Name" xml:space="preserve">
+    <value>cbEditorFamily</value>
+  </data>
+  <data name="&gt;&gt;cbEditorFamily.Type" xml:space="preserve">
+    <value>ExControls.ExComboBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cbEditorFamily.Parent" xml:space="preserve">
+    <value>gbEditor</value>
+  </data>
+  <data name="&gt;&gt;cbEditorFamily.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lEditorSize.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lEditorSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>450, 48</value>
+  </data>
+  <data name="lEditorSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 15</value>
+  </data>
+  <data name="lEditorSize.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lEditorSize.Text" xml:space="preserve">
+    <value>Veľkosť:</value>
+  </data>
+  <data name="&gt;&gt;lEditorSize.Name" xml:space="preserve">
+    <value>lEditorSize</value>
+  </data>
+  <data name="&gt;&gt;lEditorSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lEditorSize.Parent" xml:space="preserve">
+    <value>gbEditor</value>
+  </data>
+  <data name="&gt;&gt;lEditorSize.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="nudEditorSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>520, 45</value>
+  </data>
+  <data name="nudEditorSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 23</value>
+  </data>
+  <data name="nudEditorSize.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;nudEditorSize.Name" xml:space="preserve">
+    <value>nudEditorSize</value>
+  </data>
+  <data name="&gt;&gt;nudEditorSize.Type" xml:space="preserve">
+    <value>ExControls.ExNumericUpDown, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudEditorSize.Parent" xml:space="preserve">
+    <value>gbEditor</value>
+  </data>
+  <data name="&gt;&gt;nudEditorSize.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="cboxMonospaced.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxMonospaced.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 73</value>
+  </data>
+  <data name="cboxMonospaced.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 19</value>
+  </data>
+  <data name="cboxMonospaced.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="cboxMonospaced.Text" xml:space="preserve">
+    <value>Len neproporcionálne písma</value>
+  </data>
+  <data name="&gt;&gt;cboxMonospaced.Name" xml:space="preserve">
+    <value>cboxMonospaced</value>
+  </data>
+  <data name="&gt;&gt;cboxMonospaced.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxMonospaced.Parent" xml:space="preserve">
+    <value>gbEditor</value>
+  </data>
+  <data name="&gt;&gt;cboxMonospaced.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lEditorPreview.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lEditorPreview.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 100</value>
+  </data>
+  <data name="lEditorPreview.Size" type="System.Drawing.Size, System.Drawing">
+    <value>614, 36</value>
+  </data>
+  <data name="lEditorPreview.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="lEditorPreview.Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="&gt;&gt;lEditorPreview.Name" xml:space="preserve">
+    <value>lEditorPreview</value>
+  </data>
+  <data name="&gt;&gt;lEditorPreview.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lEditorPreview.Parent" xml:space="preserve">
+    <value>gbEditor</value>
+  </data>
+  <data name="&gt;&gt;lEditorPreview.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+</root>

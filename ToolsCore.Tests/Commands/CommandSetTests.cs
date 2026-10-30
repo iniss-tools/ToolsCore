@@ -116,7 +116,7 @@ public class CommandSetTests
         commands.Add(Save, () => { }).Bind(saveItem);
         commands.Add(Delete, () => { }).Bind(deleteItem);
         var map = new ShortcutMap();
-        map.Set(Save.Id, Shortcut.CtrlShiftS);
+        map.Set(Save.Id, Keys.Control | Keys.Shift | Keys.S);
 
         commands.ApplyShortcuts(map);
 
@@ -132,5 +132,22 @@ public class CommandSetTests
         commands.Add(Save, () => { });
 
         Assert.ThrowsExactly<ArgumentException>(() => commands.Add(Save with { Text = "iný" }, () => { }));
+    }
+    [TestMethod]
+    public void ApplyShortcuts_TlacidloPanela_SkratkaVPopise()
+    {
+        var commands = new CommandSet();
+        var button = new ToolStripButton { ToolTipText = "Uložiť" };
+        commands.Add(Save, () => { }).Bind(button);
+        Assert.AreEqual($"Uložiť ({KeyNames.Display(Save.DefaultKeys)})", button.ToolTipText);
+
+        var map = new ShortcutMap();
+        map.Set(Save.Id, Keys.F2);
+        commands.ApplyShortcuts(map);
+        Assert.AreEqual($"Uložiť ({KeyNames.Display(Keys.F2)})", button.ToolTipText);
+
+        map.Set(Save.Id, Keys.None);
+        commands.ApplyShortcuts(map);
+        Assert.AreEqual("Uložiť", button.ToolTipText);
     }
 }

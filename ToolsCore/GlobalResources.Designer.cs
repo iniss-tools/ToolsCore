@@ -195,60 +195,6 @@ namespace ToolsCore {
 
         
         /// <summary>
-        ///   Looks up a localized string similar to Tlačidlá formulárov.
-        /// </summary>
-        public static string NameAppFontSetting_Buttons {
-            get {
-                return ResourceManager.GetString("NameAppFontSetting_Buttons", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dáta v tabuľkách.
-        /// </summary>
-        public static string NameAppFontSetting_ChartData {
-            get {
-                return ResourceManager.GetString("NameAppFontSetting_ChartData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nadpisy v tabuľkách.
-        /// </summary>
-        public static string NameAppFontSetting_ChartHeaders {
-            get {
-                return ResourceManager.GetString("NameAppFontSetting_ChartHeaders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Popisy formulárov.
-        /// </summary>
-        public static string NameAppFontSetting_Labels {
-            get {
-                return ResourceManager.GetString("NameAppFontSetting_Labels", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Menu.
-        /// </summary>
-        public static string NameAppFontSetting_Menu {
-            get {
-                return ResourceManager.GetString("NameAppFontSetting_Menu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Stavový riadok.
-        /// </summary>
-        public static string NameAppFontSetting_StateRow {
-            get {
-                return ResourceManager.GetString("NameAppFontSetting_StateRow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Okraj.
         /// </summary>
         public static string NameColorSettings_Border {

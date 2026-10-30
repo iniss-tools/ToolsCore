@@ -10,6 +10,9 @@ public sealed class AppCommand
     private readonly Func<bool>? _canExecute;
     private readonly List<ToolStripItem> _items = [];
 
+    // skratka pripojena k popisu tlacidla - pri zmene skratky sa nahradi, aj ked medzitym okno popis zmenilo
+    private readonly Dictionary<ToolStripItem, string> _tooltipSuffix = [];
+
     /// <summary>
     /// Vytvori prikaz.
     /// </summary>
@@ -35,7 +38,7 @@ public sealed class AppCommand
         Info = info;
         _execute = execute;
         _canExecute = canExecute;
-        ShortcutKeys = (Keys)info.DefaultShortcut;
+        ShortcutKeys = info.DefaultKeys;
     }
 
     /// <summary>
@@ -136,6 +139,20 @@ public sealed class AppCommand
     {
         // polozka s podponukou skratku sama nespracuje - vykona ju CommandSet.ProcessShortcut
         if (item is ToolStripMenuItem menuItem)
+        {
             menuItem.ShortcutKeys = ShortcutKeys;
+            return;
+        }
+
+        // tlacidlo panela nastrojov ukaze skratku v popise
+        var tooltip = item.ToolTipText ?? "";
+        if (_tooltipSuffix.TryGetValue(item, out var old) && old.Length > 0 && tooltip.EndsWith(old, StringComparison.Ordinal))
+            tooltip = tooltip[..^old.Length];
+        if (tooltip.Length == 0)
+            return;
+
+        var suffix = ShortcutKeys == Keys.None ? "" : $" ({KeyNames.Display(ShortcutKeys)})";
+        item.ToolTipText = tooltip + suffix;
+        _tooltipSuffix[item] = suffix;
     }
 }

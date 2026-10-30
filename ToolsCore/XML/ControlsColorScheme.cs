@@ -10,14 +10,6 @@ public record ControlsColorScheme() : IColorScheme
 {
     /// <inheritdoc />
     [XmlIgnore] 
-    public bool DisableFontEdit => true;
-
-    /// <inheritdoc />
-    [XmlIgnore] 
-    public Font Font { get; set; } = null!;
-
-    /// <inheritdoc />
-    [XmlIgnore] 
     public string Name => Resources.ColorScheme_Controls;
     
     [XmlIgnore]
@@ -182,7 +174,6 @@ public record ControlsColorScheme() : IColorScheme
         if (original.Mark != null) Mark = original.Mark with { };
         if (original.Highlight != null) Highlight = original.Highlight with { };
         if (original._statusBar != null) StatusBar = original._statusBar with { };
-        Font = original.Font;
     }
 
     #endregion

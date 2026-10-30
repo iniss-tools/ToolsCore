@@ -44,7 +44,7 @@ public static partial class FormUtils
         var scheme = GlobSettings.UsingStyle.ControlsColorScheme;
         item.BackColor = scheme.Panel.BackColor;
         item.ForeColor = scheme.Panel.ForeColor;
-        item.Font = GlobSettings.Fonts.Menu.Font;
+        item.Font = GlobSettings.Fonts.Menus;
     }
 
     public static void ApplyTheme(this Control c)
@@ -76,7 +76,7 @@ public static partial class FormUtils
     public static void SetFormFont(this Form form)
     {
         form.AutoSize = true;
-        form.Font = GlobSettings.Fonts.Labels.Font;
+        form.Font = GlobSettings.Fonts.Controls;
         ChangeControlsFont(form.Controls);
     }
 
@@ -86,29 +86,15 @@ public static partial class FormUtils
         {
             switch (control)
             {
-                case GroupBox:
-                    control.Font = GlobSettings.Fonts.Labels.Font;
-                    break;
-                case Panel:
-                    control.Font = GlobSettings.Fonts.Labels.Font;
-                    break;
-                case TabControl:
-                    control.Font = GlobSettings.Fonts.Labels.Font;
-                    break;
-                case Button:
-                    control.Font = GlobSettings.Fonts.Buttons.Font;
-                    break;
-                case MenuStrip ms:
-                    control.Font = GlobSettings.Fonts.Menu.Font;
-                    SetFontToolStripItems(ms);
+                case GroupBox or Panel or TabControl or Button:
+                    control.Font = GlobSettings.Fonts.Controls;
                     break;
                 case ToolStrip ts:
-                    control.Font = GlobSettings.Fonts.Menu.Font;
+                    control.Font = GlobSettings.Fonts.Menus;
                     SetFontToolStripItems(ts);
                     break;
                 case DataGridView dgv:
-                    dgv.ColumnHeadersDefaultCellStyle.Font = GlobSettings.Fonts.ColsHeader.Font;
-                    dgv.DefaultCellStyle.Font = GlobSettings.Fonts.TableCells.Font;
+                    ApplyTableFont(dgv);
                     break;
             }
 
@@ -124,13 +110,13 @@ public static partial class FormUtils
         // panel nastrojov ma ikony vo velkosti z navrhara prepocitanej podla DPI (ikony SVG su ostre len v nej),
         // ponuky a stavovy riadok podla pisma
         var size = strip is MenuStrip or StatusStrip or ToolStripDropDown
-            ? GlobSettings.Fonts.Menu.Font.Height
+            ? GlobSettings.Fonts.Menus.Height
             : strip.LogicalToDeviceUnits(DesignedImageSizes.GetValue(strip, DesignedImageSize).Value);
         strip.ImageScalingSize = new Size(size, size);
 
         foreach (ToolStripItem toolStripItem in strip.Items)
         {
-            toolStripItem.Font = GlobSettings.Fonts.Menu.Font;
+            toolStripItem.Font = GlobSettings.Fonts.Menus;
             switch (toolStripItem)
             {
                 case ToolStripMenuItem tsmi:

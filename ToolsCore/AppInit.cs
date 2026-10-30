@@ -65,27 +65,15 @@ public static class AppInit
         // Predvolene pismo aplikacie = pismo formularov z konfiguracie. Formulare (AutoScaleDimensions podla pisma
         // z navrhu) sa tak preskaluju uz pri vytvoreni a SetFormFont potom pismo nemeni.
         // Musi sa volat pred vytvorenim prveho okna.
-        Application.SetDefaultFont(config.Fonts.Labels.Font);
-
-        //Nastavenie, ci sa maju ukladat logy do suborov podla konfiguracie
-        Log.DoAppLogs = config.LoggingInfo;
-        Log.DoErrorLogs = config.LoggingError;
+        Application.SetDefaultFont(config.Fonts.Controls);
 
         //nacitanie suboru so stylmi STYLES.XML
         var styles = ReadOrReset(PathUtils.CombinePath(configsDir, FileConsts.FileStyles)!, Styles<TS>.ReadData, resetFiles);
         var usingStyle = styles.FirstOrDefault(s => s.Used) ?? styles.First();
         GlobSettings.UsingStyle = usingStyle;
 
-        //Nastavenie dizajnu ovladacich prvkov
-        if (config.ClassicGUI)
-        {
-            Application.SetCompatibleTextRenderingDefault(true);
-        }
-        else
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-        }
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
 
         //Nastavenie CultureInfo podla konfiguracie
         var culture = CultureInfo.CreateSpecificCulture(config.Language == AppLanguage.Czech ? "cs" : "sk");
@@ -139,19 +127,17 @@ public static class AppInit
     private static List<string> _resetFiles = [];
 
     /// <summary>
-    /// Spusti hlavne okno programu. Neosetrene vynimky (aj z obsluh udalosti a inych vlakien) zaloguje a podla
-    /// <see cref="ConfigBase.DebugModeGUI" /> zobrazi; pri <see cref="DebugMode.AppCrash" /> program spadne.
-    /// Volat po <see cref="Initialization{TC,TS}" />.
+    /// Spusti hlavne okno programu. Neosetrene vynimky (aj z obsluh udalosti a inych vlakien) zaloguje a zobrazi;
+    /// pri ladeni s <see cref="ErrorReport.DebugVariable" /> program spadne. Volat po <see cref="Initialization{TC,TS}" />.
     /// </summary>
-    /// <param name="config">konfiguracia programu</param>
     /// <param name="createMainForm">vytvori hlavne okno - az po nastaveni spracovania vynimiek</param>
-    public static void Run(ConfigBase config, Func<Form> createMainForm)
+    public static void Run(Func<Form> createMainForm)
     {
-        var crash = config.DebugModeGUI == DebugMode.AppCrash;
+        var crash = !ErrorReport.CatchErrors;
 
         // musi byt pred vytvorenim prveho okna
         Application.SetUnhandledExceptionMode(crash ? UnhandledExceptionMode.ThrowException : UnhandledExceptionMode.CatchException);
-        Application.ThreadException += (_, e) => ReportException(e.Exception, config);
+        Application.ThreadException += (_, e) => ReportException(e.Exception);
         AppDomain.CurrentDomain.UnhandledException += (_, e) =>
         {
             // vlakno mimo UI - program sa aj tak ukonci, aspon nech je zaznam
@@ -180,7 +166,7 @@ public static class AppInit
             catch (Exception exception)
             {
                 // napr. chyba v konstruktore hlavneho okna - nie je v slucke sprav, ThreadException ju nezachyti
-                ReportException(exception, config);
+                ReportException(exception);
             }
         }
 
@@ -212,12 +198,11 @@ public static class AppInit
         return form;
     }
 
-    private static void ReportException(Exception exception, ConfigBase config)
+    private static void ReportException(Exception exception)
     {
-        Log.Exception(exception);
         try
         {
-            FError.ShowError(config.DebugModeGUI == DebugMode.OnlyMessage ? exception.Message : exception.ToString());
+            ErrorReport.Show(exception);
         }
         catch (Exception displayError)
         {
@@ -261,7 +246,7 @@ public static class AppInit
             ButtonBorderSize = 1,
             ButtonMouseDownColor = usingStyle.ControlsColorScheme.Highlight.BackColor,
             ButtonMouseOverColor = usingStyle.ControlsColorScheme.Highlight.BackColor,
-            ButtonsFont = config.Fonts.Buttons
+            ButtonsFont = config.Fonts.Controls
         };
     }
 }

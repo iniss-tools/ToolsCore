@@ -189,24 +189,6 @@
   <data name="NameColorSettings_Highlight" xml:space="preserve">
     <value>Zvýraznenie</value>
   </data>
-  <data name="NameAppFontSetting_Labels" xml:space="preserve">
-    <value>Text vo formulároch</value>
-  </data>
-  <data name="NameAppFontSetting_Buttons" xml:space="preserve">
-    <value>Tlačidlá formulárov</value>
-  </data>
-  <data name="NameAppFontSetting_ChartHeaders" xml:space="preserve">
-    <value>Hlavičky tabuliek</value>
-  </data>
-  <data name="NameAppFontSetting_ChartData" xml:space="preserve">
-    <value>Bunky tabuliek</value>
-  </data>
-  <data name="NameAppFontSetting_StateRow" xml:space="preserve">
-    <value>Stavový riadok</value>
-  </data>
-  <data name="NameAppFontSetting_Menu" xml:space="preserve">
-    <value>Menu</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="konecna_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\konecna-st.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -216,8 +198,5 @@
   </data>
   <data name="vychodzia_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\vychodzia-st.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NameAppFontSetting_Category" xml:space="preserve">
-    <value>Písma</value>
   </data>
 </root>

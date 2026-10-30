@@ -13,7 +13,7 @@ public static class GlobSettings
     public static Style UsingStyle { get; set; } = null!;
 
     /// <summary>
-    /// Pisma pre ovladacie prvky programu.
+    /// Pisma programu (po ulozeni nastaveni ich tabulky prevezmu cez <see cref="Tools.FormUtils.RefreshFonts" />).
     /// </summary>
-    public static ControlFonts Fonts { get; set; } = null!;
+    public static AppFonts Fonts { get; set; } = new();
 }

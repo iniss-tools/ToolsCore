@@ -7,14 +7,15 @@ namespace ToolsCore.XML;
 
 /// <summary>
 /// Klavesove skratky prikazov ulozene v nastaveniach programu podla identifikatora prikazu. V config.xml je kazda
-/// skratka prvok s nazvom prikazu a atributom <c>sc</c> (<c>&lt;OpenGVD sc="CtrlO" /&gt;</c>). Prikaz bez zaznamu ma
-/// predvolenu skratku; neznamy prvok alebo hodnota sa pri nacitani preskoci.
+/// skratka prvok s nazvom prikazu a atributom <c>sc</c> (<c>&lt;OpenGVD sc="CtrlO" /&gt;</c>, kombinacia mimo
+/// <see cref="Shortcut" /> ako <c>Ctrl+Alt+K</c>). Prikaz bez zaznamu ma predvolenu skratku; neznamy prvok alebo hodnota
+/// sa pri nacitani preskoci.
 /// </summary>
 public sealed class ShortcutMap : IXmlSerializable
 {
     private const string ATTRIBUTE = "sc";
 
-    private readonly Dictionary<string, Shortcut> _shortcuts = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, Keys> _shortcuts = new(StringComparer.Ordinal);
 
     /// <summary>
     /// Pocet ulozenych skratiek.
@@ -24,13 +25,18 @@ public sealed class ShortcutMap : IXmlSerializable
     /// <summary>
     /// Skratka prikazu; bez zaznamu predvolena.
     /// </summary>
-    public Shortcut Get(CommandInfo command) =>
-        _shortcuts.TryGetValue(command.Id, out var shortcut) ? shortcut : command.DefaultShortcut;
+    public Keys Get(CommandInfo command) =>
+        _shortcuts.TryGetValue(command.Id, out var shortcut) ? shortcut : command.DefaultKeys;
 
     /// <summary>
     /// Nastavi skratku prikazu.
     /// </summary>
-    public void Set(string id, Shortcut shortcut) => _shortcuts[id] = shortcut;
+    public void Set(string id, Keys shortcut) => _shortcuts[id] = shortcut;
+
+    /// <summary>
+    /// Vrati prikazu predvolenu skratku (zaznam sa odstrani).
+    /// </summary>
+    public void Reset(string id) => _shortcuts.Remove(id);
 
     /// <summary>
     /// Nezavisla kopia skratiek.
@@ -41,26 +47,6 @@ public sealed class ShortcutMap : IXmlSerializable
         foreach (var (id, shortcut) in _shortcuts)
             copy._shortcuts[id] = shortcut;
         return copy;
-    }
-
-    /// <summary>
-    /// Riadky na upravu skratiek v nastaveniach - v poradi prikazov <paramref name="commands" />.
-    /// </summary>
-    public List<CmdShortcut> ToRows(IEnumerable<CommandInfo> commands) =>
-        commands.Select(c => new CmdShortcut(Get(c), c.Text, c.Id)).ToList();
-
-    /// <summary>
-    /// Riadky s predvolenymi skratkami prikazov.
-    /// </summary>
-    public static List<CmdShortcut> DefaultRows(IEnumerable<CommandInfo> commands) => new ShortcutMap().ToRows(commands);
-
-    /// <summary>
-    /// Prevezme skratky z upravenych riadkov nastaveni.
-    /// </summary>
-    public void SetFromRows(IEnumerable<CmdShortcut> rows)
-    {
-        foreach (var row in rows)
-            Set(row.PropertyName, row.Shortcut.Value);
     }
 
     XmlSchema? IXmlSerializable.GetSchema() => null;
@@ -78,8 +64,7 @@ public sealed class ShortcutMap : IXmlSerializable
         {
             if (reader.NodeType == XmlNodeType.Element)
             {
-                var value = reader.GetAttribute(ATTRIBUTE);
-                if (value is not null && Enum.TryParse<Shortcut>(value, out var shortcut) && Enum.IsDefined(shortcut))
+                if (KeyNames.TryParseSetting(reader.GetAttribute(ATTRIBUTE), out var shortcut))
                     _shortcuts[reader.LocalName] = shortcut;
                 reader.Skip();
             }
@@ -99,7 +84,7 @@ public sealed class ShortcutMap : IXmlSerializable
         foreach (var (id, shortcut) in _shortcuts)
         {
             writer.WriteStartElement(id);
-            writer.WriteAttributeString(ATTRIBUTE, XmlEnum<Shortcut>.EnumToString(shortcut));
+            writer.WriteAttributeString(ATTRIBUTE, KeyNames.ToSetting(shortcut));
             writer.WriteEndElement();
         }
     }

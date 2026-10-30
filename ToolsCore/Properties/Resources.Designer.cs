@@ -61,78 +61,6 @@ namespace ToolsCore.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stlačte klávesovú skratku pre priradenie ku príkazu..
-        /// </summary>
-        internal static string FAppSettings_lShortcutHelp1 {
-            get {
-                return ResourceManager.GetString("FAppSettings_lShortcutHelp1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Neplatná klávesová skratka. Stlačte inú..
-        /// </summary>
-        internal static string FAppSettings_lShortcutHelp2 {
-            get {
-                return ResourceManager.GetString("FAppSettings_lShortcutHelp2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Iba krátka správa.
-        /// </summary>
-        internal static string Settings_DebugOnlyMessage {
-            get {
-                return ResourceManager.GetString("Settings_DebugOnlyMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Detailné informácie.
-        /// </summary>
-        internal static string Settings_DebugDetail {
-            get {
-                return ResourceManager.GetString("Settings_DebugDetail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spadnutie programu (systémový dialóg).
-        /// </summary>
-        internal static string Settings_DebugCrash {
-            get {
-                return ResourceManager.GetString("Settings_DebugCrash", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prázdne okno.
-        /// </summary>
-        internal static string Settings_StartupEmpty {
-            get {
-                return ResourceManager.GetString("Settings_StartupEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Posledný projekt.
-        /// </summary>
-        internal static string Settings_StartupLast {
-            get {
-                return ResourceManager.GetString("Settings_StartupLast", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vyberte skratku zo zoznamu.
-        /// </summary>
-        internal static string Settings_SelectShortcut {
-            get {
-                return ResourceManager.GetString("Settings_SelectShortcut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Vykonali ste zmeny vyžadujúce reštartovanie programu.  Reštartovať program teraz?.
         /// </summary>
         internal static string Settings_RestartNow {
@@ -273,6 +201,96 @@ namespace ToolsCore.Properties {
         internal static string Update_StartFailed {
             get {
                 return ResourceManager.GetString("Update_StartFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hľadať v nastaveniach.
+        /// </summary>
+        internal static string Settings_SearchHint {
+            get {
+                return ResourceManager.GetString("Settings_SearchHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zobraziť podrobnosti.
+        /// </summary>
+        internal static string Error_ShowDetails {
+            get {
+                return ResourceManager.GetString("Error_ShowDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skryť podrobnosti.
+        /// </summary>
+        internal static string Error_HideDetails {
+            get {
+                return ResourceManager.GetString("Error_HideDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hlavné okno.
+        /// </summary>
+        internal static string Keymap_MainWindow {
+            get {
+                return ResourceManager.GetString("Keymap_MainWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hľadať príkaz.
+        /// </summary>
+        internal static string Keymap_SearchHint {
+            get {
+                return ResourceManager.GetString("Keymap_SearchHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stlačte klávesy.
+        /// </summary>
+        internal static string Keymap_PressKeys {
+            get {
+                return ResourceManager.GetString("Keymap_PressKeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Obnoviť predvolenú ({0}).
+        /// </summary>
+        internal static string Keymap_RestoreDefault {
+            get {
+                return ResourceManager.GetString("Keymap_RestoreDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skratku má aj: {0}.
+        /// </summary>
+        internal static string Keymap_Conflict {
+            get {
+                return ResourceManager.GetString("Keymap_Conflict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} nie je platná skratka. Použite Ctrl alebo Alt s klávesom alebo funkčný kláves..
+        /// </summary>
+        internal static string Keymap_Invalid {
+            get {
+                return ResourceManager.GetString("Keymap_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kŕdeľ šťastných ďatľov učí pri ústí Váhu mĺkveho koňa. 0123456789.
+        /// </summary>
+        internal static string Fonts_Preview {
+            get {
+                return ResourceManager.GetString("Fonts_Preview", resourceCulture);
             }
         }
     }

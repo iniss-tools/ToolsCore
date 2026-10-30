@@ -108,13 +108,25 @@
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
+  <data name="cboxByKeys.Text" xml:space="preserve">
+    <value>Podle zkratky</value>
+  </data>
+  <data name="cboxChangedOnly.Text" xml:space="preserve">
+    <value>Jen změněné</value>
+  </data>
+  <data name="bResetAll.Text" xml:space="preserve">
+    <value>Obnovit vše</value>
+  </data>
+  <data name="lShortcut.Text" xml:space="preserve">
+    <value>Zkratka:</value>
+  </data>
+  <data name="bRemove.Text" xml:space="preserve">
+    <value>Odebrat</value>
+  </data>
+  <data name="llDefault.Text" xml:space="preserve">
+    <value>Obnovit výchozí</value>
+  </data>
+  <data name="llRemoveConflict.Text" xml:space="preserve">
+    <value>Odebrat tam</value>
+  </data>
 </root>
