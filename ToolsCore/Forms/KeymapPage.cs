@@ -1,6 +1,7 @@
 using System.Globalization;
 using ToolsCore.Commands;
 using ToolsCore.Properties;
+using ToolsCore.Tools;
 using ToolsCore.XML;
 
 namespace ToolsCore.Forms;
@@ -25,6 +26,9 @@ public partial class KeymapPage : UserControl
     {
         InitializeComponent();
         OwnerDrawnTree.SelectOnRowClick(tvCommands);
+        // tema prefarbi popis farbou popisov a az potom pozadie panela - upozornenie sa po oboch vrati
+        lConflict.ForeColorChanged += (_, _) => RefreshConflictColor();
+        pDetail.BackColorChanged += (_, _) => RefreshConflictColor();
         tbFilter.CaptureKeys = false;
         tbFilter.HintText = Resources.Keymap_SearchHint;
         sbShortcut.HintText = Resources.Keymap_PressKeys;
@@ -226,7 +230,8 @@ public partial class KeymapPage : UserControl
     private void UpdateDetail(string? message = null)
     {
         var command = SelectedCommand;
-        pDetail.Enabled = command is not null;
+        // popisy ostavaju povolene - zakazane by boli v tmavej scheme necitatelne
+        FormUtils.SetInputsEnabled(pDetail, command is not null);
         lCommand.Text = tvCommands.SelectedNode is { } selected ? PathOf(selected) : "";
         if (command is null)
         {
@@ -261,7 +266,14 @@ public partial class KeymapPage : UserControl
             lConflict.Visible = llRemoveConflict.Visible = false;
         }
 
-        lConflict.ForeColor = WarningColor(pDetail.BackColor);
+        RefreshConflictColor();
+    }
+
+    private void RefreshConflictColor()
+    {
+        var warning = WarningColor(pDetail.BackColor);
+        if (lConflict.ForeColor != warning)
+            lConflict.ForeColor = warning;
     }
 
     // cesta bez korena okna, ak je v strome len hlavne okno

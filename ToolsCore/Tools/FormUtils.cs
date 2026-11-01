@@ -50,17 +50,42 @@ public static partial class FormUtils
     public static void ApplyTheme(this Control c)
     {
         var style = GlobSettings.UsingStyle;
-            
+
+        // prvky skor ako okno (ako pri paneloch) - DataGridView pri zmene ForeColor prvku prepise aj farbu textu stylu
+        // buniek a hodnoty z navrhu by sa zapamatali uz s farbou temy
+        ChangeStyleOfControls(style, c.Controls);
         if (c is Form f)
         {
             f.BackColor = style.ControlsColorScheme.Panel.BackColor;
             f.ForeColor = style.ControlsColorScheme.Panel.ForeColor;
-            f.SetImmersiveDarkMode(style.DarkTitleBar);
+            // ExForm nastavuje zahlavie aj pri kazdom vytvoreni handle - podla vlastnej hodnoty
+            if (f is ExForm exForm)
+                exForm.DarkTitleBar = style.DarkTitleBar;
+            else
+                f.SetImmersiveDarkMode(style.DarkTitleBar);
             f.HandleCreated -= ReapplyTitleBar;
             f.HandleCreated += ReapplyTitleBar;
         }
+    }
 
-        ChangeStyleOfControls(style, c.Controls);
+    /// <summary>
+    /// Povoli alebo zakaze vstupne prvky kontajnera vratane vnorenych panelov a skupin. Popisy ostavaju povolene - zakazany
+    /// Label kresli WinForms systemovou sedou, v tmavej scheme necitatelne.
+    /// </summary>
+    /// <param name="container">kontajner s popismi a vstupmi (napr. tabulka podrobnosti)</param>
+    /// <param name="enabled">ci su vstupy povolene</param>
+    public static void SetInputsEnabled(Control container, bool enabled)
+    {
+        foreach (Control control in container.Controls)
+        {
+            if (control is Label and not LinkLabel)
+                continue;
+
+            if (control.GetType() == typeof(Panel) || control is TableLayoutPanel or FlowLayoutPanel or GroupBox)
+                SetInputsEnabled(control, enabled);
+            else
+                control.Enabled = enabled;
+        }
     }
 
     private static void ReapplyTitleBar(object? sender, EventArgs e)

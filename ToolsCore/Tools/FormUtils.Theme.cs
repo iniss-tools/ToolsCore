@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.ComponentModel;
 using ExControls;
 using ToolsCore.Icons;
 using ToolsCore.XML;
@@ -11,6 +12,15 @@ namespace ToolsCore.Tools;
 public static partial class FormUtils
 {
     public static void ChangeColorContextMenu(Style style, ContextMenuStrip strip) => ApplyContextMenu(strip, style.ToExTheme());
+
+    /// <summary>
+    /// Po zmene schemy v nastaveniach ju prevezmu otvorene okna (okrem <paramref name="except" />).
+    /// </summary>
+    public static void RefreshTheme(Form? except = null)
+    {
+        foreach (var form in Application.OpenForms.Cast<Form>().Where(f => f != except).ToList())
+            form.ApplyTheme();
+    }
 
     /// <summary>
     /// Tema ExControls podla stylu programu.
@@ -66,8 +76,8 @@ public static partial class FormUtils
             ExThemer.Apply(panel.Controls, theme);
             panel.BackColor = theme.PanelBackColor;
             panel.ForeColor = theme.PanelForeColor;
-            if (panel.AutoScroll && theme.DarkScrollBars)
-                panel.SetTheme(WindowsTheme.DarkExplorer);
+            if (panel.AutoScroll)
+                panel.SetDarkScrollBars(theme.DarkScrollBars);
         });
         ExThemer.Register<SplitContainer>((sc, theme) =>
         {
@@ -78,6 +88,7 @@ public static partial class FormUtils
         });
         ExThemer.Register<RichTextBox>((tb, theme) =>
         {
+            ExThemer.KeepDefaults(tb, theme, nameof(tb.BackColor), nameof(tb.ForeColor), nameof(tb.BorderStyle));
             if (!theme.UseSystemStyle)
             {
                 tb.BackColor = theme.BoxBackColor;
@@ -85,28 +96,27 @@ public static partial class FormUtils
                 tb.BorderStyle = BorderStyle.None;
             }
 
-            if (theme.DarkScrollBars)
-                tb.SetTheme(WindowsTheme.DarkExplorer);
+            tb.SetDarkScrollBars(theme.DarkScrollBars);
         });
         ExThemer.Register<LinkLabel>((ll, theme) => ll.LinkColor = theme.HighlightBackColor);
         ExThemer.Register<Label>((l, theme) => l.ForeColor = theme.LabelForeColor);
         ExThemer.Register<TreeView>((tv, theme) =>
         {
+            ExThemer.KeepDefaults(tv, theme, nameof(tv.BorderStyle));
             tv.BackColor = theme.BoxBackColor;
             tv.ForeColor = theme.BoxForeColor;
             if (!theme.UseSystemStyle) tv.BorderStyle = BorderStyle.None;
 
-            if (theme.DarkScrollBars)
-                tv.SetTheme(WindowsTheme.DarkExplorer);
+            tv.SetDarkScrollBars(theme.DarkScrollBars);
         });
         ExThemer.Register<ListBox>((lb, theme) =>
         {
+            ExThemer.KeepDefaults(lb, theme, nameof(lb.BorderStyle));
             lb.BackColor = theme.BoxBackColor;
             lb.ForeColor = theme.BoxForeColor;
             if (!theme.UseSystemStyle) lb.BorderStyle = BorderStyle.None;
 
-            if (theme.DarkScrollBars)
-                lb.SetTheme(WindowsTheme.DarkExplorer);
+            lb.SetDarkScrollBars(theme.DarkScrollBars);
         });
         ExThemer.Register<MenuStrip>((ms, theme) =>
         {
@@ -140,8 +150,7 @@ public static partial class FormUtils
             ExThemer.Apply(uc.Controls, theme);
             uc.BackColor = theme.PanelBackColor;
             uc.ForeColor = theme.PanelForeColor;
-            if (theme.DarkScrollBars)
-                uc.SetTheme(WindowsTheme.DarkExplorer);
+            uc.SetDarkScrollBars(theme.DarkScrollBars);
         });
     }
 
@@ -159,24 +168,42 @@ public static partial class FormUtils
     private static void ApplyContextMenu(ContextMenuStrip strip, ExTheme theme)
     {
         strip.RenderMode = ToolStripRenderMode.Professional;
-        if (theme.UseSystemStyle)
-        {
-            strip.Renderer = new ToolStripProfessionalRenderer(new LightColorTable());
-            return;
-        }
-
-        strip.Renderer = new MyMenuRenderer(new MyColorTable(), true);
-        strip.BackColor = theme.PanelBackColor;
-        strip.ForeColor = theme.PanelForeColor;
+        strip.Renderer = theme.UseSystemStyle
+            ? new ToolStripProfessionalRenderer(new LightColorTable())
+            : new MyMenuRenderer(new MyColorTable(), true);
+        SetColors(strip);
         SetColorMenuItems(strip.Items);
 
         void SetColorMenuItems(IEnumerable coll)
         {
             foreach (ToolStripItem toolStripItem in coll)
             {
-                toolStripItem.BackColor = theme.PanelBackColor;
-                toolStripItem.ForeColor = theme.PanelForeColor;
+                // oddelovac kresli renderer farbami ColorTable
+                if (toolStripItem is ToolStripSeparator)
+                    continue;
+
+                SetColors(toolStripItem);
                 if (toolStripItem is ToolStripMenuItem tsmi) SetColorMenuItems(tsmi.DropDown.Items);
+            }
+        }
+
+        // systemovy vzhlad ma farby z navrhu
+        void SetColors(Component item)
+        {
+            ExThemer.KeepDefaults(item, theme, nameof(Control.BackColor), nameof(Control.ForeColor));
+            if (theme.UseSystemStyle)
+                return;
+
+            switch (item)
+            {
+                case ToolStrip ts:
+                    ts.BackColor = theme.PanelBackColor;
+                    ts.ForeColor = theme.PanelForeColor;
+                    break;
+                case ToolStripItem tsi:
+                    tsi.BackColor = theme.PanelBackColor;
+                    tsi.ForeColor = theme.PanelForeColor;
+                    break;
             }
         }
     }
@@ -191,8 +218,17 @@ public static partial class FormUtils
     {
         foreach (ToolStripItem item in items)
         {
-            item.BackColor = theme.PanelBackColor;
-            item.ForeColor = theme.PanelForeColor;
+            // polozka s vlastnou temou si najprv zapamata hodnoty z navrhu a nastavi sa sama, farby panela dostane
+            // len pri systemovom vzhlade
+            var themed = item is IThemeable or ToolStripControlHost { Control: IThemeable };
+            if (themed)
+                ApplyItemTheme(item, theme);
+            if (!themed || theme.UseSystemStyle)
+            {
+                item.BackColor = theme.PanelBackColor;
+                item.ForeColor = theme.PanelForeColor;
+            }
+
             switch (item)
             {
                 case ToolStripMenuItem tsmi:
@@ -204,19 +240,32 @@ public static partial class FormUtils
                 case ToolStripDropDownButton tsddb when buttonDropDowns:
                     ApplyToolStripItems(tsddb.DropDownItems, theme, buttonDropDowns);
                     break;
-                case IThemeable themeable:
-                    themeable.ApplyTheme(theme);
-                    break;
-                // prvok vlozeny do panela cez hostitela (napr. ExDateTimePicker) - inak by ostal vo farbach systemu
-                case ToolStripControlHost host:
+                // prvok vlozeny do panela cez hostitela (napr. obycajne pole) - inak by ostal vo farbach systemu
+                case ToolStripControlHost host when !themed:
                     ExThemer.Apply(host.Control, theme);
                     break;
             }
         }
     }
 
+    private static void ApplyItemTheme(ToolStripItem item, ExTheme theme)
+    {
+        if (item is IThemeable themeable)
+            themeable.ApplyTheme(theme);
+        else if (item is ToolStripControlHost host)
+            ExThemer.Apply(host.Control, theme);
+    }
+
     private static void ApplyPropertyGrid(PropertyGrid grid, ExTheme theme)
     {
+        ExThemer.KeepDefaults(grid, theme, nameof(grid.BackColor), nameof(grid.ForeColor), nameof(grid.ViewBackColor),
+            nameof(grid.ViewForeColor), nameof(grid.HelpBorderColor), nameof(grid.HelpBackColor), nameof(grid.HelpForeColor),
+            nameof(grid.LineColor), nameof(grid.CategoryForeColor), nameof(grid.CategorySplitterColor), nameof(grid.ViewBorderColor),
+            nameof(grid.CommandsBorderColor), nameof(grid.CommandsForeColor), nameof(grid.CommandsBackColor),
+            nameof(grid.SelectedItemWithFocusBackColor), nameof(grid.SelectedItemWithFocusForeColor));
+        // farby prikazov dostane aj ich popis, ale obnova farieb mriezky ho vynecha
+        foreach (Control command in grid.Controls[1].Controls)
+            ExThemer.KeepDefaults(command, theme, nameof(command.BackColor), nameof(command.ForeColor));
         if (!theme.UseSystemStyle)
         {
             grid.BackColor = theme.PanelBackColor;
@@ -237,9 +286,12 @@ public static partial class FormUtils
             grid.SelectedItemWithFocusForeColor = theme.HighlightForeColor;
         }
 
-        if (theme.DarkScrollBars)
-            grid.Controls[2].Controls[0].SetTheme(WindowsTheme.DarkExplorer);
-        if (grid is ExPropertyGrid ex && !theme.UseSystemStyle)
+        grid.Controls[2].Controls[0].SetDarkScrollBars(theme.DarkScrollBars);
+        if (grid is not ExPropertyGrid ex)
+            return;
+
+        ExThemer.KeepDefaults(ex.InnerToolStrip!, theme, nameof(ToolStrip.Renderer));
+        if (!theme.UseSystemStyle)
         {
             ex.InnerToolStrip!.RenderMode = ToolStripRenderMode.Professional;
             ex.InnerToolStrip.Renderer = new MyMenuRenderer(new MyColorTable(), false);
@@ -253,6 +305,11 @@ public static partial class FormUtils
 
         // DoubleBuffered je u DataGridView protected a predvolene vypnute
         DgvDoubleBuffered?.SetValue(dgv, true);
+
+        ExThemer.KeepDefaults(dgv, theme, nameof(dgv.ColumnHeadersBorderStyle), nameof(dgv.RowHeadersBorderStyle),
+            nameof(dgv.GridColor), nameof(dgv.BorderStyle));
+        foreach (var style in new[] { dgv.ColumnHeadersDefaultCellStyle, dgv.RowHeadersDefaultCellStyle, dgv.DefaultCellStyle })
+            ExThemer.KeepDefaults(style, theme, nameof(style.BackColor), nameof(style.ForeColor));
 
         dgv.EnableHeadersVisualStyles = theme.UseSystemStyle;
         dgv.DefaultCellStyle.SelectionBackColor = theme.HighlightBackColor;
@@ -297,6 +354,9 @@ public static partial class FormUtils
                     break;
                 case DataGridViewButtonColumn cbutton:
                 {
+                    ExThemer.KeepDefaults(cbutton, theme, nameof(cbutton.FlatStyle));
+                    ExThemer.KeepDefaults(cbutton.DefaultCellStyle, theme, nameof(DataGridViewCellStyle.ForeColor), nameof(DataGridViewCellStyle.BackColor),
+                        nameof(DataGridViewCellStyle.SelectionBackColor), nameof(DataGridViewCellStyle.SelectionForeColor));
                     if (!theme.UseSystemStyle)
                     {
                         cbutton.FlatStyle = FlatStyle.Flat;
@@ -310,6 +370,8 @@ public static partial class FormUtils
                 }
                 case DataGridViewLinkColumn dcl:
                 {
+                    ExThemer.KeepDefaults(dcl, theme, nameof(dcl.LinkColor), nameof(dcl.ActiveLinkColor), nameof(dcl.TrackVisitedState),
+                        nameof(dcl.LinkBehavior));
                     if (!theme.UseSystemStyle)
                     {
                         dcl.LinkColor = ControlPaint.LightLight(theme.HighlightBackColor);
@@ -335,9 +397,8 @@ public static partial class FormUtils
             }
         }
 
-        if (theme.DarkScrollBars)
-            foreach (Control dgvc in dgv.Controls)
-                if (dgvc is ScrollBar sc)
-                    sc.SetTheme(WindowsTheme.DarkExplorer);
+        foreach (Control dgvc in dgv.Controls)
+            if (dgvc is ScrollBar sc)
+                sc.SetDarkScrollBars(theme.DarkScrollBars);
     }
 }

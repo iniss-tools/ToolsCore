@@ -109,7 +109,6 @@ public partial class FAppSettingsBase : Form
             return;
 
         this.ApplyThemeAndFonts();
-        FormUtils.ChangeColorContextMenu(GlobSettings.UsingStyle, cmsManage);
 
         optionsView.TreeView.ExpandAll();
         OnLoad();
@@ -182,12 +181,8 @@ public partial class FAppSettingsBase : Form
         Config.Startup = cboxReopenLast.Checked ? StartupType.LastProject : StartupType.EmptyWindow;
         fontsPage.SaveTo(Config.Fonts);
         ShouldRestart = Config.Language != _original.Language || !Equals(Config.Fonts.Interface, _original.Fonts.Interface);
-        // svetla schema ma systemovy vzhlad prvkov - po tmavej (vlastne kreslenie) sa obnovi len restartom
-        var style = Styles.Current(SystemTheme.IsDark);
-        if (UsingStyle.IsDark && !style.IsDark)
-            ShouldRestart = true;
         var previous = UsingStyle;
-        UsingStyle = style;
+        UsingStyle = Styles.Current(SystemTheme.IsDark);
         if (!OnSaving())
         {
             UsingStyle = previous;
@@ -198,6 +193,9 @@ public partial class FAppSettingsBase : Form
         // tabulky a editory prevezmu pisma hned; pismo rozhrania az po restarte (meni rozlozenie okien)
         GlobSettings.Fonts = Config.Fonts with { Interface = GlobSettings.Fonts.Interface };
         FormUtils.RefreshFonts();
+        // schema plati hned vo vsetkych otvorenych oknach (hlavne okno ju prevezme v Applied, toto okno po Pouzit)
+        FormUtils.RefreshTheme(this);
+        AppInit.MsgBoxStyleInit(GlobSettings.UsingStyle, Config);
         _original = Config with { };
         Applied?.Invoke(this, EventArgs.Empty);
         return true;

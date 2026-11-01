@@ -27,6 +27,8 @@ public partial class ColorSchemePage : UserControl
     {
         InitializeComponent();
         OwnerDrawnTree.SelectOnRowClick(tvKeys);
+        // variant ikony podla pozadia - po zmene schemy tlacidlom Pouzit sa vymeni
+        picContrast.BackColorChanged += (_, _) => picContrast.Image = IconImages.For(picContrast, "status-warning");
     }
 
     /// <summary>
