@@ -31,7 +31,7 @@ public static class AppPaths
     /// <summary>
     /// Názov programu, pod ktorým vznikne priečinok v <c>%LocalAppData%</c>.
     /// </summary>
-    private static string AppName
+    public static string AppName
     {
         get
         {

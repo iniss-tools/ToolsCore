@@ -122,9 +122,6 @@
 
 Restartovat program nyní?</value>
   </data>
-  <data name="Settings_RestartLater" xml:space="preserve">
-    <value>Změny se plně projeví až po restartování programu.</value>
-  </data>
   <data name="InputBox_Empty" xml:space="preserve">
     <value>Hodnota nemůže být prázdná.</value>
   </data>
@@ -203,5 +200,59 @@ Nainstalovaná verze: {1}</value>
   </data>
   <data name="Fonts_Preview" xml:space="preserve">
     <value>Příliš žluťoučký kůň úpěl ďábelské ódy. 0123456789</value>
+  </data>
+  <data name="Scheme_Light" xml:space="preserve">
+    <value>Světlá</value>
+  </data>
+  <data name="Scheme_Dark" xml:space="preserve">
+    <value>Tmavá</value>
+  </data>
+  <data name="Scheme_InheritHint" xml:space="preserve">
+    <value>Nezaškrtnutá barva se přebírá ze základního schématu ({0}).</value>
+  </data>
+  <data name="Scheme_LowContrast" xml:space="preserve">
+    <value>Nízký kontrast {0}:1, doporučené minimum je {1}:1.</value>
+  </data>
+  <data name="Scheme_DeleteConfirm" xml:space="preserve">
+    <value>Odstranit barevné schéma {0}?</value>
+  </data>
+  <data name="Scheme_ResetConfirm" xml:space="preserve">
+    <value>Obnovit všechny barvy schématu {0} na výchozí?</value>
+  </data>
+  <data name="SettingsTransfer_Filter" xml:space="preserve">
+    <value>Nastavení programu (*.zip)|*.zip</value>
+  </data>
+  <data name="SettingsTransfer_FileName" xml:space="preserve">
+    <value>{0}-nastaveni-{1}.zip</value>
+  </data>
+  <data name="SettingsTransfer_Exported" xml:space="preserve">
+    <value>Uložená nastavení programu jsou v souboru {0}.</value>
+  </data>
+  <data name="SettingsTransfer_NotSettings" xml:space="preserve">
+    <value>Soubor {0} neobsahuje nastavení programu.</value>
+  </data>
+  <data name="SettingsTransfer_OtherProgram" xml:space="preserve">
+    <value>Soubor obsahuje nastavení jiného programu ({0}).</value>
+  </data>
+  <data name="SettingsTransfer_ImportConfirm" xml:space="preserve">
+    <value>Nahradit nastavení programu nastaveními ze souboru {0}? Současná nastavení se zálohují, nová platí po restartu programu.</value>
+  </data>
+  <data name="SettingsTransfer_ResetConfirm" xml:space="preserve">
+    <value>Obnovit všechna nastavení programu na výchozí? Současná nastavení se zálohují, výchozí platí po restartu programu.</value>
+  </data>
+  <data name="SettingsTransfer_RestartNow" xml:space="preserve">
+    <value>Restartovat program nyní? Jinak se změna projeví při dalším spuštění.</value>
+  </data>
+  <data name="Grid_ResetColumns" xml:space="preserve">
+    <value>Obnovit výchozí sloupce</value>
+  </data>
+  <data name="Settings_LastUpdateCheck" xml:space="preserve">
+    <value>Naposledy zkontrolováno: {0}</value>
+  </data>
+  <data name="Settings_NeverUpdateChecked" xml:space="preserve">
+    <value>Aktualizace ještě nebyly zkontrolovány.</value>
+  </data>
+  <data name="Settings_UpdatesUnavailable" xml:space="preserve">
+    <value>Toto sestavení programu aktualizace nekontroluje.</value>
   </data>
 </root>

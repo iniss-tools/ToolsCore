@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Reflection;
+﻿using System.Globalization;
 using ExControls;
 using ToolsCore.Commands;
 using ToolsCore.Properties;
 using ToolsCore.Tools;
+using ToolsCore.Updates;
 using ToolsCore.XML;
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable UnusedParameter.Global
@@ -13,20 +13,18 @@ namespace ToolsCore.Forms;
 
 public partial class FAppSettingsBase : Form
 {
-    private const string STYLES_EXAMPLE_TEXT = "ij = I.\":/{018Abc()Os";
-
     private string? _preselectMenuItem;
     // vlastnosti nizsie nastavuje len "skutocny" konstruktor - bezparametrovy je len pre navrhara
     private bool _changingStyleSelection;
 
     // konfiguracia pri otvoreni okna - na zistenie zmien, ktore sa prejavia az po restarte
-    private readonly ConfigBase _original = null!;
+    private ConfigBase _original = null!;
 
     public ConfigBase Config { get; } = null!;
-    public IList Styles { get; } = null!;
-    public Type StyleType { get; } = null!;
-    protected ExBindingList<DesktopColumn> Columns { get; set; } = null!;
-    protected virtual IList<DesktopColumn> DefaultColumns => [];
+    /// <summary>
+    /// Kopia farebnych schem a vyberu pouzivanej schemy.
+    /// </summary>
+    public IStyleSet Styles { get; } = null!;
 
     private IReadOnlyList<CommandInfo> _commandCatalog = [];
     private IEnumerable<AppCommand>? _boundCommands;
@@ -48,16 +46,19 @@ public partial class FAppSettingsBase : Form
     protected virtual string? ReopenLastText => null;
 
     /// <summary>
-    /// Nazov stranky so stlpcami tabulky hlavneho okna; <see langword="null" /> = vseobecny nazov.
-    /// </summary>
-    protected virtual string? ColumnsPageText => null;
-
-    /// <summary>
     /// Popis pouzitia pisma editora na stranke Pisma; <see langword="null" /> = program editor nema.
     /// </summary>
     protected virtual string? EditorFontText => null;
 
     protected bool ShouldRestart { get; set; }
+
+    /// <summary>
+    /// Nastavenia sa ulozili (tlacidlo Ulozit alebo Pouzit) - hlavne okno ich prevezme.
+    /// </summary>
+    public event EventHandler? Applied;
+    /// <summary>
+    /// Pouzivana schema - po ulozeni podla volby na stranke Vzhlad (a rezimu Windows).
+    /// </summary>
     public Style UsingStyle { get; private set; } = null!;
 
     /// <summary>
@@ -68,14 +69,13 @@ public partial class FAppSettingsBase : Form
         InitializeComponent();
     }
 
-    public FAppSettingsBase(ConfigBase config, IList copiedStyles, Style usingStyle, Type styleType)
+    public FAppSettingsBase(ConfigBase config, IStyleSet copiedStyles, Style usingStyle)
     {
         InitializeComponent();
 
         _original = config;
         Config = config with {};
         Styles = copiedStyles;
-        StyleType = styleType;
 
         optionsView.HeaderNodeNameFont = new Font(optionsView.HeaderNodeNameFont, FontStyle.Bold);
         optionsView.SearchBox.HintText = Resources.Settings_SearchHint;
@@ -94,13 +94,13 @@ public partial class FAppSettingsBase : Form
         if (ReopenLastText is { } reopenText)
             cboxReopenLast.Text = reopenText;
         cboxReopenLast.Checked = Config.Startup == StartupType.LastProject;
-        if (ColumnsPageText is { } columnsText)
-            pDesktopColumns.NodeText = columnsText;
 
         keymapPage.LoadCommands(KeymapTree.Build(_commandCatalog, _boundCommands, Resources.Keymap_MainWindow), Config.Shortcuts);
         configBindingSource.DataSource = Config;
         fontsPage.LoadFonts(Config.Fonts, EditorFontText);
-        tvStyles.SelectedNode = tvStyles.Nodes.Count == 0 ? null : tvStyles.Nodes[0];
+        RefreshLastCheck();
+        RefreshStyleChoice();
+        colorSchemePage.LoadSchemes(Styles, Styles.Find(UsingStyle.Name) ?? Styles[0]);
     }
 
     private void FAppSettingsBase_Load(object sender, EventArgs e)
@@ -109,20 +109,47 @@ public partial class FAppSettingsBase : Form
             return;
 
         this.ApplyThemeAndFonts();
+        FormUtils.ChangeColorContextMenu(GlobSettings.UsingStyle, cmsManage);
 
-        tscbStyles.ComboBox.DataSource = Styles;
-        tscbStyles.SelectedItem = Styles.Cast<Style>().FirstOrDefault(s => s.Name == UsingStyle.Name);
-        RefreshStyleChoice();
-        tsbApplyStyle.Enabled = false;
         optionsView.TreeView.ExpandAll();
         OnLoad();
     }
 
     public void PreselectMenuItem(string name) => _preselectMenuItem = name;
 
+    /// <summary>
+    /// Skupiny a popisy roztiahnute na sirku stranky (s kotvou vpravo) siahaju po pravy okraj ako skupina zo zakladu
+    /// okna - kotvy z navrhu pocitaju s inou sirkou panela, preto sa sirka nastavuje podla skutocneho panela.
+    /// Plati pre obsah vsetkych stranok (panel vyplnajuci stranku) vratane stranok programu.
+    /// </summary>
+    private void FitPageGroups()
+    {
+        foreach (var page in optionsView.Panels.OfType<ExOptionsPanel>())
+        foreach (var content in page.Controls.OfType<Panel>().Where(c => c.GetType() == typeof(Panel) && c.Dock == DockStyle.Fill))
+        {
+            // skupiny vzdy, ostatne prvky len roztiahnute v navrhu (kotva vlavo aj vpravo)
+            var stretched = content.Controls.Cast<Control>()
+                .Where(c => c.Dock == DockStyle.None && (c is GroupBox || c.Anchor.HasFlag(AnchorStyles.Left | AnchorStyles.Right))).ToList();
+            if (stretched.Count == 0)
+                continue;
+
+            foreach (var control in stretched)
+                control.Anchor &= ~AnchorStyles.Right;
+            content.ClientSizeChanged += (_, _) => FitWidth(content, stretched);
+            FitWidth(content, stretched);
+        }
+    }
+
+    private static void FitWidth(Control content, List<Control> stretched)
+    {
+        foreach (var control in stretched)
+            control.Width = Math.Max(control.MinimumSize.Width, content.ClientSize.Width - control.Left);
+    }
+
     protected virtual void OnLoad()
     {
         LoadComponents();
+        FitPageGroups();
 
         if (!string.IsNullOrWhiteSpace(_preselectMenuItem)) 
             optionsView.ShowPanel(_preselectMenuItem);
@@ -136,23 +163,159 @@ public partial class FAppSettingsBase : Form
         Utils.OpenShell(Config.LinkAppSettingsGuide);
     }
 
-    private void BSave_Click(object sender, EventArgs e)
+    private void BSave_Click(object sender, EventArgs e) => DialogResult = Commit() ? DialogResult.OK : DialogResult.None;
+
+    private void BApply_Click(object? sender, EventArgs e)
+    {
+        // okno nastaveni prevezme pripadnu novu schemu ako ostatne okna
+        if (Commit())
+            this.ApplyThemeAndFonts();
+    }
+
+    /// <summary>
+    /// Ulozi nastavenia a oznami ich hlavnemu oknu (<see cref="Applied" />); okno ostava otvorene.
+    /// </summary>
+    /// <returns><see langword="false" />, ak pouzivatel ulozenie zrusil.</returns>
+    private bool Commit()
     {
         configBindingSource.EndEdit();
         Config.Startup = cboxReopenLast.Checked ? StartupType.LastProject : StartupType.EmptyWindow;
         fontsPage.SaveTo(Config.Fonts);
-        if (Config.Language != _original.Language || !Equals(Config.Fonts.Interface, _original.Fonts.Interface))
+        ShouldRestart = Config.Language != _original.Language || !Equals(Config.Fonts.Interface, _original.Fonts.Interface);
+        // svetla schema ma systemovy vzhlad prvkov - po tmavej (vlastne kreslenie) sa obnovi len restartom
+        var style = Styles.Current(SystemTheme.IsDark);
+        if (UsingStyle.IsDark && !style.IsDark)
             ShouldRestart = true;
-        var result = OnSaving();
-        DialogResult = result ? DialogResult.OK : DialogResult.None;
-        if (!result)
-            return;
+        var previous = UsingStyle;
+        UsingStyle = style;
+        if (!OnSaving())
+        {
+            UsingStyle = previous;
+            return false;
+        }
 
         SaveData();
         // tabulky a editory prevezmu pisma hned; pismo rozhrania az po restarte (meni rozlozenie okien)
         GlobSettings.Fonts = Config.Fonts with { Interface = GlobSettings.Fonts.Interface };
         FormUtils.RefreshFonts();
+        _original = Config with { };
+        Applied?.Invoke(this, EventArgs.Empty);
+        return true;
     }
+
+    #region Aktualizacie
+
+    private void RefreshLastCheck()
+    {
+        // vyvojova zostava aktualizacie nekontroluje (nema index vydania)
+        bCheckNow.Enabled = AppUpdates.Available;
+        lLastCheck.Text = !AppUpdates.Available ? Resources.Settings_UpdatesUnavailable
+            : AppRegistry.GetUpdateChecked() is { } last
+                ? string.Format(CultureInfo.CurrentCulture, Resources.Settings_LastUpdateCheck, last.ToLocalTime().ToString("g", CultureInfo.CurrentCulture))
+                : Resources.Settings_NeverUpdateChecked;
+    }
+
+    private async void BCheckNow_Click(object? sender, EventArgs e)
+    {
+        bCheckNow.Enabled = false;
+        try
+        {
+            await AppUpdates.CheckNowAsync(this);
+        }
+        finally
+        {
+            if (!IsDisposed)
+                RefreshLastCheck();
+        }
+    }
+
+    #endregion
+
+    #region Sprava nastaveni
+
+    private void TsmiExport_Click(object? sender, EventArgs e)
+    {
+        var program = AppPaths.AppName;
+        using var dialog = new SaveFileDialog
+        {
+            Filter = Resources.SettingsTransfer_Filter,
+            FileName = string.Format(CultureInfo.CurrentCulture, Resources.SettingsTransfer_FileName, program,
+                DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))
+        };
+        if (dialog.ShowDialog(this) != DialogResult.OK)
+            return;
+
+        try
+        {
+            SettingsTransfer.Export(dialog.FileName, AppPaths.ConfigDir, program);
+            Utils.ShowInfo(string.Format(CultureInfo.CurrentCulture, Resources.SettingsTransfer_Exported, dialog.FileName));
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            ErrorReport.Show(ex, this);
+        }
+    }
+
+    private void TsmiImport_Click(object? sender, EventArgs e)
+    {
+        using var dialog = new OpenFileDialog { Filter = Resources.SettingsTransfer_Filter };
+        if (dialog.ShowDialog(this) != DialogResult.OK)
+            return;
+
+        if (SettingsTransfer.Check(dialog.FileName, AppPaths.AppName) is { } error)
+        {
+            Utils.ShowError(error);
+            return;
+        }
+
+        var question = string.Format(CultureInfo.CurrentCulture, Resources.SettingsTransfer_ImportConfirm, Path.GetFileName(dialog.FileName));
+        if (Utils.ShowQuestion(question) != DialogResult.Yes)
+            return;
+
+        try
+        {
+            SettingsTransfer.ScheduleImport(dialog.FileName, AppPaths.ConfigDir);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            ErrorReport.Show(ex, this);
+            return;
+        }
+
+        OfferRestart();
+    }
+
+    private void TsmiResetAll_Click(object? sender, EventArgs e)
+    {
+        if (Utils.ShowQuestion(Resources.SettingsTransfer_ResetConfirm) != DialogResult.Yes)
+            return;
+
+        try
+        {
+            SettingsTransfer.ScheduleReset(AppPaths.ConfigDir);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            ErrorReport.Show(ex, this);
+            return;
+        }
+
+        OfferRestart();
+    }
+
+    /// <summary>
+    /// Po pripravenom importe alebo obnove sa okno zavrie bez ulozenia (zmeny v nom by aj tak nahradili nastavenia
+    /// zo suboru) a ponukne restart.
+    /// </summary>
+    private void OfferRestart()
+    {
+        configBindingSource.CancelEdit();
+        DialogResult = DialogResult.Cancel;
+        if (Utils.ShowQuestion(Resources.SettingsTransfer_RestartNow) == DialogResult.Yes)
+            Utils.RestartApp();
+    }
+
+    #endregion
 
     private void BStorno_Click(object sender, EventArgs e)
     {
@@ -184,350 +347,65 @@ public partial class FAppSettingsBase : Form
     {
     }
 
-    private void BColUp_Click(object sender, EventArgs e)
-    {
-        if (dgvColumns.CurrentRow == null) 
-            return;
-        
-        var sel = dgvColumns.SelectedRows[0].Index;
-        var col = Columns[sel];
+    #region Vzhlad a farebna schema
 
-        if (sel - 1 >= 0)
-        {
-            Columns.RemoveAt(sel);
-            Columns.Insert(sel - 1, col);
-            dgvColumns.ClearSelection();
-            dgvColumns.Rows[sel - 1].Selected = true;
-        }
-    }
-
-    private void BColDown_Click(object sender, EventArgs e)
-    {
-        if (dgvColumns.CurrentRow == null) 
-            return;
-        
-        var sel = dgvColumns.SelectedRows[0].Index;
-        var col = Columns[sel];
-
-        if (sel + 1 < Columns.Count)
-        {
-            Columns.RemoveAt(sel);
-            Columns.Insert(sel + 1, col);
-            dgvColumns.ClearSelection();
-            dgvColumns.Rows[sel + 1].Selected = true;
-        }
-    }
-
-    private void BResetColumns_Click(object sender, EventArgs e)
-    {
-        Columns.Clear();
-        foreach (var column in DefaultColumns) Columns.Add(column);
-        Columns.ResetBindings();
-    }
-
-    private void TscbStyles_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (tscbStyles.SelectedIndex == -1)
-            return;
-
-        var style = (Style)Styles[tscbStyles.SelectedIndex]!;
-        FillTreeViewStyles(style, tvStyles);
-        tvStyles.ExpandAll();
-        cboxDefaultVisual.Checked = style.ControlsDefaultStyle;
-        cboxDarkTitlebar.Checked = style.DarkTitleBar;
-        cboxDarkScrollbars.Checked = style.DarkScrollBar;
-
-        if (style.Name is StyleNames.Light or StyleNames.Dark)
-        {
-            tsbRenameStyle.Enabled = false;
-            tsbDeleteStyle.Enabled = false;
-        }
-        else
-        {
-            tsbRenameStyle.Enabled = true;
-            tsbDeleteStyle.Enabled = true;
-        }
-
-        tsbApplyStyle.Enabled = style != UsingStyle;
-        tvStyles.SelectedNode = tvStyles.Nodes.Count != 0 ? tvStyles.Nodes[0] : null;
-    }
-
-    private void CboxDefaultVisual_CheckedChanged(object sender, EventArgs e)
-    {
-        var style = (Style?)tscbStyles.SelectedItem;
-        if (style is not null)
-            style.ControlsDefaultStyle = cboxDefaultVisual.Checked;
-    }
-
-    private void CboxDarkTitlebar_CheckedChanged(object sender, EventArgs e)
-    {
-        var style = (Style?)tscbStyles.SelectedItem;
-        if (style is not null)
-            style.DarkTitleBar = cboxDarkTitlebar.Checked;
-    }
-
-    private void CboxDarkScrollbars_CheckedChanged(object sender, EventArgs e)
-    {
-        var style = (Style?)tscbStyles.SelectedItem;
-        if (style is not null)
-            style.DarkScrollBar = cboxDarkScrollbars.Checked;
-    }
-
-    protected virtual void FillTreeViewStyles(object selectedStyle, ExTreeView tv)
-    {
-        if (selectedStyle is not Style style)
-            return;
-
-        tv.Nodes.Clear();
-        var controls = CreateParentNode(style.ControlsColorScheme, nameof(style.ControlsColorScheme));
-        CreateNode(style.ControlsColorScheme.Label, nameof(style.ControlsColorScheme.Label), controls);
-        CreateNode(style.ControlsColorScheme.Panel, nameof(style.ControlsColorScheme.Panel), controls);
-        CreateNode(style.ControlsColorScheme.StatusBar, nameof(style.ControlsColorScheme.StatusBar), controls);
-        CreateNode(style.ControlsColorScheme.Border, nameof(style.ControlsColorScheme.Border), controls);
-        CreateNode(style.ControlsColorScheme.Box, nameof(style.ControlsColorScheme.Box), controls);
-        CreateNode(style.ControlsColorScheme.Button, nameof(style.ControlsColorScheme.Button), controls);
-        CreateNode(style.ControlsColorScheme.Mark, nameof(style.ControlsColorScheme.Mark), controls);
-        CreateNode(style.ControlsColorScheme.Highlight, nameof(style.ControlsColorScheme.Highlight), controls);
-        tv.Nodes.Add(controls);
-    }
-
-    public static TreeNode CreateParentNode(IColorScheme scheme, string name)
-    {
-        var node = new TreeNode();
-        node.Text = scheme.Name;
-        node.Name = name;
-        node.Tag = scheme;
-        return node;
-    }
-
-    public static void CreateNode(ColorSetting setting, string name, TreeNode parent)
-    {
-        var node = new TreeNode();
-        node.Text = setting.Name;
-        node.Name = name;
-        node.Tag = setting;
-        parent.Nodes.Add(node);
-    }
-
-    private void TvStyles_AfterSelect(object sender, TreeViewEventArgs e)
+    /// <summary>
+    /// Zoznamy schem na stranke Vzhlad (zvolena schema, schema pre svetly a tmavy rezim Windows).
+    /// </summary>
+    private void RefreshStyleChoice()
     {
         _changingStyleSelection = true;
-        var node = e.Node!;
-
-        if (node.Tag is IColorScheme)
-        {
-            //tag je katagoria poloziek
-            gbColorItemSettings.Enabled = false;
-            csForeColor.SelectedColor = Color.Transparent;
-            csForeColor.BorderColor = SystemColors.ButtonShadow;
-            csBackColor.SelectedColor = Color.Transparent;
-            csBackColor.BorderColor = SystemColors.ButtonShadow;
-
-            lFontStyleExample.Text = "";
-            lFontStyleExample.BackColor = Color.Transparent;
-            _changingStyleSelection = false;
-            return;
-        }
-
-        if (node.Tag is not ColorSetting setting)
-        {
-            _changingStyleSelection = false;
-            return;
-        }
-        
-        //tag je nastavenie polozky
-        gbColorItemSettings.Enabled = true;
-        cboxBold.Enabled = !setting.DisableFontBoldEdit;
-        csForeColor.Enabled = true;
-        csBackColor.Enabled = !setting.DisableBackColorEdit;
-        csForeColor.SelectedColor = setting.ForeColor;
-        csBackColor.SelectedColor = setting.BackColor;
-        csForeColor.BorderColor = Color.Black;
-        csBackColor.BorderColor = setting.DisableBackColorEdit ? SystemColors.ButtonShadow : Color.Black;
-        lStyleBackColor.Enabled = !setting.DisableBackColorEdit;
-        lStyleForeColor.Enabled = true;
-        bResetColorSetting.Enabled = true;
-
-        lFontStyleExample.Text = STYLES_EXAMPLE_TEXT;
-
+        Bind(cbStyle, Styles.Active);
+        Bind(cbLightScheme, Styles.LightScheme);
+        Bind(cbDarkScheme, Styles.DarkScheme);
+        cboxFollowSystem.Checked = Styles.FollowSystem;
         _changingStyleSelection = false;
+        RefreshFollowSystem();
     }
 
-    private void CsForeColor_SelectedColorChanged(object sender, EventArgs e)
+    private void Bind(ComboBox combo, string selected)
     {
-        RefreshColorSetting();
+        var list = Styles.Cast<Style>().ToList();
+        combo.DataSource = null;
+        combo.DataSource = list;
+        combo.SelectedItem = list.FirstOrDefault(s => s.Name == selected) ?? list[0];
     }
 
-    private void CsBackColor_SelectedColorChanged(object sender, EventArgs e)
+    private void RefreshFollowSystem()
     {
-        RefreshColorSetting();
-    }
-
-    private void CboxBold_CheckedChanged(object sender, EventArgs e)
-    {
-        RefreshColorSetting();
-    }
-
-    private void RefreshColorSetting()
-    {
-        var selectedNode = tvStyles.SelectedNode;
-
-        //pri inicializacii formulara
-        if (selectedNode is null)
-            return;
-
-        //je vybrata kategoria
-        if (selectedNode.Tag is IColorScheme)
-            return;
-
-        //je vybrata polozka kategorie
-        lFontStyleExample.ForeColor = csForeColor.SelectedColor;
-        lFontStyleExample.BackColor = csBackColor.SelectedColor;
-        var oldFont = lFontStyleExample.Font;
-        lFontStyleExample.Font = new Font(Font, cboxBold.Checked ? FontStyle.Bold : FontStyle.Regular);
-        if (oldFont != Font)
-            oldFont.Dispose();
-
-        if (_changingStyleSelection)
-            return;
-
-        var selectedStyleConfig = (ColorSetting) selectedNode.Tag!;
-
-        selectedStyleConfig.ForeColor = lFontStyleExample.ForeColor = csForeColor.SelectedColor;
-        if (!selectedStyleConfig.DisableBackColorEdit) 
-            selectedStyleConfig.BackColor = csBackColor.SelectedColor;
-        
-        if (!selectedStyleConfig.DisableFontBoldEdit) 
-            selectedStyleConfig.Bold = cboxBold.Checked;
-    }
-
-    private void TsbApplyStyle_Click(object sender, EventArgs e)
-    {
-        if (tscbStyles.SelectedItem is Style style)
-            ApplyStyle(style);
+        // popisy ostavaju povolene - zakazany Label kresli WinForms systemovou sedou, v tmavej teme necitatelne
+        var follow = cboxFollowSystem.Checked;
+        cbStyle.Enabled = !follow;
+        cbLightScheme.Enabled = cbDarkScheme.Enabled = follow;
     }
 
     private void CbStyle_SelectionChangeCommitted(object? sender, EventArgs e)
     {
-        if (cbStyle.SelectedItem is Style style)
-            ApplyStyle(style);
-    }
-
-    /// <summary>
-    /// Nastavi pouzivany styl (prejavi sa po ulozeni nastaveni).
-    /// </summary>
-    private void ApplyStyle(Style style)
-    {
-        var previousStyle = UsingStyle;
-        UsingStyle = style;
-
-        foreach (Style s in Styles) 
-            s.Used = false;
-
-        UsingStyle.Used = true;
-        if (!previousStyle.ControlsDefaultStyle && UsingStyle.ControlsDefaultStyle)
-        {
-            Utils.ShowInfo(Resources.Settings_RestartLater);
-            ShouldRestart = true;
-        }
-        tsbApplyStyle.Enabled = !ReferenceEquals(tscbStyles.SelectedItem, UsingStyle);
-        RefreshStyleChoice();
-    }
-
-    /// <summary>
-    /// Zoznam stylov na stranke Vzhlad s vybranym pouzivanym stylom.
-    /// </summary>
-    private void RefreshStyleChoice()
-    {
-        cbStyle.DataSource = null;
-        cbStyle.DataSource = Styles.Cast<Style>().ToList();
-        cbStyle.SelectedItem = UsingStyle;
-    }
-
-    private void TsbAddStyle_Click(object sender, EventArgs e)
-    {
-        var form = new FInputBox(Styles, (o, v) => v == ((Style) o).Name);
-        if (form.ShowDialog(this) == DialogResult.OK)
-        {
-            var newStyle = CreateStyleInstance(form.NewValue);
-            Styles.Add(newStyle);
-            tscbStyles.ComboBox.DataSource = null;
-            tscbStyles.ComboBox.DataSource = Styles;
-            tscbStyles.SelectedItem = newStyle;
-            RefreshStyleChoice();
-        }
-    }
-
-    private void TsbResetStyle_Click(object sender, EventArgs e)
-    {
-        if (tscbStyles.SelectedIndex == -1)
+        if (cbStyle.SelectedItem is not Style style)
             return;
 
-        var style = (Style)tscbStyles.SelectedItem!;
-        var newStyle = OnResetStyle(style.Name == StyleNames.Dark);
-        newStyle.Name = style.Name;
-        newStyle.Used = style.Used;
-        var actualIndex = tscbStyles.SelectedIndex;
-        Styles[actualIndex] = newStyle;
-        tscbStyles.ComboBox.DataSource = Styles;
-        tscbStyles.SelectedIndex = -1;
-        tscbStyles.SelectedIndex = actualIndex;
-        FillTreeViewStyles(newStyle, tvStyles);
-        tvStyles.ExpandAll();
-        tvStyles.SelectedNode = tvStyles.Nodes.Count != 0 ? tvStyles.Nodes[0] : null;
+        Styles.Active = style.Name;
+        colorSchemePage.SelectScheme(style);
     }
 
-    protected virtual Style OnResetStyle(bool darkMode)
+    private void CboxFollowSystem_CheckedChanged(object? sender, EventArgs e)
     {
-        throw new InvalidOperationException();
-    }
-
-    private void BResetColorSetting_Click(object sender, EventArgs e)
-    {
-        if (tscbStyles.SelectedIndex == -1)
+        if (_changingStyleSelection)
             return;
 
-        var selectedNode = tvStyles.SelectedNode;
-        if (selectedNode?.Tag is not ColorSetting cs)
-            return;
-
-        var parent = selectedNode.Parent;
-        var style = (Style)tscbStyles.SelectedItem!;
-        var newStyle = OnResetStyle(style.Name == StyleNames.Dark);
-        var categoryFromDef = StyleType.GetProperty(parent!.Name, BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance)?.GetValue(newStyle);
-
-        if (categoryFromDef?.GetType().GetProperty(selectedNode.Name)?.GetValue(categoryFromDef) is not ColorSetting settingDef)
-            return;
-
-        cs.BackColor = settingDef.BackColor;
-        cs.ForeColor = settingDef.ForeColor;
-        cs.Bold = settingDef.Bold;
-
-        //reset controls
-        tvStyles.SelectedNode = null;
-        tvStyles.SelectedNode = selectedNode;
+        Styles.FollowSystem = cboxFollowSystem.Checked;
+        RefreshFollowSystem();
     }
 
-    protected virtual Style? CreateStyleInstance(string name) => null;
-
-    private void TsbRenameStyle_Click(object sender, EventArgs e)
+    private void CbSystemScheme_SelectionChangeCommitted(object? sender, EventArgs e)
     {
-        var form = new FInputBox(Styles, (o, v) => v == ((Style) o).Name, tscbStyles.SelectedItem?.ToString() ?? "");
-        if (form.ShowDialog(this) == DialogResult.OK)
-        {
-            ((Style)tscbStyles.SelectedItem!).Name = form.NewValue;
-            tscbStyles.ComboBox.ResetBindings();
-            RefreshStyleChoice();
-        }
+        if (cbLightScheme.SelectedItem is Style light)
+            Styles.LightScheme = light.Name;
+        if (cbDarkScheme.SelectedItem is Style dark)
+            Styles.DarkScheme = dark.Name;
     }
 
-    private void TsbDeleteStyle_Click(object sender, EventArgs e)
-    {
-        if (UsingStyle == (Style) tscbStyles.SelectedItem!)
-            UsingStyle = (Styles[0] as Style)!;
+    private void ColorSchemePage_SchemesChanged(object? sender, EventArgs e) => RefreshStyleChoice();
 
-        Styles.Remove(tscbStyles.SelectedItem);
-        tscbStyles.ComboBox.ResetBindings();
-        RefreshStyleChoice();
-    }
+    #endregion
 }

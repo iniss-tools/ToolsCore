@@ -122,9 +122,6 @@
 
 Reštartovať program teraz?</value>
   </data>
-  <data name="Settings_RestartLater" xml:space="preserve">
-    <value>Zmeny sa prejavia úplne až po reštartovaní programu.</value>
-  </data>
   <data name="InputBox_Empty" xml:space="preserve">
     <value>Hodnota nemôže byť prázdna.</value>
   </data>
@@ -203,5 +200,59 @@ Nainštalovaná verzia: {1}</value>
   </data>
   <data name="Fonts_Preview" xml:space="preserve">
     <value>Kŕdeľ šťastných ďatľov učí pri ústí Váhu mĺkveho koňa. 0123456789</value>
+  </data>
+  <data name="Scheme_Light" xml:space="preserve">
+    <value>Svetlá</value>
+  </data>
+  <data name="Scheme_Dark" xml:space="preserve">
+    <value>Tmavá</value>
+  </data>
+  <data name="Scheme_InheritHint" xml:space="preserve">
+    <value>Nezačiarknutá farba sa preberá zo základnej schémy ({0}).</value>
+  </data>
+  <data name="Scheme_LowContrast" xml:space="preserve">
+    <value>Nízky kontrast {0}:1, odporúčané minimum je {1}:1.</value>
+  </data>
+  <data name="Scheme_DeleteConfirm" xml:space="preserve">
+    <value>Odstrániť farebnú schému {0}?</value>
+  </data>
+  <data name="Scheme_ResetConfirm" xml:space="preserve">
+    <value>Obnoviť všetky farby schémy {0} na predvolené?</value>
+  </data>
+  <data name="SettingsTransfer_Filter" xml:space="preserve">
+    <value>Nastavenia programu (*.zip)|*.zip</value>
+  </data>
+  <data name="SettingsTransfer_FileName" xml:space="preserve">
+    <value>{0}-nastavenia-{1}.zip</value>
+  </data>
+  <data name="SettingsTransfer_Exported" xml:space="preserve">
+    <value>Uložené nastavenia programu sú v súbore {0}.</value>
+  </data>
+  <data name="SettingsTransfer_NotSettings" xml:space="preserve">
+    <value>Súbor {0} neobsahuje nastavenia programu.</value>
+  </data>
+  <data name="SettingsTransfer_OtherProgram" xml:space="preserve">
+    <value>Súbor obsahuje nastavenia iného programu ({0}).</value>
+  </data>
+  <data name="SettingsTransfer_ImportConfirm" xml:space="preserve">
+    <value>Nahradiť nastavenia programu nastaveniami zo súboru {0}? Súčasné nastavenia sa zálohujú, nové platia po reštarte programu.</value>
+  </data>
+  <data name="SettingsTransfer_ResetConfirm" xml:space="preserve">
+    <value>Obnoviť všetky nastavenia programu na predvolené? Súčasné nastavenia sa zálohujú, predvolené platia po reštarte programu.</value>
+  </data>
+  <data name="SettingsTransfer_RestartNow" xml:space="preserve">
+    <value>Reštartovať program teraz? Inak sa zmena prejaví pri ďalšom spustení.</value>
+  </data>
+  <data name="Grid_ResetColumns" xml:space="preserve">
+    <value>Obnoviť predvolené stĺpce</value>
+  </data>
+  <data name="Settings_LastUpdateCheck" xml:space="preserve">
+    <value>Naposledy skontrolované: {0}</value>
+  </data>
+  <data name="Settings_NeverUpdateChecked" xml:space="preserve">
+    <value>Aktualizácie ešte neboli skontrolované.</value>
+  </data>
+  <data name="Settings_UpdatesUnavailable" xml:space="preserve">
+    <value>Táto zostava programu aktualizácie nekontroluje.</value>
   </data>
 </root>

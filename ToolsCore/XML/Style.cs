@@ -1,96 +1,162 @@
-﻿using System.Xml.Serialization;
+﻿using System.Xml.Linq;
+using ToolsCore.Properties;
 
 namespace ToolsCore.XML;
 
 /// <summary>
-/// Trieda definujuca farby a pisma pre viacere prvky programu
+/// Farebna schema programu: zaklad (svetla alebo tmava schema) a zmeny pouzivatela voci nemu. Farby, ktore cita
+/// program (<see cref="ControlsColorScheme" /> a schemy programu), nastavi <see cref="Apply()" />.
 /// </summary>
-public record Style
+public class Style
 {
     /// <summary>
-    /// Nazov stylu
+    /// Nazov schemy (pri zabudovanych <see cref="StyleNames" />).
     /// </summary>
-    [XmlAttribute("name")] 
-    public string Name { get; set; } = null!;
+    public string Name { get; set; } = StyleNames.Light;
 
     /// <summary>
-    /// Ci je tento styl nastaveny ako aktivny (pouzivany).
+    /// Zaklad schemy - predvolene farby a tmave zahlavie, posuvniky a vlastne kreslenie prvkov.
     /// </summary>
-    [XmlAttribute("used")]
-    public bool Used { get; set; }
+    public SchemeBase Base { get; set; }
 
     /// <summary>
-    /// Ci ovladacie prvky v GUI pouzivaju predvoleny vzhlad.
+    /// Zmeny voci zakladu podla <see cref="ColorKey.Id" /> (aj polozky, ktore program nepozna - zachovaju sa).
     /// </summary>
-    [XmlElement("DefaultStyle"), DefaultValue(true)]
-    public bool ControlsDefaultStyle { get; set; } = true;
+    public Dictionary<string, ColorOverride> Overrides { get; } = new(StringComparer.Ordinal);
 
     /// <summary>
-    /// Ci okna v GUI maju mat tmavy TitleBar (funguje len vo Windows 10).
+    /// Farby ovladacich prvkov.
     /// </summary>
-    [XmlElement("DarkTitlebar"), DefaultValue(false)] 
-    public bool DarkTitleBar { get; set; }
+    public ControlsColorScheme ControlsColorScheme { get; } = new();
 
     /// <summary>
-    /// Ci ovladacie prvky v GUI maju mat tmavy ScrollBar (funguje len vo Windows 10).
+    /// Tmava schema.
     /// </summary>
-    [XmlElement("DarkScrollBar"), DefaultValue(false)]
-    public bool DarkScrollBar { get; set; }
+    public bool IsDark => Base == SchemeBase.Dark;
 
     /// <summary>
-    /// Farebna schema pre ovladacie prvky v GUI
+    /// Okna maju tmave zahlavie.
     /// </summary>
-    [XmlElement("ControlsColorScheme")] 
-    public ControlsColorScheme ControlsColorScheme { get; set; } = new();
+    public bool DarkTitleBar => IsDark;
 
     /// <summary>
-    /// Vyvori novu instanciu triedy <see cref="Style"/>.
+    /// Prvky maju tmave posuvniky.
     /// </summary>
-    public Style()
+    public bool DarkScrollBar => IsDark;
+
+    /// <summary>
+    /// Ovladacie prvky maju systemovy vzhlad (svetla schema), inak ich kresli program farbami schemy.
+    /// </summary>
+    public bool ControlsDefaultStyle => !IsDark;
+
+    /// <summary>
+    /// Zabudovana schema (svetla alebo tmava) - neda sa premenovat ani odstranit.
+    /// </summary>
+    public bool IsBuiltIn => Name is StyleNames.Light or StyleNames.Dark;
+
+    /// <summary>
+    /// Polozky schemy programu.
+    /// </summary>
+    public virtual IReadOnlyList<ColorKey> ColorKeys => UiColors.Keys;
+
+    /// <summary>
+    /// Hodnota polozky zo zakladu schemy.
+    /// </summary>
+    public ColorValue DefaultOf(ColorKey key) => key.DefaultFor(Base);
+
+    /// <summary>
+    /// Hodnota polozky so zmenami pouzivatela.
+    /// </summary>
+    public ColorValue ValueOf(ColorKey key)
     {
-        ControlsDefaultStyle = true;
-        DarkScrollBar = false;
-        DarkTitleBar = false;
+        var value = DefaultOf(key);
+        if (!Overrides.TryGetValue(key.Id, out var o))
+            return value;
+
+        return new ColorValue(o.Fore ?? value.Fore, o.Back ?? value.Back, o.Bold ?? value.Bold);
     }
 
-    /// <summary>Returns a string that represents the current object.</summary>
-    /// <returns>A string that represents the current object.</returns>
-    public override string ToString() => Name;
+    /// <summary>
+    /// Zmena polozky (<see langword="null" /> = bez zmeny).
+    /// </summary>
+    public ColorOverride? OverrideOf(ColorKey key) => Overrides.GetValueOrDefault(key.Id);
 
     /// <summary>
-    /// Nastavi nastavenia farieb pre ovladacie prvky na predvolene hodnoty pre tmavy rezim
+    /// Nastavi zmenu polozky a prepocita jej farby; prazdna zmena = hodnota zo zakladu.
     /// </summary>
-    public static ControlsColorScheme SetDefaultDarkControlsScheme()
+    public void SetOverride(ColorKey key, ColorOverride? value)
     {
-        var scheme = new ControlsColorScheme
-        {
-            Panel =     new ColorSetting { BackColor = Color.FromArgb(30, 30, 30), ForeColor = Color.White, DisableFontBoldEdit = true },
-            Button =    new ColorSetting { BackColor = Color.FromArgb(51, 51, 55), ForeColor = Color.White, DisableFontBoldEdit = true },
-            Label =     new ColorSetting { BackColor = Color.FromArgb(51, 51, 55), ForeColor = Color.White, DisableFontBoldEdit = true },
-            Box =       new ColorSetting { BackColor = Color.FromArgb(37, 37, 38), ForeColor = Color.White, DisableFontBoldEdit = true },
-            Border =    new ColorSetting { ForeColor = Color.FromArgb(62, 62, 66), DisableFontBoldEdit = true, DisableBackColorEdit = true },
-            Mark =      new ColorSetting { ForeColor = Color.FromArgb(165, 165, 165), DisableFontBoldEdit = true, DisableBackColorEdit = true },
-            Highlight = new ColorSetting { BackColor = Color.FromArgb(0, 120, 215), ForeColor = Color.White, DisableFontBoldEdit = true }
-        };
-
-        return scheme;
+        if (value is null || value.IsEmpty)
+            Overrides.Remove(key.Id);
+        else
+            Overrides[key.Id] = value;
+        Apply(key);
     }
 
-    [XmlIgnore]
-    public static Style DefaultLightStyle => new() { Name = StyleNames.Light };
-
-    [XmlIgnore]
-    public static Style DefaultDarkStyle
+    /// <summary>
+    /// Zmeni zaklad schemy a prepocita farby.
+    /// </summary>
+    public void SetBase(SchemeBase value)
     {
-        get
-        {
-            var style = DefaultLightStyle;
-            style.Name = StyleNames.Dark;
-            style.ControlsColorScheme = SetDefaultDarkControlsScheme();
-            style.ControlsDefaultStyle = false;
-            style.DarkScrollBar = true;
-            style.DarkTitleBar = true;
-            return style;
-        }
+        Base = value;
+        Apply();
     }
+
+    /// <summary>
+    /// Nastavi farby, ktore cita program, podla zakladu a zmien.
+    /// </summary>
+    public void Apply()
+    {
+        foreach (var key in ColorKeys)
+            Apply(key);
+    }
+
+    private void Apply(ColorKey key)
+    {
+        var setting = key.Setting(this);
+        var value = ValueOf(key);
+        setting.ForeColor = value.Fore;
+        setting.BackColor = value.Back;
+        setting.Bold = value.Bold;
+    }
+
+    /// <summary>
+    /// Kopia schemy s novym nazvom (zaklad aj zmeny).
+    /// </summary>
+    public Style Copy(string name)
+    {
+        var copy = CreateEmpty();
+        copy.Name = name;
+        copy.Base = Base;
+        foreach (var (id, value) in Overrides)
+            copy.Overrides[id] = value;
+        copy.Apply();
+        return copy;
+    }
+
+    /// <summary>
+    /// Nova prazdna schema typu programu.
+    /// </summary>
+    protected virtual Style CreateEmpty() => new();
+
+    /// <summary>
+    /// Precita udaje stareho suboru stylov, ktore nie su farbami (napr. pismo editora).
+    /// </summary>
+    /// <param name="element">prvok stylu zo stareho suboru</param>
+    protected internal virtual void ReadLegacy(XElement element)
+    {
+    }
+
+    /// <summary>
+    /// Nazov schemy v jazyku programu (zabudovane schemy maju preklad).
+    /// </summary>
+    public string DisplayName => Name switch
+    {
+        StyleNames.Light => Resources.Scheme_Light,
+        StyleNames.Dark => Resources.Scheme_Dark,
+        _ => Name
+    };
+
+    /// <inheritdoc />
+    public override string ToString() => DisplayName;
 }

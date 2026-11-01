@@ -70,15 +70,6 @@ namespace ToolsCore.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zmeny sa prejavia úplne až po reštartovaní programu..
-        /// </summary>
-        internal static string Settings_RestartLater {
-            get {
-                return ResourceManager.GetString("Settings_RestartLater", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hodnota nemôže byť prázdna..
         /// </summary>
         internal static string InputBox_Empty {
@@ -291,6 +282,168 @@ namespace ToolsCore.Properties {
         internal static string Fonts_Preview {
             get {
                 return ResourceManager.GetString("Fonts_Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Svetlá.
+        /// </summary>
+        internal static string Scheme_Light {
+            get {
+                return ResourceManager.GetString("Scheme_Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tmavá.
+        /// </summary>
+        internal static string Scheme_Dark {
+            get {
+                return ResourceManager.GetString("Scheme_Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nezačiarknutá farba sa preberá zo základnej schémy ({0})..
+        /// </summary>
+        internal static string Scheme_InheritHint {
+            get {
+                return ResourceManager.GetString("Scheme_InheritHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nízky kontrast {0}:1, odporúčané minimum je {1}:1..
+        /// </summary>
+        internal static string Scheme_LowContrast {
+            get {
+                return ResourceManager.GetString("Scheme_LowContrast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odstrániť farebnú schému {0}?.
+        /// </summary>
+        internal static string Scheme_DeleteConfirm {
+            get {
+                return ResourceManager.GetString("Scheme_DeleteConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Obnoviť všetky farby schémy {0} na predvolené?.
+        /// </summary>
+        internal static string Scheme_ResetConfirm {
+            get {
+                return ResourceManager.GetString("Scheme_ResetConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nastavenia programu (*.zip)|*.zip.
+        /// </summary>
+        internal static string SettingsTransfer_Filter {
+            get {
+                return ResourceManager.GetString("SettingsTransfer_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}-nastavenia-{1}.zip.
+        /// </summary>
+        internal static string SettingsTransfer_FileName {
+            get {
+                return ResourceManager.GetString("SettingsTransfer_FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uložené nastavenia programu sú v súbore {0}..
+        /// </summary>
+        internal static string SettingsTransfer_Exported {
+            get {
+                return ResourceManager.GetString("SettingsTransfer_Exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Súbor {0} neobsahuje nastavenia programu..
+        /// </summary>
+        internal static string SettingsTransfer_NotSettings {
+            get {
+                return ResourceManager.GetString("SettingsTransfer_NotSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Súbor obsahuje nastavenia iného programu ({0})..
+        /// </summary>
+        internal static string SettingsTransfer_OtherProgram {
+            get {
+                return ResourceManager.GetString("SettingsTransfer_OtherProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nahradiť nastavenia programu nastaveniami zo súboru {0}? Súčasné nastavenia sa zálohujú, nové platia po reštarte programu..
+        /// </summary>
+        internal static string SettingsTransfer_ImportConfirm {
+            get {
+                return ResourceManager.GetString("SettingsTransfer_ImportConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Obnoviť všetky nastavenia programu na predvolené? Súčasné nastavenia sa zálohujú, predvolené platia po reštarte programu..
+        /// </summary>
+        internal static string SettingsTransfer_ResetConfirm {
+            get {
+                return ResourceManager.GetString("SettingsTransfer_ResetConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reštartovať program teraz? Inak sa zmena prejaví pri ďalšom spustení..
+        /// </summary>
+        internal static string SettingsTransfer_RestartNow {
+            get {
+                return ResourceManager.GetString("SettingsTransfer_RestartNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Obnoviť predvolené stĺpce.
+        /// </summary>
+        internal static string Grid_ResetColumns {
+            get {
+                return ResourceManager.GetString("Grid_ResetColumns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naposledy skontrolované: {0}.
+        /// </summary>
+        internal static string Settings_LastUpdateCheck {
+            get {
+                return ResourceManager.GetString("Settings_LastUpdateCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktualizácie ešte neboli skontrolované..
+        /// </summary>
+        internal static string Settings_NeverUpdateChecked {
+            get {
+                return ResourceManager.GetString("Settings_NeverUpdateChecked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Táto zostava programu aktualizácie nekontroluje..
+        /// </summary>
+        internal static string Settings_UpdatesUnavailable {
+            get {
+                return ResourceManager.GetString("Settings_UpdatesUnavailable", resourceCulture);
             }
         }
     }

@@ -1,0 +1,573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>630, 465</value>
+  </data>
+  <data name="toolStrip.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="toolStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="toolStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>630, 27</value>
+  </data>
+  <data name="toolStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;toolStrip.Name" xml:space="preserve">
+    <value>toolStrip</value>
+  </data>
+  <data name="&gt;&gt;toolStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStrip.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tslScheme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 24</value>
+  </data>
+  <data name="tslScheme.Text" xml:space="preserve">
+    <value>Schéma:</value>
+  </data>
+  <data name="&gt;&gt;tslScheme.Name" xml:space="preserve">
+    <value>tslScheme</value>
+  </data>
+  <data name="&gt;&gt;tslScheme.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tscbScheme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 27</value>
+  </data>
+  <data name="&gt;&gt;tscbScheme.Name" xml:space="preserve">
+    <value>tscbScheme</value>
+  </data>
+  <data name="&gt;&gt;tscbScheme.Type" xml:space="preserve">
+    <value>ExControls.ExToolStripComboBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="tsddbScheme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>33, 24</value>
+  </data>
+  <data name="tsddbScheme.Text" xml:space="preserve">
+    <value>Spravovať schému</value>
+  </data>
+  <data name="&gt;&gt;tsddbScheme.Name" xml:space="preserve">
+    <value>tsddbScheme</value>
+  </data>
+  <data name="&gt;&gt;tsddbScheme.Type" xml:space="preserve">
+    <value>ToolsCore.Icons.IconToolStripDropDownButton, ToolsCore, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="tsmiDuplicate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 22</value>
+  </data>
+  <data name="tsmiDuplicate.Text" xml:space="preserve">
+    <value>Duplikovať...</value>
+  </data>
+  <data name="&gt;&gt;tsmiDuplicate.Name" xml:space="preserve">
+    <value>tsmiDuplicate</value>
+  </data>
+  <data name="&gt;&gt;tsmiDuplicate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tsmiRename.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 22</value>
+  </data>
+  <data name="tsmiRename.Text" xml:space="preserve">
+    <value>Premenovať...</value>
+  </data>
+  <data name="&gt;&gt;tsmiRename.Name" xml:space="preserve">
+    <value>tsmiRename</value>
+  </data>
+  <data name="&gt;&gt;tsmiRename.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tsmiDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 22</value>
+  </data>
+  <data name="tsmiDelete.Text" xml:space="preserve">
+    <value>Odstrániť</value>
+  </data>
+  <data name="&gt;&gt;tsmiDelete.Name" xml:space="preserve">
+    <value>tsmiDelete</value>
+  </data>
+  <data name="&gt;&gt;tsmiDelete.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tssScheme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 6</value>
+  </data>
+  <data name="&gt;&gt;tssScheme.Name" xml:space="preserve">
+    <value>tssScheme</value>
+  </data>
+  <data name="&gt;&gt;tssScheme.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tsmiResetScheme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 22</value>
+  </data>
+  <data name="tsmiResetScheme.Text" xml:space="preserve">
+    <value>Obnoviť predvolené farby</value>
+  </data>
+  <data name="&gt;&gt;tsmiResetScheme.Name" xml:space="preserve">
+    <value>tsmiResetScheme</value>
+  </data>
+  <data name="&gt;&gt;tsmiResetScheme.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tvKeys.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tvKeys.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 27</value>
+  </data>
+  <data name="tvKeys.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 298</value>
+  </data>
+  <data name="tvKeys.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tvKeys.Name" xml:space="preserve">
+    <value>tvKeys</value>
+  </data>
+  <data name="&gt;&gt;tvKeys.Type" xml:space="preserve">
+    <value>ExControls.ExTreeView, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;tvKeys.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tvKeys.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pPreview.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="pPreview.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 325</value>
+  </data>
+  <data name="pPreview.Size" type="System.Drawing.Size, System.Drawing">
+    <value>630, 140</value>
+  </data>
+  <data name="pPreview.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="pPreview.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 8, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;pPreview.Name" xml:space="preserve">
+    <value>pPreview</value>
+  </data>
+  <data name="&gt;&gt;pPreview.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pPreview.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pPreview.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="pDetail.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="pDetail.Location" type="System.Drawing.Point, System.Drawing">
+    <value>270, 27</value>
+  </data>
+  <data name="pDetail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 298</value>
+  </data>
+  <data name="pDetail.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;pDetail.Name" xml:space="preserve">
+    <value>pDetail</value>
+  </data>
+  <data name="&gt;&gt;pDetail.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pDetail.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pDetail.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 8</value>
+  </data>
+  <data name="lKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 15</value>
+  </data>
+  <data name="lKey.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lKey.Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="&gt;&gt;lKey.Name" xml:space="preserve">
+    <value>lKey</value>
+  </data>
+  <data name="&gt;&gt;lKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lKey.Parent" xml:space="preserve">
+    <value>pDetail</value>
+  </data>
+  <data name="&gt;&gt;lKey.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cboxBold.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxBold.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 36</value>
+  </data>
+  <data name="cboxBold.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 19</value>
+  </data>
+  <data name="cboxBold.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cboxBold.Text" xml:space="preserve">
+    <value>Tučné</value>
+  </data>
+  <data name="&gt;&gt;cboxBold.Name" xml:space="preserve">
+    <value>cboxBold</value>
+  </data>
+  <data name="&gt;&gt;cboxBold.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxBold.Parent" xml:space="preserve">
+    <value>pDetail</value>
+  </data>
+  <data name="&gt;&gt;cboxBold.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cboxFore.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxFore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 66</value>
+  </data>
+  <data name="cboxFore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 19</value>
+  </data>
+  <data name="cboxFore.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="cboxFore.Text" xml:space="preserve">
+    <value>Popredie:</value>
+  </data>
+  <data name="&gt;&gt;cboxFore.Name" xml:space="preserve">
+    <value>cboxFore</value>
+  </data>
+  <data name="&gt;&gt;cboxFore.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxFore.Parent" xml:space="preserve">
+    <value>pDetail</value>
+  </data>
+  <data name="&gt;&gt;cboxFore.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="csFore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>130, 63</value>
+  </data>
+  <data name="csFore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 24</value>
+  </data>
+  <data name="csFore.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;csFore.Name" xml:space="preserve">
+    <value>csFore</value>
+  </data>
+  <data name="&gt;&gt;csFore.Type" xml:space="preserve">
+    <value>ExControls.ExColorSelector, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;csFore.Parent" xml:space="preserve">
+    <value>pDetail</value>
+  </data>
+  <data name="&gt;&gt;csFore.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cboxBack.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxBack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 98</value>
+  </data>
+  <data name="cboxBack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 19</value>
+  </data>
+  <data name="cboxBack.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="cboxBack.Text" xml:space="preserve">
+    <value>Pozadie:</value>
+  </data>
+  <data name="&gt;&gt;cboxBack.Name" xml:space="preserve">
+    <value>cboxBack</value>
+  </data>
+  <data name="&gt;&gt;cboxBack.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxBack.Parent" xml:space="preserve">
+    <value>pDetail</value>
+  </data>
+  <data name="&gt;&gt;cboxBack.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="csBack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>130, 95</value>
+  </data>
+  <data name="csBack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 24</value>
+  </data>
+  <data name="csBack.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;csBack.Name" xml:space="preserve">
+    <value>csBack</value>
+  </data>
+  <data name="&gt;&gt;csBack.Type" xml:space="preserve">
+    <value>ExControls.ExColorSelector, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;csBack.Parent" xml:space="preserve">
+    <value>pDetail</value>
+  </data>
+  <data name="&gt;&gt;csBack.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="picContrast.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 130</value>
+  </data>
+  <data name="picContrast.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 20</value>
+  </data>
+  <data name="picContrast.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="picContrast.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;picContrast.Name" xml:space="preserve">
+    <value>picContrast</value>
+  </data>
+  <data name="&gt;&gt;picContrast.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;picContrast.Parent" xml:space="preserve">
+    <value>pDetail</value>
+  </data>
+  <data name="&gt;&gt;picContrast.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="lContrast.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lContrast.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 133</value>
+  </data>
+  <data name="lContrast.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 15</value>
+  </data>
+  <data name="lContrast.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="lContrast.Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="lContrast.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;lContrast.Name" xml:space="preserve">
+    <value>lContrast</value>
+  </data>
+  <data name="&gt;&gt;lContrast.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lContrast.Parent" xml:space="preserve">
+    <value>pDetail</value>
+  </data>
+  <data name="&gt;&gt;lContrast.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="llReset.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="llReset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 162</value>
+  </data>
+  <data name="llReset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 15</value>
+  </data>
+  <data name="llReset.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="llReset.Text" xml:space="preserve">
+    <value>Obnoviť predvolené</value>
+  </data>
+  <data name="&gt;&gt;llReset.Name" xml:space="preserve">
+    <value>llReset</value>
+  </data>
+  <data name="&gt;&gt;llReset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;llReset.Parent" xml:space="preserve">
+    <value>pDetail</value>
+  </data>
+  <data name="&gt;&gt;llReset.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="lInherit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lInherit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 192</value>
+  </data>
+  <data name="lInherit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 40</value>
+  </data>
+  <data name="lInherit.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="lInherit.Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="&gt;&gt;lInherit.Name" xml:space="preserve">
+    <value>lInherit</value>
+  </data>
+  <data name="&gt;&gt;lInherit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lInherit.Parent" xml:space="preserve">
+    <value>pDetail</value>
+  </data>
+  <data name="&gt;&gt;lInherit.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+</root>

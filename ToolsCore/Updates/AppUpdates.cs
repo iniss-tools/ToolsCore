@@ -78,7 +78,13 @@ public static class AppUpdates
     }
 
     /// <summary>Prikaz Skontrolovat aktualizacie: zisti novu verziu hned a ukaze vysledok aj ked nova verzia nie je.</summary>
-    public static async void CheckNow(Form main)
+    public static async void CheckNow(Form main) => await CheckNowAsync(main);
+
+    /// <summary>
+    /// Zisti novu verziu hned a ukaze vysledok aj ked nova verzia nie je (tlacidlo Skontrolovat teraz v nastaveniach).
+    /// </summary>
+    /// <param name="main">okno, nad ktorym sa ukaze vysledok</param>
+    public static async Task CheckNowAsync(Form main)
     {
         ArgumentNullException.ThrowIfNull(main);
         if (Source is null)

@@ -37,13 +37,19 @@ namespace ToolsCore.Forms
             ComponentResourceManager resources = new ComponentResourceManager(typeof(FAppSettingsBase));
             OptionsNode optionsNode1 = new OptionsNode();
             OptionsNode optionsNode3 = new OptionsNode();
-            OptionsNode optionsNode5 = new OptionsNode();
             OptionsNode optionsNode7 = new OptionsNode();
             OptionsNode optionsNode8 = new OptionsNode();
             OptionsNode optionsNode9 = new OptionsNode();
             panelBottom = new Panel();
             bSave = new ExButton();
             bStorno = new ExButton();
+            bApply = new ExButton();
+            bManage = new ExDropDownButton();
+            cmsManage = new ContextMenuStrip(components);
+            tsmiExport = new ToolStripMenuItem();
+            tsmiImport = new ToolStripMenuItem();
+            tssManage = new ToolStripSeparator();
+            tsmiResetAll = new ToolStripMenuItem();
             optionsView = new ExOptionsView();
             pGeneral = new ExOptionsPanel(optionsView);
             pConcreteGeneral = new Panel();
@@ -52,47 +58,20 @@ namespace ToolsCore.Forms
             cboxReopenLast = new ExCheckBox();
             cboxMultipleInstances = new ExCheckBox();
             cboxCheckUpdates = new ExCheckBox();
-            pDesktopColumns = new ExOptionsPanel(optionsView);
-            dgvColumns = new DataGridView();
-            cColName = new DataGridViewTextBoxColumn();
-            cColVisible = new DataGridViewExCheckBoxColumn();
-            cColMinWidth = new DataGridViewTextBoxColumn();
-            desktopColumnBindingSource = new BindingSource(components);
-            panel2 = new Panel();
-            bResetColumns = new ExButton();
-            bColDown = new ExButton();
-            bColUp = new ExButton();
+            bCheckNow = new ExButton();
+            lLastCheck = new Label();
             cbAppLanguage = new ExComboBox();
             label2 = new Label();
             pShortcuts = new ExOptionsPanel(optionsView);
             keymapPage = new KeymapPage();
             fontsPage = new FontsPage();
+            colorSchemePage = new ColorSchemePage();
+            cboxFollowSystem = new ExCheckBox();
+            lLightScheme = new Label();
+            cbLightScheme = new ExComboBox();
+            lDarkScheme = new Label();
+            cbDarkScheme = new ExComboBox();
             pStyles = new ExOptionsPanel(optionsView);
-            ppStyles = new Panel();
-            toolStrip1 = new ToolStrip();
-            toolStripLabel1 = new ToolStripLabel();
-            tscbStyles = new ExToolStripComboBox();
-            tsbApplyStyle = new IconToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
-            tsbAddStyle = new IconToolStripButton();
-            tsbRenameStyle = new IconToolStripButton();
-            tsbDeleteStyle = new IconToolStripButton();
-            toolStripSeparator2 = new ToolStripSeparator();
-            tsbResetStyle = new IconToolStripButton();
-            exGroupBox1 = new ExGroupBox();
-            lFontStyleExample = new Label();
-            tvStyles = new ExTreeView();
-            gbColorItemSettings = new ExGroupBox();
-            bResetColorSetting = new ExButton();
-            cboxBold = new ExCheckBox();
-            csForeColor = new ExColorSelector();
-            lStyleBackColor = new ExLabel();
-            lStyleForeColor = new ExLabel();
-            csBackColor = new ExColorSelector();
-            exGroupBox8 = new ExGroupBox();
-            cboxDarkScrollbars = new ExCheckBox();
-            cboxDarkTitlebar = new ExCheckBox();
-            cboxDefaultVisual = new ExCheckBox();
             pFonts = new ExOptionsPanel(optionsView);
             pAppearance = new ExOptionsPanel(optionsView);
             gbAppearance = new ExGroupBox();
@@ -100,34 +79,25 @@ namespace ToolsCore.Forms
             cbStyle = new ExComboBox();
             cboxShowToolbar = new ExCheckBox();
             appLanguageBindingSource = new BindingSource(components);
-            styleBindingSource = new BindingSource(components);
             panelBottom.SuspendLayout();
             ((ISupportInitialize)optionsView).BeginInit();
             pGeneral.SuspendLayout();
             gboxGeneralProgram.SuspendLayout();
             ((ISupportInitialize)configBindingSource).BeginInit();
-            pDesktopColumns.SuspendLayout();
-            ((ISupportInitialize)dgvColumns).BeginInit();
-            ((ISupportInitialize)desktopColumnBindingSource).BeginInit();
-            panel2.SuspendLayout();
             pShortcuts.SuspendLayout();
             pAppearance.SuspendLayout();
             gbAppearance.SuspendLayout();
             pStyles.SuspendLayout();
-            ppStyles.SuspendLayout();
-            toolStrip1.SuspendLayout();
-            exGroupBox1.SuspendLayout();
-            gbColorItemSettings.SuspendLayout();
-            exGroupBox8.SuspendLayout();
             pFonts.SuspendLayout();
             ((ISupportInitialize)appLanguageBindingSource).BeginInit();
-            ((ISupportInitialize)styleBindingSource).BeginInit();
             SuspendLayout();
             // 
             // panelBottom
             // 
             panelBottom.Controls.Add(bSave);
             panelBottom.Controls.Add(bStorno);
+            panelBottom.Controls.Add(bApply);
+            panelBottom.Controls.Add(bManage);
             resources.ApplyResources(panelBottom, "panelBottom");
             panelBottom.Margin = new Padding(4, 3, 4, 3);
             panelBottom.Name = "panelBottom";
@@ -148,6 +118,51 @@ namespace ToolsCore.Forms
             bStorno.Name = "bStorno";
             bStorno.UseVisualStyleBackColor = true;
             bStorno.Click += BStorno_Click;
+            //
+            // bApply
+            //
+            resources.ApplyResources(bApply, "bApply");
+            bApply.Margin = new Padding(4, 3, 4, 3);
+            bApply.Name = "bApply";
+            bApply.UseVisualStyleBackColor = true;
+            bApply.Click += BApply_Click;
+            //
+            // bManage
+            //
+            resources.ApplyResources(bManage, "bManage");
+            bManage.DropDownMenu = cmsManage;
+            bManage.Margin = new Padding(4, 3, 4, 3);
+            bManage.Name = "bManage";
+            bManage.UseVisualStyleBackColor = true;
+            //
+            // cmsManage
+            //
+            cmsManage.Items.AddRange(new ToolStripItem[] { tsmiExport, tsmiImport, tssManage, tsmiResetAll });
+            cmsManage.Name = "cmsManage";
+            resources.ApplyResources(cmsManage, "cmsManage");
+            //
+            // tsmiExport
+            //
+            tsmiExport.Name = "tsmiExport";
+            resources.ApplyResources(tsmiExport, "tsmiExport");
+            tsmiExport.Click += TsmiExport_Click;
+            //
+            // tsmiImport
+            //
+            tsmiImport.Name = "tsmiImport";
+            resources.ApplyResources(tsmiImport, "tsmiImport");
+            tsmiImport.Click += TsmiImport_Click;
+            //
+            // tssManage
+            //
+            tssManage.Name = "tssManage";
+            resources.ApplyResources(tssManage, "tssManage");
+            //
+            // tsmiResetAll
+            //
+            tsmiResetAll.Name = "tsmiResetAll";
+            resources.ApplyResources(tsmiResetAll, "tsmiResetAll");
+            tsmiResetAll.Click += TsmiResetAll_Click;
             // 
             // optionsView
             // 
@@ -165,7 +180,6 @@ namespace ToolsCore.Forms
             optionsView.Panels.Add(pStyles);
             optionsView.Panels.Add(pFonts);
             optionsView.Panels.Add(pShortcuts);
-            optionsView.Panels.Add(pDesktopColumns);
             // 
             // optionsView.ToolStripMenu
             // 
@@ -177,7 +191,6 @@ namespace ToolsCore.Forms
             optionsView.ToolStripMenu.Name = "ToolStripMenu";
             optionsView.ToolStripMenu.Size = new Size(102, 25);
             optionsView.ToolStripMenu.TabIndex = 1;
-            optionsView.ToolStripMenu.Text = "toolStrip1";
             // 
             // 
             // 
@@ -218,6 +231,8 @@ namespace ToolsCore.Forms
             gboxGeneralProgram.Controls.Add(cboxReopenLast);
             gboxGeneralProgram.Controls.Add(cboxMultipleInstances);
             gboxGeneralProgram.Controls.Add(cboxCheckUpdates);
+            gboxGeneralProgram.Controls.Add(bCheckNow);
+            gboxGeneralProgram.Controls.Add(lLastCheck);
             gboxGeneralProgram.DisabledForeColor = SystemColors.GrayText;
             gboxGeneralProgram.Margin = new Padding(4, 3, 4, 3);
             gboxGeneralProgram.Name = "gboxGeneralProgram";
@@ -253,99 +268,19 @@ namespace ToolsCore.Forms
             cboxCheckUpdates.HighlightColor = SystemColors.Highlight;
             cboxCheckUpdates.Margin = new Padding(4, 3, 4, 3);
             cboxCheckUpdates.Name = "cboxCheckUpdates";
-            // 
-            // pDesktopColumns
-            // 
-            pDesktopColumns.Controls.Add(dgvColumns);
-            pDesktopColumns.Controls.Add(panel2);
-            pDesktopColumns.Margin = new Padding(4, 3, 4, 3);
-            pDesktopColumns.Name = "pDesktopColumns";
-            optionsNode5.Name = "";
-            optionsNode5.Text = resources.GetString("optionsNode5.Text");
-            pDesktopColumns.Node = optionsNode5;
-            pDesktopColumns.NodeText = resources.GetString("pDesktopColumns.NodeText");
-            pDesktopColumns.ParentNode = null;
-            // 
-            // dgvColumns
-            // 
-            dgvColumns.AllowUserToAddRows = false;
-            dgvColumns.AllowUserToDeleteRows = false;
-            dgvColumns.AllowUserToResizeRows = false;
-            dgvColumns.AutoGenerateColumns = false;
-            dgvColumns.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvColumns.Columns.AddRange(new DataGridViewColumn[] { cColName, cColVisible, cColMinWidth });
-            dgvColumns.DataSource = desktopColumnBindingSource;
-            resources.ApplyResources(dgvColumns, "dgvColumns");
-            dgvColumns.Margin = new Padding(4, 3, 4, 3);
-            dgvColumns.Name = "dgvColumns";
-            dgvColumns.RowHeadersVisible = false;
-            dgvColumns.RowHeadersWidth = 51;
-            dgvColumns.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            // 
-            // cColName
-            // 
-            cColName.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            cColName.DataPropertyName = "Name";
-            resources.ApplyResources(cColName, "cColName");
-            cColName.MinimumWidth = 6;
-            cColName.Name = "cColName";
-            cColName.ReadOnly = true;
-            // 
-            // cColVisible
-            // 
-            cColVisible.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            cColVisible.DataPropertyName = "Visible";
-            resources.ApplyResources(cColVisible, "cColVisible");
-            cColVisible.HighlightColor = Color.FromArgb(0, 120, 215);
-            cColVisible.MinimumWidth = 6;
-            cColVisible.Name = "cColVisible";
-            cColVisible.Resizable = DataGridViewTriState.True;
-            cColVisible.SquareBackColor = Color.White;
-            // 
-            // cColMinWidth
-            // 
-            cColMinWidth.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            cColMinWidth.DataPropertyName = "MinWidth";
-            resources.ApplyResources(cColMinWidth, "cColMinWidth");
-            cColMinWidth.MinimumWidth = 6;
-            cColMinWidth.Name = "cColMinWidth";
-            // 
-            // desktopColumnBindingSource
-            // 
-            desktopColumnBindingSource.DataSource = typeof(DesktopColumn);
-            // 
-            // panel2
-            // 
-            panel2.Controls.Add(bResetColumns);
-            panel2.Controls.Add(bColDown);
-            panel2.Controls.Add(bColUp);
-            resources.ApplyResources(panel2, "panel2");
-            panel2.Margin = new Padding(4, 3, 4, 3);
-            panel2.Name = "panel2";
-            // 
-            // bResetColumns
-            // 
-            resources.ApplyResources(bResetColumns, "bResetColumns");
-            bResetColumns.Margin = new Padding(4, 3, 4, 3);
-            bResetColumns.Name = "bResetColumns";
-            bResetColumns.UseVisualStyleBackColor = true;
-            bResetColumns.Click += BResetColumns_Click;
-            // 
-            // bColDown
-            // 
-            resources.ApplyResources(bColDown, "bColDown");
-            bColDown.Margin = new Padding(4, 3, 4, 3);
-            bColDown.Name = "bColDown";
-            bColDown.UseVisualStyleBackColor = true;
-            bColDown.Click += BColDown_Click;
-            // 
-            // bColUp
-            // 
-            resources.ApplyResources(bColUp, "bColUp");
-            bColUp.Margin = new Padding(4, 3, 4, 3);
-            bColUp.Name = "bColUp";
-            bColUp.UseVisualStyleBackColor = true;
-            bColUp.Click += BColUp_Click;
+            //
+            // bCheckNow
+            //
+            resources.ApplyResources(bCheckNow, "bCheckNow");
+            bCheckNow.Margin = new Padding(4, 3, 4, 3);
+            bCheckNow.Name = "bCheckNow";
+            bCheckNow.UseVisualStyleBackColor = true;
+            bCheckNow.Click += BCheckNow_Click;
+            //
+            // lLastCheck
+            //
+            resources.ApplyResources(lLastCheck, "lLastCheck");
+            lLastCheck.Name = "lLastCheck";
             // 
             // cbAppLanguage
             // 
@@ -410,7 +345,7 @@ namespace ToolsCore.Forms
             // 
             // pStyles
             // 
-            pStyles.Controls.Add(ppStyles);
+            pStyles.Controls.Add(colorSchemePage);
             pStyles.Margin = new Padding(4, 3, 4, 3);
             pStyles.Name = "pStyles";
             optionsNode8.Name = "";
@@ -418,217 +353,12 @@ namespace ToolsCore.Forms
             pStyles.Node = optionsNode8;
             pStyles.NodeText = resources.GetString("pStyles.NodeText");
             pStyles.ParentNode = optionsNode3;
-            // 
-            // ppStyles
-            // 
-            ppStyles.Controls.Add(toolStrip1);
-            ppStyles.Controls.Add(exGroupBox1);
-            ppStyles.Controls.Add(tvStyles);
-            ppStyles.Controls.Add(gbColorItemSettings);
-            ppStyles.Controls.Add(exGroupBox8);
-            resources.ApplyResources(ppStyles, "ppStyles");
-            ppStyles.Margin = new Padding(4, 3, 4, 3);
-            ppStyles.Name = "ppStyles";
-            // 
-            // toolStrip1
-            // 
-            toolStrip1.BackColor = SystemColors.Control;
-            toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripLabel1, tscbStyles, tsbApplyStyle, toolStripSeparator1, tsbAddStyle, tsbRenameStyle, tsbDeleteStyle, toolStripSeparator2, tsbResetStyle });
-            resources.ApplyResources(toolStrip1, "toolStrip1");
-            toolStrip1.Name = "toolStrip1";
-            // 
-            // toolStripLabel1
-            // 
-            toolStripLabel1.Name = "toolStripLabel1";
-            resources.ApplyResources(toolStripLabel1, "toolStripLabel1");
-            // 
-            // tscbStyles
-            // 
-            tscbStyles.DropDownStyle = ComboBoxStyle.DropDownList;
-            tscbStyles.DropDownWidth = 121;
-            tscbStyles.FlatStyle = FlatStyle.Standard;
-            tscbStyles.Name = "tscbStyles";
-            resources.ApplyResources(tscbStyles, "tscbStyles");
-            tscbStyles.SelectedIndexChanged += TscbStyles_SelectedIndexChanged;
-            // 
-            // tsbApplyStyle
-            // 
-            tsbApplyStyle.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbApplyStyle.Name = "tsbApplyStyle";
-            tsbApplyStyle.IconName = "checkmark";
-            resources.ApplyResources(tsbApplyStyle, "tsbApplyStyle");
-            tsbApplyStyle.Click += TsbApplyStyle_Click;
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
-            // 
-            // tsbAddStyle
-            // 
-            tsbAddStyle.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbAddStyle.Name = "tsbAddStyle";
-            tsbAddStyle.IconName = "add";
-            resources.ApplyResources(tsbAddStyle, "tsbAddStyle");
-            tsbAddStyle.Click += TsbAddStyle_Click;
-            // 
-            // tsbRenameStyle
-            // 
-            tsbRenameStyle.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbRenameStyle.Name = "tsbRenameStyle";
-            tsbRenameStyle.IconName = "rename";
-            resources.ApplyResources(tsbRenameStyle, "tsbRenameStyle");
-            tsbRenameStyle.Click += TsbRenameStyle_Click;
-            // 
-            // tsbDeleteStyle
-            // 
-            tsbDeleteStyle.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbDeleteStyle.Name = "tsbDeleteStyle";
-            tsbDeleteStyle.IconName = "delete";
-            resources.ApplyResources(tsbDeleteStyle, "tsbDeleteStyle");
-            tsbDeleteStyle.Click += TsbDeleteStyle_Click;
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            resources.ApplyResources(toolStripSeparator2, "toolStripSeparator2");
-            // 
-            // tsbResetStyle
-            // 
-            tsbResetStyle.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbResetStyle.Name = "tsbResetStyle";
-            tsbResetStyle.IconName = "arrow-reset";
-            resources.ApplyResources(tsbResetStyle, "tsbResetStyle");
-            tsbResetStyle.Click += TsbResetStyle_Click;
-            // 
-            // exGroupBox1
-            // 
-            resources.ApplyResources(exGroupBox1, "exGroupBox1");
-            exGroupBox1.Controls.Add(lFontStyleExample);
-            exGroupBox1.DisabledForeColor = SystemColors.GrayText;
-            exGroupBox1.Margin = new Padding(2);
-            exGroupBox1.Name = "exGroupBox1";
-            exGroupBox1.Padding = new Padding(2);
-            exGroupBox1.TabStop = false;
-            // 
-            // lFontStyleExample
-            // 
-            resources.ApplyResources(lFontStyleExample, "lFontStyleExample");
-            lFontStyleExample.BorderStyle = BorderStyle.FixedSingle;
-            lFontStyleExample.Margin = new Padding(2, 0, 2, 0);
-            lFontStyleExample.Name = "lFontStyleExample";
-            lFontStyleExample.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // tvStyles
-            // 
-            resources.ApplyResources(tvStyles, "tvStyles");
-            tvStyles.FullRowSelect = true;
-            tvStyles.HideSelection = false;
-            tvStyles.Margin = new Padding(2);
-            tvStyles.Name = "tvStyles";
-            tvStyles.ShowLines = false;
-            tvStyles.Style = ExTreeViewStyle.Light;
-            tvStyles.AfterSelect += TvStyles_AfterSelect;
-            // 
-            // gbColorItemSettings
-            // 
-            resources.ApplyResources(gbColorItemSettings, "gbColorItemSettings");
-            gbColorItemSettings.Controls.Add(bResetColorSetting);
-            gbColorItemSettings.Controls.Add(cboxBold);
-            gbColorItemSettings.Controls.Add(csForeColor);
-            gbColorItemSettings.Controls.Add(lStyleBackColor);
-            gbColorItemSettings.Controls.Add(lStyleForeColor);
-            gbColorItemSettings.Controls.Add(csBackColor);
-            gbColorItemSettings.DisabledForeColor = SystemColors.GrayText;
-            gbColorItemSettings.Margin = new Padding(2);
-            gbColorItemSettings.Name = "gbColorItemSettings";
-            gbColorItemSettings.Padding = new Padding(2);
-            gbColorItemSettings.TabStop = false;
-            // 
-            // bResetColorSetting
-            // 
-            resources.ApplyResources(bResetColorSetting, "bResetColorSetting");
-            bResetColorSetting.Margin = new Padding(4, 3, 4, 3);
-            bResetColorSetting.Name = "bResetColorSetting";
-            bResetColorSetting.UseVisualStyleBackColor = true;
-            bResetColorSetting.Click += BResetColorSetting_Click;
-            // 
-            // cboxBold
-            // 
-            resources.ApplyResources(cboxBold, "cboxBold");
-            cboxBold.BoxBackColor = Color.White;
-            cboxBold.HighlightColor = SystemColors.Highlight;
-            cboxBold.Margin = new Padding(2);
-            cboxBold.Name = "cboxBold";
-            cboxBold.CheckedChanged += CboxBold_CheckedChanged;
-            // 
-            // csForeColor
-            // 
-            resources.ApplyResources(csForeColor, "csForeColor");
-            csForeColor.BorderColor = SystemColors.ButtonShadow;
-            csForeColor.Margin = new Padding(5);
-            csForeColor.Name = "csForeColor";
-            csForeColor.SelectedColorChanged += CsForeColor_SelectedColorChanged;
-            // 
-            // lStyleBackColor
-            // 
-            resources.ApplyResources(lStyleBackColor, "lStyleBackColor");
-            lStyleBackColor.Margin = new Padding(2, 0, 2, 0);
-            lStyleBackColor.Name = "lStyleBackColor";
-            // 
-            // lStyleForeColor
-            // 
-            resources.ApplyResources(lStyleForeColor, "lStyleForeColor");
-            lStyleForeColor.Margin = new Padding(2, 0, 2, 0);
-            lStyleForeColor.Name = "lStyleForeColor";
-            // 
-            // csBackColor
-            // 
-            resources.ApplyResources(csBackColor, "csBackColor");
-            csBackColor.BorderColor = SystemColors.ButtonShadow;
-            csBackColor.Margin = new Padding(5);
-            csBackColor.Name = "csBackColor";
-            csBackColor.SelectedColorChanged += CsBackColor_SelectedColorChanged;
-            // 
-            // exGroupBox8
-            // 
-            resources.ApplyResources(exGroupBox8, "exGroupBox8");
-            exGroupBox8.Controls.Add(cboxDarkScrollbars);
-            exGroupBox8.Controls.Add(cboxDarkTitlebar);
-            exGroupBox8.Controls.Add(cboxDefaultVisual);
-            exGroupBox8.DisabledForeColor = SystemColors.GrayText;
-            exGroupBox8.Margin = new Padding(2);
-            exGroupBox8.Name = "exGroupBox8";
-            exGroupBox8.Padding = new Padding(2);
-            exGroupBox8.TabStop = false;
-            // 
-            // cboxDarkScrollbars
-            // 
-            resources.ApplyResources(cboxDarkScrollbars, "cboxDarkScrollbars");
-            cboxDarkScrollbars.BoxBackColor = Color.White;
-            cboxDarkScrollbars.HighlightColor = SystemColors.Highlight;
-            cboxDarkScrollbars.Margin = new Padding(2);
-            cboxDarkScrollbars.Name = "cboxDarkScrollbars";
-            cboxDarkScrollbars.CheckedChanged += CboxDarkScrollbars_CheckedChanged;
-            // 
-            // cboxDarkTitlebar
-            // 
-            resources.ApplyResources(cboxDarkTitlebar, "cboxDarkTitlebar");
-            cboxDarkTitlebar.BoxBackColor = Color.White;
-            cboxDarkTitlebar.HighlightColor = SystemColors.Highlight;
-            cboxDarkTitlebar.Margin = new Padding(2);
-            cboxDarkTitlebar.Name = "cboxDarkTitlebar";
-            cboxDarkTitlebar.CheckedChanged += CboxDarkTitlebar_CheckedChanged;
-            // 
-            // cboxDefaultVisual
-            // 
-            resources.ApplyResources(cboxDefaultVisual, "cboxDefaultVisual");
-            cboxDefaultVisual.BoxBackColor = Color.White;
-            cboxDefaultVisual.HighlightColor = SystemColors.Highlight;
-            cboxDefaultVisual.Margin = new Padding(2);
-            cboxDefaultVisual.Name = "cboxDefaultVisual";
-            cboxDefaultVisual.CheckedChanged += CboxDefaultVisual_CheckedChanged;
+            //
+            // colorSchemePage
+            //
+            resources.ApplyResources(colorSchemePage, "colorSchemePage");
+            colorSchemePage.Name = "colorSchemePage";
+            colorSchemePage.SchemesChanged += ColorSchemePage_SchemesChanged;
             // 
             // pFonts
             // 
@@ -661,6 +391,11 @@ namespace ToolsCore.Forms
             //
             resources.ApplyResources(gbAppearance, "gbAppearance");
             gbAppearance.Controls.Add(cboxShowToolbar);
+            gbAppearance.Controls.Add(cbDarkScheme);
+            gbAppearance.Controls.Add(lDarkScheme);
+            gbAppearance.Controls.Add(cbLightScheme);
+            gbAppearance.Controls.Add(lLightScheme);
+            gbAppearance.Controls.Add(cboxFollowSystem);
             gbAppearance.Controls.Add(cbStyle);
             gbAppearance.Controls.Add(lStyle);
             gbAppearance.DisabledForeColor = SystemColors.GrayText;
@@ -686,6 +421,49 @@ namespace ToolsCore.Forms
             cbStyle.UseDarkScrollBar = false;
             cbStyle.SelectionChangeCommitted += CbStyle_SelectionChangeCommitted;
             //
+            // cboxFollowSystem
+            //
+            resources.ApplyResources(cboxFollowSystem, "cboxFollowSystem");
+            cboxFollowSystem.BoxBackColor = Color.White;
+            cboxFollowSystem.HighlightColor = SystemColors.Highlight;
+            cboxFollowSystem.Margin = new Padding(4, 3, 4, 3);
+            cboxFollowSystem.Name = "cboxFollowSystem";
+            cboxFollowSystem.CheckedChanged += CboxFollowSystem_CheckedChanged;
+            //
+            // lLightScheme
+            //
+            resources.ApplyResources(lLightScheme, "lLightScheme");
+            lLightScheme.Margin = new Padding(4, 0, 4, 0);
+            lLightScheme.Name = "lLightScheme";
+            //
+            // cbLightScheme
+            //
+            cbLightScheme.DropDownSelectedRowBackColor = SystemColors.Highlight;
+            cbLightScheme.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbLightScheme.FormattingEnabled = true;
+            resources.ApplyResources(cbLightScheme, "cbLightScheme");
+            cbLightScheme.Margin = new Padding(4, 3, 4, 3);
+            cbLightScheme.Name = "cbLightScheme";
+            cbLightScheme.UseDarkScrollBar = false;
+            cbLightScheme.SelectionChangeCommitted += CbSystemScheme_SelectionChangeCommitted;
+            //
+            // lDarkScheme
+            //
+            resources.ApplyResources(lDarkScheme, "lDarkScheme");
+            lDarkScheme.Margin = new Padding(4, 0, 4, 0);
+            lDarkScheme.Name = "lDarkScheme";
+            //
+            // cbDarkScheme
+            //
+            cbDarkScheme.DropDownSelectedRowBackColor = SystemColors.Highlight;
+            cbDarkScheme.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbDarkScheme.FormattingEnabled = true;
+            resources.ApplyResources(cbDarkScheme, "cbDarkScheme");
+            cbDarkScheme.Margin = new Padding(4, 3, 4, 3);
+            cbDarkScheme.Name = "cbDarkScheme";
+            cbDarkScheme.UseDarkScrollBar = false;
+            cbDarkScheme.SelectionChangeCommitted += CbSystemScheme_SelectionChangeCommitted;
+            //
             // cboxShowToolbar
             //
             resources.ApplyResources(cboxShowToolbar, "cboxShowToolbar");
@@ -698,10 +476,6 @@ namespace ToolsCore.Forms
             // appLanguageBindingSource
             // 
             appLanguageBindingSource.DataSource = typeof(AppLanguage);
-            // 
-            // styleBindingSource
-            // 
-            styleBindingSource.DataSource = typeof(Style);
             // 
             // FAppSettingsBase
             // 
@@ -728,29 +502,14 @@ namespace ToolsCore.Forms
             gboxGeneralProgram.ResumeLayout(false);
             gboxGeneralProgram.PerformLayout();
             ((ISupportInitialize)configBindingSource).EndInit();
-            pDesktopColumns.ResumeLayout(false);
-            ((ISupportInitialize)dgvColumns).EndInit();
-            ((ISupportInitialize)desktopColumnBindingSource).EndInit();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
             pShortcuts.ResumeLayout(false);
             pAppearance.ResumeLayout(false);
             pAppearance.PerformLayout();
             gbAppearance.ResumeLayout(false);
             gbAppearance.PerformLayout();
             pStyles.ResumeLayout(false);
-            ppStyles.ResumeLayout(false);
-            ppStyles.PerformLayout();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
-            exGroupBox1.ResumeLayout(false);
-            gbColorItemSettings.ResumeLayout(false);
-            gbColorItemSettings.PerformLayout();
-            exGroupBox8.ResumeLayout(false);
-            exGroupBox8.PerformLayout();
             pFonts.ResumeLayout(false);
             ((ISupportInitialize)appLanguageBindingSource).EndInit();
-            ((ISupportInitialize)styleBindingSource).EndInit();
             ResumeLayout(false);
 
         }
@@ -758,51 +517,36 @@ namespace ToolsCore.Forms
         #endregion
         private ExControls.ExButton bSave;
         private ExControls.ExButton bStorno;
+        private ExControls.ExButton bApply;
+        private ExControls.ExDropDownButton bManage;
+        private ContextMenuStrip cmsManage;
+        private ToolStripMenuItem tsmiExport;
+        private ToolStripMenuItem tsmiImport;
+        private ToolStripSeparator tssManage;
+        private ToolStripMenuItem tsmiResetAll;
         private Panel panelBottom;
         protected ExControls.ExOptionsPanel pGeneral;
-        protected DataGridView dgvColumns;
         private Label label2;
         private ExControls.ExGroupBox gboxGeneralProgram;
         private ExControls.ExCheckBox cboxMultipleInstances;
         private ExControls.ExCheckBox cboxCheckUpdates;
+        private ExButton bCheckNow;
+        private Label lLastCheck;
         private BindingSource appLanguageBindingSource;
-        private BindingSource desktopColumnBindingSource;
-        private Panel panel2;
-        private ExButton bColDown;
-        private ExButton bColUp;
         private ExComboBox cbAppLanguage;
         protected Panel pConcreteGeneral;
         protected ExOptionsView optionsView;
-        private Panel ppStyles;
-        private ToolStrip toolStrip1;
-        private ToolStripLabel toolStripLabel1;
-        private ExToolStripComboBox tscbStyles;
-        private IconToolStripButton tsbApplyStyle;
-        private ToolStripSeparator toolStripSeparator1;
-        private IconToolStripButton tsbAddStyle;
-        private IconToolStripButton tsbRenameStyle;
-        private IconToolStripButton tsbDeleteStyle;
-        private ExGroupBox exGroupBox1;
-        private Label lFontStyleExample;
-        private ExTreeView tvStyles;
-        private ExGroupBox gbColorItemSettings;
-        private ExCheckBox cboxBold;
-        private ExColorSelector csForeColor;
-        private ExLabel lStyleBackColor;
-        private ExLabel lStyleForeColor;
-        private ExColorSelector csBackColor;
-        private ExGroupBox exGroupBox8;
-        private ExCheckBox cboxDarkScrollbars;
-        private ExCheckBox cboxDarkTitlebar;
-        private ExCheckBox cboxDefaultVisual;
-        private BindingSource styleBindingSource;
-        private ExButton bResetColumns;
         protected ExOptionsPanel pShortcuts;
         private KeymapPage keymapPage;
         private FontsPage fontsPage;
+        private ColorSchemePage colorSchemePage;
+        private ExCheckBox cboxFollowSystem;
+        private Label lLightScheme;
+        private ExComboBox cbLightScheme;
+        private Label lDarkScheme;
+        private ExComboBox cbDarkScheme;
         protected ExOptionsPanel pStyles;
         protected ExOptionsPanel pFonts;
-        protected ExOptionsPanel pDesktopColumns;
         private ExOptionsPanel pAppearance;
         private ExGroupBox gbAppearance;
         private Label lStyle;
@@ -810,11 +554,5 @@ namespace ToolsCore.Forms
         private ExCheckBox cboxShowToolbar;
         private ExCheckBox cboxReopenLast;
         private BindingSource configBindingSource;
-        private DataGridViewTextBoxColumn cColName;
-        private DataGridViewExCheckBoxColumn cColVisible;
-        private DataGridViewTextBoxColumn cColMinWidth;
-        private ExButton bResetColorSetting;
-        private ToolStripSeparator toolStripSeparator2;
-        private IconToolStripButton tsbResetStyle;
     }
 }

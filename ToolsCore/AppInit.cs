@@ -38,7 +38,7 @@ public static class AppInit
     /// </summary>
     /// <returns>nastavenia programu platne po cely jeho beh</returns>
     public static AppSession<TC, TS> Initialization<TC, TS>()
-        where TC : ConfigBase, new() where TS : Style
+        where TC : ConfigBase, new() where TS : Style, new()
     {
         // vedomie o DPI pred akymkolvek oknom (aj hlasenim o poskodenej konfiguracii); predtym dpiAware v app.manifest
         Application.SetHighDpiMode(HighDpiMode.SystemAware);
@@ -55,6 +55,16 @@ public static class AppInit
         if (!Directory.Exists(configsDir))
             Directory.CreateDirectory(configsDir);
 
+        // import alebo obnova nastaveni pripravena v okne nastaveni (beziaci program by ich prepisal)
+        try
+        {
+            SettingsTransfer.ApplyPending(configsDir);
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or InvalidDataException)
+        {
+            Log.Exception(e);
+        }
+
         // poskodeny konfiguracny subor sa odlozi a program zacne s predvolenym - inak by sa vobec nespustil
         var resetFiles = new List<string>();
 
@@ -69,7 +79,7 @@ public static class AppInit
 
         //nacitanie suboru so stylmi STYLES.XML
         var styles = ReadOrReset(PathUtils.CombinePath(configsDir, FileConsts.FileStyles)!, Styles<TS>.ReadData, resetFiles);
-        var usingStyle = styles.FirstOrDefault(s => s.Used) ?? styles.First();
+        var usingStyle = (TS)styles.Current(SystemTheme.IsDark);
         GlobSettings.UsingStyle = usingStyle;
 
         Application.EnableVisualStyles();

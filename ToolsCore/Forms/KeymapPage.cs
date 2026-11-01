@@ -24,6 +24,7 @@ public partial class KeymapPage : UserControl
     public KeymapPage()
     {
         InitializeComponent();
+        OwnerDrawnTree.SelectOnRowClick(tvCommands);
         tbFilter.CaptureKeys = false;
         tbFilter.HintText = Resources.Keymap_SearchHint;
         sbShortcut.HintText = Resources.Keymap_PressKeys;
@@ -149,14 +150,15 @@ public partial class KeymapPage : UserControl
         var highlight = GlobSettings.UsingStyle?.ControlsColorScheme.Highlight;
         var back = selected ? highlight?.BackColor ?? SystemColors.Highlight : tvCommands.BackColor;
         var fore = selected ? highlight?.ForeColor ?? SystemColors.HighlightText : tvCommands.ForeColor;
-        var row = new Rectangle(e.Bounds.X, e.Bounds.Y, Math.Max(e.Bounds.Width, tvCommands.ClientSize.Width - e.Bounds.X), e.Bounds.Height);
+        var row = OwnerDrawnTree.Row(tvCommands, e.Bounds);
         using (var brush = new SolidBrush(back))
             e.Graphics.FillRectangle(brush, row);
 
         var command = node.Command;
         var font = command is not null && IsChanged(command) ? _boldFont ??= new Font(tvCommands.Font, FontStyle.Bold) : tvCommands.Font;
         const TextFormatFlags flags = TextFormatFlags.NoPrefix | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine;
-        TextRenderer.DrawText(e.Graphics, node.Text, font, row, fore, flags | TextFormatFlags.Left);
+        var text = Rectangle.FromLTRB(e.Bounds.X, row.Top, row.Right, row.Bottom);
+        TextRenderer.DrawText(e.Graphics, node.Text, font, text, fore, flags | TextFormatFlags.Left);
 
         if (command is null || _map.Get(command) is not (var keys and not Keys.None))
             return;

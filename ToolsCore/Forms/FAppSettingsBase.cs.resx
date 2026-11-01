@@ -132,68 +132,8 @@
   <data name="cboxCheckUpdates.Text" xml:space="preserve">
     <value>Kontrolovat aktualizace při spuštění programu</value>
   </data>
-  <data name="cColName.HeaderText" xml:space="preserve">
-    <value>Název</value>
-  </data>
-  <data name="cColVisible.HeaderText" xml:space="preserve">
-    <value>Viditelný</value>
-  </data>
-  <data name="cColMinWidth.HeaderText" xml:space="preserve">
-    <value>Minimální šířka (px)</value>
-  </data>
-  <data name="bResetColumns.Text" xml:space="preserve">
-    <value>Obnovit</value>
-  </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Jazyk uživatelského rozhraní:</value>
-  </data>
-  <data name="toolStripLabel1.Text" xml:space="preserve">
-    <value>Styl:</value>
-  </data>
-  <data name="tsbApplyStyle.Text" xml:space="preserve">
-    <value>Použít styl</value>
-  </data>
-  <data name="tsbAddStyle.Text" xml:space="preserve">
-    <value>Přidat styl...</value>
-  </data>
-  <data name="tsbRenameStyle.Text" xml:space="preserve">
-    <value>Přejmenovat styl...</value>
-  </data>
-  <data name="tsbDeleteStyle.Text" xml:space="preserve">
-    <value>Odstranit styl</value>
-  </data>
-  <data name="tsbResetStyle.Text" xml:space="preserve">
-    <value>Obnovit styl</value>
-  </data>
-  <data name="exGroupBox1.Text" xml:space="preserve">
-    <value>Ukázka</value>
-  </data>
-  <data name="gbColorItemSettings.Text" xml:space="preserve">
-    <value>Nastavení položky</value>
-  </data>
-  <data name="bResetColorSetting.Text" xml:space="preserve">
-    <value>Obnovit</value>
-  </data>
-  <data name="cboxBold.Text" xml:space="preserve">
-    <value>Tučné písmo</value>
-  </data>
-  <data name="lStyleBackColor.Text" xml:space="preserve">
-    <value>Barva pozadí:</value>
-  </data>
-  <data name="lStyleForeColor.Text" xml:space="preserve">
-    <value>Barva popředí (textu):</value>
-  </data>
-  <data name="exGroupBox8.Text" xml:space="preserve">
-    <value>Nastavení stylu</value>
-  </data>
-  <data name="cboxDarkScrollbars.Text" xml:space="preserve">
-    <value>Použít tmavé posuvníky (&gt;Win10)</value>
-  </data>
-  <data name="cboxDarkTitlebar.Text" xml:space="preserve">
-    <value>Použít tmavé záhlaví okna (&gt;Win10)</value>
-  </data>
-  <data name="cboxDefaultVisual.Text" xml:space="preserve">
-    <value>Použít klasický vzhled ovládacích prvků</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Nastavení programu</value>
@@ -207,12 +147,6 @@
   <data name="optionsNode3.Text" xml:space="preserve">
     <value>Vzhled</value>
   </data>
-  <data name="optionsNode5.Text" xml:space="preserve">
-    <value>Sloupce</value>
-  </data>
-  <data name="pDesktopColumns.NodeText" xml:space="preserve">
-    <value>Sloupce</value>
-  </data>
   <data name="optionsNode7.Text" xml:space="preserve">
     <value>Klávesové zkratky</value>
   </data>
@@ -220,10 +154,10 @@
     <value>Klávesové zkratky</value>
   </data>
   <data name="optionsNode8.Text" xml:space="preserve">
-    <value>Styly a barvy</value>
+    <value>Barevné schéma</value>
   </data>
   <data name="pStyles.NodeText" xml:space="preserve">
-    <value>Styly a barvy</value>
+    <value>Barevné schéma</value>
   </data>
   <data name="optionsNode9.Text" xml:space="preserve">
     <value>Písma</value>
@@ -241,9 +175,36 @@
     <value>Vzhled</value>
   </data>
   <data name="lStyle.Text" xml:space="preserve">
-    <value>Styl:</value>
+    <value>Barevné schéma:</value>
   </data>
   <data name="cboxShowToolbar.Text" xml:space="preserve">
     <value>Zobrazit panel nástrojů</value>
+  </data>
+  <data name="cboxFollowSystem.Text" xml:space="preserve">
+    <value>Podle světlého nebo tmavého režimu Windows</value>
+  </data>
+  <data name="lLightScheme.Text" xml:space="preserve">
+    <value>Světlý režim:</value>
+  </data>
+  <data name="lDarkScheme.Text" xml:space="preserve">
+    <value>Tmavý režim:</value>
+  </data>
+  <data name="bApply.Text" xml:space="preserve">
+    <value>Použít</value>
+  </data>
+  <data name="bManage.Text" xml:space="preserve">
+    <value>Spravovat nastavení</value>
+  </data>
+  <data name="tsmiExport.Text" xml:space="preserve">
+    <value>Exportovat nastavení...</value>
+  </data>
+  <data name="tsmiImport.Text" xml:space="preserve">
+    <value>Importovat nastavení...</value>
+  </data>
+  <data name="tsmiResetAll.Text" xml:space="preserve">
+    <value>Obnovit výchozí nastavení...</value>
+  </data>
+  <data name="bCheckNow.Text" xml:space="preserve">
+    <value>Zkontrolovat nyní</value>
   </data>
 </root>

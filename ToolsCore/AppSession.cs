@@ -9,7 +9,7 @@ namespace ToolsCore;
 /// <typeparam name="TConfig">Konfiguracia programu (config.xml).</typeparam>
 /// <typeparam name="TStyle">Styl programu (styles.xml).</typeparam>
 public sealed class AppSession<TConfig, TStyle>(TConfig config, Styles<TStyle> styles, TStyle usingStyle)
-    where TConfig : ConfigBase where TStyle : Style
+    where TConfig : ConfigBase where TStyle : Style, new()
 {
     /// <summary>
     /// Konfiguracia programu.

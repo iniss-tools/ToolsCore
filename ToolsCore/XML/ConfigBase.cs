@@ -75,6 +75,27 @@ public record ConfigBase()
     public ShortcutMap Shortcuts { get; set; } = new();
 
     /// <summary>
+    /// Zapamatane usporiadanie stlpcov tabuliek (poradie, viditelnost a sirka).
+    /// </summary>
+    [XmlArray("Grids"), XmlArrayItem("Grid")]
+    public List<GridLayout> Grids { get; set; } = [];
+
+    /// <summary>
+    /// Usporiadanie stlpcov tabulky; <see langword="null" /> = predvolene z navrhu.
+    /// </summary>
+    public GridLayout? GridOf(string id) => Grids.FirstOrDefault(g => g.Id == id);
+
+    /// <summary>
+    /// Zapamata usporiadanie stlpcov tabulky; <see langword="null" /> = predvolene (zapamatane sa zmaze).
+    /// </summary>
+    public void SetGrid(string id, GridLayout? layout)
+    {
+        Grids.RemoveAll(g => g.Id == id);
+        if (layout is not null)
+            Grids.Add(layout);
+    }
+
+    /// <summary>
     /// Vrati alebo nastavi, ci program pri spusteni zistuje novu verziu (najviac raz za den, len zostava z vydania).
     /// </summary>
     [XmlElement("CheckUpdates"), DefaultValue(true)]
@@ -92,6 +113,7 @@ public record ConfigBase()
         Fonts = original.Fonts with { };
         CheckUpdates = original.CheckUpdates;
         Shortcuts = original.Shortcuts.Clone();
+        Grids = original.Grids.Select(g => g.Clone()).ToList();
     }
 }
 
