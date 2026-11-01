@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using Microsoft.Win32;
+using Serilog;
 using ToolsCore.Iniss.Registry;
 using Vanara.PInvoke;
 
@@ -115,6 +116,8 @@ public static class InissRegistry
     /// <param name="iniPath">subor .INI (povinny, ak plan meni .INI)</param>
     public static RegApplyResult Apply(RegWritePlan plan, string appName, string? iniPath)
     {
+        Log.Information("Zapis nastaveni INISS {AppName}: {Count} zmien (HKLM {Machine}, .INI {Ini})", appName, plan.Ops.Count, plan.WritesMachine,
+            plan.WritesIni ? iniPath : "-");
         if (plan.WritesMachine)
         {
             if (CanWriteMachine(appName)) ApplyDirect(plan, appName, RegLocation.Machine);
@@ -213,6 +216,7 @@ public static class InissRegistry
         var safe = string.Concat(appName.Select(c => Path.GetInvalidFileNameChars().Contains(c) ? '_' : c));
         var path = Path.Combine(directory, $"{safe} {DateTime.Now:yyyy-MM-dd HHmmss}.reg");
         file.Save(path);
+        Log.Information("Zaloha konfiguracie INISS {AppName} ulozena do {Path}", appName, path);
         return path;
     }
 
@@ -229,17 +233,34 @@ public static class InissRegistry
                 Verb = "runas",
                 WindowStyle = ProcessWindowStyle.Hidden
             });
-            if (process is null) return RegApplyResult.Failed;
+            if (process is null)
+            {
+                Log.Error("Program reg.exe sa na import nastaveni INISS nespustil");
+                return RegApplyResult.Failed;
+            }
+
             process.WaitForExit();
-            return process.ExitCode == 0 ? RegApplyResult.Ok : RegApplyResult.Failed;
+            if (process.ExitCode == 0)
+                return RegApplyResult.Ok;
+            Log.Error("Import nastaveni INISS cez reg.exe skoncil s kodom {ExitCode}", process.ExitCode);
+            return RegApplyResult.Failed;
         }
         catch (Win32Exception e) when (e.NativeErrorCode == ErrorCancelled)
         {
+            Log.Information("Pouzivatel odmietol zvysenie prav - nastavenia INISS v HKLM sa nezapisali");
             return RegApplyResult.Cancelled;
         }
         finally
         {
-            File.Delete(temp);
+            try
+            {
+                File.Delete(temp);
+            }
+            catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+            {
+                // nesmie zakryt vysledok importu
+                Log.Warning(e, "Docasny subor {File} sa nepodarilo zmazat", temp);
+            }
         }
     }
 

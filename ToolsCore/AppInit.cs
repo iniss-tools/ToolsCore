@@ -8,6 +8,7 @@ using ToolsCore.Icons;
 using ToolsCore.Iniss.Tools;
 using ToolsCore.Tools;
 using ToolsCore.XML;
+using Serilog;
 using Vanara.PInvoke;
 using Application = System.Windows.Forms.Application;
 using Style = ToolsCore.XML.Style;
@@ -46,9 +47,8 @@ public static class AppInit
         // dialogy so spravou s ikonami z banky (chyba, varovanie, informacia, otazka) namiesto systemovych
         ExMessageBox.IconProvider = IconImages.ForMessage;
 
-        //Nastavenie cesty, kde sa budu ukladat logovacie subory - musi byt pred konfiguraciou,
-        //aby uz aj chyba pri nacitani konfiguracie mala kam zapisat
-        Log.DataDirPath = AppPaths.DataDir;
+        // zaznamy pred konfiguraciou, aby uz aj chyba pri nacitani konfiguracie mala kam zapisat
+        AppLog.Start();
 
         //Nastavenie cesty, kde sa maju ukladat konfiguracne subory
         var configsDir = AppPaths.ConfigDir;
@@ -62,7 +62,7 @@ public static class AppInit
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException or InvalidDataException)
         {
-            Log.Exception(e);
+            Log.Error(e, "Pripravene nastavenia sa nepodarilo pouzit");
         }
 
         // poskodeny konfiguracny subor sa odlozi a program zacne s predvolenym - inak by sa vobec nespustil
@@ -120,13 +120,15 @@ public static class AppInit
 
         if (!owned && !config.MoreInstance)
         {
-            Log.Info("Duplicitná inštancia ukončená");
+            Log.Information("Program uz bezi - druha instancia sa ukoncuje");
             Utils.ShowInfo(string.Format(CultureInfo.CurrentCulture, GlobalResources.Global_AppAlreadyRunning, Application.ProductName));
+            AppLog.Stop();
             Environment.Exit(0);
         }
 
         //Konfiguracia ukoncena
-        Log.Info($"Program spustený - v.{Application.ProductVersion} - \"{Application.ExecutablePath}\"");
+        Log.Information("Program {App} {Version} spusteny: {Path} (Windows {Os}, .NET {Runtime}, jazyk {Culture})", AppPaths.AppName, Application.ProductVersion,
+            Application.ExecutablePath, Environment.OSVersion.Version, Environment.Version, culture.Name);
 
         // oznamenie az v Run - okno vytvorene teraz by uz nedovolilo nastavit sposob spracovania vynimiek
         _resetFiles = resetFiles;
@@ -151,12 +153,12 @@ public static class AppInit
         AppDomain.CurrentDomain.UnhandledException += (_, e) =>
         {
             // vlakno mimo UI - program sa aj tak ukonci, aspon nech je zaznam
-            if (e.ExceptionObject is Exception exception)
-                Log.Exception(exception);
+            Log.Fatal(e.ExceptionObject as Exception, "Neosetrena chyba mimo vlakna okien - program sa ukonci");
+            AppLog.Stop();
         };
         TaskScheduler.UnobservedTaskException += (_, e) =>
         {
-            Log.Exception(e.Exception);
+            Log.Error(e.Exception, "Neosetrena chyba ulohy na pozadi");
             e.SetObserved();
         };
 
@@ -180,7 +182,8 @@ public static class AppInit
             }
         }
 
-        Log.Info("Program sa ukončuje\r\n");
+        Log.Information("Program sa ukoncuje");
+        AppLog.Stop();
     }
 
     // ikony triedy hlavneho okna - trieda ich pouziva, kym program bezi
@@ -217,7 +220,7 @@ public static class AppInit
         catch (Exception displayError)
         {
             // chyba v samotnom okne chyby by sa inak zacyklila cez ThreadException
-            Log.Exception(displayError);
+            Log.Error(displayError, "Okno chyby sa nepodarilo zobrazit (povodna chyba: {Error})", exception.Message);
         }
     }
 
@@ -233,7 +236,7 @@ public static class AppInit
         catch (Exception e) when (e is InvalidOperationException or XmlException or ArgumentException or FormatException)
         {
             var bad = fileName + ".bad";
-            Log.Error($"Súbor {fileName} je poškodený a bol odložený ako {bad}: {e.Message}");
+            Log.Warning(e, "Subor {File} je poskodeny - odlozeny ako {Bad}, pouziju sa predvolene nastavenia", fileName, bad);
             File.Move(fileName, bad, true);
             resetFiles.Add(Path.GetFileName(fileName));
             return read(fileName);

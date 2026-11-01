@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using Serilog;
 using ToolsCore.Iniss.Tools;
 using ToolsCore.Properties;
 
@@ -218,6 +219,7 @@ public class Styles<T> : IStyleSet where T : Style, new()
         {
             var created = CreateDefault();
             WriteData(fileName, created);
+            Log.Information("Subor stylov {File} vytvoreny so zabudovanymi schemami", fileName);
             return created;
         }
 
@@ -229,6 +231,7 @@ public class Styles<T> : IStyleSet where T : Style, new()
             if (!File.Exists(backup))
                 File.Copy(fileName, backup);
             WriteData(fileName, migrated);
+            Log.Information("Subor stylov {File} prevedeny zo starej verzie, povodny v {Backup}", fileName, backup);
             return migrated;
         }
 
@@ -410,7 +413,7 @@ public class Styles<T> : IStyleSet where T : Style, new()
             return;
 
         var error = string.Format(CultureInfo.CurrentCulture, Resources.Styles_Duplicate, duplicate.Key);
-        Log.Error(error);
+        Log.Error("Styl {Style} je v subore stylov viackrat", duplicate.Key);
         throw new ArgumentException(error);
     }
 

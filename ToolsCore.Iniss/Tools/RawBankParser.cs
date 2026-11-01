@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Serilog;
 using ToolsCore.Iniss.Entities;
 using ToolsCore.Iniss.Properties;
 
@@ -233,7 +234,7 @@ public static class RawBankParser
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
         {
             // zabudnuty .tmp nic nerozbije, podstatna je povodna chyba zapisu
-            Log.Exception(e);
+            Log.Warning(e, "Docasny subor {File} sa nepodarilo zmazat", file);
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Serilog;
 
 namespace ToolsCore.Iniss.Tools;
 
@@ -98,7 +99,7 @@ public class TxtPropsAreas
             else
             {
                 if (_dictionary.ContainsKey(actualArea))
-                    Log.Warning($"{Path.GetFileName(file)}: sekcia [{actualArea}] je v súbore viackrát – použije sa posledná (ako v INISSe).");
+                    Log.Warning("{File}: sekcia [{Area}] je v subore viackrat - pouzije sa posledna (ako v INISSe)", file, actualArea);
                 _dictionary[actualArea] = text;
             }
             sb.Clear();

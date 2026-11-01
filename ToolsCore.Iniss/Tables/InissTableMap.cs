@@ -1,3 +1,4 @@
+using Serilog;
 using ToolsCore.Iniss.Grafikon;
 using ToolsCore.Iniss.Registry;
 using ToolsCore.Iniss.Tools;
@@ -51,7 +52,7 @@ public static class InissTableMap
             // chybny subor grafikonu (aj chybajuca povinna vlastnost - ArgumentException) sa preskoci, ostatne grafikony sa nacitaju
             catch (Exception e) when (e is IOException or FormatException or UnauthorizedAccessException or InvalidOperationException or ArgumentException)
             {
-                Log.Exception(e);
+                Log.Warning(e, "Tabule grafikonu {Directory} sa nepodarilo nacitat - grafikon sa preskoci", dir.FullPath);
             }
         }
 
@@ -67,7 +68,7 @@ public static class InissTableMap
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
         {
-            Log.Exception(e);
+            Log.Warning(e, "Kolaje grafikonu {Directory} sa nepodarilo nacitat - tabule budu bez cisla kolaje", dir);
             return [];
         }
     }

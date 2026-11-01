@@ -2,6 +2,7 @@ using System.Globalization;
 using System.IO.Compression;
 using System.Xml;
 using System.Xml.Linq;
+using Serilog;
 using ToolsCore.Iniss.Tools;
 using ToolsCore.Properties;
 
@@ -83,7 +84,7 @@ public static class SettingsTransfer
         }
         catch (Exception e) when (e is InvalidDataException or IOException or XmlException or UnauthorizedAccessException)
         {
-            Log.Exception(e);
+            Log.Warning(e, "Subor {File} nie je platna zaloha nastaveni", zipPath);
             return notSettings;
         }
     }
@@ -95,6 +96,7 @@ public static class SettingsTransfer
     {
         File.Delete(Path.Combine(configDir, PendingReset));
         File.Copy(zipPath, Path.Combine(configDir, PendingImport), true);
+        Log.Information("Import nastaveni zo suboru {File} pripraveny na dalsie spustenie", zipPath);
     }
 
     /// <summary>
@@ -104,6 +106,7 @@ public static class SettingsTransfer
     {
         File.Delete(Path.Combine(configDir, PendingImport));
         File.WriteAllText(Path.Combine(configDir, PendingReset), "");
+        Log.Information("Obnova predvolenych nastaveni pripravena na dalsie spustenie");
     }
 
     /// <summary>
@@ -132,11 +135,11 @@ public static class SettingsTransfer
             }
 
             File.Delete(import);
-            Log.Info("Nastavenia programu nahradene importovanymi");
+            Log.Information("Nastavenia programu nahradene importovanymi");
         }
         else
         {
-            Log.Info("Nastavenia programu obnovene na predvolene");
+            Log.Information("Nastavenia programu obnovene na predvolene");
         }
 
         File.Delete(reset);

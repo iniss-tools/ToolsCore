@@ -1,5 +1,6 @@
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
+using Serilog;
 
 namespace ToolsCore.Iniss.Updates;
 
@@ -87,7 +88,11 @@ public static class UpdateChecker
             }
             var sha256 = Convert.ToHexStringLower(hash.GetHashAndReset());
             if (total != installer.Size || !string.Equals(sha256, installer.Sha256, StringComparison.OrdinalIgnoreCase))
+            {
+                Log.Warning("Stiahnuty instalator {Url} nezodpoveda indexu: {Size} B namiesto {Expected} B, SHA-256 {Hash} namiesto {ExpectedHash}", installer.Url,
+                    total, installer.Size, sha256, installer.Sha256);
                 throw new InvalidDataException("The downloaded installer does not match the update index.");
+            }
         }
         catch
         {

@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
+using Serilog;
 using ToolsCore.Iniss.Tools;
 
 namespace ToolsCore.XML;
@@ -31,6 +32,7 @@ public static class XmlSerialization
         //config je null (nevedel precitat subor - napr. neexistuje)
         config = new T();
         WriteData(fileName, config);
+        Log.Information("Subor {File} neexistoval - vytvoreny s predvolenymi hodnotami", fileName);
         return config;
     }
 

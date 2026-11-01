@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Serilog;
 using ToolsCore.Iniss.Properties;
 
 namespace ToolsCore.Iniss.Tools;
@@ -109,14 +110,8 @@ public class TxtProps
                 value.StartsWith('\'') && value.EndsWith('\''))
                 value = value.Substring(1, value.Length - 2);
 
-            try
-            {
-                _dictionary.Add(key, value);
-            }
-            catch
-            {
-                /* ignored */
-            }
+            if (!_dictionary.TryAdd(key, value))
+                Log.Warning("{File}: vlastnost {Key} je v subore viackrat - pouzije sa prva", file, key);
         }
     }
 }

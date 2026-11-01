@@ -2653,15 +2653,6 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zoznam grafikonov: grafikon priamo v priečinku DATA sa do zoznamu nezapisuje. INISS ho po zápise ....
-        /// </summary>
-        internal static string DirList_RootGrafikon {
-            get {
-                return ResourceManager.GetString("DirList_RootGrafikon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 4: Znak po znaku podľa TAB1.
         /// </summary>
         internal static string DivType_Char {

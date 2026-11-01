@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Serilog;
 using ToolsCore.Iniss.Properties;
 
 namespace ToolsCore.Iniss.Tools;
@@ -243,14 +244,8 @@ public class TxtPropsAreasFields
                     value.StartsWith('\'') && value.EndsWith('\''))
                     value = value.Substring(1, value.Length - 2);
 
-                try
-                {
-                    propInArea.Add(key, value);
-                }
-                catch
-                {
-                     /*ignored*/
-                }
+                if (!propInArea.TryAdd(key, value))
+                    Log.Warning("{File}: vlastnost {Key} v sekcii [{Area}] je viackrat - pouzije sa prva", file, key, actualArea);
             }
         }
 

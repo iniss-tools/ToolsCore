@@ -1,6 +1,7 @@
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using Serilog;
 using ToolsCore.Commands;
 
 namespace ToolsCore.XML;
@@ -64,8 +65,11 @@ public sealed class ShortcutMap : IXmlSerializable
         {
             if (reader.NodeType == XmlNodeType.Element)
             {
-                if (KeyNames.TryParseSetting(reader.GetAttribute(ATTRIBUTE), out var shortcut))
+                var value = reader.GetAttribute(ATTRIBUTE);
+                if (KeyNames.TryParseSetting(value, out var shortcut))
                     _shortcuts[reader.LocalName] = shortcut;
+                else
+                    Log.Warning("Neplatna klavesova skratka {Value} prikazu {Command} v nastaveniach - pouzije sa predvolena", value, reader.LocalName);
                 reader.Skip();
             }
             else

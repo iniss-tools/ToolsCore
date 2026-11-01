@@ -41,8 +41,9 @@ public static partial class Utils
     [ExcludeFromCodeCoverage]
     public static void RestartApp()
     {
+        Serilog.Log.Information("Program sa restartuje");
+        AppLog.Stop();
         Application.Restart();
-        Log.Info("Program sa reštartuje\r\n");
         Environment.Exit(0);
     }
 }

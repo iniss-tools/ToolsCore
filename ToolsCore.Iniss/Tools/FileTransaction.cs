@@ -1,4 +1,6 @@
-﻿namespace ToolsCore.Iniss.Tools;
+﻿using Serilog;
+
+namespace ToolsCore.Iniss.Tools;
 
 /// <summary>
 /// Zabezpečí, že sa skupina súborov zmení buď celá, alebo vôbec.
@@ -101,9 +103,11 @@ public sealed class FileTransaction
         }
         catch (Exception e)
         {
-            Log.Exception(e);
+            Log.Error(e, "Subory sa nepodarilo vratit do stavu pred zapisom - zaloha ostava v {Backup}", BackupPath);
             return false;
         }
+
+        Log.Information("Subory vratene do stavu pred zapisom ({Count} povodnych, {New} novych zmazanych)", _backups.Count, _newFiles.Count);
 
         TryDeleteBackup();
         return true;
@@ -122,7 +126,7 @@ public sealed class FileTransaction
         catch (Exception e)
         {
             //neodstránená záloha nič nerozbíja, len zaberá miesto v TEMPe
-            Log.Exception(e);
+            Log.Warning(e, "Zalohu {Backup} sa nepodarilo zmazat", BackupPath);
         }
     }
 }

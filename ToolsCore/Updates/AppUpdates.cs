@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Text.Json;
 using Microsoft.Win32;
+using Serilog;
 using ToolsCore.Iniss.Tools;
 using ToolsCore.Iniss.Updates;
 using ToolsCore.Properties;
@@ -72,7 +73,7 @@ public static class AppUpdates
             }
             catch (Exception ex) when (IsUpdateError(ex))
             {
-                Log.Info("Kontrola aktualizacii zlyhala: " + ex.Message);
+                Log.Warning("Kontrola aktualizacii pri spusteni zlyhala: {Reason}", ex.Message);
             }
         }
     }
@@ -98,7 +99,7 @@ public static class AppUpdates
         }
         catch (Exception ex) when (IsUpdateError(ex))
         {
-            Log.Exception(ex, "Kontrola aktualizacii");
+            Log.Warning(ex, "Kontrola aktualizacii zlyhala");
             Utils.ShowWarning(string.Format(CultureInfo.CurrentCulture, Resources.Update_CheckFailed, ex.Message));
             return;
         }
@@ -147,7 +148,10 @@ public static class AppUpdates
         {
             dialog.ShowDialog(main);
             if (dialog.Choice == UpdateChoice.Skip)
+            {
                 AppRegistry.SetUpdateSkipped(release.Version);
+                Log.Information("Aktualizacia na verziu {Version} preskocena", release.Version);
+            }
             if (dialog.Choice != UpdateChoice.Install)
                 return;
             installer = dialog.InstallerPath;
@@ -157,6 +161,7 @@ public static class AppUpdates
         main.Close();
         if (!main.IsDisposed || installer is null)
             return;
+        Log.Information("Spusta sa instalator aktualizacie {Installer} (verzia {Version})", installer, release.Version);
         try
         {
             Process.Start(new ProcessStartInfo(installer)
@@ -167,7 +172,7 @@ public static class AppUpdates
         }
         catch (Exception ex) when (ex is System.ComponentModel.Win32Exception or IOException)
         {
-            Log.Exception(ex, "Spustenie instalatora");
+            Log.Error(ex, "Instalator aktualizacie {Installer} sa nepodarilo spustit", installer);
             Utils.ShowError(string.Format(CultureInfo.CurrentCulture, Resources.Update_StartFailed, ex.Message));
         }
     }

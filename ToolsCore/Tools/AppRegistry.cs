@@ -2,6 +2,7 @@
 using System.Reflection;
 using Microsoft.Win32;
 using System.Text;
+using Serilog;
 using ToolsCore.Iniss.Tools;
 using Vanara.PInvoke;
 using Vanara.Windows.Shell;
@@ -108,7 +109,13 @@ public static class AppRegistry
                         projects.Add(new ProjectInfo(pathAndDate[0], DateTime.MinValue));
                         break;
                     case 2:
-                        projects.Add(new ProjectInfo(pathAndDate[0], DateTime.Parse(pathAndDate[1], CultureInfo.InvariantCulture)));
+                        if (!DateTime.TryParse(pathAndDate[1], CultureInfo.InvariantCulture, out var lastAccess))
+                        {
+                            Log.Warning("Nedavny projekt {Path} ma v registri neplatny datum {Value} - zaradi sa ako najstarsi", pathAndDate[0], pathAndDate[1]);
+                            lastAccess = DateTime.MinValue;
+                        }
+
+                        projects.Add(new ProjectInfo(pathAndDate[0], lastAccess));
                         break;
                     default:
                         continue;
@@ -177,7 +184,7 @@ public static class AppRegistry
         catch (Exception e)
         {
             //zoznam odkazov nie je kriticka funkcia - aplikacia musi bezat aj ked sa ho nepodari vytvorit
-            Log.Exception(e);
+            Log.Warning(e, "Zoznam odkazov programu (jump list) sa nepodarilo vytvorit");
             _jumpListFailed = true;
         }
     }

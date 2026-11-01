@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using Serilog;
 
 namespace ToolsCore.Tools;
 
@@ -24,6 +25,8 @@ public static class UserSecret
         }
         catch (Exception e) when (e is CryptographicException or FormatException)
         {
+            // hodnotu ani jej sifru nezapisovat
+            Log.Warning("Tajnu hodnotu z nastaveni sa nepodarilo desifrovat ({Error}) - pouzije sa prazdna; ulozil ju iny pouzivatel alebo pocitac?", e.GetType().Name);
             return "";
         }
     }

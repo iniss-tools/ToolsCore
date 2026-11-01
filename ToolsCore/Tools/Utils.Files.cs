@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic.FileIO;
+using Serilog;
 using ToolsCore.Iniss.Tools;
 using Vanara.Windows.Shell;
 using SearchOption = System.IO.SearchOption;
@@ -63,16 +64,22 @@ public static partial class Utils
     /// </summary>
     /// <param name="path">cesta k suboru</param>
     /// /// <param name="allDialogs"></param>
-    public static void DeleteFileToRecycleBin(string path, bool allDialogs = false) 
-        => FileSystem.DeleteFile(path, allDialogs ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+    public static void DeleteFileToRecycleBin(string path, bool allDialogs = false)
+    {
+        FileSystem.DeleteFile(path, allDialogs ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+        Log.Information("Subor {Path} presunuty do Kosa", path);
+    }
 
     /// <summary>
     /// Odstrani priecinok a premiestni ho do kosa (recycle bin).
     /// </summary>
     /// <param name="path">cesta k suboru</param>
     /// <param name="allDialogs"></param>
-    public static void DeleteDirectoryToRecycleBin(string path, bool allDialogs = false) 
-        => FileSystem.DeleteDirectory(path, allDialogs ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+    public static void DeleteDirectoryToRecycleBin(string path, bool allDialogs = false)
+    {
+        FileSystem.DeleteDirectory(path, allDialogs ? UIOption.AllDialogs : UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+        Log.Information("Priecinok {Path} presunuty do Kosa", path);
+    }
 
     /// <summary>
     /// Pokusi sa obnovit subor/priecinok, ktory bol premiestneneny do kosa (recycle bin).
@@ -83,9 +90,13 @@ public static partial class Utils
     {
         var item = RecycleBin.GetItemFromOriginalPath(fullPath);
         if (item is null)
+        {
+            Log.Warning("Polozka {Path} sa v Kosi nenasla - neda sa obnovit", fullPath);
             return false;
+        }
 
         RecycleBin.Restore(item, true);
+        Log.Information("Polozka {Path} obnovena z Kosa", fullPath);
         return true;
     }
 

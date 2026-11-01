@@ -1,5 +1,5 @@
+using Serilog;
 using ToolsCore.Forms;
-using ToolsCore.Iniss.Tools;
 
 namespace ToolsCore.Tools;
 
@@ -24,7 +24,7 @@ public static class ErrorReport
     /// </summary>
     public static void Show(Exception exception, IWin32Window? owner = null)
     {
-        Log.Exception(exception);
+        Log.Error(exception, "Chyba zobrazena pouzivatelovi");
         FError.ShowException(exception, owner);
     }
 
@@ -33,7 +33,7 @@ public static class ErrorReport
     /// </summary>
     public static void OpenLogFolder()
     {
-        Directory.CreateDirectory(Log.LogDirectory);
-        Utils.OpenShell(Log.LogDirectory);
+        Directory.CreateDirectory(AppLog.Directory);
+        Utils.OpenShell(AppLog.Directory);
     }
 }

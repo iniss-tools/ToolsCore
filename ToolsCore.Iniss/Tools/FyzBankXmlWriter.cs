@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Xml;
+using Serilog;
 using ToolsCore.Iniss.Entities;
 
 namespace ToolsCore.Iniss.Tools;
@@ -43,8 +44,16 @@ public static class FyzBankXmlWriter
         }
         catch
         {
-            if (File.Exists(tempFile))
+            try
+            {
                 File.Delete(tempFile);
+            }
+            catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+            {
+                // podstatna je povodna chyba zapisu
+                Log.Warning(e, "Docasny subor {File} sa nepodarilo zmazat", tempFile);
+            }
+
             throw;
         }
     }

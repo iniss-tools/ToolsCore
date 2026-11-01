@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Globalization;
+using Serilog;
 using ToolsCore.Iniss.Properties;
 using ToolsCore.Iniss.Tools;
 using static ToolsCore.Iniss.Grafikon.GvdFileConsts;
@@ -101,7 +102,7 @@ public static class DirListFile
             return false;
 
         if (hasDataRoot)
-            Log.Warning(Resources.DirList_RootGrafikon);
+            Log.Warning("Zoznam grafikonov {File}: grafikon priamo v priecinku DATA sa do zoznamu nezapisuje - INISS ho po zapise prestane vidiet", fileDirList);
 
         using var dirlistF = new CsvFileWriter(fileDirList);
         foreach (var dir in toWrite)

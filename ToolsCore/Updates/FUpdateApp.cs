@@ -1,4 +1,5 @@
 using System.Globalization;
+using Serilog;
 using ToolsCore.Icons;
 using ToolsCore.Iniss.Tools;
 using ToolsCore.Iniss.Updates;
@@ -91,6 +92,7 @@ public partial class FUpdateApp : Form
             Directory.CreateDirectory(_downloadFolder);
             await UpdateChecker.DownloadAsync(_http, installer, path, new Progress<double>(p => progress.Value = (int) Math.Round(p * progress.Maximum)),
                 download.Token);
+            Log.Information("Instalator verzie {Version} stiahnuty a overeny: {Path}", _release.Version, path);
             InstallerPath = path;
             Choice = UpdateChoice.Install;
             DialogResult = DialogResult.OK;
@@ -101,7 +103,7 @@ public partial class FUpdateApp : Form
         }
         catch (Exception ex) when (AppUpdates.IsUpdateError(ex))
         {
-            Log.Exception(ex, "Stahovanie instalatora");
+            Log.Warning(ex, "Stahovanie instalatora {Url} zlyhalo", installer.Url);
             if (IsDisposed)
                 return;
             progress.Visible = false;
