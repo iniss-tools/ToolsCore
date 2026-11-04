@@ -47,7 +47,7 @@
             this.exOptionsView1.Controls.Add(this.statusStrip1);
             resources.ApplyResources(this.exOptionsView1, "exOptionsView1");
             this.exOptionsView1.HeaderNodeNameBackColor = System.Drawing.SystemColors.Control;
-            this.exOptionsView1.HeaderNodeNameFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.exOptionsView1.HeaderNodeNameFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.exOptionsView1.HeaderNodeNameForeColor = System.Drawing.SystemColors.ControlText;
             this.exOptionsView1.HeaderNodeNameVisible = false;
             this.exOptionsView1.LinkToChildrenForeColor = System.Drawing.Color.Empty;

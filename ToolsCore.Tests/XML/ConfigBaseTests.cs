@@ -72,6 +72,15 @@ public class ConfigBaseTests
     }
 
     [TestMethod]
+    public void Pisma_BezVlastnehoPisma_RozhranieJeSegoeUi9()
+    {
+        var fonts = new AppFonts();
+
+        Assert.IsTrue(new FontChoice("Segoe UI", 9).Matches(fonts.Controls));
+        Assert.IsTrue(new FontChoice("Segoe UI", 9).Matches(AppFonts.DefaultInterface));
+    }
+
+    [TestMethod]
     public void StaraKonfiguracia_ZmenenePisma_PrevezmuSaDoRozhraniaATabuliek()
     {
         var config = Deserialize("""

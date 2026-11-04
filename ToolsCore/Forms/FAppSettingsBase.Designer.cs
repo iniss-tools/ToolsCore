@@ -168,7 +168,6 @@ namespace ToolsCore.Forms
             // 
             resources.ApplyResources(optionsView, "optionsView");
             optionsView.HeaderNodeNameBackColor = SystemColors.Control;
-            optionsView.HeaderNodeNameFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
             optionsView.HeaderNodeNameForeColor = SystemColors.ControlText;
             optionsView.LinkToChildrenForeColor = Color.Empty;
             optionsView.Margin = new Padding(4, 3, 4, 3);
@@ -480,7 +479,6 @@ namespace ToolsCore.Forms
             // FAppSettingsBase
             // 
             AcceptButton = bSave;
-            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = bStorno;
             resources.ApplyResources(this, "$this");

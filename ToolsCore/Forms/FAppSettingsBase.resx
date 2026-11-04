@@ -155,16 +155,16 @@
     <value>Top, Right</value>
   </data>
   <data name="bSave.Location" type="System.Drawing.Point, System.Drawing">
-    <value>674, 7</value>
+    <value>713, 9</value>
   </data>
   <data name="bSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 27</value>
+    <value>75, 23</value>
   </data>
   <data name="bSave.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="bSave.Text" xml:space="preserve">
-    <value>Uložiť</value>
+    <value>OK</value>
   </data>
   <data name="&gt;&gt;bSave.Name" xml:space="preserve">
     <value>bSave</value>
@@ -182,10 +182,10 @@
     <value>Top, Right</value>
   </data>
   <data name="bStorno.Location" type="System.Drawing.Point, System.Drawing">
-    <value>768, 7</value>
+    <value>794, 9</value>
   </data>
   <data name="bStorno.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 27</value>
+    <value>75, 23</value>
   </data>
   <data name="bStorno.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -827,10 +827,10 @@
     <value>Top, Right</value>
   </data>
   <data name="bApply.Location" type="System.Drawing.Point, System.Drawing">
-    <value>862, 7</value>
+    <value>875, 9</value>
   </data>
   <data name="bApply.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 27</value>
+    <value>75, 23</value>
   </data>
   <data name="bApply.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -854,10 +854,10 @@
     <value>Top, Left</value>
   </data>
   <data name="bManage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 7</value>
+    <value>12, 9</value>
   </data>
   <data name="bManage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 27</value>
+    <value>146, 23</value>
   </data>
   <data name="bManage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -935,10 +935,10 @@
     <value>Top, Right</value>
   </data>
   <data name="bCheckNow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>478, 100</value>
+    <value>498, 101</value>
   </data>
   <data name="bCheckNow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 26</value>
+    <value>120, 23</value>
   </data>
   <data name="bCheckNow.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>

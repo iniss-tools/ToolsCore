@@ -67,9 +67,12 @@ public sealed record AppFonts
     /// </summary>
     public static FontChoice DefaultEditor { get; } = new("Consolas", 10);
 
-    // systemove pisma - SystemFonts vytvara pri kazdom volani nove pismo
-    private static readonly Font SystemControls = SystemFonts.DefaultFont;
-    private static readonly Font SystemMenus = SystemFonts.MenuFont ?? SystemFonts.DefaultFont;
+    // predvolene pismo rozhrania (pismo WinForms od .NET Core) a ponuk; SystemFonts vytvara pri kazdom volani nove pismo
+    private static readonly Font DefaultControls = new("Segoe UI", 9f, FontStyle.Regular, GraphicsUnit.Point);
+    private static readonly Font SystemMenus = SystemFonts.MenuFont ?? DefaultControls;
+
+    // predvolene pismo starsich verzii - v starej konfiguracii neznamena volbu pouzivatela
+    private static readonly Font LegacyDefault = SystemFonts.DefaultFont;
 
     private Font? _interface;
     private Font? _cells;
@@ -77,7 +80,7 @@ public sealed record AppFonts
     private Font? _editor;
 
     /// <summary>
-    /// Vlastne pismo rozhrania; <see langword="null" /> = systemove pisma (text okien a ponuky ako vo Windows).
+    /// Vlastne pismo rozhrania; <see langword="null" /> = Segoe UI 9, ponuky ako vo Windows.
     /// </summary>
     [XmlElement("Interface")]
     public FontChoice? Interface
@@ -122,7 +125,7 @@ public sealed record AppFonts
     /// Pismo okien a tlacidiel.
     /// </summary>
     [XmlIgnore]
-    public Font Controls => Interface is null ? SystemControls : _interface ??= Interface.ToFont();
+    public Font Controls => Interface is null ? DefaultControls : _interface ??= Interface.ToFont();
 
     /// <summary>
     /// Pismo ponuk, panelov nastrojov a stavoveho riadka.
@@ -151,11 +154,11 @@ public sealed record AppFonts
     /// <summary>
     /// Predvolene pismo rozhrania (bez vlastneho pisma).
     /// </summary>
-    public static Font DefaultInterface => SystemControls;
+    public static Font DefaultInterface => DefaultControls;
 
     /// <summary>
     /// Prevezme pisma zo starsej konfiguracie (pismo popisov = rozhranie, bunky tabuliek = tabulky); hodnoty
-    /// zhodne so systemovym pismom sa neprevezmu.
+    /// zhodne s predvolenym pismom (aj starsich verzii) sa neprevezmu.
     /// </summary>
     internal void TakeLegacy(LegacyControlFonts legacy)
     {
@@ -172,7 +175,7 @@ public sealed record AppFonts
 
         using var font = XmlFont.ToFont(legacy.Font);
         var choice = FontChoice.Of(font);
-        return choice.Matches(SystemControls) ? null : choice;
+        return choice.Matches(DefaultControls) || choice.Matches(LegacyDefault) ? null : choice;
     }
 
     /// <inheritdoc />
