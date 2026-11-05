@@ -3389,5 +3389,77 @@ namespace ToolsCore.Iniss.Properties {
                 return ResourceManager.GetString("FormatCommon_Error", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pre interval dát použite od ... do ..., nie -..
+        /// </summary>
+        internal static string DateLimit_UseFromTo {
+            get {
+                return ResourceManager.GetString("DateLimit_UseFromTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chybný dátum {0}..
+        /// </summary>
+        internal static string DateLimit_BadDate {
+            get {
+                return ResourceManager.GetString("DateLimit_BadDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Koncový dátum {0} je mimo rozsahu platnosti grafikonu..
+        /// </summary>
+        internal static string DateLimit_EndOutOfRange {
+            get {
+                return ResourceManager.GetString("DateLimit_EndOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dátum {0} je mimo rozsahu platnosti grafikonu..
+        /// </summary>
+        internal static string DateLimit_OutOfRange {
+            get {
+                return ResourceManager.GetString("DateLimit_OutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neplatný mesiac {0}..
+        /// </summary>
+        internal static string DateLimit_BadMonth {
+            get {
+                return ResourceManager.GetString("DateLimit_BadMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dátum do {0} je menší ako dátum od {1}..
+        /// </summary>
+        internal static string DateLimit_ToBeforeFrom {
+            get {
+                return ResourceManager.GetString("DateLimit_ToBeforeFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bitové pole na vstupe chýba alebo neodpovedá jeho dĺžka..
+        /// </summary>
+        internal static string DateLimit_BadBitArray {
+            get {
+                return ResourceManager.GetString("DateLimit_BadBitArray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chybný pevný kód dňa {0}..
+        /// </summary>
+        internal static string DateLimit_BadDayCode {
+            get {
+                return ResourceManager.GetString("DateLimit_BadDayCode", resourceCulture);
+            }
+        }
     }
 }

@@ -1227,4 +1227,28 @@
   <data name="FormatCommon_Error" xml:space="preserve">
     <value>Chyba v súbore {0} na riadku {1}. </value>
   </data>
+  <data name="DateLimit_UseFromTo" xml:space="preserve">
+    <value>Pre interval dát použite od ... do ..., nie -.</value>
+  </data>
+  <data name="DateLimit_BadDate" xml:space="preserve">
+    <value>Chybný dátum {0}.</value>
+  </data>
+  <data name="DateLimit_EndOutOfRange" xml:space="preserve">
+    <value>Koncový dátum {0} je mimo rozsahu platnosti grafikonu.</value>
+  </data>
+  <data name="DateLimit_OutOfRange" xml:space="preserve">
+    <value>Dátum {0} je mimo rozsahu platnosti grafikonu.</value>
+  </data>
+  <data name="DateLimit_BadMonth" xml:space="preserve">
+    <value>Neplatný mesiac {0}.</value>
+  </data>
+  <data name="DateLimit_ToBeforeFrom" xml:space="preserve">
+    <value>Dátum do {0} je menší ako dátum od {1}.</value>
+  </data>
+  <data name="DateLimit_BadBitArray" xml:space="preserve">
+    <value>Bitové pole na vstupe chýba alebo neodpovedá jeho dĺžka.</value>
+  </data>
+  <data name="DateLimit_BadDayCode" xml:space="preserve">
+    <value>Chybný pevný kód dňa {0}.</value>
+  </data>
 </root>
