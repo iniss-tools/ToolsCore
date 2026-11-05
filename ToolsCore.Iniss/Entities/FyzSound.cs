@@ -55,6 +55,17 @@ public class FyzSound
     public int Duration { get; set; }
 
     /// <summary>
+    /// MD5 nahravky v subore FyzBank.xml (INISS2) - hodnota zo suboru, nemusi zodpovedat nahravke na disku.
+    /// INISS 3.39 ju nepozna.
+    /// </summary>
+    public string? Md5 { get; set; }
+
+    /// <summary>
+    /// Atribut <c>fid</c> v subore FyzBank.xml (INISS2) - server ho len prenasa, vyznam nie je zisteny.
+    /// </summary>
+    public int Fid { get; set; }
+
+    /// <summary>
     /// Dlzka zvuku ako retazec v tvare mm:ss.
     /// </summary>
     public string DurationText => ParseUtils.LengthIntToString(Duration);

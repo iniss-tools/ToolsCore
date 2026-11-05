@@ -1,11 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Security.Cryptography;
+using System.Text;
 using System.Xml;
 using Serilog;
 using ToolsCore.Iniss.Entities;
+using ToolsCore.Iniss.Tools;
 
-namespace ToolsCore.Iniss.Tools;
+namespace ToolsCore.Iniss2.RawBank;
 
 /// <summary>
 /// Zapis jazyka banky zvukov vo formate INISS2 - subor FyzBank.xml v priecinku jazyka (RawBank\&lt;jazyk&gt;\).
@@ -59,8 +61,12 @@ public static class FyzBankXmlWriter
     }
 
     /// <summary>
-    /// Zapise jazyk vo formate FyzBank.xml (UTF-8 s BOM, ako ho zapisuje INISS2).
+    /// Zapise jazyk vo formate FyzBank.xml v UTF-8 s BOM.
     /// </summary>
+    /// <remarks>
+    /// Server tento subor nezapisuje a kodovanie berie z hlavicky XML - rovnako precita aj Windows-1250. UTF-8 je
+    /// kodovanie jedinej dostupnej realnej banky.
+    /// </remarks>
     /// <param name="stream">vystup</param>
     /// <param name="language">jazyk s nacitanymi skupinami</param>
     /// <param name="isDefault">predvoleny jazyk INISS2 - z jazykov banky prave jeden, inak INISS2 banku nenacita</param>
@@ -83,6 +89,8 @@ public static class FyzBankXmlWriter
         using var writer = XmlWriter.Create(stream, settings);
         writer.WriteStartDocument();
         writer.WriteStartElement("FYZBANK");
+        writer.WriteAttributeString("xmlns", "xsi", null, "http://www.w3.org/2001/XMLSchema-instance");
+        writer.WriteAttributeString("xmlns", "xsd", null, "http://www.w3.org/2001/XMLSchema");
 
         writer.WriteStartElement("lang");
         // INISS2 bez atributu povazuje jazyk za nepredvoleny
@@ -92,6 +100,8 @@ public static class FyzBankXmlWriter
         writer.WriteAttributeString("n", language.Name);
         writer.WriteAttributeString("d", language.RelativePath.TrimEnd('\\'));
         writer.WriteAttributeString("date", XmlConvert.ToString(date));
+        if (language.Location is not null)
+            writer.WriteAttributeString("location", language.Location);
 
         foreach (var group in language.Groups)
         {
@@ -105,7 +115,11 @@ public static class FyzBankXmlWriter
                 writer.WriteAttributeString("k", sound.Key);
                 writer.WriteAttributeString("t", sound.Text);
                 writer.WriteAttributeString("f", FilePath(sound));
-                writer.WriteAttributeString("l", sound.Duration.ToString(CultureInfo.InvariantCulture));
+                // nulove hodnoty INISS2 nezapisuje
+                if (sound.Duration != 0)
+                    writer.WriteAttributeString("l", sound.Duration.ToString(CultureInfo.InvariantCulture));
+                if (sound.Fid != 0)
+                    writer.WriteAttributeString("fid", sound.Fid.ToString(CultureInfo.InvariantCulture));
                 if (md5(sound) is { Length: > 0 } hash)
                     writer.WriteAttributeString("md5", hash);
                 writer.WriteEndElement();

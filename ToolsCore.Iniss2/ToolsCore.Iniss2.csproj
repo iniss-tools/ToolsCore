@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<!-- Subory INISS2 (server IniSrv) bez WinForms. Domena INISS 3.39 ostava v ToolsCore.Iniss. -->
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<OutputType>Library</OutputType>
+		<RootNamespace>ToolsCore.Iniss2</RootNamespace>
+		<AssemblyName>ToolsCore.Iniss2</AssemblyName>
+		<LangVersion>default</LangVersion>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ToolsCore.Iniss\ToolsCore.Iniss.csproj" />
+	</ItemGroup>
+</Project>

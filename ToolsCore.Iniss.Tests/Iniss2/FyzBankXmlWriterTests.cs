@@ -1,8 +1,8 @@
 ﻿using System.Xml.Linq;
 using ToolsCore.Iniss.Entities;
-using ToolsCore.Iniss.Tools;
+using ToolsCore.Iniss2.RawBank;
 
-namespace ToolsCore.Tests.Tools;
+namespace ToolsCore.Tests.Iniss2;
 
 /// <summary>
 /// Zapis jazyka banky zvukov do FyzBank.xml (INISS2).
@@ -76,6 +76,30 @@ public class FyzBankXmlWriterTests
         var doc = WriteAndParse(Language(), _ => null, out _, isDefault: false);
 
         Assert.IsNull(doc.Root!.Element("lang")!.Attribute("default"));
+    }
+
+    [TestMethod]
+    public void Write_ZachovaMiestoAFidANuloveHodnotyVynecha()
+    {
+        var language = Language();
+        language.Location = "Dolné Mesto";
+        language.Groups[0].Sounds[0].Fid = 7;
+
+        var doc = WriteAndParse(language, _ => null, out _);
+
+        Assert.AreEqual("Dolné Mesto", (string?)doc.Root!.Element("lang")!.Attribute("location"));
+        var sounds = doc.Descendants("z").ToList();
+        Assert.AreEqual("7", (string?)sounds[0].Attribute("fid"));
+        Assert.IsNull(sounds[1].Attribute("fid"));
+        Assert.IsNull(sounds[1].Attribute("l"));
+    }
+
+    [TestMethod]
+    public void Write_BezMiestaAtributChyba()
+    {
+        var doc = WriteAndParse(Language(), _ => null, out _);
+
+        Assert.IsNull(doc.Root!.Element("lang")!.Attribute("location"));
     }
 
     [TestMethod]

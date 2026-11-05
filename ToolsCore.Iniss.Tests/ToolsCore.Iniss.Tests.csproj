@@ -13,6 +13,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\ToolsCore.Iniss\ToolsCore.Iniss.csproj" />
+		<ProjectReference Include="..\ToolsCore.Iniss2\ToolsCore.Iniss2.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="TestData\**" CopyToOutputDirectory="PreserveNewest" />

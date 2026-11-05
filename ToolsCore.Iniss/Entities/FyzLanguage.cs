@@ -51,6 +51,16 @@ public class FyzLanguage
     public bool IsBasic { get; set; }
 
     /// <summary>
+    /// Datum vytvorenia banky v subore FyzBank.xml (INISS2); INISS 3.39 ho nepozna.
+    /// </summary>
+    public DateTimeOffset? Date { get; set; }
+
+    /// <summary>
+    /// Popis miesta vzniku banky v subore FyzBank.xml (INISS2); INISS 3.39 ho nepozna.
+    /// </summary>
+    public string? Location { get; set; }
+
+    /// <summary>
     /// This (kvoli GUI).
     /// </summary>
     public FyzLanguage This => this;
