@@ -174,6 +174,19 @@ public sealed record GvTrain(DateOnly From, DateOnly To, IReadOnlyList<GvVariant
         ArgumentNullException.ThrowIfNull(variant);
         return GvValidity.Days(From, To, variant.Validity);
     }
+
+    /// <summary>
+    /// Dni, ked plati prave tato varianta - bez dni, ktore patria niektorej variante pred nou.
+    /// </summary>
+    public BitArray ActiveDaysOf(GvVariant variant)
+    {
+        var days = DaysOf(variant);
+
+        foreach (var earlier in Variants.TakeWhile(candidate => !ReferenceEquals(candidate, variant)))
+            days.And(DaysOf(earlier).Not());
+
+        return days;
+    }
 }
 
 /// <summary>

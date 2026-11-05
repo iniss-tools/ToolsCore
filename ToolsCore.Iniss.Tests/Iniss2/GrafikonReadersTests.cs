@@ -175,6 +175,25 @@ public class GrafikonReadersTests
     }
 
     [TestMethod]
+    public void Gv_PrvaVariantaMaPrednostPredDalsimi()
+    {
+        var gv = ReadGv($"""
+            <v o="2030-01-07" d="2030-01-20">
+              <v jd="jede v 1-5"><z c="{Lipovec}" o="480" dcv="1001" /></v>
+              <v jd="jede v 5,6"><z c="{Lipovec}" o="490" dcv="1001" /></v>
+              <v><z c="{Lipovec}" o="500" dcv="1001" /></v>
+            </v>
+            """);
+        var train = gv.Trains[0];
+
+        int Count(GvVariant variant) => train.ActiveDaysOf(variant).Cast<bool>().Count(day => day);
+
+        Assert.AreEqual(10, Count(train.Variants[0]));
+        Assert.AreEqual(2, Count(train.Variants[1]), "piatky patria prvej variante");
+        Assert.AreEqual(2, Count(train.Variants[2]));
+    }
+
+    [TestMethod]
     [DataRow("", 14)]
     [DataRow("-", 0)]
     [DataRow("--", 0)]
@@ -290,6 +309,26 @@ public class GrafikonReadersTests
         Assert.IsFalse(call.IsFirst);
         Assert.IsFalse(call.IsLast);
         Assert.HasCount(2, timetable.Tracks);
+    }
+
+    [TestMethod]
+    public void Timetable_VCielovejStaniciPlatiCisloPriPrichode()
+    {
+        var timetable = ReadTimetable($"""
+            <v o="2030-01-07" d="2030-01-20">
+              <v>
+                <z c="{Horany}" o="480" dcv="1001" dv="Os" nv="Javor" />
+                <z c="{Lipovec}" p="500" f="Z" dcv="2002" dv="Sp" nv="Buk" />
+              </v>
+            </v>
+            """, "");
+        var call = timetable.Calls.Single();
+
+        Assert.IsTrue(call.IsLast);
+        Assert.AreEqual("1001", call.Number);
+        Assert.AreEqual("Os", call.TrainType);
+        Assert.AreEqual("Javor", call.TrainName);
+        Assert.AreEqual("2002", call.DepartureNumber, "kolaj server hlada podla cisla pri odchode");
     }
 
     [TestMethod]

@@ -36,9 +36,21 @@ public sealed record StationCall(GvTrain Train, GvVariant Variant, int Index)
     public string DepartureNumber => Variant.NumberSource(Index, false)?.Number ?? "";
 
     /// <summary>
-    /// Druh vlaku pri odchode.
+    /// Cislo, ktorym sa vlak v stanici oznacuje: cislo pri odchode, v cielovej stanici cislo pri prichode.
     /// </summary>
-    public string TrainType => Variant.NumberSource(Index, false)?.TrainType ?? "";
+    public string Number => Source?.Number ?? "";
+
+    /// <summary>
+    /// Druh vlaku k <see cref="Number" />.
+    /// </summary>
+    public string TrainType => Source?.TrainType ?? "";
+
+    /// <summary>
+    /// Nazov vlaku k <see cref="Number" />.
+    /// </summary>
+    public string TrainName => Source?.TrainName ?? "";
+
+    private GvStop? Source => Variant.NumberSource(Index, IsLast);
 
     /// <summary>
     /// Den, ktorym server vlak v stanici oznacuje: vo vychodzej stanici den odchodu, inde den prichodu.

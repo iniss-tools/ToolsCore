@@ -75,4 +75,12 @@ public class Iniss2InstallationTests
         Assert.AreEqual(@"C:\INISS2\Server\RawBank\", installation.RawBankDir);
         Assert.AreEqual(@"C:\INISS2\Server\Data", installation.DataDir);
     }
+
+    [TestMethod]
+    public void GtnLogFile_KazdyDenVlastnySubor()
+    {
+        var installation = new Iniss2Installation(@"C:\INISS2\Server");
+
+        Assert.AreEqual(@"C:\INISS2\Server\LOG\GTN2030-01-07.log", installation.GtnLogFile(new DateOnly(2030, 1, 7)));
+    }
 }

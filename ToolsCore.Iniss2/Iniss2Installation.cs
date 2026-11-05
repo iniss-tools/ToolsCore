@@ -1,4 +1,5 @@
-﻿using ToolsCore.Iniss.Tools;
+﻿using System.Globalization;
+using ToolsCore.Iniss.Tools;
 using ToolsCore.Iniss2.RawBank;
 
 namespace ToolsCore.Iniss2;
@@ -25,6 +26,11 @@ public sealed record Iniss2Installation(string ServerDir)
     public const string DataDirName = "Data";
 
     /// <summary>
+    /// Priecinok logov v priecinku servera.
+    /// </summary>
+    public const string LogDirName = "LOG";
+
+    /// <summary>
     /// Konfiguracny subor servera v priecinku dat.
     /// </summary>
     public const string ConfigFileName = "Config.xml";
@@ -38,6 +44,17 @@ public sealed record Iniss2Installation(string ServerDir)
     /// Priecinok dat servera.
     /// </summary>
     public string DataDir => Path.Combine(ServerDir, DataDirName);
+
+    /// <summary>
+    /// Priecinok logov servera.
+    /// </summary>
+    public string LogDir => Path.Combine(ServerDir, LogDirName);
+
+    /// <summary>
+    /// Log sprav GTN zo zadaneho dna. Server zacina kazdy den novy subor.
+    /// </summary>
+    /// <param name="day">den</param>
+    public string GtnLogFile(DateOnly day) => Path.Combine(LogDir, "GTN" + day.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + ".log");
 
     /// <summary>
     /// Najde instalaciu INISS2 v zadanom priecinku - v koreni instalacie alebo priamo v priecinku servera.
