@@ -54,8 +54,51 @@ public class TablesReadersTests
         Assert.IsTrue(lines[0].CanRedirect);
         Assert.IsNull(lines[0].OriginalAddress);
         Assert.IsTrue(lines[1].CanRedirect);
-        Assert.IsFalse(lines[2].CanRedirect);
+        Assert.IsTrue(lines[2].CanRedirect);
         Assert.IsTrue(lines[2].Omitted);
+    }
+
+    [TestMethod]
+    [DataRow("UDP_SERVER")]
+    [DataRow("TCP_SERVER")]
+    public void CommLines_LinkaNaKtorejServerCakaSaNepresmeruje(string type)
+    {
+        Write(CommLinesXml.FileName, $"""<CommLines><line k="L" typ="{type}" protocol="ITP" line="10001" /></CommLines>""");
+
+        Assert.IsFalse(CommLinesXml.Read(_dir)[0].CanRedirect);
+    }
+
+    [TestMethod]
+    public void CommLines_SeriovaLinkaSaZmeniNaTcpKlientaAVrati()
+    {
+        var updated = CommLinesXml.Redirect(Lines, Target("Seriova", "127.0.0.1:47003"));
+
+        StringAssert.Contains(updated, """<!-- TableSimulator: povodne line="COM1" typ="SERIAL" -->""");
+        StringAssert.Contains(updated, """<line k="Seriova" typ="TCP_CLIENT" protocol="ELEN" line="127.0.0.1:47003" omit="true" />""");
+        Assert.AreEqual(Lines, CommLinesXml.Redirect(updated, new Dictionary<string, string>()));
+    }
+
+    [TestMethod]
+    public void CommLines_SeriovaLinkaPoDruhomPresmerovaniPamataTyp()
+    {
+        var first = CommLinesXml.Redirect(Lines, Target("Seriova", "127.0.0.1:47003"));
+        var second = CommLinesXml.Redirect(first, Target("Seriova", "127.0.0.1:47009"));
+
+        StringAssert.Contains(second, """<line k="Seriova" typ="TCP_CLIENT" protocol="ELEN" line="127.0.0.1:47009" omit="true" />""");
+        Assert.AreEqual(Lines, CommLinesXml.Redirect(second, new Dictionary<string, string>()));
+    }
+
+    [TestMethod]
+    public void CommLines_PresmerovanaSeriovaLinkaSaCitaAkoTcpSPovodnouAdresou()
+    {
+        Write(CommLinesXml.FileName, Lines);
+
+        CommLinesXml.Write(_dir, Target("Seriova", "127.0.0.1:47003"));
+
+        var line = CommLinesXml.Read(_dir)[2];
+        Assert.AreEqual(CommLineType.TcpClient, line.Type);
+        Assert.AreEqual("127.0.0.1:47003", line.Address);
+        Assert.AreEqual("COM1", line.OriginalAddress);
     }
 
     [TestMethod]

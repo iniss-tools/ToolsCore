@@ -44,16 +44,17 @@ public sealed record CommLine(string Key, CommLineType Type, string Protocol, st
     /// <summary>Povodna adresa, ak je linka presmerovana na simulator.</summary>
     public string? OriginalAddress { get; init; }
 
-    /// <summary>Server sa na linke pripaja na adresu, takze sa da presmerovat zmenou adresy.</summary>
-    public bool CanRedirect => Type is CommLineType.UdpClient or CommLineType.TcpClient;
+    /// <summary>Linka sa da presmerovat: server sa na nej pripaja na adresu, alebo je seriova a presmerovanie z nej urobi TCP_CLIENT.</summary>
+    public bool CanRedirect => Type is CommLineType.UdpClient or CommLineType.TcpClient or CommLineType.Serial;
 }
 
 /// <summary>
 /// Komunikacne linky servera - subor CommLines.xml v priecinku dat.
 /// </summary>
 /// <remarks>
-/// Presmerovanie na simulator meni len hodnotu atributu <c>line</c>, ostatok suboru ostava po znakoch rovnaky. Povodnu
-/// hodnotu si subor pamata v komentari pred linkou (server ho nevidi), zrusenie presmerovania vrati presne to, co v nom bolo.
+/// Presmerovanie na simulator meni len hodnotu atributu <c>line</c>, pri seriovej linke aj <c>typ</c> na <c>TCP_CLIENT</c>; server
+/// ma na oboch rovnake ramce a parametre portu pri TCP ignoruje. Ostatok suboru ostava po znakoch rovnaky. Povodne hodnoty si
+/// subor pamata v komentari pred linkou (server ho nevidi), zrusenie presmerovania vrati presne to, co v nom bolo.
 /// </remarks>
 public static partial class CommLinesXml
 {
@@ -65,13 +66,16 @@ public static partial class CommLinesXml
     // text komentara je data suboru (bez diakritiky, citatelny aj bez simulatora)
     private const string Marker = "TableSimulator: povodne line=";
 
+    private const string SerialKey = "SERIAL";
+    private const string TcpClientKey = "TCP_CLIENT";
+
     private static readonly Dictionary<string, CommLineType> TypeKeys = new(StringComparer.Ordinal)
     {
-        ["SERIAL"] = CommLineType.Serial,
+        [SerialKey] = CommLineType.Serial,
         ["UDP_SERVER"] = CommLineType.UdpServer,
         ["UDP_CLIENT"] = CommLineType.UdpClient,
         ["TCP_SERVER"] = CommLineType.TcpServer,
-        ["TCP_CLIENT"] = CommLineType.TcpClient
+        [TcpClientKey] = CommLineType.TcpClient
     };
 
     /// <summary>
@@ -85,7 +89,7 @@ public static partial class CommLinesXml
             return [];
 
         var lines = new List<CommLine>();
-        string? original = null;
+        Original? original = null;
 
         foreach (var node in Iniss2Xml.Load(file).Root!.Nodes())
         {
@@ -99,7 +103,7 @@ public static partial class CommLinesXml
                 Iniss2Xml.Text(element, "line"))
             {
                 Omitted = string.Equals(Iniss2Xml.Text(element, "omit"), "true", StringComparison.OrdinalIgnoreCase),
-                OriginalAddress = original
+                OriginalAddress = original?.Address
             });
             original = null;
         }
@@ -166,13 +170,13 @@ public static partial class CommLinesXml
                 if (marker is not null)
                     result.Append(marker.Value).Append(gap);
                 else
-                    result.Append(Comment(Attribute(element, "line") ?? "")).Append(newline).Append(Indent(text, token.Index));
+                    result.Append(Comment(element)).Append(newline).Append(Indent(text, token.Index));
 
-                result.Append(WithAddress(element, address));
+                result.Append(WithAddress(IsSerial(element) ? WithType(element, TcpClientKey) : element, address));
             }
             else
             {
-                result.Append(original is null ? element : WithAddress(element, original));
+                result.Append(original is null ? element : Restored(element, original));
             }
 
             position = token.Index + token.Length;
@@ -182,14 +186,25 @@ public static partial class CommLinesXml
         return result.Append(text, position, text.Length - position).ToString();
     }
 
-    private static string Comment(string address) => $"<!-- {Marker}\"{address}\" -->";
+    private static bool IsSerial(string element) => Attribute(element, "typ") == SerialKey;
 
-    private static string? OriginalOf(string comment)
+    // pri seriovej linke si komentar pamata aj typ, ostatne ho nemenia
+    private static string Comment(string element)
     {
-        var text = comment.Trim();
-        return text.StartsWith(Marker + "\"", StringComparison.Ordinal) && text.EndsWith('"') && text.Length > Marker.Length + 1
-            ? text[(Marker.Length + 1)..^1]
-            : null;
+        var type = IsSerial(element) ? $" typ=\"{SerialKey}\"" : "";
+        return $"<!-- {Marker}\"{Attribute(element, "line") ?? ""}\"{type} -->";
+    }
+
+    private static Original? OriginalOf(string comment)
+    {
+        var match = OriginalText().Match(comment.Trim());
+        return match.Success ? new Original(match.Groups[1].Value, match.Groups[2].Success ? match.Groups[2].Value : null) : null;
+    }
+
+    private static string Restored(string element, Original original)
+    {
+        var restored = WithAddress(element, original.Address);
+        return original.Type is null ? restored : WithType(restored, original.Type);
     }
 
     // medzery pred prvkom na jeho riadku
@@ -211,9 +226,23 @@ public static partial class CommLinesXml
     private static string WithAddress(string element, string address) =>
         LineAttribute().Replace(element, match => match.Groups[1].Value + address + match.Groups[2].Value, 1);
 
+    private static string WithType(string element, string type) =>
+        TypeAttribute().Replace(element, match => match.Groups[1].Value + type + match.Groups[2].Value, 1);
+
+    /// <summary>Povodne hodnoty z komentara.</summary>
+    /// <param name="Address">hodnota <c>line</c></param>
+    /// <param name="Type">hodnota <c>typ</c>, ak ju presmerovanie zmenilo</param>
+    private sealed record Original(string Address, string? Type);
+
     [GeneratedRegex(@"<!--.*?-->|<line\b(?:[^>""]|""[^""]*"")*>", RegexOptions.Singleline | RegexOptions.CultureInvariant)]
     private static partial Regex Token();
 
     [GeneratedRegex(@"(\sline\s*=\s*"")[^""]*("")", RegexOptions.CultureInvariant)]
     private static partial Regex LineAttribute();
+
+    [GeneratedRegex(@"(\styp\s*=\s*"")[^""]*("")", RegexOptions.CultureInvariant)]
+    private static partial Regex TypeAttribute();
+
+    [GeneratedRegex(@"^TableSimulator: povodne line=""([^""]*)""(?: typ=""([^""]*)"")?$", RegexOptions.CultureInvariant)]
+    private static partial Regex OriginalText();
 }
