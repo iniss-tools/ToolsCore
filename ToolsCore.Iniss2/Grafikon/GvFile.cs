@@ -20,7 +20,7 @@ public enum GvStopFlags
     /// <summary>Stanica je zaujmova - vlak v nej riadi INISS (kluc Z).</summary>
     Interest = 2,
 
-    /// <summary>Kluc PR - sprava GTN vlaku v takej stanici nemeni kolaj.</summary>
+    /// <summary>Nutny prestup (kluc PR) - kolaj zo spravy GTN sa v takom bode neprenasa medzi prichodom a odchodom.</summary>
     Pr = 4,
 
     /// <summary>Dopravny bod (kluc DB).</summary>
