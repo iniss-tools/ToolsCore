@@ -164,7 +164,11 @@ public class TablesReadersTests
         Assert.AreEqual("", tables[0].Line);
         Assert.AreEqual("Tabule", tables[1].Line);
         Assert.AreEqual(2, tables[1].Address);
-        Assert.AreEqual(new TablePart("Nástupiště 1", "Nástupištní LCD", "PLATFORM", 1), tables[1].Parts[0]);
+        Assert.AreEqual("Nástupištní LCD", tables[1].Parts[0].CatalogKey);
+        Assert.AreEqual("PLATFORM", tables[1].Parts[0].Kind);
+        Assert.AreEqual(1, tables[1].Parts[0].Records);
+        CollectionAssert.AreEqual(new[] { "1" }, tables[1].Parts[0].Tracks.ToArray());
+        Assert.IsEmpty(tables[1].Parts[1].Tracks);
     }
 
     [TestMethod]
@@ -183,6 +187,51 @@ public class TablesReadersTests
         Assert.IsFalse(catalog[0].IsDevice);
         Assert.IsTrue(catalog[1].IsDevice);
         Assert.AreEqual("LCD1", catalog[1].Class);
+    }
+
+    [TestMethod]
+    public void Catalog_CitaUdajePredlohy()
+    {
+        Write(TableCatalogFile.FileName, """
+            <?xml version="1.0" encoding="windows-1250"?>
+            <CATALOG>
+              <t k="Nástupištní" n="Nástupištní" cls="LCD1">
+                <div k="Cíl" inf="CilNazev" fnt="18" align="LEFT"><pos c1="0" c2="17" /></div>
+                <div k="Odjezd" inf="CasOdjezdu" fnt="18" align="CENTER"><pos c1="17" c2="22" /></div>
+                <div k="Směr" inf="PoNazev" fnt="18" align="LEFT"><pos r="2" c1="5" c2="22" /></div>
+                <div k="Skrytý" inf="TypVlaku" fnt="18" align="LEFT"><pos r="-1" c1="0" c2="20" /></div>
+                <div k="Stav" inf="ZobrazenoNast" fnt="18" align="LEFT"><pos r="-1" c1="0" c2="1" /></div>
+              </t>
+              <t k="Skrytá" n="Skrytá" cls="ERP">
+                <div k="Druh" inf="TypVlaku" align="LEFT"><pos r="-1" c1="0" c2="20" /></div>
+              </t>
+              <t k="Prázdná" n="Prázdná" cls="ERP" />
+            </CATALOG>
+            """);
+
+        var catalog = TableCatalogFile.Read(_dir);
+        var columns = catalog[0].Columns;
+
+        Assert.AreEqual(new CatalogColumn("Odjezd", "CasOdjezdu", 0, 17, 22, "CENTER"), columns[1]);
+        Assert.AreEqual(2, columns[2].Row);
+        Assert.AreEqual(3, catalog[0].LinesPerRecord);
+        Assert.AreEqual(1, catalog[1].LinesPerRecord, "skryte udaje riadok nepridaju");
+        Assert.AreEqual(1, catalog[2].LinesPerRecord);
+        Assert.IsFalse(columns[3].IsVisible);
+        Assert.AreEqual(8, columns[0].Section?.Id, "cielova stanica");
+        Assert.AreEqual(15, columns[3].Section?.Id, "typ vlaku ma v INISS2 ine cislo");
+        Assert.IsNull(columns[4].Section, "udaj bez obdoby v INISS 3.39");
+    }
+
+    [TestMethod]
+    [DataRow("KolejOdjezd", 20)]
+    [DataRow("KolejPrijezd", 19)]
+    [DataRow("ZpozdeniOdjezd", 12)]
+    [DataRow("Dopravce", 34)]
+    [DataRow("Linka", 36)]
+    public void Catalog_ObsahPodlaNazvuNiePodlaCisla(string content, int section)
+    {
+        Assert.AreEqual(section, new CatalogColumn("", content, 0, 0, 1, "LEFT").Section?.Id);
     }
 
     [TestMethod]
