@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.Xml.Linq;
-using Serilog;
 using ToolsCore.Iniss.Tools;
 
 namespace ToolsCore.Iniss2;
@@ -30,7 +29,7 @@ internal static class Iniss2Xml
         element.Attribute(attribute) is { } value ? int.Parse(value.Value, CultureInfo.InvariantCulture) : missing;
 
     /// <summary>
-    /// Priznaky zapisane klucmi oddelenymi medzerou. Neznamy kluc sa preskoci.
+    /// Priznaky zapisane klucmi oddelenymi medzerou. Server subor s neznamym klucom nenacita.
     /// </summary>
     /// <param name="element">prvok</param>
     /// <param name="attribute">nazov atributu</param>
@@ -40,10 +39,10 @@ internal static class Iniss2Xml
         var flags = 0;
         foreach (var key in Text(element, attribute).Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries))
         {
-            if (keys.TryGetValue(key, out var value))
-                flags |= value;
-            else
-                Log.Warning("Neznamy priznak {Key} v atribute {Attribute} prvku {Element}", key, attribute, element.Name.LocalName);
+            if (!keys.TryGetValue(key, out var value))
+                throw new FormatException(string.Create(CultureInfo.InvariantCulture, $"Unknown flag {key} in attribute {attribute} of element {element.Name.LocalName}."));
+
+            flags |= value;
         }
 
         return flags;

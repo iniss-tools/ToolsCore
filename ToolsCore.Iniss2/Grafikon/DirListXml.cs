@@ -59,9 +59,11 @@ public static class DirListXml
     };
 
     /// <summary>
-    /// Nacita zoznam grafikonov. Cislo stanice berie zo suboru SR70.TXT ako server, atribut <c>s</c> len ked subor chyba.
+    /// Nacita zoznam grafikonov. Cislo stanice berie zo suboru SR70.TXT ako server, atribut <c>s</c> nepouziva.
     /// </summary>
     /// <param name="dataDir">priecinok dat servera</param>
+    /// <exception cref="IOException">stanica nema subor SR70.TXT</exception>
+    /// <exception cref="FormatException">v subore SR70.TXT nie je platne cislo</exception>
     public static List<DirListGroup> Read(string dataDir)
     {
         var root = Iniss2Xml.Load(Path.Combine(dataDir, FileName)).Root!;
@@ -72,19 +74,16 @@ public static class DirListXml
             var items = group.Elements("i").Select(item =>
             {
                 var directory = Iniss2Xml.Text(item, "d");
-                var station = ReadStationNumber(Path.Combine(dataDir, name, directory)) ?? Iniss2Xml.Number(item, "s");
-                return new DirListItem(directory, station, Iniss2Xml.Text(item, "tl"), Iniss2Xml.Text(item, "al"),
+                return new DirListItem(directory, ReadStationNumber(Path.Combine(dataDir, name, directory)), Iniss2Xml.Text(item, "tl"), Iniss2Xml.Text(item, "al"),
                     (DirListItemFlags)Iniss2Xml.Flags(item, "f", FlagKeys));
             }).ToList();
             return new DirListGroup(name, items);
         }).ToList();
     }
 
-    private static int? ReadStationNumber(string stationDir)
+    private static int ReadStationNumber(string stationDir)
     {
         var file = Path.Combine(stationDir, StationNumberFile);
-        if (!File.Exists(file))
-            return null;
 
         foreach (var line in File.ReadLines(file, Encodings.Win1250).Select(line => line.Trim()))
         {
@@ -92,6 +91,6 @@ public static class DirListXml
                 return number;
         }
 
-        return null;
+        throw new FormatException(string.Create(CultureInfo.InvariantCulture, $"No valid station number in {file}."));
     }
 }

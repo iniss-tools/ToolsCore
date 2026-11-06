@@ -15,6 +15,11 @@ public class GrafikonReadersTests
     private const int Horany = 5400020;
     private const int MimoInstalacie = 5400030;
 
+    private static readonly DirListGroup Group = new("2030", [
+        new DirListItem("Lipovec", Lipovec, "", "", DirListItemFlags.None),
+        new DirListItem("Horany", Horany, "", "", DirListItemFlags.None)
+    ]);
+
     private string _dataDir = null!;
 
     [TestInitialize]
@@ -43,7 +48,7 @@ public class GrafikonReadersTests
               {trains}
             </GV>
             """);
-        return GvFile.Read(Path.Combine(_dataDir, "2030"));
+        return GvFile.Read(_dataDir, Group);
     }
 
     private StationTimetable ReadTimetable(string trains, string positions)
@@ -70,6 +75,10 @@ public class GrafikonReadersTests
               <g n="2031" />
             </DL>
             """);
+        Write(@"2030\Lipovec\SR70.TXT", "5400010\r\n");
+        Write(@"2030\Horany\SR70.TXT", "5400020\r\n");
+        Write(@"2030\Rozvetvie\SR70.TXT", "5400030\r\n");
+        Write(@"2030\Medzi\SR70.TXT", "5400040\r\n");
 
         var groups = DirListXml.Read(_dataDir);
 
@@ -83,16 +92,38 @@ public class GrafikonReadersTests
     }
 
     [TestMethod]
-    public void DirList_CisloStaniceBerieZoSuboruPredAtributom()
+    public void DirList_CisloStaniceBerieZoSuboruNieZAtributu()
     {
-        Write("DirList.xml", """<DL><g n="2030"><i s="111" d="Lipovec" /><i s="222" d="Horany" /></g></DL>""");
+        Write("DirList.xml", """<DL><g n="2030"><i s="111" d="Lipovec" /></g></DL>""");
         Write(@"2030\Lipovec\SR70.TXT", "; Záznam stanice: Lipovec\r\n; vytvoreno: 1.1.2030\r\n5400010\r\n");
-        Write(@"2030\Horany\SR70.TXT", "; bez cisla\r\n");
 
-        var items = DirListXml.Read(_dataDir)[0].Items;
+        Assert.AreEqual(Lipovec, DirListXml.Read(_dataDir)[0].Items[0].Station);
+    }
 
-        Assert.AreEqual(Lipovec, items[0].Station);
-        Assert.AreEqual(222, items[1].Station);
+    [TestMethod]
+    public void DirList_BezPlatnehoCislaVSubore_ChybaAtributNepomoze()
+    {
+        Write("DirList.xml", """<DL><g n="2030"><i s="5400010" d="Lipovec" /></g></DL>""");
+        Write(@"2030\Lipovec\SR70.TXT", "; bez cisla\r\n5400010 Lipovec\r\n");
+
+        Assert.Throws<FormatException>(() => DirListXml.Read(_dataDir));
+    }
+
+    [TestMethod]
+    public void DirList_BezSuboruCislaStanice_Chyba()
+    {
+        Write("DirList.xml", """<DL><g n="2030"><i s="5400010" d="Lipovec" /></g></DL>""");
+
+        Assert.Throws<IOException>(() => DirListXml.Read(_dataDir));
+    }
+
+    [TestMethod]
+    public void DirList_NeznamyPriznak_Chyba()
+    {
+        Write("DirList.xml", """<DL><g n="2030"><i d="Lipovec" f="NEZNAMY" /></g></DL>""");
+        Write(@"2030\Lipovec\SR70.TXT", "5400010\r\n");
+
+        Assert.Throws<FormatException>(() => DirListXml.Read(_dataDir));
     }
 
     [TestMethod]
@@ -135,6 +166,41 @@ public class GrafikonReadersTests
         Assert.AreEqual(GvStopFlags.Interest | GvStopFlags.Pr | GvStopFlags.OnRequest, last.Flags);
         Assert.AreEqual("1002", last.Number, "bez dcv plati cislo z cv");
         Assert.IsTrue(last.IsInterest);
+    }
+
+    [TestMethod]
+    [DataRow("""<v o="2030-01-07" d="2030-01-20"><v f="NEZNAMY" /></v>""")]
+    [DataRow("""<v o="2030-01-07" d="2030-01-20"><v><z c="5400010" f="NEZNAMY" /></v></v>""")]
+    public void Gv_NeznamyPriznak_SuborSaNenacita(string trains)
+    {
+        Assert.Throws<FormatException>(() => ReadGv(trains));
+    }
+
+    [TestMethod]
+    public void Gv_BezDatumovPlatiOdZaciatkuDoKoncaKalendara()
+    {
+        var gv = ReadGv($"""<v><v><z c="{Lipovec}" o="480" /></v></v>""");
+
+        var train = gv.Trains.Single();
+        Assert.AreEqual(DateOnly.MinValue, train.From);
+        Assert.AreEqual(DateOnly.MaxValue, train.To);
+        Assert.IsTrue(train.DaysOf(train.Variants.Single())[0]);
+    }
+
+    [TestMethod]
+    public void Gv_StanicaMimoGrafikonuNieJeZaujmova()
+    {
+        var gv = ReadGv($"""
+            <s>{MimoInstalacie}</s>
+            <v o="2030-01-07" d="2030-01-20">
+              <v><z c="{MimoInstalacie}" o="480" dcv="1001" f="Z" /><z c="{Lipovec}" p="500" f="Z" /></v>
+            </v>
+            """);
+
+        Assert.AreEqual(Lipovec, gv.Stations.Single());
+        var stops = gv.Trains.Single().Variants.Single().Stops;
+        Assert.IsFalse(stops[0].IsInterest);
+        Assert.IsTrue(stops[1].IsInterest);
     }
 
     [TestMethod]
@@ -218,6 +284,161 @@ public class GrafikonReadersTests
         Assert.AreEqual(DateLimit.Locale.Sk, DateLimit.Loc);
         Assert.IsFalse(january[1]);
         Assert.IsTrue(october[1]);
+    }
+
+    [TestMethod]
+    public void Validity_ChybnaPoznamkaNejedeZiadnyDen()
+    {
+        var days = GvValidity.Days(new DateOnly(2030, 1, 7), new DateOnly(2030, 1, 13), "toto nie je poznamka");
+
+        Assert.HasCount(7, days);
+        Assert.IsFalse(days.HasAnySet());
+    }
+
+    [TestMethod]
+    [DataRow(400, true)]
+    [DataRow(401, false)]
+    public void Validity_TextovaPoznamkaNajviac400Dni(int count, bool valid)
+    {
+        var from = new DateOnly(2030, 1, 7);
+        var to = from.AddDays(count - 1);
+
+        Assert.AreEqual(valid, GvValidity.Days(from, to, "jede v 1-5").HasAnySet());
+        Assert.AreEqual(valid, GvValidity.Days(from, to, new string('1', count - 1) + "0").HasAnySet());
+        Assert.IsTrue(GvValidity.Days(from, to, "").HasAllSet(), "prazdna poznamka plati vzdy");
+    }
+
+    [TestMethod]
+    public void Validity_KoniecPredZaciatkomNemaZiadnyDen()
+    {
+        var from = new DateOnly(2030, 1, 7);
+
+        Assert.IsEmpty(GvValidity.Days(from, from.AddDays(-2), "").Cast<bool>());
+        Assert.IsEmpty(GvValidity.Days(from, from.AddDays(-2), "jede v 1-5").Cast<bool>());
+    }
+
+    private static readonly string MosTrainXml = $"""
+        <v o="2030-01-07" d="2030-01-13">
+          <v>
+            <z c="{Horany}" o="480" dcv="1001" dv="Os" />
+            <z c="{Lipovec}" p="500" o="502" f="Z" />
+          </v>
+        </v>
+        """;
+
+    private GvTrain ReadMos(string records, string? trains = null)
+    {
+        Write(@"2030\Lipovec\MOS.xml", $"<MOS>{records}</MOS>");
+        return ReadGv(trains ?? MosTrainXml).Trains.Single();
+    }
+
+    private static string Bits(System.Collections.BitArray days) => string.Concat(days.Cast<bool>().Select(day => day ? '1' : '0'));
+
+    [TestMethod]
+    public void Mos_CitaZaznamyAChybajuciSuborJePrazdny()
+    {
+        Assert.IsEmpty(MosFile.Read(Path.Combine(_dataDir, "2030", "Lipovec")));
+
+        Write(@"2030\Lipovec\MOS.xml", """<MOS><v cv="2002" /><v jd="jede v 1-5" cv="1003" /></MOS>""");
+
+        CollectionAssert.AreEqual(new[] { new MosTrain("2002", ""), new MosTrain("1003", "jede v 1-5") }, MosFile.Read(Path.Combine(_dataDir, "2030", "Lipovec")));
+    }
+
+    [TestMethod]
+    public void Mos_DruhZGrafikonuSaNeuplatni()
+    {
+        var gv = ReadGv($"""<v o="2030-01-07" d="2030-01-13"><v><z c="{Lipovec}" o="480" dcv="1001" dv="MOs" /></v></v>""");
+
+        Assert.AreEqual("Os", gv.Trains.Single().Variants.Single().Stops[0].TrainType);
+    }
+
+    [TestMethod]
+    public void Mos_ZaznamPlatnyVsetkyDni_ZmeniDruhZaciatkuUseku()
+    {
+        var variant = ReadMos("""<v cv="1001" />""").Variants.Single();
+
+        Assert.AreEqual("MOs", variant.Stops[0].TrainType, "druh sa meni v bode s cislom vlaku, nie v stanici zo zaznamu");
+        Assert.IsNull(variant.Days);
+    }
+
+    [TestMethod]
+    public void Mos_ZaznamPlatnyCastDni_RozdeliVariantu()
+    {
+        var train = ReadMos("""<v cv="1001" jd="0011100" />""");
+
+        Assert.HasCount(2, train.Variants);
+        Assert.AreEqual("Os", train.Variants[0].Stops[0].TrainType);
+        Assert.AreEqual("1100011", Bits(train.DaysOf(train.Variants[0])));
+        Assert.AreEqual("MOs", train.Variants[1].Stops[0].TrainType);
+        Assert.AreEqual("0011100", Bits(train.DaysOf(train.Variants[1])));
+        Assert.AreEqual("0011100", Bits(train.ActiveDaysOf(train.Variants[1])));
+    }
+
+    [TestMethod]
+    public void Mos_ZaznamBezDniVlaku_NicNemeni()
+    {
+        var train = ReadMos("""<v cv="1001" jd="-" />""");
+
+        Assert.AreEqual("Os", train.Variants.Single().Stops[0].TrainType);
+    }
+
+    [TestMethod]
+    public void Mos_PlatiPrvyZaznamSCislom()
+    {
+        var train = ReadMos("""<v cv="1001" jd="-" /><v cv="1001" />""");
+
+        Assert.AreEqual("Os", train.Variants.Single().Stops[0].TrainType);
+    }
+
+    [TestMethod]
+    public void Mos_DenZaznamuJeDenVStanici()
+    {
+        var train = ReadMos("""<v cv="1001" jd="0100000" />""", $"""
+            <v o="2030-01-07" d="2030-01-13">
+              <v>
+                <z c="{Horany}" o="1430" dcv="1001" dv="Os" />
+                <z c="{Lipovec}" p="10" cp="1" f="Z" />
+              </v>
+            </v>
+            """);
+
+        Assert.AreEqual("1000000", Bits(train.DaysOf(train.Variants[1])), "nocny vlak je v stanici o den neskor");
+    }
+
+    [TestMethod]
+    [DataRow("Sp", "f=\"Z\"")]
+    [DataRow("Os", "f=\"Z P\"")]
+    [DataRow("Os", "")]
+    public void Mos_IneDruhyANezaujmoveStaniceSaPreskocia(string type, string flags)
+    {
+        var train = ReadMos("""<v cv="1001" />""", $"""
+            <v o="2030-01-07" d="2030-01-13">
+              <v>
+                <z c="{Horany}" o="480" dcv="1001" dv="{type}" />
+                <z c="{Lipovec}" p="500" o="502" {flags} />
+              </v>
+            </v>
+            """);
+
+        Assert.AreEqual(type, train.Variants.Single().Stops[0].TrainType);
+    }
+
+    [TestMethod]
+    public void Mos_ZmenaCislaZacinaNovyUsek()
+    {
+        var train = ReadMos("""<v cv="1002" />""", $"""
+            <v o="2030-01-07" d="2030-01-13">
+              <v>
+                <z c="{Horany}" o="480" dcv="1001" dv="Os" />
+                <z c="{MimoInstalacie}" p="490" o="491" dcv="1002" dv="Os" />
+                <z c="{Lipovec}" p="500" f="Z" />
+              </v>
+            </v>
+            """);
+
+        var stops = train.Variants.Single().Stops;
+        Assert.AreEqual("Os", stops[0].TrainType);
+        Assert.AreEqual("MOs", stops[1].TrainType);
     }
 
     [TestMethod]

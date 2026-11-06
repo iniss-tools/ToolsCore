@@ -74,7 +74,7 @@ public sealed class StationTimetable
         Station = station;
         Tracks = tracks;
         _positions = positions;
-        _ranges = TrainRanges(gv, station.Station);
+        _ranges = gv.TrainRanges(station.Station);
         Calls = gv.Trains
             .SelectMany(train => train.Variants.SelectMany(variant => variant.Stops
                 .Select((stop, index) => (stop, index))
@@ -114,9 +114,8 @@ public sealed class StationTimetable
         ArgumentNullException.ThrowIfNull(group);
         ArgumentNullException.ThrowIfNull(station);
 
-        var groupDir = Path.Combine(dataDir, group.Name);
-        var stationDir = Path.Combine(groupDir, station.Directory);
-        return new StationTimetable(group, station, GvFile.Read(groupDir), PositionsDefFile.Read(stationDir), PositionsFile.Read(stationDir));
+        var stationDir = Path.Combine(dataDir, group.Name, station.Directory);
+        return new StationTimetable(group, station, GvFile.Read(dataDir, group), PositionsDefFile.Read(stationDir), PositionsFile.Read(stationDir));
     }
 
     /// <summary>
@@ -146,33 +145,5 @@ public sealed class StationTimetable
         if (!_positionDays.TryGetValue(position, out var days))
             _positionDays[position] = days = GvValidity.Days(range.From, range.To, position.Validity);
         return days;
-    }
-
-    // obdobie vlaku v stanici podla cisla - zjednotenie obdobi vlakov, ktore s tym cislom stanicou idu
-    private static Dictionary<string, (DateOnly From, DateOnly To)> TrainRanges(GvFile gv, int station)
-    {
-        var ranges = new Dictionary<string, (DateOnly From, DateOnly To)>(StringComparer.Ordinal);
-
-        foreach (var train in gv.Trains)
-        {
-            foreach (var variant in train.Variants)
-            {
-                var number = "";
-                foreach (var stop in variant.Stops)
-                {
-                    if (stop.Number.Length > 0)
-                        number = stop.Number;
-
-                    if (stop.Station != station || !stop.Flags.HasFlag(GvStopFlags.Interest) || !stop.HasTime || number.Length == 0)
-                        continue;
-
-                    ranges[number] = ranges.TryGetValue(number, out var range)
-                        ? (train.From < range.From ? train.From : range.From, train.To > range.To ? train.To : range.To)
-                        : (train.From, train.To);
-                }
-            }
-        }
-
-        return ranges;
     }
 }
