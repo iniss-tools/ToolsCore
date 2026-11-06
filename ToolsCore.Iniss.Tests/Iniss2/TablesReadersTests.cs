@@ -69,6 +69,16 @@ public class TablesReadersTests
     }
 
     [TestMethod]
+    [DataRow("LCD", true)]
+    [DataRow("ELEN", true)]
+    [DataRow("ITP", false)]
+    [DataRow("ITP2", false)]
+    public void CommLines_SeriovaLinkaITPSaNepresmeruje(string protocol, bool canRedirect)
+    {
+        Assert.AreEqual(canRedirect, new CommLine("L", CommLineType.Serial, protocol, "COM1").CanRedirect);
+    }
+
+    [TestMethod]
     public void CommLines_SeriovaLinkaSaZmeniNaTcpKlientaAVrati()
     {
         var updated = CommLinesXml.Redirect(Lines, Target("Seriova", "127.0.0.1:47003"));

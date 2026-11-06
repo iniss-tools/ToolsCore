@@ -44,8 +44,11 @@ public sealed record CommLine(string Key, CommLineType Type, string Protocol, st
     /// <summary>Povodna adresa, ak je linka presmerovana na simulator.</summary>
     public string? OriginalAddress { get; init; }
 
-    /// <summary>Linka sa da presmerovat: server sa na nej pripaja na adresu, alebo je seriova a presmerovanie z nej urobi TCP_CLIENT.</summary>
-    public bool CanRedirect => Type is CommLineType.UdpClient or CommLineType.TcpClient or CommLineType.Serial;
+    /// <summary>
+    /// Linka sa da presmerovat: server sa na nej pripaja na adresu, alebo je seriova a presmerovanie z nej urobi TCP_CLIENT.
+    /// Seriova linka ITP nie - server cita odpoved ITP cely paket naraz len pri UDP_CLIENT, cez TCP by ju nedocital.
+    /// </summary>
+    public bool CanRedirect => Type is CommLineType.UdpClient or CommLineType.TcpClient || Type == CommLineType.Serial && Protocol is not ("ITP" or "ITP2");
 }
 
 /// <summary>
