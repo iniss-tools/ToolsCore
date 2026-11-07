@@ -672,6 +672,35 @@ public class GrafikonReadersTests
     }
 
     [TestMethod]
+    public void StaniceHlasenia_ZapisAPrecitanie()
+    {
+        var dir = Path.Combine(_dataDir, "stanica");
+        var trains = new[]
+        {
+            new TrainReportStations("2002", "jede v 6,7") { ShortFrom = [Horany], LongFrom = [Horany, MimoInstalacie], ShortTo = [5400050], LongTo = [] },
+            new TrainReportStations("2004", "")
+        };
+        IReadOnlyList<ReportPatternStop> pattern = [new ReportPatternStop(Horany, false), new ReportPatternStop(Lipovec, true)];
+
+        TrainReportStationsFile.Write(dir, trains);
+        ReportPatternsFile.Write(dir, ReportPatternsFile.ShortFileName, [pattern]);
+        DefaultStationsFile.Write(_dataDir, [new DefaultStation(Horany, "Horany"), new DefaultStation(MimoInstalacie, "Javor") { Short = false }]);
+
+        var read = TrainReportStationsFile.Read(dir);
+        Assert.AreEqual(("2002", "jede v 6,7"), (read[0].Number, read[0].Validity));
+        CollectionAssert.AreEqual(new[] { Horany, MimoInstalacie }, read[0].LongFrom.ToArray());
+        CollectionAssert.AreEqual(new[] { 5400050 }, read[0].ShortTo.ToArray());
+        Assert.IsEmpty(read[0].LongTo);
+        Assert.IsEmpty(read[1].ShortFrom);
+        StringAssert.Contains(File.ReadAllText(Path.Combine(dir, TrainReportStationsFile.FileName), Encodings.Win1250), "<b>5400020</b>");
+        CollectionAssert.AreEqual(pattern.ToArray(), ReportPatternsFile.Read(dir, ReportPatternsFile.ShortFileName).Single().ToArray());
+        Assert.IsEmpty(ReportPatternsFile.Read(dir, ReportPatternsFile.LongFileName));
+        CollectionAssert.AreEqual(new[] { new DefaultStation(Horany, "Horany"), new DefaultStation(MimoInstalacie, "Javor") { Short = false } },
+            DefaultStationsFile.Read(_dataDir));
+        StringAssert.Contains(File.ReadAllText(Path.Combine(_dataDir, DefaultStationsFile.FileName), Encodings.Win1250), "<s st=\"5400030\" n=\"Javor\" k=\"false\" />");
+    }
+
+    [TestMethod]
     public void StavovyDiagram_ZapisAPrecitanie()
     {
         var dir = Path.Combine(_dataDir, "stanica");
