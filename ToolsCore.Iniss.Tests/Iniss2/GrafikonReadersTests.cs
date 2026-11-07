@@ -672,6 +672,57 @@ public class GrafikonReadersTests
     }
 
     [TestMethod]
+    public void StavovyDiagram_ZapisAPrecitanie()
+    {
+        var dir = Path.Combine(_dataDir, "stanica");
+        var diagram = new StateDiagram(".IndCat6()")
+        {
+            Graphs =
+            [
+                new StateGraph("#Výchozí vlak")
+                {
+                    Nodes =
+                    [
+                        new StateNode("Kolej") { Flags = [StateNodeFlags.Auxiliary], Button = new StateButton("Koľaj", 0) },
+                        new StateNode("Hlásenie") { Report = "Zpoždění", Flags = [StateNodeFlags.Auxiliary], Condition = "(.Node.sKey = \"#Start\")",
+                            Automation = new StateAutomation(".DatumCasOdj(False).AddSeconds(-360)")
+                            {
+                                Mode = "2", Repeat = "600", End = ".DatumCasOdj(True)", Flags = [StateNodeFlags.KeepWithoutClient]
+                            }
+                        },
+                        new StateNode("#Start") { Flags = [StateNodeFlags.Standing, StateNodeFlags.OnDeparture] },
+                        new StateNode("Odjede") { Name = "Odíde", Report = "Odjede", Button = new StateButton("Odíde", 8),
+                            Automation = new StateAutomation(".DatumCasOdj(True)") { Mode = "1", Variant = 2, Condition = ".PlanDobaPobytu < 5 And .JeVychozi" }
+                        }
+                    ]
+                }
+            ]
+        };
+
+        StateDiagramFile.Write(dir, diagram);
+
+        var text = File.ReadAllText(Path.Combine(dir, StateDiagramFile.FileName), Encodings.Win1250);
+        StringAssert.Contains(text, "<c>.PlanDobaPobytu &lt; 5 And .JeVychozi</c>");
+        Assert.DoesNotContain(" h=", text.Split("Hlásenie")[1].Split("</n>")[0], "bez variantu server zvoli sam");
+        var read = StateDiagramFile.Read(dir)!;
+        Assert.AreEqual(".IndCat6()", read.GraphIndex);
+        var nodes = read.Graphs.Single().Nodes;
+        Assert.AreEqual("#Výchozí vlak", read.Graphs[0].Description);
+        CollectionAssert.AreEqual(new[] { "Kolej", "Hlásenie", "#Start", "Odjede" }, nodes.Select(node => node.Key).ToArray());
+        Assert.AreEqual(new StateButton("Koľaj", 0), nodes[0].Button);
+        Assert.AreEqual(("Zpoždění", "(.Node.sKey = \"#Start\")"), (nodes[1].Report, nodes[1].Condition));
+        var repeat = nodes[1].Automation!;
+        Assert.AreEqual((".DatumCasOdj(False).AddSeconds(-360)", "2", "600", ".DatumCasOdj(True)", (int?)null),
+            (repeat.Time, repeat.Mode, repeat.Repeat, repeat.End, repeat.Variant));
+        CollectionAssert.AreEqual(new[] { StateNodeFlags.KeepWithoutClient }, repeat.Flags.ToArray());
+        CollectionAssert.AreEqual(new[] { StateNodeFlags.Standing, StateNodeFlags.OnDeparture }, nodes[2].Flags.ToArray());
+        Assert.IsNull(nodes[2].Automation);
+        Assert.AreEqual(("Odíde", "Odjede", 2, ".PlanDobaPobytu < 5 And .JeVychozi"),
+            (nodes[3].Name, nodes[3].Report, nodes[3].Automation!.Variant, nodes[3].Automation!.Condition));
+        Assert.IsNull(StateDiagramFile.Read(Path.Combine(_dataDir, "ina")));
+    }
+
+    [TestMethod]
     public void Vyluky_ZapisAPrecitanie()
     {
         var dir = Path.Combine(_dataDir, "2030");
