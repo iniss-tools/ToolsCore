@@ -265,7 +265,7 @@ public class TablesReadersTests
         var catalog = TableCatalogFile.Read(_dir);
         var columns = catalog[0].Columns;
 
-        Assert.AreEqual(new CatalogColumn("Odjezd", "CasOdjezdu", 0, 17, 22, "CENTER"), columns[1]);
+        Assert.AreEqual(new CatalogColumn("Odjezd", "CasOdjezdu", 0, 17, 22, "CENTER") { Font = 18 }, columns[1]);
         Assert.AreEqual(2, columns[2].Row);
         Assert.AreEqual(3, catalog[0].LinesPerRecord);
         Assert.AreEqual(1, catalog[1].LinesPerRecord, "skryte udaje riadok nepridaju");
@@ -285,6 +285,132 @@ public class TablesReadersTests
     public void Catalog_ObsahPodlaNazvuNiePodlaCisla(string content, int section)
     {
         Assert.AreEqual(section, new CatalogColumn("", content, 0, 0, 1, "LEFT").Section?.Id);
+    }
+
+    [TestMethod]
+    public void Tables_ZapisAPrecitanie()
+    {
+        TablesFile.Write(_dir, [
+            new TableDefinition("Odchody", "Lipovec", "", TableDefinition.NoAddress, "5400010O.xml", [new TablePart("Odchody", "Odjazdova Internet", "DEPARTURE", 10)]),
+            new TableDefinition("Nastupiste 1", "Nastupiste 1", "Tabule", 2, "", [
+                new TablePart("Nastupiste 1", "Nastupistna", "PLATFORM", 1) { Tracks = ["1", "2"], TrackPriorities = new Dictionary<string, int> { ["2"] = 1 } },
+                new TablePart("Pokracovanie", "Nastupistna", "PLATFORM", 1) { Previous = "Odchody", Stations = "5400010 5400020" }
+            ]) { ReverseArrows = "0 1" }
+        ]);
+
+        var tables = TablesFile.Read(_dir);
+
+        Assert.AreEqual((-1, "5400010O.xml"), (tables[0].Address, tables[0].SaveFile));
+        Assert.AreEqual(("Tabule", 2, "0 1"), (tables[1].Line, tables[1].Address, tables[1].ReverseArrows));
+        CollectionAssert.AreEqual(new[] { "1", "2" }, tables[1].Parts[0].Tracks.ToArray());
+        Assert.AreEqual(1, tables[1].Parts[0].TrackPriorities["2"]);
+        Assert.IsFalse(tables[1].Parts[0].TrackPriorities.ContainsKey("1"));
+        Assert.AreEqual(("Odchody", "5400010 5400020"), (tables[1].Parts[1].Previous, tables[1].Parts[1].Stations));
+    }
+
+    [TestMethod]
+    public void Catalog_ZapisAPrecitanie()
+    {
+        TableCatalogFile.Write(_dir, [
+            new CatalogTable("Odjazdova", "Odjazdova", "ELEN16")
+            {
+                FontBank = "16_1250_rwp_s05",
+                Columns = [
+                    new CatalogColumn("Cas", "CasOdjezdu", 0, 0, 30, "RIGHT") { Name = "Cas", Font = 74, Translation = "TABLETIME", Table1 = "Hodiny", Table2 = "Minuty" },
+                    new CatalogColumn("Ciel", "CilNazev", 1, 36, 200, "LEFT")
+                ]
+            }
+        ]);
+
+        var catalog = TableCatalogFile.Read(_dir).Single();
+        var columns = catalog.Columns;
+
+        Assert.AreEqual(("ELEN16", "16_1250_rwp_s05"), (catalog.Class, catalog.FontBank));
+        Assert.AreEqual(("Cas", 74, "TABLETIME", "Hodiny", "Minuty"), (columns[0].Name, columns[0].Font, columns[0].Translation, columns[0].Table1, columns[0].Table2));
+        Assert.AreEqual((0, 0, 30, "RIGHT"), (columns[0].Row, columns[0].Start, columns[0].End, columns[0].Align));
+        Assert.AreEqual((1, 36, 200, CatalogColumn.FreeTranslation), (columns[1].Row, columns[1].Start, columns[1].End, columns[1].Translation));
+        Assert.AreEqual(2, catalog.LinesPerRecord);
+    }
+
+    [TestMethod]
+    public void Catalog_ObsahPre339()
+    {
+        Assert.AreEqual("CasOdjezdu", CatalogColumn.ContentFor(ToolsCore.Iniss.Tables.TableFillSection.CasOdchodu), "bez aktualizacie meskania");
+        Assert.AreEqual("KolejPrijezd", CatalogColumn.ContentFor(ToolsCore.Iniss.Tables.TableFillSection.KolajPrichod));
+        Assert.AreEqual("TypCisloVlakuKompr", CatalogColumn.ContentFor(ToolsCore.Iniss.Tables.TableFillSection.TypMedzeraCisloVlaku));
+        Assert.AreEqual("Linka", CatalogColumn.ContentFor(ToolsCore.Iniss.Tables.TableFillSection.LinkaPrichod));
+        Assert.AreEqual("Not", CatalogColumn.ContentFor(ToolsCore.Iniss.Tables.TableFillSection.NotDefined));
+        Assert.IsNull(CatalogColumn.ContentFor(ToolsCore.Iniss.Tables.TableFillSection.CisloVlaku35));
+    }
+
+    // vyraz s komentarom neprevedeneho pravidla INISS 3.39; XML pri citani zjednoti konce riadkov na LF
+    private const string Expression = "' #SWITCH\nReturn sOrig";
+
+    [TestMethod]
+    public void TabTab_ZapisAPrecitanie()
+    {
+        var file = Path.Combine(_dir, TabTabXml.StationFileName);
+        TabTabXml.Write(file, [
+            new TabTabTable("Druh") { IgnoreCase = true, Entries = [new TabTabEntry("R", TabTabTable.AnyFont, "R", 34369), new TabTabEntry("CD", TabTabTable.AnyFont, "", TabTabTable.AnyFont)] },
+            new TabTabTable("Smer") { ViewValues = true, Description = "smer", Expression = Expression }
+        ]);
+
+        var tables = TabTabXml.Read(file);
+
+        Assert.AreEqual(("Druh", true, false), (tables[0].Name, tables[0].IgnoreCase, tables[0].ViewValues));
+        CollectionAssert.AreEqual(new[] { new TabTabEntry("R", -2, "R", 34369), new TabTabEntry("CD", -2, "", -2) }, tables[0].Entries.ToArray());
+        Assert.AreEqual(("smer", true, Expression), (tables[1].Description, tables[1].ViewValues, tables[1].Expression));
+        Assert.IsEmpty(TabTabXml.Read(Path.Combine(_dir, TabTabXml.GlobalFileName)));
+    }
+
+    [TestMethod]
+    public void TrainTexts_ZapisAPrecitanie()
+    {
+        TrainTextsFile.Write(_dir, [
+            new TrainTextSet("CiloveStanice")
+            {
+                Targets = [new TextTarget("Odjazdova", "Ciel")],
+                Trains = [new TrainText("2002", "jede v 6,+", "Horna Lehota", 2), new TrainText("2002", "", "Dolne Mesto", TrainTextSet.NoFont), new TrainText("1001", "", "", -1)]
+            },
+            new TrainTextSet("Prazdna") { Targets = [new TextTarget("Odjazdova", "Smer")] }
+        ]);
+
+        var sets = TrainTextsFile.Read(_dir);
+
+        Assert.HasCount(1, sets, "sada bez textov sa nezapisuje");
+        CollectionAssert.AreEqual(new[] { new TextTarget("Odjazdova", "Ciel") }, sets[0].Targets.ToArray());
+        CollectionAssert.AreEqual(new[]
+        {
+            new TrainText("2002", "jede v 6,+", "Horna Lehota", 2), new TrainText("2002", "", "Dolne Mesto", -1), new TrainText("1001", "", "", -1)
+        }, sets[0].Trains.ToArray());
+    }
+
+    [TestMethod]
+    public void CommLines_DoplnenieNechaSuborAPreskociZnameKluce()
+    {
+        Write(CommLinesXml.FileName, Lines);
+        var before = File.ReadAllText(Path.Combine(_dir, CommLinesXml.FileName), Encodings.Win1250);
+
+        var added = CommLinesXml.Add(_dir, [
+            new CommLineDefinition("Tabule", CommLineType.TcpClient, "LCD", "1.1.1.1:1"),
+            new CommLineDefinition("Lipovec linka 1", CommLineType.Serial, "ELEN", "COM1") { Parameters = "9600,n,8,1" }
+        ]);
+
+        var after = File.ReadAllText(Path.Combine(_dir, CommLinesXml.FileName), Encodings.Win1250);
+        Assert.AreEqual(1, added);
+        StringAssert.StartsWith(after, before[..before.LastIndexOf("</CommLines>", StringComparison.Ordinal)], "povodny obsah ostava po znakoch");
+        var line = CommLinesXml.Read(_dir).Last();
+        Assert.AreEqual(("Lipovec linka 1", CommLineType.Serial, "ELEN", "COM1"), (line.Key, line.Type, line.Protocol, line.Address));
+        StringAssert.Contains(after, "param=\"9600,n,8,1\" table_short_timeout=\"1000\" table_long_timeout=\"3000\"");
+    }
+
+    [TestMethod]
+    public void CommLines_DoplnenieZalozChybajuciSubor()
+    {
+        Assert.AreEqual(1, CommLinesXml.Add(_dir, [new CommLineDefinition("L", CommLineType.UdpClient, "ITP", "10.0.0.1:10001")]));
+
+        Assert.AreEqual(CommLineType.UdpClient, CommLinesXml.Read(_dir).Single().Type);
+        Assert.AreEqual(0, CommLinesXml.Add(_dir, [new CommLineDefinition("L", CommLineType.UdpClient, "ITP", "10.0.0.1:10001")]));
     }
 
     [TestMethod]

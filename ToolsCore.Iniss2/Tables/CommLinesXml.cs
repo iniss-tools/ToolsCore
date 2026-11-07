@@ -52,6 +52,25 @@ public sealed record CommLine(string Key, CommLineType Type, string Protocol, st
 }
 
 /// <summary>
+/// Nova linka na doplnenie do CommLines.xml.
+/// </summary>
+/// <param name="Key">kluc linky</param>
+/// <param name="Type">sposob spojenia</param>
+/// <param name="Protocol">protokol, napriklad ELEN</param>
+/// <param name="Address">atribut <c>line</c> - port alebo adresa</param>
+public sealed record CommLineDefinition(string Key, CommLineType Type, string Protocol, string Address)
+{
+    /// <summary>Parametre serioveho portu; prazdne = predvolene protokolu.</summary>
+    public string Parameters { get; init; } = "";
+
+    /// <summary>Cakanie na odpoved tabule pri kontrolach v ms; server ho sam nedoplni.</summary>
+    public int ShortTimeout { get; init; } = 1000;
+
+    /// <summary>Cakanie na odpoved tabule pri zapise v ms; server ho sam nedoplni.</summary>
+    public int LongTimeout { get; init; } = 3000;
+}
+
+/// <summary>
 /// Komunikacne linky servera - subor CommLines.xml v priecinku dat.
 /// </summary>
 /// <remarks>
@@ -113,6 +132,47 @@ public static partial class CommLinesXml
 
         return lines;
     }
+
+    /// <summary>
+    /// Doplni linky, ktorych kluc v subore este nie je. Ostatok suboru ostava po znakoch rovnaky; chybajuci subor vznikne.
+    /// </summary>
+    /// <param name="dataDir">priecinok dat servera</param>
+    /// <param name="lines">linky na doplnenie</param>
+    /// <returns>pocet doplnenych liniek</returns>
+    public static int Add(string dataDir, IEnumerable<CommLineDefinition> lines)
+    {
+        var file = Path.Combine(dataDir, FileName);
+        var exists = File.Exists(file);
+        var known = exists ? Read(dataDir).Select(line => line.Key).ToHashSet(StringComparer.Ordinal) : [];
+        var added = lines.Where(line => known.Add(line.Key)).ToList();
+        if (added.Count == 0)
+            return 0;
+
+        var text = exists ? File.ReadAllText(file, Encodings.Win1250) : "<?xml version=\"1.0\" encoding=\"windows-1250\"?>\r\n<CommLines>\r\n</CommLines>\r\n";
+        var elements = string.Concat(added.Select(line => "  " + Element(line).ToString(SaveOptions.DisableFormatting) + "\r\n"));
+
+        var close = text.LastIndexOf("</CommLines>", StringComparison.Ordinal);
+        if (close >= 0)
+        {
+            text = text.Insert(close, elements);
+        }
+        else
+        {
+            var empty = text.LastIndexOf("<CommLines", StringComparison.Ordinal);
+            var end = text.IndexOf("/>", empty, StringComparison.Ordinal);
+            text = text[..end] + ">\r\n" + elements + "</CommLines>" + text[(end + 2)..];
+        }
+
+        var temporary = file + ".tmp";
+        File.WriteAllText(temporary, text, Encodings.Win1250);
+        File.Move(temporary, file, true);
+        return added.Count;
+    }
+
+    private static XElement Element(CommLineDefinition line) => new("line",
+        new XAttribute("k", line.Key), new XAttribute("typ", TypeKeys.First(pair => pair.Value == line.Type).Key), new XAttribute("protocol", line.Protocol),
+        new XAttribute("line", line.Address), Iniss2Xml.Optional("param", line.Parameters), new XAttribute("table_short_timeout", line.ShortTimeout),
+        new XAttribute("table_long_timeout", line.LongTimeout));
 
     /// <summary>
     /// Zapise presmerovanie do suboru - pozri <see cref="Redirect" />.

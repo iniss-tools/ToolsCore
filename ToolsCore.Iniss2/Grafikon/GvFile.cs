@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Globalization;
 using System.Xml;
 using System.Xml.Linq;
 using Serilog;
@@ -96,6 +97,9 @@ public sealed record GvStop
 
     /// <summary>Nazov vlaku od tohto bodu; prazdny = bez zmeny.</summary>
     public string TrainName { get; init; } = "";
+
+    /// <summary>Linka integrovaneho dopravneho systemu od tohto bodu; plati len v bode s cislom vlaku.</summary>
+    public string Line { get; init; } = "";
 
     /// <summary>
     /// Vlak v tomto bode riadi INISS: bod ma priznak zaujmovej stanice a vlak v nom zastavuje.
@@ -202,7 +206,7 @@ public sealed record GvTrain(DateOnly From, DateOnly To, IReadOnlyList<GvVariant
 public static class GvValidity
 {
     /// <summary>Najdlhsie obdobie v dnoch, do ktoreho server poznamku rozvinie.</summary>
-    private const int MaxDays = 400;
+    public const int MaxDays = 400;
 
     /// <summary>
     /// Prevedie poznamku na dni rovnako ako server: prazdna plati kazdy den, <c>-</c> ziadny, poznamka moze byt aj
@@ -241,6 +245,40 @@ public static class GvValidity
         catch (DateLimit.ParseException)
         {
             return Failed(from, to, text, count);
+        }
+    }
+
+    /// <summary>
+    /// Poznamka pre server: text po cesky, inym jazykom server nerozumie. Ked by ho server rozvinul na ine dni, retazec nul
+    /// a jednotiek.
+    /// </summary>
+    /// <param name="from">prvy den obdobia</param>
+    /// <param name="to">posledny den obdobia</param>
+    /// <param name="days">dni obdobia; pri obdobi nad <see cref="MaxDays" /> dni server poznamku nerozvinie</param>
+    public static string Text(DateOnly from, DateOnly to, BitArray days)
+    {
+        ArgumentNullException.ThrowIfNull(days);
+
+        if (days.HasAllSet())
+            return "";
+        if (!days.HasAnySet())
+            return "-";
+
+        var bits = string.Concat(days.Cast<bool>().Select(day => day ? '1' : '0'));
+        if (days.Length > MaxDays)
+            return bits;
+
+        // texty poznamok sa beru z jazyka nastaveneho pre cely program
+        var locale = DateLimit.Loc;
+        DateLimit.Loc = DateLimit.Locale.Cz;
+        try
+        {
+            var text = new DateLimit(from, to, insertMarks: false) { HolidayLocale = DateLimit.Locale.Cz }.BitArrayToText(days);
+            return new BitArray(Days(from, to, text)).Xor(days).HasAnySet() ? bits : text;
+        }
+        finally
+        {
+            DateLimit.Loc = locale;
         }
     }
 
@@ -283,6 +321,13 @@ public sealed record GvFile(IReadOnlyList<int> Stations, IReadOnlyList<GvTrain> 
         ["N"] = (int)GvVariantFlags.N,
         ["NP"] = (int)GvVariantFlags.NP
     };
+
+    /// <summary>
+    /// Zapise subor GV.XML. Zapisuje to, co vlak v pamati ma, varianty rozdelene podla MOS.xml dostanu poznamku z dni.
+    /// </summary>
+    /// <param name="groupDir">priecinok grafikonu</param>
+    public void Write(string groupDir) =>
+        Iniss2Xml.Save(Path.Combine(groupDir, FileName), new XElement("GV", Stations.Select(station => new XElement("s", station)), Trains.Select(WriteTrain)));
 
     /// <summary>
     /// Nacita subor GV.XML grafikonu tak, ako ho server drzi v pamati: stanice mimo <paramref name="group" /> nie su zaujmove
@@ -347,6 +392,30 @@ public sealed record GvFile(IReadOnlyList<int> Stations, IReadOnlyList<GvTrain> 
         return ranges;
     }
 
+    private static XElement WriteTrain(GvTrain train) => new("v",
+        train.From == DateOnly.MinValue ? null : new XAttribute("o", train.From.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)),
+        train.To == DateOnly.MaxValue ? null : new XAttribute("d", train.To.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)),
+        train.Variants.Select(variant => WriteVariant(train, variant)));
+
+    private static XElement WriteVariant(GvTrain train, GvVariant variant) => new("v",
+        Iniss2Xml.Optional("jd", variant.Days is { } days ? GvValidity.Text(train.From, train.To, days) : variant.Validity),
+        Iniss2Xml.Optional("d", variant.Operator),
+        Iniss2Xml.Optional("f", Iniss2Xml.FlagText((int)variant.Flags, VariantFlagKeys)),
+        Iniss2Xml.Optional("p", variant.Note),
+        variant.Stops.Select(WriteStop));
+
+    private static XElement WriteStop(GvStop stop) => new("z",
+        new XAttribute("c", stop.Station),
+        stop.Arrival is { } arrival ? new XAttribute("p", arrival) : null,
+        Iniss2Xml.Optional("cp", stop.ArrivalDay),
+        stop.Departure is { } departure ? new XAttribute("o", departure) : null,
+        Iniss2Xml.Optional("co", stop.DepartureDay),
+        Iniss2Xml.Optional("f", Iniss2Xml.FlagText((int)stop.Flags, StopFlagKeys)),
+        Iniss2Xml.Optional("dcv", stop.Number),
+        Iniss2Xml.Optional("dv", stop.TrainType),
+        Iniss2Xml.Optional("nv", stop.TrainName),
+        Iniss2Xml.Optional("ids", stop.Line));
+
     private static GvTrain ReadTrain(XElement element, HashSet<int> known) => new(
         ReadDate(element, "o", DateOnly.MinValue),
         ReadDate(element, "d", DateOnly.MaxValue),
@@ -388,7 +457,8 @@ public sealed record GvFile(IReadOnlyList<int> Stations, IReadOnlyList<GvTrain> 
             Number = number.Length > 0 ? number : Iniss2Xml.Text(element, "cv"),
             // druh MOs urcuje len MOS.xml
             TrainType = type == MosFile.MotorType ? MosFile.PassengerType : type,
-            TrainName = Iniss2Xml.Text(element, "nv")
+            TrainName = Iniss2Xml.Text(element, "nv"),
+            Line = Iniss2Xml.Text(element, "ids")
         };
     }
 }

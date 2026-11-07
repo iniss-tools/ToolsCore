@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Xml.Linq;
 
 namespace ToolsCore.Iniss2.Grafikon;
 
@@ -39,6 +40,15 @@ public static class MosFile
             .Select(element => new MosTrain(Iniss2Xml.Text(element, "cv"), Iniss2Xml.Text(element, "jd")))
             .ToList();
     }
+
+    /// <summary>
+    /// Zapise zaznamy. Pre kazde cislo plati prvy zaznam.
+    /// </summary>
+    /// <param name="stationDir">priecinok stanice</param>
+    /// <param name="trains">zaznamy</param>
+    public static void Write(string stationDir, IEnumerable<MosTrain> trains) =>
+        Iniss2Xml.Save(Path.Combine(stationDir, FileName), new XElement("MOS", trains.Select(train => new XElement("v",
+            Iniss2Xml.Optional("jd", train.Validity), new XAttribute("cv", train.Number)))));
 
     /// <summary>
     /// Uplatni zaznamy na vlaky ako server: usek vlaku s druhom Os, ktoreho cislo je v MOS.xml niektorej zaujmovej stanice

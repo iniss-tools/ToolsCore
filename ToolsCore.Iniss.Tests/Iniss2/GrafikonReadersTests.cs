@@ -442,6 +442,299 @@ public class GrafikonReadersTests
     }
 
     [TestMethod]
+    [DataRow("jede v 1-5")]
+    [DataRow("nejede 24.,25.XII.")]
+    [DataRow("jede od 9. do 20.I.")]
+    public void Validity_TextSaDaRozvinutSpatNaRovnakeDni(string note)
+    {
+        var from = new DateOnly(2030, 1, 7);
+        var to = new DateOnly(2030, 12, 31);
+        var days = GvValidity.Days(from, to, note);
+
+        var text = GvValidity.Text(from, to, days);
+
+        Assert.DoesNotContain("ide ", text.Replace("jede ", "", StringComparison.Ordinal), "server rozumie len cesky");
+        Assert.AreEqual(Bits(days), Bits(GvValidity.Days(from, to, text)));
+    }
+
+    [TestMethod]
+    public void Validity_VsetkyDniAZiadnyDenMajuKratkyZapis()
+    {
+        var from = new DateOnly(2030, 1, 7);
+        var to = new DateOnly(2030, 1, 13);
+
+        Assert.AreEqual("", GvValidity.Text(from, to, new System.Collections.BitArray(7, true)));
+        Assert.AreEqual("-", GvValidity.Text(from, to, new System.Collections.BitArray(7, false)));
+    }
+
+    [TestMethod]
+    public void Validity_ObnoviJazykProgramu()
+    {
+        var locale = DateLimit.Loc;
+        var from = new DateOnly(2030, 1, 7);
+
+        GvValidity.Text(from, from.AddDays(13), GvValidity.Days(from, from.AddDays(13), "jede v 1-5"));
+
+        Assert.AreEqual(locale, DateLimit.Loc);
+    }
+
+    [TestMethod]
+    public void Gv_ZapisAPrecitanieDajuRovnakeVlaky()
+    {
+        var gv = ReadGv($"""
+            <v o="2030-01-07" d="2030-01-20">
+              <v jd="jede v 1-5" d="Fiktivní dráhy" f="N X" p="poznámka">
+                <z c="{Horany}" o="480" dcv="1001" dv="Os" nv="Javor" ids="S1" />
+                <z c="{MimoInstalacie}" f="P DB" />
+                <z c="{Lipovec}" p="1450" cp="1" o="5" co="1" f="Z PR" />
+              </v>
+            </v>
+            """);
+
+        gv.Write(Path.Combine(_dataDir, "2030"));
+
+        var text = File.ReadAllText(Path.Combine(_dataDir, "2030", GvFile.FileName), Encodings.Win1250);
+        StringAssert.StartsWith(text, """<?xml version="1.0" encoding="windows-1250"?>""");
+        StringAssert.Contains(text, "Fiktivní");
+        StringAssert.Contains(text, "\r\n");
+
+        var read = GvFile.Read(_dataDir, Group);
+        var train = read.Trains.Single();
+        var expected = gv.Trains.Single();
+        Assert.AreEqual(expected.From, train.From);
+        Assert.AreEqual(expected.To, train.To);
+        var variant = train.Variants.Single();
+        Assert.AreEqual("jede v 1-5", variant.Validity);
+        Assert.AreEqual(GvVariantFlags.N | GvVariantFlags.X, variant.Flags);
+        Assert.AreEqual("poznámka", variant.Note);
+        CollectionAssert.AreEqual(expected.Variants.Single().Stops.ToArray(), variant.Stops.ToArray());
+        CollectionAssert.AreEqual(gv.Stations.ToArray(), read.Stations.ToArray());
+    }
+
+    [TestMethod]
+    public void Gv_RozdelenaVariantaSaZapisePoznamkouZDni()
+    {
+        var train = ReadMos("""<v cv="1001" jd="0011100" />""");
+        File.Delete(Path.Combine(_dataDir, "2030", "Lipovec", MosFile.FileName));
+
+        new GvFile([Lipovec], [train]).Write(Path.Combine(_dataDir, "2030"));
+
+        var read = GvFile.Read(_dataDir, Group).Trains.Single();
+        Assert.AreEqual("0011100", Bits(read.DaysOf(read.Variants[1])));
+        Assert.AreEqual("1100011", Bits(read.DaysOf(read.Variants[0])));
+    }
+
+    [TestMethod]
+    public void GvStanice_ZapisAPrecitanie()
+    {
+        var stations = new[] { new GvStation(Lipovec, "Lipovec"), new GvStation(Horany, "Dolné Mesto") };
+
+        GvStationsFile.Write(Path.Combine(_dataDir, "2030"), stations);
+
+        CollectionAssert.AreEqual(stations, GvStationsFile.Read(Path.Combine(_dataDir, "2030")));
+    }
+
+    [TestMethod]
+    public void GvStanice_ChybajuciSuborJePrazdnyZoznam()
+    {
+        Assert.IsEmpty(GvStationsFile.Read(_dataDir));
+    }
+
+    [TestMethod]
+    public void DirList_DoplniStanicuDoNovehoSuboruAGrafikonu()
+    {
+        DirListXml.WriteStationNumber(Path.Combine(_dataDir, "2030", "01 Lipovec"), Lipovec);
+        DirListXml.WriteStationNumber(Path.Combine(_dataDir, "2030", "02 Horany"), Horany);
+
+        DirListXml.AddStation(_dataDir, "2030", new DirListItem("01 Lipovec", Lipovec, "", "", DirListItemFlags.None));
+        DirListXml.AddStation(_dataDir, "2030", new DirListItem("02 Horany", Horany, "TABULE", "", DirListItemFlags.Stop | DirListItemFlags.Junction));
+        DirListXml.AddStation(_dataDir, "2030", new DirListItem("01 Lipovec", Lipovec, "INA", "", DirListItemFlags.None));
+
+        var group = DirListXml.Read(_dataDir).Single();
+        Assert.AreEqual("2030", group.Name);
+        CollectionAssert.AreEqual(new[] { "01 Lipovec", "02 Horany" }, group.Items.Select(item => item.Directory).ToArray());
+        Assert.AreEqual("", group.Items[0].TableLine, "existujuca stanica ostane");
+        Assert.AreEqual(new DirListItem("02 Horany", Horany, "TABULE", "", DirListItemFlags.Stop | DirListItemFlags.Junction), group.Items[1]);
+        StringAssert.Contains(File.ReadAllText(Path.Combine(_dataDir, DirListXml.FileName), Encodings.Win1250), "f=\"MEZILEHLA\"");
+    }
+
+    [TestMethod]
+    public void DirList_ZachovaDalsieGrafikony()
+    {
+        Write("DirList.xml", """<DL><g n="2029"><i s="5400010" d="Lipovec" /></g></DL>""");
+        Write(@"2029\Lipovec\SR70.TXT", "5400010\r\n");
+        DirListXml.WriteStationNumber(Path.Combine(_dataDir, "2030", "Lipovec"), Lipovec);
+
+        DirListXml.AddStation(_dataDir, "2030", new DirListItem("Lipovec", Lipovec, "", "", DirListItemFlags.None));
+
+        CollectionAssert.AreEqual(new[] { "2029", "2030" }, DirListXml.Read(_dataDir).Select(group => group.Name).ToArray());
+    }
+
+    [TestMethod]
+    public void PositionsDef_ZapisAPrecitanie()
+    {
+        var dir = Path.Combine(_dataDir, "stanica");
+        var tracks = new[]
+        {
+            new TrackDefinition { Key = "1", Name = "1", TrackText = "1", PlatformText = "I", PlatformTrackText = "I/1", AltTrackText = "1A", TrackSound = "0100", PlatformSound = "0200" },
+            new TrackDefinition { Key = "X", Name = "Zrušený", Flags = TrackFlags.Common | TrackFlags.NoAudio }
+        };
+
+        PositionsDefFile.Write(dir, tracks);
+
+        CollectionAssert.AreEqual(tracks, PositionsDefFile.Read(dir));
+    }
+
+    [TestMethod]
+    public void Positions_ZapisAPrecitanie()
+    {
+        var dir = Path.Combine(_dataDir, "stanica");
+
+        PositionsFile.Write(dir, [new TrainPosition("1001", "1", "2", "jede v 1-5"), new TrainPosition("1002", "", "3", "")]);
+
+        var read = PositionsFile.Read(dir);
+        Assert.AreEqual(new TrainPosition("1001", "1", "2", "jede v 1-5"), read[0]);
+        Assert.AreEqual(new TrainPosition("1002", "", "3", ""), read[1]);
+    }
+
+    [TestMethod]
+    public void Mos_ZapisAPrecitanie()
+    {
+        var dir = Path.Combine(_dataDir, "stanica");
+        var trains = new[] { new MosTrain("2002", ""), new MosTrain("1003", "jede v 1-5") };
+
+        MosFile.Write(dir, trains);
+
+        CollectionAssert.AreEqual(trains, MosFile.Read(dir));
+    }
+
+    [TestMethod]
+    public void Dodatky_ZapisAPrecitanie()
+    {
+        var dir = Path.Combine(_dataDir, "stanica");
+        var additions = new[] { new TrainAddition("2002", "D1006", "Ll", ""), new TrainAddition("1001", "D1026", "-", "jede 8.V."), new TrainAddition("1003", "4", "", "") };
+
+        DodatkyFile.Write(dir, additions);
+
+        CollectionAssert.AreEqual(additions, DodatkyFile.Read(dir));
+        StringAssert.Contains(File.ReadAllText(Path.Combine(dir, DodatkyFile.FileName), Encodings.Win1250), "<v cv=\"1003\" k=\"4\" rep=\"\" />",
+            "prazdne typy hlasenia zapisuje aj server");
+    }
+
+    [TestMethod]
+    public void Dodatky_ChybajuciSuborJePrazdnyZoznam()
+    {
+        Assert.IsEmpty(DodatkyFile.Read(_dataDir));
+    }
+
+    [TestMethod]
+    public void Razeni_ZapisAPrecitanie()
+    {
+        var dir = Path.Combine(_dataDir, "stanica");
+
+        RazeniFile.Write(dir, [
+            new TrainComposition("2002", 0, "PpLN", "jede v 6,+", ["CZ/Slova/vestan", "CZ/R3/5400030"]),
+            new TrainComposition("1001", 5400020, "", "", ["Slova/c"])
+        ]);
+
+        var read = RazeniFile.Read(dir);
+        Assert.HasCount(2, read);
+        Assert.AreEqual(("2002", 0, "PpLN", "jede v 6,+"), (read[0].Number, read[0].EndStation, read[0].Reports, read[0].Validity));
+        CollectionAssert.AreEqual(new[] { "CZ/Slova/vestan", "CZ/R3/5400030" }, read[0].Sounds.ToArray());
+        Assert.AreEqual(("1001", 5400020, ""), (read[1].Number, read[1].EndStation, read[1].Reports));
+        CollectionAssert.AreEqual(new[] { "Slova/c" }, read[1].Sounds.ToArray());
+    }
+
+    [TestMethod]
+    public void Foreign_ZapisAPrecitanie()
+    {
+        var dir = Path.Combine(_dataDir, "stanica");
+
+        ForeignFile.Write(dir, [new TrainLanguages("2002", "", ["GB", "D"]), new TrainLanguages("2004", "jede v 6,7", [ForeignFile.AllLanguages])]);
+
+        var read = ForeignFile.Read(dir);
+        Assert.HasCount(2, read);
+        Assert.AreEqual("2002", read[0].Number);
+        CollectionAssert.AreEqual(new[] { "GB", "D" }, read[0].Languages.ToArray());
+        Assert.AreEqual(("2004", "jede v 6,7"), (read[1].Number, read[1].Validity));
+        CollectionAssert.AreEqual(new[] { "1" }, read[1].Languages.ToArray());
+    }
+
+    [TestMethod]
+    public void ReportKeys_ZapisAPrecitanie()
+    {
+        var dir = Path.Combine(_dataDir, "stanica");
+        var reports = new[] { new ReportKey("Přijíždí", "P", "V P K"), new ReportKey("Odjede", "O", "V P") };
+
+        ReportKeysFile.Write(dir, reports);
+
+        CollectionAssert.AreEqual(reports, ReportKeysFile.Read(dir));
+    }
+
+    [TestMethod]
+    public void Vyluky_ZapisAPrecitanie()
+    {
+        var dir = Path.Combine(_dataDir, "2030");
+        var lockouts = new[]
+        {
+            new TrainLockout("2002", "7", new DateOnly(2030, 12, 15), new DateOnly(2031, 12, 13), "jede 3.,10.V."),
+            new TrainLockout("2004", "V1", new DateOnly(2030, 12, 15), new DateOnly(2031, 12, 13), "")
+        };
+
+        VylukyFile.Write(dir, lockouts);
+
+        CollectionAssert.AreEqual(lockouts, VylukyFile.Read(dir));
+        StringAssert.Contains(File.ReadAllText(Path.Combine(dir, VylukyFile.FileName), Encodings.Win1250), "od=\"2030-12-15\" do=\"2031-12-13\"");
+    }
+
+    [TestMethod]
+    public void Odklony_ZapisAPrecitanie()
+    {
+        var dir = Path.Combine(_dataDir, "2030");
+        var diversions = new[] { new TrainDiversion("2002", Lipovec, "O1", new DateOnly(2030, 12, 15), new DateOnly(2031, 12, 13), "jede 3.V.") };
+
+        OdklonyFile.Write(dir, diversions);
+
+        CollectionAssert.AreEqual(diversions, OdklonyFile.Read(dir));
+    }
+
+    [TestMethod]
+    public void ConstReports_ZapisAPrecitanie()
+    {
+        ConstReportsFile.Write(_dataDir, [new ConstReport(4, "Prestup v Horanoch", "Přestup_v_zadané_stanici", [Horany]), new ConstReport(5, "Výluka", "Výluka_ve_stanici", [])]);
+
+        var read = ConstReportsFile.Read(_dataDir);
+
+        Assert.HasCount(2, read);
+        Assert.AreEqual((4, "Prestup v Horanoch", "Přestup_v_zadané_stanici"), (read[0].Key, read[0].Name, read[0].Function));
+        CollectionAssert.AreEqual(new[] { Horany }, read[0].Stations.ToArray());
+        Assert.IsEmpty(read[1].Stations);
+    }
+
+    [TestMethod]
+    public void ConstReports_ZluceniePouzijeRovnakeANoveCislujeZaNajvyssim()
+    {
+        List<ConstReport> existing = [new ConstReport(4, "A", "Výluka_ve_stanici", [Lipovec, Horany]), new ConstReport(9, "B", "Odklon", [])];
+
+        var (reports, keys) = ConstReportsFile.Merge(existing, [
+            new ConstReport(-1, "Výluka Lipovec - Horany", "Výluka_ve_stanici", [Lipovec, Horany]),
+            new ConstReport(-2, "Nová", "Výluka_ve_stanici", [Horany]),
+            new ConstReport(-3, "Odklon", "Odklon", [Lipovec])
+        ]);
+
+        CollectionAssert.AreEqual(new[] { 4, 10, 11 }, keys);
+        Assert.HasCount(4, reports);
+        Assert.AreEqual("Nová", reports[2].Name);
+    }
+
+    [TestMethod]
+    public void ConstReports_ChybajuciSuborJePrazdnyZoznam()
+    {
+        Assert.IsEmpty(ConstReportsFile.Read(_dataDir));
+        CollectionAssert.AreEqual(new[] { 1 }, ConstReportsFile.Merge([], [new ConstReport(-1, "A", "Odklon", [])]).Keys);
+    }
+
+    [TestMethod]
     public void Positions_CitaKolajeVlakovVPoradiSuboru()
     {
         Write(@"Lipovec\Positions.xml", """

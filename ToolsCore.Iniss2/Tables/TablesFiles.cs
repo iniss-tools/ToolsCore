@@ -15,8 +15,20 @@ public sealed record TablePart(string Name, string CatalogKey, string Kind, int 
     /// <summary>Druh casti s informacnym textom.</summary>
     public const string Info = "INFO";
 
+    /// <summary>Druh casti bez vlakov.</summary>
+    public const string NotDefined = "NODEF";
+
     /// <summary>Kluce kolaji, ktorych vlaky cast ukazuje.</summary>
     public IReadOnlyList<string> Tracks { get; init; } = [];
+
+    /// <summary>Priority kolaji podla kluca; chybajuca = 0.</summary>
+    public IReadOnlyDictionary<string, int> TrackPriorities { get; init; } = new Dictionary<string, int>();
+
+    /// <summary>Cisla stanic oddelene medzerou, ktorych vlaky cast ukazuje; prazdne = stanica tabule.</summary>
+    public string Stations { get; init; } = "";
+
+    /// <summary>Kluc tabule, na ktorej cast nadvazuje; prazdny = cast zacina.</summary>
+    public string Previous { get; init; } = "";
 }
 
 /// <summary>
@@ -28,7 +40,14 @@ public sealed record TablePart(string Name, string CatalogKey, string Kind, int 
 /// <param name="Address">adresa na linke</param>
 /// <param name="SaveFile">subor XML v priecinku logov; prazdny = tabula sa do XML neuklada</param>
 /// <param name="Parts">casti tabule</param>
-public sealed record TableDefinition(string Key, string Name, string Line, int Address, string SaveFile, IReadOnlyList<TablePart> Parts);
+public sealed record TableDefinition(string Key, string Name, string Line, int Address, string SaveFile, IReadOnlyList<TablePart> Parts)
+{
+    /// <summary>Bez adresy - tabula so zariadenim nekomunikuje.</summary>
+    public const int NoAddress = -1;
+
+    /// <summary>Cisla zaznamov s otocenymi sipkami.</summary>
+    public string ReverseArrows { get; init; } = "";
+}
 
 /// <summary>
 /// Tabule stanice - subor Tables.xml v priecinku stanice.
@@ -56,14 +75,36 @@ public static class TablesFile
             Iniss2Xml.Text(table, "lin"),
             Iniss2Xml.Number(table, "addr"),
             Iniss2Xml.Text(table, "save"),
-            table.Elements("part").Select(ReadPart).ToList())).ToList();
+            table.Elements("part").Select(ReadPart).ToList())
+        {
+            ReverseArrows = Iniss2Xml.Text(table, "revarrows")
+        }).ToList();
     }
+
+    /// <summary>
+    /// Zapise tabule. Adresa sa zapisuje vzdy, aj bez zariadenia (-1).
+    /// </summary>
+    /// <param name="stationDir">priecinok stanice</param>
+    /// <param name="tables">tabule s roznymi klucmi</param>
+    public static void Write(string stationDir, IEnumerable<TableDefinition> tables) =>
+        Iniss2Xml.Save(Path.Combine(stationDir, FileName), new XElement("TABLES", tables.Select(table => new XElement("t",
+            new XAttribute("k", table.Key), Iniss2Xml.Optional("n", table.Name), Iniss2Xml.Optional("lin", table.Line), new XAttribute("addr", table.Address),
+            Iniss2Xml.Optional("save", table.SaveFile), Iniss2Xml.Optional("revarrows", table.ReverseArrows), table.Parts.Select(WritePart)))));
 
     private static TablePart ReadPart(XElement part) =>
         new(Iniss2Xml.Text(part, "n"), Iniss2Xml.Text(part, "ck"), Iniss2Xml.Text(part, "t"), Iniss2Xml.Number(part, "rec"))
         {
-            Tracks = part.Elements("pos").Select(position => Iniss2Xml.Text(position, "k")).ToList()
+            Tracks = part.Elements("pos").Select(position => Iniss2Xml.Text(position, "k")).ToList(),
+            TrackPriorities = part.Elements("pos").Where(position => position.Attribute("pri") is not null)
+                .ToDictionary(position => Iniss2Xml.Text(position, "k"), position => Iniss2Xml.Number(position, "pri")),
+            Stations = Iniss2Xml.Text(part, "st"),
+            Previous = Iniss2Xml.Text(part, "prev")
         };
+
+    private static XElement WritePart(TablePart part) => new("part",
+        Iniss2Xml.Optional("n", part.Name), new XAttribute("ck", part.CatalogKey), new XAttribute("t", part.Kind), new XAttribute("rec", part.Records),
+        Iniss2Xml.Optional("st", part.Stations), Iniss2Xml.Optional("prev", part.Previous),
+        part.Tracks.Select(track => new XElement("pos", new XAttribute("k", track), Iniss2Xml.Optional("pri", part.TrackPriorities.GetValueOrDefault(track)))));
 }
 
 /// <summary>
@@ -115,8 +156,49 @@ public sealed record CatalogColumn(string Key, string Content, int Row, int Star
         ["KolejAltPrijezd"] = TableFillSection.KolajAltPrichod,
         ["KolejAltOdjezd"] = TableFillSection.KolajAltOdchod,
         ["Dopravce"] = TableFillSection.Dopravca,
-        ["Linka"] = TableFillSection.LinkaOdchod
+        ["Linka"] = TableFillSection.LinkaOdchod,
+        ["TypCisloVlakuKompr"] = TableFillSection.TypMedzeraCisloVlaku
     };
+
+    /// <summary>Druh obsahu, ktory server nedoplni.</summary>
+    public const string NoContent = "Not";
+
+    /// <summary>Text bez prekladu.</summary>
+    public const string FreeTranslation = "FREE";
+
+    /// <summary>Nazov udaja.</summary>
+    public string Name { get; init; } = "";
+
+    /// <summary>Cislo pisma; vyznam podla druhu zariadenia.</summary>
+    public int Font { get; init; }
+
+    /// <summary>Sposob prekladu (atribut <c>trn</c>): FREE, TABLE, TABLETIME, TRANSLATE alebo CHAR.</summary>
+    public string Translation { get; init; } = FreeTranslation;
+
+    /// <summary>Prva tabulka prekladu; prazdna = bez nej.</summary>
+    public string Table1 { get; init; } = "";
+
+    /// <summary>Druha tabulka prekladu (hodiny a minuty pri TABLETIME); prazdna = bez nej.</summary>
+    public string Table2 { get; init; } = "";
+
+    /// <summary>
+    /// Druh obsahu INISS2 pre obsah INISS 3.39; null = INISS2 obdobu nema.
+    /// </summary>
+    /// <param name="section">obsah v cislovani INISS 3.39</param>
+    public static string? ContentFor(TableFillSection section)
+    {
+        ArgumentNullException.ThrowIfNull(section);
+
+        if (section == TableFillSection.NotDefined)
+            return NoContent;
+
+        // linka pri prichode: INISS2 berie linku prichodu na prichodovej casti
+        if (section == TableFillSection.LinkaPrichod)
+            return "Linka";
+
+        // prvy nazov je obsah bez aktualizacie mieskania (CasOdjezdu pred CasOdjezduAktualni)
+        return Sections.FirstOrDefault(pair => pair.Value == section).Key;
+    }
 
     /// <summary>Udaj sa na tabuli zobrazuje.</summary>
     public bool IsVisible => Row >= 0;
@@ -141,6 +223,9 @@ public sealed record CatalogTable(string Key, string Name, string Class)
 
     /// <summary>Udaje predlohy v poradi suboru.</summary>
     public IReadOnlyList<CatalogColumn> Columns { get; init; } = [];
+
+    /// <summary>Nazov banky pisem; povinny pri ELEN, ELENOLD, ELEN10, ELEN16 a ELEN16KAM.</summary>
+    public string FontBank { get; init; } = "";
 
     /// <summary>Predloha ma zariadenie.</summary>
     public bool IsDevice => !string.Equals(Class, Internet, StringComparison.Ordinal);
@@ -172,16 +257,41 @@ public static class TableCatalogFile
         return Iniss2Xml.Load(file).Root!.Elements("t")
             .Select(table => new CatalogTable(Iniss2Xml.Text(table, "k"), Iniss2Xml.Text(table, "n"), Iniss2Xml.Text(table, "cls"))
             {
-                Columns = table.Elements("div").Select(ReadColumn).ToList()
+                Columns = table.Elements("div").Select(ReadColumn).ToList(),
+                FontBank = Iniss2Xml.Text(table, "f")
             })
             .ToList();
     }
+
+    /// <summary>
+    /// Zapise predlohy.
+    /// </summary>
+    /// <param name="stationDir">priecinok stanice</param>
+    /// <param name="catalogs">predlohy s roznymi klucmi</param>
+    public static void Write(string stationDir, IEnumerable<CatalogTable> catalogs) =>
+        Iniss2Xml.Save(Path.Combine(stationDir, FileName), new XElement("CATALOG", catalogs.Select(catalog => new XElement("t",
+            new XAttribute("k", catalog.Key), Iniss2Xml.Optional("n", catalog.Name), new XAttribute("cls", catalog.Class), Iniss2Xml.Optional("f", catalog.FontBank),
+            catalog.Columns.Select(WriteColumn)))));
 
     private static CatalogColumn ReadColumn(XElement column)
     {
         var position = column.Element("pos");
 
         return new CatalogColumn(Iniss2Xml.Text(column, "k"), Iniss2Xml.Text(column, "inf"), position is null ? -1 : Iniss2Xml.Number(position, "r"),
-            position is null ? 0 : Iniss2Xml.Number(position, "c1"), position is null ? 0 : Iniss2Xml.Number(position, "c2"), Iniss2Xml.Text(column, "align"));
+            position is null ? 0 : Iniss2Xml.Number(position, "c1"), position is null ? 0 : Iniss2Xml.Number(position, "c2"), Iniss2Xml.Text(column, "align"))
+        {
+            Name = Iniss2Xml.Text(column, "n"),
+            Font = Iniss2Xml.Number(column, "fnt"),
+            Translation = Iniss2Xml.Text(column, "trn") is { Length: > 0 } translation ? translation : CatalogColumn.FreeTranslation,
+            Table1 = Iniss2Xml.Text(column, "t1"),
+            Table2 = Iniss2Xml.Text(column, "t2")
+        };
     }
+
+    private static XElement WriteColumn(CatalogColumn column) => new("div",
+        new XAttribute("k", column.Key), Iniss2Xml.Optional("n", column.Name), new XAttribute("inf", column.Content), Iniss2Xml.Optional("fnt", column.Font),
+        Iniss2Xml.Optional("align", column.Align),
+        column.Translation == CatalogColumn.FreeTranslation ? null : new XAttribute("trn", column.Translation),
+        Iniss2Xml.Optional("t1", column.Table1), Iniss2Xml.Optional("t2", column.Table2),
+        new XElement("pos", Iniss2Xml.Optional("r", column.Row), Iniss2Xml.Optional("c1", column.Start), Iniss2Xml.Optional("c2", column.End)));
 }

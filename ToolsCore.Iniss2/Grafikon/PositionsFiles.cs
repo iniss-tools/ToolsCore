@@ -1,4 +1,6 @@
-﻿namespace ToolsCore.Iniss2.Grafikon;
+﻿using System.Xml.Linq;
+
+namespace ToolsCore.Iniss2.Grafikon;
 
 /// <summary>
 /// Priznaky kolaje stanice.
@@ -38,6 +40,12 @@ public sealed record TrackDefinition
 
     /// <summary>Text nastupista na tabuliach.</summary>
     public string PlatformText { get; init; } = "";
+
+    /// <summary>Text nastupista a kolaje na tabuliach.</summary>
+    public string PlatformTrackText { get; init; } = "";
+
+    /// <summary>Nahradny text kolaje na tabuliach.</summary>
+    public string AltTrackText { get; init; } = "";
 
     /// <summary>Zvuk kolaje.</summary>
     public string TrackSound { get; init; } = "";
@@ -84,10 +92,29 @@ public static class PositionsDefFile
             Name = Iniss2Xml.Text(element, "n"),
             TrackText = Iniss2Xml.Text(element, "tabkolej"),
             PlatformText = Iniss2Xml.Text(element, "tabnast"),
+            PlatformTrackText = Iniss2Xml.Text(element, "tabnastkolej"),
+            AltTrackText = Iniss2Xml.Text(element, "tabalttext"),
             TrackSound = Iniss2Xml.Text(element, "zvukkolej"),
             PlatformSound = Iniss2Xml.Text(element, "zvuknast"),
             Flags = (TrackFlags)Iniss2Xml.Flags(element, "f", FlagKeys)
         }).ToList();
+
+    /// <summary>
+    /// Zapise kolaje stanice.
+    /// </summary>
+    /// <param name="stationDir">priecinok stanice</param>
+    /// <param name="tracks">kolaje v poradi, v akom ich vidi obsluha</param>
+    public static void Write(string stationDir, IEnumerable<TrackDefinition> tracks) =>
+        Iniss2Xml.Save(Path.Combine(stationDir, FileName), new XElement("POZICE", tracks.Select(track => new XElement("pos",
+            new XAttribute("k", track.Key),
+            new XAttribute("n", track.Name),
+            new XAttribute("tabkolej", track.TrackText),
+            new XAttribute("tabnast", track.PlatformText),
+            Iniss2Xml.Optional("tabnastkolej", track.PlatformTrackText),
+            Iniss2Xml.Optional("tabalttext", track.AltTrackText),
+            new XAttribute("zvukkolej", track.TrackSound),
+            new XAttribute("zvuknast", track.PlatformSound),
+            Iniss2Xml.Optional("f", Iniss2Xml.FlagText((int)track.Flags, FlagKeys))))));
 }
 
 /// <summary>
@@ -126,4 +153,16 @@ public static class PositionsFile
             return new TrainPosition(Iniss2Xml.Text(element, "cv"), arrival, departure.Length > 0 ? departure : arrival, Iniss2Xml.Text(element, "jd"));
         }).ToList();
     }
+
+    /// <summary>
+    /// Zapise kolaje vlakov. Zaznam s poznamkou musi byt pred zaznamom bez poznamky.
+    /// </summary>
+    /// <param name="stationDir">priecinok stanice</param>
+    /// <param name="positions">zaznamy v poradi hladania</param>
+    public static void Write(string stationDir, IEnumerable<TrainPosition> positions) =>
+        Iniss2Xml.Save(Path.Combine(stationDir, FileName), new XElement("POZICESPOJU", positions.Select(position => new XElement("pos",
+            Iniss2Xml.Optional("jd", position.Validity),
+            new XAttribute("cv", position.Train),
+            Iniss2Xml.Optional("p", position.ArrivalTrack),
+            Iniss2Xml.Optional("o", position.DepartureTrack)))));
 }
