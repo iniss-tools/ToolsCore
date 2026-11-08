@@ -42,7 +42,7 @@
     <value>Soubor nastavení {0} byl poškozen, proto se obnovilo výchozí nastavení. Původní soubor zůstal vedle s příponou .bad.</value>
   </data>
   <data name="Global_AppAlreadyRunning" xml:space="preserve">
-    <value>Program {0} je už spuštěn. Pokud ho chcete spouštět vícekrát najednou, zapněte v nastavení programu volbu Povolit duplicitní instance programu.</value>
+    <value>Program {0} je už spuštěn. Pokud ho chcete spouštět vícekrát najednou, zapněte v nastavení programu volbu Povolit více spuštěných instancí programu.</value>
   </data>
   <data name="Global_Yes" xml:space="preserve">
     <value>Ano</value>
