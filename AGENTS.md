@@ -1,64 +1,219 @@
 # ToolsCore – pokyny pre agentov
 
-Spoločné knižnice nástrojov INISSTools (INISS – informačný systém železničných staníc, reverzovaná verzia 3.39). Repozitár je súčasťou pracovného priečinka `INISSTools` (nie je git repozitár, každý podpriečinok má vlastné repo); `ExControls` musí byť naklonovaný vedľa (`..\ExControls`). Komunikácia, texty UI aj komentáre v kóde (bez diakritiky) sú slovenské.
+Spoločné knižnice nástrojov INISSTools (INISS – informačný systém železničných staníc, reverzovaná verzia 3.39).
+Repozitár je súčasťou pracovného priečinka `INISSTools` (nie je git repozitár, každý podpriečinok má vlastné repo);
+`ExControls` musí byť naklonovaný vedľa (`..\ExControls`). Komunikácia, texty UI aj komentáre v kóde (bez diakritiky)
+sú slovenské.
 
-Pravidlá desktopových programov (časť „Desktopové programy (WinForms)“) a logovania platia pre všetky programy nad ToolsCore – GVDEditor, RawBankEditor, ElenFontEditor, ILTISSimulator, INISSKeygen; ich `AGENTS.md` sa sem odkazujú.
+Pravidlá desktopových programov (časť „Desktopové programy (WinForms)“) a logovania platia pre všetky programy nad
+ToolsCore – GVDEditor, RawBankEditor, ElenFontEditor, ILTISSimulator, INISSKeygen; ich `AGENTS.md` sa sem odkazujú.
 
 ## Štruktúra
 
-- `ToolsCore.Iniss` (`net10.0` bez WinForms – doména zdieľaná GVDEditorom, simulátorom tabúľ aj ILTISSimulatorom): `Expressions/`, `StateDgm/`, `TabTab/`, `Calendar/` – dátumové obmedzenia `DateLimit` (poznámka ↔ bitové pole dní; jazyk generovaných textov a krajina sviatkov je jediné okolité nastavenie `DateLimit.Loc`, sviatky pre jednu poznámku určí `HolidayLocale`; rovnaké poznámky číta aj INISS2), `Elen/` – písma tabúľ ELEN `.bin` (`ElenFontFile`, číta ich aj ElenFontEditor) a význam čísla písma (`ElenFontCode`, popisy pre obsluhu má GVDEditor v rozširujúcich členoch), `Grafikon/` – konštanty súborov `GvdFileConsts`, `Station`, `GVDInfo`/`InfoGvdFile`, `DirList`/`DirListFlags`/`DirListFile`, `StationTracks` (koľaje z `Pozice_A` pre tabule); `Tables/` – entity tabúľ (`TablePhysical`, `TableCatalog`…), `TablesFile`, `InissTableMap` (tabule inštalácie v poradí INISSu) a `DriverLines` (priradenie tabúľ k linkám, zistenia s kódom `DriverLineProblemCode` a textom zo zdrojov), `FlapLayouts` (moduly a zoznamy listov listových tabúľ ERS/FERS z katalógu a obráteného TabTab), `ElsvoUnits` (spínacie jednotky zosilňovačov ELSVO zo stĺpcov 8/9 `Audio.txt`), `TableFaces` (údaje pre čelo tabule – druh, stĺpce pri vlaku, koľaje pod tabuľou; `InissTable.Face`); `Registry/` – nastavenia INISSu v registri a `.INI` (čítanie registra `InissRegistryReader`, len vo Windows – zápis a názvy farieb má ToolsCore `InissRegistry`; `InissPaths.LogDirectory`), katalóg `RegCatalog.g.cs` a texty generuje `tools/gen_registry_catalog.py` z `registry.mdx`, zvuková banka, `TxtProps`/CSV, `ParseUtils`/`StringUtils`/`PathUtils`; `Updates/` – jadro aktualizácií.
-- `ToolsCore.Iniss2` (`net10.0` bez WinForms, odkazuje `ToolsCore.Iniss`) – súbory INISS2 (.NET, server IniSrv): `Iniss2Installation` (nájde inštaláciu v koreni aj v priečinku `Server`; `FyzBank.dat` v banke znamená 3.39), `Iniss2Config` (port GTN z `Config.xml`), `RawBank/` – `FyzBankXmlReader`, `FyzBankXmlWriter`, `Grafikon/` – `DirListXml`, `GvFile` (vlak s trasou a variantmi tak, ako ich drží server – `MosFile` mení druh a delí varianty, `GvValidity` dni z poznámky), `GvStationsFile`, `PositionsDefFile`, `PositionsFile`, súbory hlásení stanice `StationReportsFiles.cs` (`DodatkyFile`, `RazeniFile`, `ForeignFile`, `ReportKeysFile`), stavový diagram `StateDiagramFile` (`statedgm.xml`, výrazy sú kód VB.NET, príznaky slovami `StateNodeFlags`), stanice v hlásení `ReportStationsFiles.cs` (`TrainReportStationsFile` = `StaHlasVl.xml`, `ReportPatternsFile` = `StaHlasB.xml`/`StaHlasC.xml`, `DefaultStationsFile` = `Default.Stations.xml` grafikonu), výluky a odklony grafikonu a spoločné hlásenia obsluhy `NoticesFiles.cs` (`VylukyFile`, `OdklonyFile`, `ConstReportsFile` – `Merge` pridá len hlásenia s novým vzorom a stanicami, čísla za najvyšším ako server) a pohľad na stanicu `StationTimetable` (zastavenia, koľaj vlaku podľa dňa ako server), `Tables/` – `CommLinesXml` (linky a presmerovanie na simulátor – mení len hodnotu `line`, pri sériovej linke aj `typ` na `TCP_CLIENT`, pôvodné v komentári; `Add` doplní linky s novým kľúčom a zvyšok súboru nechá po znakoch), `TablesFile`, `TableCatalogFile` (čítanie aj zápis; `CatalogColumn.ContentFor` = obsah 3.39 → názov `inf`), `TabTabXml` (`TabTab.xml` stanice a `TabTabGlobal.xml`), `TrainTextsFile` (`TTVlaky.xml`), `Devices/` – `LightsXml` (svetlá nástupíšť pre ústredne AK Signal), `AudioXml` (audio linky – len výstup, linka, adresa, kanál a fronta) a `LightLogFile` (log svetiel servera `LOG\LIGHT<dátum>.xml`, riadok po riadku so zdieľaním zápisu). Súbory sa čítajú ako CP1250 bez ohľadu na hlavičku a zapisujú ako CP1250 s hlavičkou windows-1250 (`Iniss2Xml`); zapisovače grafikonu (`Write`) používa export GVDEditora, dni variantu prevádza na českú poznámku `GvValidity.Text`, lebo server iným nerozumie. Sviatky sú vždy české (`DateLimit.HolidayLocale`), server krajinu nenastavuje. Doména 3.39 sem nepatrí a kód 3.39 na tento projekt neodkazuje, výnimkou je export GVDEditora; čítače a zapisovače ďalších súborov INISS2 pribúdajú, až keď ich niektorý program používa. Testy sú v `ToolsCore.Iniss.Tests/Iniss2`.
-- `ToolsCore` (WinForms vrstva): `AppInit`, formuláre, `Commands`, `XML` štýly, `FormUtils`, `Utils`, `GlobalResources`, `Tools/AppLog` (logovanie); `Icons/` – banka ikon SVG `AppIcons` (Fluent UI System Icons Regular prefarbené na sivú/akcent, každá kresba pre 16/20/24/28/32 px `nazov_velkost[_dark].svg`; `Choose` vyberie najväčšiu kresbu alebo jej celý násobok, ktorý sa zmestí, a vystredí ju na celé body – nikdy nezväčšuje o necelý násobok; odznaky `Badges` pre každú mriežku s výrezom; ikony pridá `tools/import_icons.py`, odznaky `tools/gen_badges.py`, ikony súborov so štítkom prípony (`file-ewa`, `file-wav`) `tools/gen_file_icons.py`, licencia `Icons/LICENSES.md`) (stavové ikony `status-*` vo vyplnenom štýle Filled, niektoré dvojfarebné ako vo VS – obrys Regular nad výplňou Filled tej istej farby s krytím 0,3, napr. zlatý priečinok, modrá disketa, červený kôš) a položky `IconToolStripButton`/`SplitButton`/`DropDownButton`/`MenuItem`/`Label`/`StatusLabel` – návrhár ukladá len `IconName`/`IconBadge`, kreslí sa vo veľkosti `ImageScalingSize` a variante podľa jasu pozadia, tlačidlá majú väčší predvolený okraj (`DefaultPadding`); toolbary majú ikony vo veľkosti z návrhára podľa DPI, nie podľa písma (`FormUtils.SetFontToolStripItems`), neaktívne ikony sivé polopriehľadné (`MyMenuRenderer`); `ImageList` (strom stavového diagramu, doplňovanie TabTab) plní `IconImages.Fill` – kľúč obrázka = názov ikony; ikona pre prvok (bunka, PictureBox) `IconImages.For(prvok, "status-error")` – veľkosť podľa DPI, variant podľa pozadia (mriežka podľa buniek), `ErrorProvider.Icon = IconImages.ErrorIcon(this)`; ikonu chyby buniek a riadkov `DataGridView` (`ErrorText`) kreslí `GridErrorIcons` (napája ju téma mriežky – platí pre všetky mriežky); dialógy `ExMessageBox` berú ikony cez háčik ExControls `ExMessageBox.IconProvider`, ktorý nastaví `AppInit` na `IconImages.ForMessage` (bez systémových `ShellIcon`); stromy stránok nastavení (ExOptionsView) sú bez ikon ako vo VS a Rideri.
-- Doména (`ToolsCore.Iniss`) nesmie odkazovať na WinForms ani ExControls, menné priestory sú spoločné s `ToolsCore`. Parsovanie a reťazce sú v `ParseUtils`/`StringUtils`/`PathUtils` (Iniss), `Utils` (dialógy, grafika, kôš, prvky) a `FormUtils` v `ToolsCore` sú `static partial` podľa oblasti – novú metódu dať do zodpovedajúceho súboru. Kódovanie EWA↔WAV len cez `EwaCodec` (aj dĺžka nahrávky `Duration` z hlavičky WAV). Excel len cez `XlsReader` (ExcelDataReader – .xls aj .xlsx, bez Office Interop), shell Windows (Kôš, jump list) cez Vanara.
-- Ukladanie viacerých súborov naraz je transakčné (`ToolsCore.Iniss/Tools/FileTransaction.cs`) – používa ho grafikon, globálne nastavenia aj banka zvukov.
-- Formáty INISS vždy `CultureInfo.InvariantCulture`/`Ordinal` a text zapisovaný do súboru nikdy z názvu C# (`enum.ToString()`, `nameof`, `Enum.Parse`) – explicitné kľúče; súbory INISS sú CP1250 (`Encodings.Win1250`), výnimka je `FyzBank.xml` INISS2 – server sa pri ňom riadi hlavičkou XML, zapisujeme UTF-8 s BOM. Úplná špecifikácia formátov je v `iniss-tools-docs/docs/iniss/formaty-suborov/`, INISS2 v `docs/iniss2/formaty-suborov/`.
+### ToolsCore.Iniss
+
+`net10.0` bez WinForms – doména zdieľaná GVDEditorom, simulátorom tabúľ aj ILTISSimulatorom. Nesmie odkazovať na
+WinForms ani ExControls, menné priestory sú spoločné s `ToolsCore`.
+
+- `Expressions/`, `StateDgm/`, `TabTab/`.
+- `Calendar/` – dátumové obmedzenia `DateLimit` (poznámka ↔ bitové pole dní). Jazyk generovaných textov a krajina
+  sviatkov je jediné okolité nastavenie `DateLimit.Loc`, sviatky pre jednu poznámku určí `HolidayLocale`; rovnaké
+  poznámky číta aj INISS2.
+- `Elen/` – písma tabúľ ELEN `.bin` (`ElenFontFile`, číta ich aj ElenFontEditor) a význam čísla písma
+  (`ElenFontCode`; popisy pre obsluhu má GVDEditor v rozširujúcich členoch).
+- `Grafikon/` – konštanty súborov `GvdFileConsts`, `Station`, `GVDInfo`/`InfoGvdFile`, `DirList`/`DirListFile`,
+  `StationTracks` (koľaje z `Pozice_A` pre tabule).
+- `Tables/` – entity tabúľ (`TablePhysical`, `TableCatalog`…), `TablesFile`, `InissTableMap` (tabule inštalácie
+  v poradí INISSu), `DriverLines` (priradenie tabúľ k linkám, zistenia s kódom `DriverLineProblemCode` a textom zo
+  zdrojov), `FlapLayouts` (moduly a zoznamy listov ERS/FERS z katalógu a obráteného TabTab), `ElsvoUnits`
+  (spínacie jednotky zosilňovačov ELSVO zo stĺpcov 8/9 `Audio.txt`), `TableFaces` (údaje pre čelo tabule).
+- `Registry/` – nastavenia INISSu v registri a `.INI` (čítanie `InissRegistryReader`, len vo Windows; zápis a názvy
+  farieb má ToolsCore `InissRegistry`). Katalóg `RegCatalog.g.cs` a texty generuje `tools/gen_registry_catalog.py`
+  z `registry.mdx`.
+- `Tools/` – zvuková banka, `TxtProps`/CSV, `ParseUtils`/`StringUtils`/`PathUtils`, transakčné ukladanie viacerých
+  súborov `FileTransaction` (grafikon, globálne nastavenia, banka zvukov); `Updates/` – jadro aktualizácií.
+
+### ToolsCore.Iniss2
+
+`net10.0` bez WinForms, odkazuje `ToolsCore.Iniss` – súbory INISS2 (.NET, server IniSrv). Testy sú
+v `ToolsCore.Iniss.Tests/Iniss2`.
+
+- `Iniss2Installation` (nájde inštaláciu v koreni aj v priečinku `Server`; `FyzBank.dat` v banke znamená 3.39),
+  `Iniss2Config` (port GTN z `Config.xml`), `RawBank/` – `FyzBankXmlReader`, `FyzBankXmlWriter`.
+- `Grafikon/`:
+  - `DirListXml`, `GvFile` (vlak s trasou a variantmi ako ich drží server – `MosFile` mení druh a delí varianty,
+    `GvValidity` dni z poznámky), `GvStationsFile`, `PositionsDefFile`, `PositionsFile`;
+  - hlásenia stanice (`DodatkyFile`, `RazeniFile`, `ForeignFile`, `ReportKeysFile`), stanice v hlásení
+    `TrainReportStationsFile` (`StaHlasVl.xml`), `ReportPatternsFile` (`StaHlasB.xml`/`StaHlasC.xml`) a
+    `DefaultStationsFile` (`Default.Stations.xml`);
+  - stavový diagram `StateDiagramFile` (`statedgm.xml`, výrazy sú kód VB.NET, príznaky slovami `StateNodeFlags`);
+  - výluky, odklony a spoločné hlásenia obsluhy `VylukyFile`, `OdklonyFile`, `ConstReportsFile` (`Merge` pridá len
+    hlásenia s novým vzorom a stanicami, čísla za najvyšším ako server), pohľad na stanicu `StationTimetable`.
+- `Tables/` – `CommLinesXml` (linky a presmerovanie na simulátor: mení len hodnotu `line`, pri sériovej linke aj
+  `typ` na `TCP_CLIENT`, pôvodné v komentári; `Add` doplní linky s novým kľúčom a zvyšok súboru nechá po znakoch),
+  `TablesFile`, `TableCatalogFile` (`CatalogColumn.ContentFor` = obsah 3.39 → názov `inf`), `TabTabXml`,
+  `TrainTextsFile` (`TTVlaky.xml`).
+- `Devices/` – svetlá nástupíšť pre ústredne AK Signal `LightsXml`, audio linky `AudioXml` (len výstup, linka,
+  adresa, kanál a fronta), log svetiel servera `LightLogFile` (`LOG\LIGHT<dátum>.xml`, riadok po riadku so
+  zdieľaním zápisu).
+- Súbory sa čítajú ako CP1250 bez ohľadu na hlavičku a zapisujú ako CP1250 s hlavičkou windows-1250 (`Iniss2Xml`).
+  Zapisovače grafikonu (`Write`) používa export GVDEditora; dni variantu prevádza na českú poznámku
+  `GvValidity.Text`, lebo server iným nerozumie. Sviatky sú vždy české, server krajinu nenastavuje.
+- Doména 3.39 sem nepatrí a kód 3.39 na tento projekt neodkazuje (výnimka je export GVDEditora). Čítače a zapisovače
+  ďalších súborov INISS2 pribúdajú, až keď ich niektorý program používa.
+
+### ToolsCore (WinForms vrstva)
+
+- `AppInit`, formuláre, `Commands`, `XML` štýly, `FormUtils`, `Utils`, `GlobalResources`, logovanie `Tools/AppLog`.
+- `Utils` (dialógy, grafika, kôš, prvky), `FormUtils` a `ParseUtils`/`StringUtils`/`PathUtils` (Iniss) sú
+  `static partial` podľa oblasti – novú metódu dať do zodpovedajúceho súboru.
+- Kódovanie EWA↔WAV len cez `EwaCodec` (aj dĺžka nahrávky `Duration` z hlavičky WAV). Excel len cez `XlsReader`
+  (ExcelDataReader – .xls aj .xlsx, bez Office Interop), shell Windows (Kôš, jump list) cez Vanara.
+- `Icons/` – banka ikon SVG `AppIcons`:
+  - Fluent UI System Icons Regular prefarbené na sivú/akcent, každá kresba pre 16/20/24/28/32 px
+    `nazov_velkost[_dark].svg`; stavové ikony `status-*` vo vyplnenom štýle, niektoré dvojfarebné ako vo VS (obrys
+    Regular nad výplňou Filled tej istej farby s krytím 0,3).
+  - `Choose` vyberie najväčšiu kresbu alebo jej celý násobok, ktorý sa zmestí, a vystredí ju na celé body – nikdy
+    nezväčšuje o necelý násobok; odznaky `Badges` pre každú mriežku s výrezom.
+  - Ikony pridá `tools/import_icons.py`, odznaky `tools/gen_badges.py`, ikony súborov so štítkom prípony
+    `tools/gen_file_icons.py`; licencia `Icons/LICENSES.md`.
+  - Položky `IconToolStripButton`/`SplitButton`/`DropDownButton`/`MenuItem`/`Label`/`StatusLabel` – návrhár ukladá
+    len `IconName`/`IconBadge`, kreslí sa vo veľkosti `ImageScalingSize` a variante podľa jasu pozadia. Toolbary majú
+    ikony vo veľkosti z návrhára podľa DPI, nie podľa písma; neaktívne ikony sivé polopriehľadné (`MyMenuRenderer`).
+  - `ImageList` plní `IconImages.Fill` (kľúč = názov ikony), ikona pre prvok `IconImages.For(prvok, "status-error")`,
+    `ErrorProvider.Icon = IconImages.ErrorIcon(this)`; ikonu chyby buniek `DataGridView` kreslí `GridErrorIcons`
+    (napája ju téma mriežky). `ExMessageBox` berie ikony cez háčik `ExMessageBox.IconProvider` (`AppInit` →
+    `IconImages.ForMessage`). Stromy stránok nastavení (ExOptionsView) sú bez ikon ako vo VS a Rideri.
+- Formáty INISS vždy `CultureInfo.InvariantCulture`/`Ordinal` a text zapisovaný do súboru nikdy z názvu C#
+  (`enum.ToString()`, `nameof`, `Enum.Parse`) – explicitné kľúče; súbory INISS sú CP1250 (`Encodings.Win1250`),
+  výnimka je `FyzBank.xml` INISS2 – server sa pri ňom riadi hlavičkou XML, zapisujeme UTF-8 s BOM. Úplná
+  špecifikácia formátov je v `iniss-tools-docs/docs/iniss/formaty-suborov/`, INISS2 v `docs/iniss2/formaty-suborov/`.
 
 ## Vydania a aktualizácie
 
-Postup a jednorazové nastavenie v `Installer/README.md`. Značka `vX.Y`/`vX.Y.Z` v repozitári programu spustí jeho `.github/workflows/release.yml` → spoločný `.github/workflows/release-app.yml` tohto repozitára (runner Windows, závislosti z `main` naklonované vedľa seba ako v `INISSTools`, Inno Setup 7.1 s overeným súčtom, `Installer/Build-Installer.ps1` – overí verziu inštalátora – a `Publish-Release.ps1`; bez tokenov a secretov – len `GITHUB_TOKEN` behu, všetky repozitáre programov aj závislostí sú verejné a klonujú sa bez prihlásenia; inštalátory zatiaľ nie sú podpísané). Každý program vydáva vo vlastnom repozitári: koncept vydania → inštalátor + `update.json` (tvar `UpdateIndex` s jedným programom) → zverejnenie, za posledné len ak nie je staršie; program číta `https://github.com/<repo>/releases/latest/download/update.json`. Verzia programu = `<Version>` v jeho projekte (SDK `GenerateAssemblyInfo`, v `AssemblyInfo.cs` len Guid/ComVisible/InternalsVisibleTo; `Build/AppRelease.props` importovaný na konci projektu), vydanie ju prepíše `-p:Version` a pridá `AssemblyMetadata UpdateIndex` – zostava bez neho aktualizácie nekontroluje. Jadro `ToolsCore.Iniss/Updates` (`UpdateIndex`, `ReleaseVersion`, `UpdateSource.FromAssembly`, `UpdateChecker` – index, stiahnutie s kontrolou veľkosti a SHA-256); desktop `ToolsCore/Updates/AppUpdates` (`CheckOnStartup` z `Load` hlavného okna, príkaz `CheckUpdates` v ponuke Pomocník s `CanExecute = AppUpdates.Available`, voľba `ConfigBase.CheckUpdates`, čas a preskočená verzia v `AppRegistry`, inštalátor `/SILENT /RELAUNCH=1` → `[Run]` v `AppSetup.iss`) + okno `FUpdateApp`. Spoločný základ inštalátorov `Installer/`: `Common.iss` ([Setup], jazyky, verzia z .exe), `DotNet.iss` (chýbajúci .NET 10 ponúkne stiahnuť, udalosti [Code] cez `<event(...)>`), `AppSetup.iss` (desktopové programy).
+Postup a jednorazové nastavenie v `Installer/README.md`.
+
+- Značka `vX.Y`/`vX.Y.Z` v repozitári programu spustí jeho `.github/workflows/release.yml` → spoločný
+  `.github/workflows/release-app.yml` tohto repozitára: runner Windows, závislosti z `main` naklonované vedľa seba
+  ako v `INISSTools`, Inno Setup 7.1 s overeným súčtom, `Installer/Build-Installer.ps1` (overí verziu inštalátora)
+  a `Publish-Release.ps1`.
+- Bez tokenov a secretov – len `GITHUB_TOKEN` behu; všetky repozitáre programov aj závislostí sú verejné a klonujú sa
+  bez prihlásenia. Inštalátory zatiaľ nie sú podpísané.
+- Každý program vydáva vo vlastnom repozitári: koncept vydania → inštalátor + `update.json` (tvar `UpdateIndex`
+  s jedným programom) → zverejnenie, za posledné len ak nie je staršie. Program číta
+  `https://github.com/<repo>/releases/latest/download/update.json`.
+- Verzia programu = `<Version>` v jeho projekte (SDK `GenerateAssemblyInfo`, v `AssemblyInfo.cs` len
+  Guid/ComVisible/InternalsVisibleTo; `Build/AppRelease.props` importovaný na konci projektu). Vydanie ju prepíše
+  `-p:Version` a pridá `AssemblyMetadata UpdateIndex` – zostava bez neho aktualizácie nekontroluje.
+- Jadro `ToolsCore.Iniss/Updates` (`UpdateIndex`, `ReleaseVersion`, `UpdateSource.FromAssembly`, `UpdateChecker` –
+  index, stiahnutie s kontrolou veľkosti a SHA-256). Desktop `ToolsCore/Updates/AppUpdates` (`CheckOnStartup`
+  z `Load` hlavného okna, príkaz `CheckUpdates` s `CanExecute = AppUpdates.Available`, voľba
+  `ConfigBase.CheckUpdates`, čas a preskočená verzia v `AppRegistry`, inštalátor `/SILENT /RELAUNCH=1`) + okno
+  `FUpdateApp`.
+- Spoločný základ inštalátorov `Installer/`: `Common.iss` ([Setup], jazyky, verzia z .exe), `DotNet.iss` (chýbajúci
+  .NET 10 ponúkne stiahnuť, udalosti [Code] cez `<event(...)>`), `AppSetup.iss` (desktopové programy).
 
 ## Logovanie
 
-- Zápis cez statický `Serilog.Log` (`using Serilog;`) – v `ToolsCore.Iniss` (balík `Serilog`) aj v programoch. Kam záznamy idú, určuje program: desktop `ToolsCore/Tools/AppLog` (`Start` hneď na začiatku `AppInit.Initialization`, `Stop` pri ukončení a reštarte), server TableSimulator vlastný `SerilogSetup` – záznamy domény tak skončia v logu servera.
-- Desktop: denné súbory `%LocalAppData%\<Program>\logs\<Program>-RRRRMMDD.log` (`AppLog.Directory`, príkaz Pomocník → Otvoriť priečinok s logmi = `ErrorReport.OpenLogFolder`), 31 súborov, najviac 10 MB (potom ďalší súbor), `shared` – viac inštancií zapisuje do jedného súboru s číslom procesu v riadku; úroveň Information, v debuggeri Debug.
-- Šablóny s pomenovanými vlastnosťami (`Log.Warning(e, "Grafikon {Path} sa nepodarilo nacitat", path)`), nikdy interpolácia, `string.Format` ani texty z `Resources` – správa je slovenská bez diakritiky a nezávisí od jazyka UI; výnimka ide ako prvý argument (nie `e.Message`). `Log.ForContext` neukladať do statického poľa (zachytil by logger pred `AppLog.Start`). V triede s vlastným členom `Log` (napr. udalosť) písať `Serilog.Log`.
-- Úrovne: Information = operácia používateľa alebo programu (otvorenie, uloženie, import, export, spustenie procesu, presun do Koša, zmena agenta cez MCP), Warning = prekonaná chyba alebo nekonzistentné dáta (preskočený riadok, duplicitný kľúč, zlyhané mazanie dočasného súboru, odmietnutá požiadavka služby), Error = operácia zlyhala, Fatal = pád programu, Debug = podrobnosti len pri ladení.
-- Každý `catch`, ktorý chybu zahodí alebo ju len ukáže (`Utils.ShowError`, `IDialogService`), ju aj zapíše s kontextom (súbor, priečinok, operácia). `ErrorReport.Show` zapisuje sám – pred dlhou operáciou, ktorej chyba ide cez neho, zapísať Information s tým, čoho sa týka. Zahodenie bez záznamu len pri zámernej náhrade (TryParse, overenie vstupu používateľa, zrušenie).
-- Nelogovať tajné hodnoty (kľúče API, heslá, tokeny, šifrované hodnoty), telá požiadaviek ani dotazy URL s textom používateľa; nelogovať v horúcich cestách (kreslenie, udalosti buniek, každá správa protokolu – nanajvýš Debug).
+- Zápis cez statický `Serilog.Log` (`using Serilog;`) – v `ToolsCore.Iniss` (balík `Serilog`) aj v programoch. Kam
+  záznamy idú, určuje program: desktop `ToolsCore/Tools/AppLog` (`Start` hneď na začiatku `AppInit.Initialization`,
+  `Stop` pri ukončení a reštarte), server TableSimulator vlastný `SerilogSetup` – záznamy domény tak skončia v logu
+  servera.
+- Desktop: denné súbory `%LocalAppData%\<Program>\logs\<Program>-RRRRMMDD.log` (`AppLog.Directory`, príkaz Pomocník →
+  Otvoriť priečinok s logmi = `ErrorReport.OpenLogFolder`), 31 súborov, najviac 10 MB (potom ďalší súbor), `shared` –
+  viac inštancií zapisuje do jedného súboru s číslom procesu v riadku; úroveň Information, v debuggeri Debug.
+- Šablóny s pomenovanými vlastnosťami (`Log.Warning(e, "Grafikon {Path} sa nepodarilo nacitat", path)`), nikdy
+  interpolácia, `string.Format` ani texty z `Resources` – správa je slovenská bez diakritiky a nezávisí od jazyka UI;
+  výnimka ide ako prvý argument (nie `e.Message`). `Log.ForContext` neukladať do statického poľa (zachytil by logger
+  pred `AppLog.Start`). V triede s vlastným členom `Log` (napr. udalosť) písať `Serilog.Log`.
+- Úrovne: Information = operácia používateľa alebo programu (otvorenie, uloženie, import, export, spustenie procesu,
+  presun do Koša, zmena agenta cez MCP), Warning = prekonaná chyba alebo nekonzistentné dáta (preskočený riadok,
+  duplicitný kľúč, zlyhané mazanie dočasného súboru, odmietnutá požiadavka služby), Error = operácia zlyhala,
+  Fatal = pád programu, Debug = podrobnosti len pri ladení.
+- Každý `catch`, ktorý chybu zahodí alebo ju len ukáže (`Utils.ShowError`, `IDialogService`), ju aj zapíše
+  s kontextom (súbor, priečinok, operácia). `ErrorReport.Show` zapisuje sám – pred dlhou operáciou, ktorej chyba ide
+  cez neho, zapísať Information s tým, čoho sa týka. Zahodenie bez záznamu len pri zámernej náhrade (TryParse,
+  overenie vstupu používateľa, zrušenie).
+- Nelogovať tajné hodnoty (kľúče API, heslá, tokeny, šifrované hodnoty), telá požiadaviek ani dotazy URL s textom
+  používateľa; nelogovať v horúcich cestách (kreslenie, udalosti buniek, každá správa protokolu – nanajvýš Debug).
 
 ## Desktopové programy (WinForms)
 
-- DPI (SystemAware, ILTISSimulator PerMonitorV2) nastavuje `AppInit.Initialization`/`Main` cez `Application.SetHighDpiMode`, nie `app.manifest` (WFO0003) ani `ApplicationHighDpiMode` (bez `ApplicationConfiguration.Initialize` nemá účinok). `WFO1000` – verejné vlastnosti vlastných prvkov označiť `[Browsable(false)] [DesignerSerializationVisibility(Hidden)]`.
-- Formuláre sú `Localizable` (SK `*.resx`, CZ `*.cs.resx`); texty cez `Properties/Resources.resx` + `.cs.resx` + ručne upravený `Resources.Designer.cs`.
-- Žiadny text UI natvrdo v kóde (GVDEditor, ToolsCore, RawBankEditor, ElenFontEditor – každý má vlastné `Properties/Resources` so SK aj CZ; úplnosť prekladu ElenFontEditora stráži `LocalizationTests`): hlásenia, validátory, názvy v `Enumeration`, `DisplayName`/`Category` cez `ResDisplayName`/`ResCategory`; s parametrami `string.Format(CultureInfo.CurrentCulture, Resources.X, …)`. V kóde ostávajú len dáta INISS (kľúče, texty zapisované do súborov, texty hlásení INISSu, slovník importu) a logy.
-- `*.Designer.cs` písať ručne (WinForms designer MCP ho zničí). Aby ho VS návrhár zobrazil správne: `ApplyResources` a resx položky `Dock/Location/Size/TabIndex` + `>>Name/Type/Parent/ZOrder` pre každý prvok (aj `SplitterPanel`); stĺpce `DataGridView` s `<metadata name="cX.UserAddedColumn">True</metadata>`, blok stĺpca na konci `InitializeComponent`, `AutoGenerateColumns = false` v konštruktore. VS s otvoreným súborom ho pri uložení prepíše – upozorniť používateľa.
-- Príkazy hlavných okien (GVDEditor, RawBankEditor, ElenFontEditor) idú cez `CommandSet`/`AppCommand`: katalóg `GvdCommands`/`RbeCommands`/`EfeCommands` (ID = názov prvku skratky v config.xml, nemeniť; skratky v `ShortcutMap`), tlačidlo aj položku ponuky naviazať v `CreateCommands` cez `Bind` (prepínače s `CheckOnClick` cez `BindState`), povolenie len cez `CanExecute` + `UpdateCommandStates()`, nie `xxx.Enabled =` ani nové `_Click` páry. Dlhé operácie `async` + `Task.Run` + `IProgress<T>`, nie BackgroundWorker.
-- Téma: Ex* prvky implementujú `IThemeable` (ExControls `Theming/`: `ExTheme`, `ExThemer`); štandardné prvky WinForms štýluje ToolsCore obsluhami v `FormUtils.RegisterThemeHandlers` (`Style.ToExTheme()`). Nový Ex* prvok = `ApplyTheme`, nový štandardný typ = `ExThemer.Register<T>`, nie nová vetva `switch`. Win32 obsahuje len použité deklarácie (v net10 projektoch `[LibraryImport]`).
-- Dialógy len `Utils.ShowQuestion/ShowWarning/ShowError/ShowInfo` alebo `ExMessageBox.Show`, nikdy `MessageBox.Show`. Téma: `ApplyThemeAndFonts()`, dynamické prvky `FormUtils.ChangeStyleOfControls`, používať `Ex*` prvky. Ikony len z banky SVG `ToolsCore/Icons` (položky `Icon*` s `IconName`/`IconBadge`, v kóde `AppIcons.Get`, zoznamy `IconImages.Fill`), nie PNG – `GlobalResources` má už len šípky trás mapy GVDEditora; novú ikonu doplniť do `tools/import_icons.py`, nepoužité ikony z repa mazať.
-- Veľkosť tlačidiel: pri predvolenom písme Segoe UI 9 (`AppFonts`, rozmery 7×15) je tlačidlo 88×27 px – v návrhu s `AutoScaleDimensions` 7×15 teda 88×27, v návrhu 6×13 len 75×23 (pri Segoe sa zväčší o 7/6 a 15/13). Dlhší text rieši `AutoSize`, nie väčší rozmer v návrhu. `FAppSettingsBase` nemá `AutoScaleDimensions` zámerne: škáluje ho len zdedené okno programu (6×13). S rozmermi v základe by sa jeho prvky škálovali dvakrát, preto riadok nevracať (VS návrhár ho pri uložení doplní); rozmery prvkov v ňom platia ako v návrhu 6×13.
-- GUI nespúšťať cez Bash – overuje ho používateľ ručne. Bez klikania sa formulár dá overiť harnessom (reflexia + `DrawToBitmap`).
+- DPI (SystemAware, ILTISSimulator PerMonitorV2) nastavuje `AppInit.Initialization`/`Main` cez
+  `Application.SetHighDpiMode`, nie `app.manifest` (WFO0003) ani `ApplicationHighDpiMode` (bez
+  `ApplicationConfiguration.Initialize` nemá účinok). `WFO1000` – verejné vlastnosti vlastných prvkov označiť
+  `[Browsable(false)] [DesignerSerializationVisibility(Hidden)]`.
+- Formuláre sú `Localizable` (SK `*.resx`, CZ `*.cs.resx`); texty cez `Properties/Resources.resx` + `.cs.resx`
+  + ručne upravený `Resources.Designer.cs`.
+- Žiadny text UI natvrdo v kóde (GVDEditor, ToolsCore, RawBankEditor, ElenFontEditor – každý má vlastné
+  `Properties/Resources` so SK aj CZ; úplnosť prekladu ElenFontEditora stráži `LocalizationTests`): hlásenia,
+  validátory, názvy v `Enumeration`, `DisplayName`/`Category` cez `ResDisplayName`/`ResCategory`; s parametrami
+  `string.Format(CultureInfo.CurrentCulture, Resources.X, …)`. V kóde ostávajú len dáta INISS (kľúče, texty
+  zapisované do súborov, texty hlásení INISSu, slovník importu) a logy.
+- `*.Designer.cs` písať ručne (WinForms designer MCP ho zničí). Aby ho VS návrhár zobrazil správne: `ApplyResources`
+  a resx položky `Dock/Location/Size/TabIndex` + `>>Name/Type/Parent/ZOrder` pre každý prvok (aj `SplitterPanel`);
+  stĺpce `DataGridView` s `<metadata name="cX.UserAddedColumn">True</metadata>`, blok stĺpca na konci
+  `InitializeComponent`, `AutoGenerateColumns = false` v konštruktore. VS s otvoreným súborom ho pri uložení
+  prepíše – upozorniť používateľa.
+- Príkazy hlavných okien (GVDEditor, RawBankEditor, ElenFontEditor) idú cez `CommandSet`/`AppCommand`: katalóg
+  `GvdCommands`/`RbeCommands`/`EfeCommands` (ID = názov prvku skratky v config.xml, nemeniť; skratky v `ShortcutMap`),
+  tlačidlo aj položku ponuky naviazať v `CreateCommands` cez `Bind` (prepínače s `CheckOnClick` cez `BindState`),
+  povolenie len cez `CanExecute` + `UpdateCommandStates()`, nie `xxx.Enabled =` ani nové `_Click` páry. Dlhé
+  operácie `async` + `Task.Run` + `IProgress<T>`, nie BackgroundWorker.
+- Téma: Ex* prvky implementujú `IThemeable` (ExControls `Theming/`: `ExTheme`, `ExThemer`); štandardné prvky
+  WinForms štýluje ToolsCore obsluhami v `FormUtils.RegisterThemeHandlers` (`Style.ToExTheme()`). Nový Ex* prvok =
+  `ApplyTheme`, nový štandardný typ = `ExThemer.Register<T>`, nie nová vetva `switch`. Win32 obsahuje len použité
+  deklarácie (v net10 projektoch `[LibraryImport]`).
+- Dialógy len `Utils.ShowQuestion/ShowWarning/ShowError/ShowInfo` alebo `ExMessageBox.Show`, nikdy
+  `MessageBox.Show`. Téma: `ApplyThemeAndFonts()`, dynamické prvky `FormUtils.ChangeStyleOfControls`, používať `Ex*`
+  prvky. Ikony len z banky SVG `ToolsCore/Icons` (položky `Icon*` s `IconName`/`IconBadge`, v kóde `AppIcons.Get`,
+  zoznamy `IconImages.Fill`), nie PNG – `GlobalResources` má už len šípky trás mapy GVDEditora; novú ikonu doplniť do
+  `tools/import_icons.py`, nepoužité ikony z repa mazať.
+- Veľkosť tlačidiel: pri predvolenom písme Segoe UI 9 (`AppFonts`, rozmery 7×15) je tlačidlo 88×27 px – v návrhu
+  s `AutoScaleDimensions` 7×15 teda 88×27, v návrhu 6×13 len 75×23 (pri Segoe sa zväčší o 7/6 a 15/13). Dlhší text
+  rieši `AutoSize`, nie väčší rozmer v návrhu.
+- `FAppSettingsBase` nemá `AutoScaleDimensions` zámerne: škáluje ho len zdedené okno programu (6×13). S rozmermi
+  v základe by sa jeho prvky škálovali dvakrát, preto riadok nevracať (VS návrhár ho pri uložení doplní); rozmery
+  prvkov v ňom platia ako v návrhu 6×13.
+- GUI nespúšťať cez Bash – overuje ho používateľ ručne. Bez klikania sa formulár dá overiť harnessom (reflexia
+  + `DrawToBitmap`).
 
 ## Príkazy
 
 ```bash
 dotnet build ToolsCore.slnx -nologo -v q
-dotnet test ToolsCore/ToolsCore.Iniss.Tests/ToolsCore.Iniss.Tests.csproj   # domena; --filter "FullyQualifiedName~StateDgm"
+# domena; --filter "FullyQualifiedName~StateDgm"
+dotnet test ToolsCore.Iniss.Tests/ToolsCore.Iniss.Tests.csproj
 dotnet test ToolsCore.slnx
-powershell -File Installer/Build-Installer.ps1 -Project ../GVDEditor/GVDEditor/GVDEditor.csproj -Installer ../GVDEditor/GVDEditorInstaller.iss -Version 1.10   # instalator vo verzii vydania do artifacts/ (ako workflow; -Publish pre TableSimulator); z Git Bash ISCC volat s MSYS_NO_PATHCONV=1
+# instalator vo verzii vydania do artifacts/ (ako workflow; -Publish pre TableSimulator);
+# z Git Bash ISCC volat s MSYS_NO_PATHCONV=1
+powershell -File Installer/Build-Installer.ps1 -Project ../GVDEditor/GVDEditor/GVDEditor.csproj `
+  -Installer ../GVDEditor/GVDEditorInstaller.iss -Version 1.10
 ```
 
 ## Spoločné pravidlá
 
-- `Directory.Build.props`: `TreatWarningsAsErrors`, `Nullable`, `ImplicitUsings`, `AnalysisLevel latest-recommended` – build bez jediného varovania; zámerne vypnuté pravidlá len tam (`NoWarn` s dôvodom), varovanie opraviť v kóde, výnimočné potlačenie priamo na nájdenom člene (`[SuppressMessage(..., Justification = ...)]` – Rider nerešpektuje potlačenie na triede). Vlastnosti s `get => field ??= …` Rider považuje za nullable – explicitné pole. Kopírovací konštruktor recordu s primárnym konštruktorom nespúšťa inicializátory polí – priradiť všetky členy.
+- `Directory.Build.props`: `TreatWarningsAsErrors`, `Nullable`, `ImplicitUsings`, `AnalysisLevel latest-recommended` –
+  build bez jediného varovania; zámerne vypnuté pravidlá len tam (`NoWarn` s dôvodom), varovanie opraviť v kóde,
+  výnimočné potlačenie priamo na nájdenom člene (`[SuppressMessage(..., Justification = ...)]` – Rider nerešpektuje
+  potlačenie na triede). Vlastnosti s `get => field ??= …` Rider považuje za nullable – explicitné pole. Kopírovací
+  konštruktor recordu s primárnym konštruktorom nespúšťa inicializátory polí – priradiť všetky členy.
+- Jeden typ najvyššej úrovne na súbor (vnorené typy môžu ostať), viac súvisiacich súborov do vlastného priečinka.
 - Kultúra: UI `CultureInfo.CurrentCulture`, formáty a logy `InvariantCulture`.
-- Testy MSTest, metódy `Oblast_CoOveruje`. Nové parsery/validátory overiť korpusovo nad `D:\INISSroot` (reálne dáta, len na stroji používateľa), taký test do repa nedávať; do repa len testy s vlastnými dátami (DataRow, `TestData`) vrátane round-trip testu.
+- Testy MSTest, metódy `Oblast_CoOveruje`. Nové parsery/validátory overiť korpusovo nad `D:\INISSroot` (reálne dáta,
+  len na stroji používateľa), taký test do repa nedávať; do repa len testy s vlastnými dátami (DataRow, `TestData`)
+  vrátane round-trip testu.
 - Skripty: generátory ukladať ako súbor (bash heredoc mení `\\` a `\n`); v `.ps1` žiadna diakritika.
 
 ## Commity (Conventional Commits)
 
-Commitovať len na požiadanie. Správy podľa [Conventional Commits](https://www.conventionalcommits.org/): `<typ>(<oblasť>): <popis>`.
+Commitovať len na požiadanie. Správy podľa [Conventional Commits](https://www.conventionalcommits.org/):
+`<typ>(<oblasť>): <popis>`.
 
-- Typ: `feat`, `fix`, `refactor`, `perf`, `docs`, `test`, `build` (projekty, balíky, inštalátor), `ci` (workflow), `style`, `chore`, `revert`.
+- Typ: `feat`, `fix`, `refactor`, `perf`, `docs`, `test`, `build` (projekty, balíky, inštalátor), `ci` (workflow),
+  `style`, `chore`, `revert`.
 - Oblasť nepovinná, malými písmenami (napr. `iniss`, `icons`, `updates`, `installer`, `theme`, `log`).
-- Popis anglicky v rozkazovacom spôsobe, malým písmenom, bez bodky, najviac 72 znakov; názvy tried v backtickoch. Telo po prázdnom riadku vysvetľuje prečo; nekompatibilná zmena (verejné API knižnice, formát súborov) má `!` a pätičku `BREAKING CHANGE: …`.
+- Popis anglicky v rozkazovacom spôsobe, malým písmenom, bez bodky, najviac 72 znakov; názvy tried v backtickoch.
+  Telo po prázdnom riadku vysvetľuje prečo; nekompatibilná zmena (verejné API knižnice, formát súborov) má `!`
+  a pätičku `BREAKING CHANGE: …`.
 - Príklad: ``feat(log): replace custom `Log` with Serilog``.
