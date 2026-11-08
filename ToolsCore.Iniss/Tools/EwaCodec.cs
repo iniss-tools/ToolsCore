@@ -128,6 +128,55 @@ public static class EwaCodec
         }
     }
 
+    /// <summary>
+    /// Dlzka nahravky .EWA (aj nekodovaneho WAV) z hlavicky WAV: velkost bloku dat / bajty za sekundu.
+    /// </summary>
+    /// <param name="ewa">vstup .EWA - citany od aktualnej pozicie po koniec</param>
+    /// <exception cref="FormatException">nie je platny WAV alebo chyba blok fmt ci data</exception>
+    public static TimeSpan Duration(Stream ewa)
+    {
+        ArgumentNullException.ThrowIfNull(ewa);
+        using var wav = new MemoryStream();
+        Decode(ewa, wav);
+        wav.Position = 0;
+        using var reader = new BinaryReader(wav, Encoding.ASCII, true);
+
+        if (wav.Length < 12 || Read4ByteString(reader) != "RIFF")
+            throw new FormatException(Resources.Ewa_NoRiff);
+        reader.ReadInt32();
+        if (Read4ByteString(reader) != "WAVE")
+            throw new FormatException(Resources.Ewa_NotWave);
+
+        var byteRate = 0;
+        long? data = null;
+        while (wav.Length - wav.Position >= 8 && data is null)
+        {
+            var id = Read4ByteString(reader);
+            var size = reader.ReadUInt32();
+            var next = wav.Position + size + (size & 1);
+            if (id == "fmt " && size >= 16)
+            {
+                reader.ReadInt16(); // format
+                reader.ReadInt16(); // kanaly
+                reader.ReadInt32(); // vzorky za sekundu
+                byteRate = reader.ReadInt32();
+            }
+            else if (id == "data")
+            {
+                // posledny blok byva skrateny - dat nie je viac, nez je v subore
+                data = Math.Min(size, wav.Length - wav.Position);
+            }
+
+            wav.Position = Math.Min(next, wav.Length);
+        }
+
+        if (byteRate <= 0)
+            throw new FormatException(Resources.Ewa_NoFormat);
+        if (data is not { } bytes)
+            throw new FormatException(Resources.Ewa_BadLength);
+        return TimeSpan.FromSeconds((double)bytes / byteRate);
+    }
+
     private static byte[] ReadAll(Stream stream)
     {
         using var buffer = new MemoryStream();

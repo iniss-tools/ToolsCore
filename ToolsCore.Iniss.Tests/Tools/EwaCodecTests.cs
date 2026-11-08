@@ -49,6 +49,27 @@ public class EwaCodecTests
     }
 
     [TestMethod]
+    public void Duration_ZHlavickyWav()
+    {
+        // 8000 bajtov za sekundu: 12 000 vzoriek = 1,5 s; kodovane aj nekodovane
+        var wav = Wav(12_000);
+        Assert.AreEqual(TimeSpan.FromSeconds(1.5), EwaCodec.Duration(new MemoryStream(Encode(wav, 0x5A))));
+        Assert.AreEqual(TimeSpan.FromSeconds(1.5), EwaCodec.Duration(new MemoryStream(wav)));
+
+        // skrateny subor: len data, ktore v nom su
+        Assert.AreEqual(TimeSpan.FromSeconds(0.5), EwaCodec.Duration(new MemoryStream(wav[..(44 + 4000)])));
+    }
+
+    [TestMethod]
+    public void Duration_BezBlokuFmtJeChyba()
+    {
+        var wav = Wav(100);
+        wav[12] = (byte)'x';
+        Assert.ThrowsExactly<FormatException>(() => EwaCodec.Duration(new MemoryStream(wav)));
+        Assert.ThrowsExactly<FormatException>(() => EwaCodec.Duration(new MemoryStream("nie je wav"u8.ToArray())));
+    }
+
+    [TestMethod]
     public void EncodeDecode_KazdyKluc_VratiPovodnyWav()
     {
         var wav = Wav(300);
