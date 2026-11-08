@@ -5,30 +5,6 @@ using ToolsCore.Iniss.Tools;
 namespace ToolsCore.Iniss.StateDgm;
 
 /// <summary>
-/// Chyba syntaxe suboru StateDgm.txt (INISS by nacitanie diagramu prerusil).
-/// </summary>
-public sealed class StateDgmParseException(string message, int line) : Exception(message)
-{
-    /// <summary>Cislo riadka (0-based), na ktorom sa chyba nasla.</summary>
-    public int Line { get; } = line;
-}
-
-/// <summary>
-/// Vysledok nacitania suboru StateDgm.txt do stromu.
-/// </summary>
-public sealed class StateDgmTextFile
-{
-    /// <summary>Cislo verzie zapisu z prveho riadka (INISS 3.39 prijme len <c>0001</c>).</summary>
-    public string Version { get; set; } = StateDgmReader.Version;
-
-    /// <summary>Hlavickove komentare <c>C:"…"</c> - text za <c>C:</c> po koniec riadka, bez uvodzoviek.</summary>
-    public List<string> HeaderComments { get; } = [];
-
-    /// <summary>Korenova skupina; jej podskupiny su bloky <c>P:</c> (bezne jediny <c>StateDgmCtrls</c>).</summary>
-    public StateDgmGroup Root { get; } = new("");
-}
-
-/// <summary>
 /// Citac suboru StateDgm.txt verny INISSu 3.39:
 /// <list type="bullet">
 /// <item>prvy token musi byt verzia <c>0001</c>, zvysok riadka sa ignoruje;</item>

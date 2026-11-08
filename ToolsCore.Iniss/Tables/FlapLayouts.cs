@@ -3,32 +3,6 @@ using ToolsCore.Iniss.TabTab;
 namespace ToolsCore.Iniss.Tables;
 
 /// <summary>
-/// Modul listovej tabule: na riadku zaznamu <paramref name="Line" /> zaberie pozicie od <paramref name="Position" />
-/// (znaky spravy, jeden znak = jeden kod listu); kody <paramref name="Span" /> pozicii spolu urcuju list zo zoznamu
-/// <paramref name="List" />.
-/// </summary>
-/// <param name="Line">riadok v ramci zaznamu (TYPE_ITEMS_LINE, od 0)</param>
-/// <param name="Position">prva pozicia (START / 8)</param>
-/// <param name="Span">pocet pozicii</param>
-/// <param name="List">meno zoznamu listov (sekcia TabTab); null = kod sa ukaze, ako prisiel</param>
-public sealed record FlapModuleInfo(int Line, int Position, int Span, string? List);
-
-/// <summary>
-/// Moduly listovej tabule a zoznamy listov (kod → text INISSu) odvodene z katalogovej tabule a jej prekodovacich tabuliek.
-/// </summary>
-/// <param name="LinesPerRecord">riadkov tabule na jeden zaznam</param>
-/// <param name="Records">pocet zaznamov (MAX_REC_COUNT)</param>
-/// <param name="Positions">pocet pozicii v riadku (koniec najvzdialenejsieho stlpca)</param>
-/// <param name="Modules">moduly v poradi riadku a pozicie</param>
-/// <param name="Lists">zoznamy listov podla mena sekcie TabTab: kod listu → text</param>
-public sealed record FlapLayout(
-    int LinesPerRecord,
-    int Records,
-    int Positions,
-    IReadOnlyList<FlapModuleInfo> Modules,
-    IReadOnlyDictionary<string, IReadOnlyDictionary<string, string>> Lists);
-
-/// <summary>
 /// Listove tabule (ERS, FERS) dostavaju od INISSu kody listov - text z grafikonu na ne prelozia prekodovacie tabulky
 /// stlpcov (TabTab, jednoduche pravidla <c>kod = text</c>). Tu sa preklad obrati, aby sa dal kod listu ukazat ako text:
 /// stlpec s <c>DIVTYPE</c> 1 alebo 3 je jeden modul cez vsetky svoje pozicie so zoznamom TAB1, cas (2) tri moduly

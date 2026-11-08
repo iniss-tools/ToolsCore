@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Reflection;
 using Microsoft.Win32;
-using System.Text;
 using Serilog;
 using ToolsCore.Iniss.Tools;
 using Vanara.PInvoke;
@@ -353,32 +352,5 @@ public static class AppRegistry
     {
         using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{ProductName}");
         key?.SetValue(RegUpdateSkipped, version);
-    }
-}
-
-public class ProjectInfo
-{
-    public string Path { get; }
-    public DateTime LastAccess { get; set; }
-
-    public ProjectInfo(string path, DateTime lastAccess)
-    {
-        Path = path;
-        LastAccess = lastAccess;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is ProjectInfo pi && Equals(pi);
-    }
-
-    private bool Equals(ProjectInfo other)
-    {
-        return Path == other.Path;
-    }
-
-    public override int GetHashCode()
-    {
-        return Path != null ? Path.GetHashCode() : 0;
     }
 }

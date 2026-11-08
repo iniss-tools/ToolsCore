@@ -4,14 +4,6 @@ using ToolsCore.Iniss.Tools;
 namespace ToolsCore.Iniss.Registry;
 
 /// <summary>
-/// Vetva konfiguracie INISSu nacitana zo suboru <c>.reg</c>.
-/// </summary>
-/// <param name="Location">miesto registra, pod ktorym v subore je</param>
-/// <param name="AppName">nazov aplikacie pod CHAPS</param>
-/// <param name="Branch">sekcie a hodnoty</param>
-public sealed record RegFileBranch(RegLocation Location, string AppName, RegBranch Branch);
-
-/// <summary>
 /// Subor <c>.reg</c> (Windows Registry Editor Version 5.00) - na import zmien do HKLM so zvysenymi pravami
 /// (<c>reg import subor /reg:32</c>), na export a zalohu konfiguracie. Cesty HKLM su v 32-bitovom pohlade registra,
 /// preto bez WOW6432Node - import s <c>/reg:32</c> ich presmeruje sam.

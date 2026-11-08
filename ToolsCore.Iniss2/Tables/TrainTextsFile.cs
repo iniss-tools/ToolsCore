@@ -3,38 +3,6 @@
 namespace ToolsCore.Iniss2.Tables;
 
 /// <summary>
-/// Udaj predlohy, v ktorom sa texty sady prejavia.
-/// </summary>
-/// <param name="Catalog">kluc predlohy z TCatalog.xml</param>
-/// <param name="Column">kluc udaja predlohy</param>
-public sealed record TextTarget(string Catalog, string Column);
-
-/// <summary>
-/// Text vlaku: pre cislo a den plati prvy zaznam, zaznam s poznamkou preto ide pred zaznam bez nej.
-/// </summary>
-/// <param name="Number">cislo vlaku pri odchode zo stanice</param>
-/// <param name="Validity">datumova poznamka; prazdna = plati vzdy</param>
-/// <param name="Text">text; <c>#</c> oddeluje casti, prazdny text udaj vyprazdni</param>
-/// <param name="Font">cislo pisma; -1 = pismo udaja</param>
-public sealed record TrainText(string Number, string Validity, string Text, int Font);
-
-/// <summary>
-/// Sada textov vlakov pre udaje tabul.
-/// </summary>
-/// <param name="Name">nazov sady</param>
-public sealed record TrainTextSet(string Name)
-{
-    /// <summary>Pismo udaja.</summary>
-    public const int NoFont = -1;
-
-    /// <summary>Udaje, v ktorych sa texty prejavia.</summary>
-    public IReadOnlyList<TextTarget> Targets { get; init; } = [];
-
-    /// <summary>Texty vlakov.</summary>
-    public IReadOnlyList<TrainText> Trains { get; init; } = [];
-}
-
-/// <summary>
 /// Texty vlakov pre tabule stanice - subor TTVlaky.xml v priecinku stanice.
 /// </summary>
 public static class TrainTextsFile

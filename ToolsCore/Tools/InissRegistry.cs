@@ -1,25 +1,10 @@
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Text;
 using Microsoft.Win32;
 using Serilog;
 using ToolsCore.Iniss.Registry;
 using Vanara.PInvoke;
 
 namespace ToolsCore.Tools;
-
-/// <summary>Vysledok zapisu nastaveni INISSu.</summary>
-public enum RegApplyResult
-{
-    /// <summary>Vsetko zapisane.</summary>
-    Ok,
-
-    /// <summary>Pouzivatel odmietol zvysenie prav - nic sa nezapisalo.</summary>
-    Cancelled,
-
-    /// <summary>Zapis do HKLM zlyhal - nic sa nezapisalo.</summary>
-    Failed
-}
 
 /// <summary>
 /// Pristup k nastaveniam INISSu v registri Windows a v subore .INI: nacitanie vetiev (HKCU, HKLM v 32-bitovom pohlade,

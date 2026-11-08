@@ -2,12 +2,6 @@ using System.Globalization;
 
 namespace ToolsCore.Iniss.Registry;
 
-/// <summary>Linka, ktoru subor .INI presmerovava na simulator tabul, a co v nom bolo predtym.</summary>
-/// <param name="Section">sekcia (Driver, Driver0…)</param>
-/// <param name="OriginalPort">povodny TablePort v .INI; null = v .INI nebol (sekcia bola len v registri alebo bez neho)</param>
-/// <param name="RegistryOnly">sekcia bola len v registri - do .INI ju pridalo presmerovanie celu</param>
-public sealed record RedirectedLine(string Section, string? OriginalPort, bool RegistryOnly);
-
 /// <summary>
 /// Presmerovanie liniek INISSu na simulator tabul cez subor .INI vedla programu: sekcia Driver* v .INI uplne nahradi
 /// register, preto sa do nej zapise cela ucinna sekcia s novym TablePort (<c>N=TCP://host:port</c>) a v Environment

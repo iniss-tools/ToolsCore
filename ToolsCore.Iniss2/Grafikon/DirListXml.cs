@@ -5,39 +5,6 @@ using ToolsCore.Iniss.Tools;
 namespace ToolsCore.Iniss2.Grafikon;
 
 /// <summary>
-/// Druh stanice v zozname grafikonov.
-/// </summary>
-[Flags]
-public enum DirListItemFlags
-{
-    /// <summary>Zeleznicna stanica.</summary>
-    None = 0,
-
-    /// <summary>Zastavka (kluc ZASTAVKA).</summary>
-    Stop = 1,
-
-    /// <summary>Odbocka (kluc ODBOCKA).</summary>
-    Junction = 2
-}
-
-/// <summary>
-/// Stanica grafikonu.
-/// </summary>
-/// <param name="Directory">priecinok stanice v priecinku grafikonu</param>
-/// <param name="Station">cislo stanice SR70</param>
-/// <param name="TableLine">linka tabul; prazdna = urcuje ju tabula</param>
-/// <param name="AudioLine">linka zvuku</param>
-/// <param name="Flags">druh stanice</param>
-public sealed record DirListItem(string Directory, int Station, string TableLine, string AudioLine, DirListItemFlags Flags);
-
-/// <summary>
-/// Grafikon - priecinok v datach servera so spolocnym GV.XML a priecinkami stanic.
-/// </summary>
-/// <param name="Name">nazov priecinka grafikonu</param>
-/// <param name="Items">stanice grafikonu</param>
-public sealed record DirListGroup(string Name, IReadOnlyList<DirListItem> Items);
-
-/// <summary>
 /// Zoznam grafikonov a ich stanic - subor DirList.xml v priecinku dat.
 /// </summary>
 public static class DirListXml

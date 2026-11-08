@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.ComponentModel;
 using ExControls;
 using ToolsCore.Icons;
 using ToolsCore.XML;

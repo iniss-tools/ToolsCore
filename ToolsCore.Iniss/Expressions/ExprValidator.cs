@@ -4,44 +4,6 @@ using ToolsCore.Iniss.Properties;
 namespace ToolsCore.Iniss.Expressions;
 
 /// <summary>
-/// Nastavenia semantickej kontroly.
-/// </summary>
-public sealed class ExprValidationOptions
-{
-    /// <summary>Kontext prekladu.</summary>
-    public ExprContext Context { get; init; } = ExprContext.Condition;
-
-    /// <summary>Symboly grafikonu; <see langword="null"/> vypne kontroly proti datam.</summary>
-    public IExprSymbolProvider? Symbols { get; init; }
-
-    /// <summary>Ci ide o podmienku (TabTab, AutoCondition) - zapina kontrolu konstantnej podmienky.</summary>
-    public bool IsCondition { get; init; } = true;
-
-    /// <summary>Ci hlasit funkcie zavisle od kontextu (<c>VYLUKAZDE</c>, <c>ZPOZDENI</c>).</summary>
-    public bool ReportContextDependent { get; init; } = true;
-}
-
-/// <summary>
-/// Vysledok prekladu a kontroly.
-/// </summary>
-/// <param name="Parse">Vysledok prekladu.</param>
-/// <param name="Diagnostics">Vsetky hlasenia - chyba prekladu alebo semanticke kontroly.</param>
-public sealed record ExprValidationResult(ExprParseResult Parse, IReadOnlyList<ExprDiagnostic> Diagnostics)
-{
-    /// <summary>Koren stromu, ak sa vyraz prelozil.</summary>
-    public ExprNode? Root => Parse.Root;
-
-    /// <summary>Ci vyraz INISS prelozi.</summary>
-    public bool Compiles => Parse.Success;
-
-    /// <summary>Ci su medzi hlaseniami chyby.</summary>
-    public bool HasErrors => Diagnostics.Any(d => d.IsError);
-
-    /// <summary>Ci su medzi hlaseniami varovania.</summary>
-    public bool HasWarnings => Diagnostics.Any(d => d.Severity == ExprSeverity.Warning);
-}
-
-/// <summary>
 /// Prelozi vyraz a nad stromom vykona kontroly, ktore INISS nerobi, ale ktore odhalia
 /// typicke omyly (preklepy v ID stanic, porovnanie masky s cislom, priorita spojok …).
 /// </summary>

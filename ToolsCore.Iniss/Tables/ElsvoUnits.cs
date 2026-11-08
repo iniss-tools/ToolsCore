@@ -5,18 +5,6 @@ using ToolsCore.Iniss.Tools;
 namespace ToolsCore.Iniss.Tables;
 
 /// <summary>
-/// Spinacia jednotka zosilnovaca ELSVO, ako ju INISS pozna z okruhov <c>Audio.txt</c>.
-/// </summary>
-/// <param name="Line">cislo linky (stlpec 8 <c>E&lt;n&gt;</c>)</param>
-/// <param name="Address">adresa jednotky na linke (dolny bajt stlpca 9)</param>
-/// <param name="Circuits">nazvy okruhov, ktore jednotka spina, v poradi suboru</param>
-public sealed record ElsvoUnit(int Line, int Address, IReadOnlyList<string> Circuits)
-{
-    /// <summary>Nazov jednotky pre obsluhu: okruhy oddelene ciarkou.</summary>
-    public string Name => string.Join(", ", Circuits);
-}
-
-/// <summary>
 /// Jednotky ELSVO zo zvukovych okruhov (<c>Audio.txt</c>): okruh so stlpcom 8 <c>E&lt;n&gt;</c> alebo
 /// <c>EE&lt;n&gt;</c> (n = 1-99, cislo linky) spina zosilnovac cez jednotku s adresou zo stlpca 9 (prazdne = 0, posiela
 /// sa dolny bajt). Cislo v stlpci 8 je vystup ustredne TORNZ, <c>Z…</c> nespina nic. Viz docs

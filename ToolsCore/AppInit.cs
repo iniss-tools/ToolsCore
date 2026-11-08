@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Xml;
 using ExControls;
-using ToolsCore.Forms;
 using ToolsCore.Icons;
 using ToolsCore.Iniss.Tools;
 using ToolsCore.Tools;

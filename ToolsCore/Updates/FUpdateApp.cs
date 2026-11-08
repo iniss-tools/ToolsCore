@@ -1,25 +1,11 @@
 using System.Globalization;
 using Serilog;
 using ToolsCore.Icons;
-using ToolsCore.Iniss.Tools;
 using ToolsCore.Iniss.Updates;
 using ToolsCore.Properties;
 using ToolsCore.Tools;
 
 namespace ToolsCore.Updates;
-
-/// <summary>Co pouzivatel zvolil v okne novej verzie.</summary>
-public enum UpdateChoice
-{
-    /// <summary>Neskor - pri dalsom spusteni sa program opyta znova.</summary>
-    Later,
-
-    /// <summary>Na tuto verziu pri spusteni neupozornovat.</summary>
-    Skip,
-
-    /// <summary>Instalator je stiahnuty v <see cref="FUpdateApp.InstallerPath" />, program sa ma zavriet a spustit ho.</summary>
-    Install
-}
 
 /// <summary>
 /// Okno novej verzie programu: verzie, co je nove a volby Aktualizovat (stiahne instalator s kontrolou suctu),

@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Text.Json;
 using Microsoft.Win32;
 using Serilog;
-using ToolsCore.Iniss.Tools;
 using ToolsCore.Iniss.Updates;
 using ToolsCore.Properties;
 using ToolsCore.Tools;

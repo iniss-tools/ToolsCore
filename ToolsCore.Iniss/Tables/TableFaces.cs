@@ -3,41 +3,6 @@ using ToolsCore.Iniss.Grafikon;
 namespace ToolsCore.Iniss.Tables;
 
 /// <summary>
-/// Stlpec katalogovej tabule, ktory sa ukazuje pri vlaku - nad nim byva na cele tabule natlaceny popis.
-/// </summary>
-/// <param name="Line">riadok zaznamu (TYPE_ITEMS_LINE, od 0)</param>
-/// <param name="Start">zaciatok stlpca v bodoch</param>
-/// <param name="End">koniec stlpca v bodoch (prvy bod za stlpcom)</param>
-/// <param name="Align">zarovnanie (TYPE_ITEMS_ALIGN: 0 vlavo, 1 vpravo, 2 na stred)</param>
-/// <param name="Content">druh obsahu (TYPE_ITEMS_IDX - cislo FILL_SECTION)</param>
-/// <param name="Name">nazov stlpca pre obsluhu</param>
-public sealed record FaceColumnInfo(int Line, int Start, int End, int Align, int Content, string Name);
-
-/// <summary>
-/// Co o cele fyzickej tabule vedia data stanice: druh tabule, riadky zaznamu a sirka riadku, stlpce zobrazene pri
-/// vlaku, kolaje a nastupistia, nad ktorymi tabula stoji, a nazov stanice.
-/// </summary>
-/// <param name="ViewType">druh tabule (kluc VIEW_TYPE, napr. <c>Tabule_Nastupistni</c>); prazdny = neznamy</param>
-/// <param name="LinesPerRecord">riadkov tabule na jeden zaznam</param>
-/// <param name="Records">zaznamov na tabuli (MAX_REC_COUNT)</param>
-/// <param name="Width">sirka riadku tabule v bodoch - z katalogu, alebo koniec najvzdialenejsieho stlpca; 0 = neznama</param>
-/// <param name="RowHeight">vyska riadku (segmentu) v bodoch z katalogu; 0 = neznama</param>
-/// <param name="Columns">stlpce zobrazene pri vlaku</param>
-/// <param name="Tracks">texty kolaji, nad ktorymi tabula stoji (cez logicke tabule v Pozice_A)</param>
-/// <param name="Platforms">nastupistia tychto kolaji</param>
-/// <param name="Station">nazov stanice grafikonu</param>
-public sealed record TableFaceInfo(
-    string ViewType,
-    int LinesPerRecord,
-    int Records,
-    int Width,
-    int RowHeight,
-    IReadOnlyList<FaceColumnInfo> Columns,
-    IReadOnlyList<string> Tracks,
-    IReadOnlyList<string> Platforms,
-    string Station);
-
-/// <summary>
 /// Fakty o cele tabule z dat stanice. Druh tabule je z logickych tabul, ktore ju pouzivaju (najcastejsi), inak
 /// z katalogu; stlpce su tie, ktore katalog vypisuje v rezime <c>LVM_Vlak</c> (inak vsetky s obsahom); kolaje su
 /// tie, nad ktorymi stoji niektora z tychto logickych tabul.

@@ -116,36 +116,3 @@ public record ConfigBase()
         Grids = original.Grids.Select(g => g.Clone()).ToList();
     }
 }
-
-/// <summary>
-/// Jazyk aplikacie.
-/// </summary>
-public enum AppLanguage
-{
-    /// <summary>
-    /// Slovensky jazyk.
-    /// </summary>
-    [XmlEnum(Name = "SK")]
-    Slovak,
-
-    /// <summary>
-    /// Cesky jazyk.
-    /// </summary>
-    [XmlEnum(Name = "CZ")] 
-    Czech
-}
-
-public enum StartupType
-{
-    /// <summary>
-    /// Otvori hlavne prazdne okno.
-    /// </summary>
-    [XmlEnum(Name = "EmptyWindow")]
-    EmptyWindow,
-
-    /// <summary>
-    /// Otvori hlavne okno s posledne otvorenym projektom.
-    /// </summary>
-    [XmlEnum(Name = "LastProject")]
-    LastProject
-}
