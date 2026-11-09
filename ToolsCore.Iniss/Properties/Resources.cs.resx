@@ -207,8 +207,8 @@
   <data name="Sdv_AutoNoMode" xml:space="preserve">
     <value>Časový bod automatiky bez AutoMode, do stavu se vlak dostane pouze ručně</value>
   </data>
-  <data name="Sdv_WaitWithoutIltis" xml:space="preserve">
-    <value>Wait čeká na událost ILTISu, kterou stanice bez ILTISu nikdy nedostane, akce se neprovede</value>
+  <data name="Sdv_WaitWithoutGtn" xml:space="preserve">
+    <value>Wait čeká na událost GTN, kterou stanice bez rozhraní GTN nikdy nedostane, akce se neprovede</value>
   </data>
   <data name="Sdv_WhatEvent" xml:space="preserve">
     <value>akce</value>

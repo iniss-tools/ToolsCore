@@ -82,8 +82,8 @@ public class StateDgmValidatorTests
         var diags = StateDgmValidator.Validate(d, new StateDgmValidationOptions { ReportKeys = ReportKeys, Symbols = new TestSymbols { TrainTypeKeys = AllTypes() } });
         Assert.AreEqual(0, diags.Count, string.Join("\n", diags));
 
-        diags = StateDgmValidator.Validate(d, new StateDgmValidationOptions { HasIltis = false });
-        Assert.AreEqual(StateDgmDiagnosticCode.WaitWithoutIltis, diags.Single().Code);
+        diags = StateDgmValidator.Validate(d, new StateDgmValidationOptions { HasGtn = false });
+        Assert.AreEqual(StateDgmDiagnosticCode.WaitWithoutGtn, diags.Single().Code);
     }
 
     private static Dictionary<string, int> AllTypes()

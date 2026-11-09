@@ -238,7 +238,7 @@ public class ExprParserTests
     }
 
     [TestMethod]
-    public void IltisConstants_OnlyInWaitContext()
+    public void GtnConstants_OnlyInWaitContext()
     {
         Assert.AreEqual("Neznámy symbol VVC", Fail("VVC").Message);
         Assert.AreEqual("Neznámy symbol OVC", Fail("OVC").Message);

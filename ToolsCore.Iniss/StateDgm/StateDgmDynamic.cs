@@ -54,7 +54,7 @@ public sealed class StateDgmDynamic : IEquatable<StateDgmDynamic>
         string.Join("|", WaitKeys.Where(w => e.HasFlag(w.Event)).Select(w => w.Key));
 
     /// <summary>Udalost podla mena v jazyku vyrazov (napr. <c>VVC</c>); rozlisuje velkost pismen.</summary>
-    /// <returns><see langword="false" />, ak meno nie je udalost ILTISu.</returns>
+    /// <returns><see langword="false" />, ak meno nie je udalost GTN.</returns>
     public static bool TryParseWait(string key, out StateDgmWaitEvent e)
     {
         foreach (var w in WaitKeys)

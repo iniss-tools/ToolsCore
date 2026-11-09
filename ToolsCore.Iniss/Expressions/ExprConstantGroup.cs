@@ -10,5 +10,5 @@ public enum ExprConstantGroup
     Position,
     Flag,
     State,
-    IltisEvent
+    GtnEvent
 }

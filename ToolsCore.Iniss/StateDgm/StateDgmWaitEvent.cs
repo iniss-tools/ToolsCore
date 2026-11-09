@@ -1,7 +1,7 @@
 namespace ToolsCore.Iniss.StateDgm;
 
 /// <summary>
-/// Udalosti ILTISu, na ktore moze automaticka akcia cakat (kluc <c>Wait</c>); hodnoty su konstanty jazyka vyrazov.
+/// Udalosti GTN, na ktore moze automaticka akcia cakat (kluc <c>Wait</c>); hodnoty su konstanty jazyka vyrazov.
 /// </summary>
 [Flags]
 public enum StateDgmWaitEvent : uint
@@ -15,7 +15,7 @@ public enum StateDgmWaitEvent : uint
     /// <summary>Vchod vlaku do stanice (sprava 080-2).</summary>
     Vj = 0x10000000,
 
-    /// <summary>Zavedenie cisla vlaku - pri ILTISe sa nepouziva.</summary>
+    /// <summary>Zavedenie cisla vlaku - pri ILTISe (Siemens) sa podla SK prirucky INISSu nepouziva.</summary>
     Zcv = 0x20000000,
 
     /// <summary>Odchodova vlakova cesta (sprava 080-4).</summary>

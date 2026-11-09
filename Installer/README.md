@@ -1,6 +1,6 @@
 # Inštalátory a vydania
 
-Inštalátory programov INISSTools (GVDEditor, RawBankEditor, ElenFontEditor, ILTISSimulator, TableSimulator) sú
+Inštalátory programov INISSTools (GVDEditor, RawBankEditor, ElenFontEditor, GTNSimulator, TableSimulator) sú
 skripty Inno Setup 7 v repozitári programu. Spoločný základ je tu:
 
 | Súbor                 | Obsah                                                                                            |
@@ -57,7 +57,7 @@ a položka **Skontrolovať aktualizácie** je v nej nedostupná.
 Žiadne tokeny ani secrety netreba – workflow pracuje len s dočasným tokenom behu (`GITHUB_TOKEN`), ktorému
 `release.yml` povolí zápis do repozitára programu (`permissions: contents: write`). Podmienky:
 
-* Repozitár programu aj všetky jeho závislosti (ToolsCore, ExControls, pri GVDEditore a ILTISSimulatore aj
+* Repozitár programu aj všetky jeho závislosti (ToolsCore, ExControls, pri GVDEditore a GTNSimulatore aj
   TableSimulator a GVDEditor) sú verejné – klonujú sa bez prihlásenia. Súkromná závislosť zastaví zostavenie
   chybou *Repozitár … sa nepodarilo stiahnuť*.
 * Actions sú v repozitári programu povolené (predvolene sú). Spoločný workflow je vo verejnom ToolsCore, každý

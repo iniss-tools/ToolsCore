@@ -140,8 +140,8 @@ public static class StateDgmValidator
         // automatika hovori, kedy vlak do TOHTO stavu vstupi sam (riadok v Kalendari akcii vlaku) - akcie stavu s tym nesuvisia
         if (!s.HasAutomation && s.AutoMode == null && (s.AutoTimePoint != null || s.AutoTimePointAdd != null))
             list.Add(new StateDgmDiagnostic(ExprSeverity.Info, StateDgmDiagnosticCode.AutomationIncomplete, Resources.Sdv_AutoNoMode, loc) { Path = spath, ExprKey = StateDgmKeys.AutoMode });
-        if (s.Wait != null && !options.HasIltis)
-            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.WaitWithoutIltis, Resources.Sdv_WaitWithoutIltis, loc) { Path = spath, ExprKey = StateDgmKeys.Wait });
+        if (s.Wait != null && !options.HasGtn)
+            list.Add(new StateDgmDiagnostic(ExprSeverity.Warning, StateDgmDiagnosticCode.WaitWithoutGtn, Resources.Sdv_WaitWithoutGtn, loc) { Path = spath, ExprKey = StateDgmKeys.Wait });
 
         CheckDynamic(s.AutoMode, StateDgmKeys.AutoMode, options, loc, spath, list);
         CheckDynamic(s.AutoTimePoint, StateDgmKeys.AutoTimePoint, options, loc, spath, list);

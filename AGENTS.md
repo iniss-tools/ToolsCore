@@ -6,13 +6,13 @@ Repozitár je súčasťou pracovného priečinka `INISSTools` (nie je git repozi
 sú slovenské.
 
 Pravidlá desktopových programov (časť „Desktopové programy (WinForms)“) a logovania platia pre všetky programy nad
-ToolsCore – GVDEditor, RawBankEditor, ElenFontEditor, ILTISSimulator, INISSKeygen; ich `AGENTS.md` sa sem odkazujú.
+ToolsCore – GVDEditor, RawBankEditor, ElenFontEditor, GTNSimulator, INISSKeygen; ich `AGENTS.md` sa sem odkazujú.
 
 ## Štruktúra
 
 ### ToolsCore.Iniss
 
-`net10.0` bez WinForms – doména zdieľaná GVDEditorom, simulátorom tabúľ aj ILTISSimulatorom. Nesmie odkazovať na
+`net10.0` bez WinForms – doména zdieľaná GVDEditorom, simulátorom tabúľ aj GTNSimulatorom. Nesmie odkazovať na
 WinForms ani ExControls, menné priestory sú spoločné s `ToolsCore`.
 
 - `Expressions/`, `StateDgm/`, `TabTab/`.
@@ -139,7 +139,7 @@ Postup a jednorazové nastavenie v `Installer/README.md`.
 
 ## Desktopové programy (WinForms)
 
-- DPI (SystemAware, ILTISSimulator PerMonitorV2) nastavuje `AppInit.Initialization`/`Main` cez
+- DPI (SystemAware, GTNSimulator PerMonitorV2) nastavuje `AppInit.Initialization`/`Main` cez
   `Application.SetHighDpiMode`, nie `app.manifest` (WFO0003) ani `ApplicationHighDpiMode` (bez
   `ApplicationConfiguration.Initialize` nemá účinok). `WFO1000` – verejné vlastnosti vlastných prvkov označiť
   `[Browsable(false)] [DesignerSerializationVisibility(Hidden)]`.

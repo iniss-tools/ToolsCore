@@ -1,7 +1,7 @@
 namespace ToolsCore.Iniss.Grafikon;
 
 /// <summary>
-/// Co INISS urobi so spravou z ILTIS pre vlak, ktory v stanici grafikonu nie je (pismena <c>K</c> a <c>M</c>
+/// Co INISS urobi so spravou GTN pre vlak, ktory v stanici grafikonu nie je (pismena <c>K</c> a <c>M</c>
 /// v priznakoch DirList.TXT). Vlak do grafikonu nezaklada ani v jednom pripade.
 /// </summary>
 public enum DirListMissingTrain

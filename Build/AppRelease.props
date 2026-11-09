@@ -1,7 +1,7 @@
 <Project>
 	<!--
 	  Spolocne vlastnosti programov INISSTools, ktore sa vydavaju s instalatorom (GVDEditor, RawBankEditor, ElenFontEditor,
-	  ILTISSimulator, TableSimulator). Projekt programu ho importuje na konci.
+	  GTNSimulator, TableSimulator). Projekt programu ho importuje na konci.
 
 	  Verzia programu je <Version> v jeho projekte a plati pre lokalne zostavy. Vydanie (workflow release-app.yml v ToolsCore)
 	  ju prepise verziou zo znacky vX.Y (-p:Version=X.Y) a prida adresu update.json posledneho vydania v repozitari

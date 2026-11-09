@@ -1,5 +1,5 @@
 ; Spolocny obsah instalatorov desktopovych programov INISSTools (GVDEditor, RawBankEditor, ElenFontEditor,
-; ILTISSimulator). Kompiluje sa v Inno Setup 7 (staci 6.6). Subor je v UTF-8 bez BOM.
+; GTNSimulator). Kompiluje sa v Inno Setup 7 (staci 6.6). Subor je v UTF-8 bez BOM.
 ;
 ; Skript programu pred #include definuje to, co pozaduje Common.iss (MyAppName, MyAppExeName, MyAppDir,
 ; MyOutputBaseFilename) - MyAppName je zaroven nazov priecinka v %LocalAppData% a kluca HKCU\Software, kam si program

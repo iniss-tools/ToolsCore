@@ -331,11 +331,11 @@ namespace ToolsCore.Iniss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wait čaká na udalosť ILTISu, ktorú stanica bez ILTISu nikdy nedostane, akcia sa nevykoná.
+        ///   Looks up a localized string similar to Wait čaká na udalosť GTN, ktorú stanica bez rozhrania GTN nikdy nedostane, akcia sa nevykoná.
         /// </summary>
-        internal static string Sdv_WaitWithoutIltis {
+        internal static string Sdv_WaitWithoutGtn {
             get {
-                return ResourceManager.GetString("Sdv_WaitWithoutIltis", resourceCulture);
+                return ResourceManager.GetString("Sdv_WaitWithoutGtn", resourceCulture);
             }
         }
         

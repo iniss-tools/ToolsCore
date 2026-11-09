@@ -6,7 +6,7 @@ using ToolsCore.Iniss.StateDgm;
 namespace ToolsCore.Tests.StateDgm;
 
 /// <summary>
-/// Predlohy StateDgm.txt, ktore GVDEditor zapisuje do noveho grafikonu (SK, CZ, SK s automatikou ILTIS).
+/// Predlohy StateDgm.txt, ktore GVDEditor zapisuje do noveho grafikonu (SK, CZ, SK s automatikou GTN).
 /// </summary>
 [TestClass]
 [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
@@ -34,9 +34,9 @@ public class StateDgmTemplateTests
 
         var sk = StateDgmDiagram.Load(Path.Combine(dir, "statedgm.txt"));
         var cz = StateDgmDiagram.Load(Path.Combine(dir, "statedgmCZ.txt"));
-        var iltis = StateDgmDiagram.Load(Path.Combine(dir, "statedgmILTIS.txt"));
+        var gtn = StateDgmDiagram.Load(Path.Combine(dir, "statedgmGTN.txt"));
 
-        foreach (var (name, d) in new[] { ("SK", sk), ("CZ", cz), ("ILTIS", iltis) })
+        foreach (var (name, d) in new[] { ("SK", sk), ("CZ", cz), ("GTN", gtn) })
         {
             Assert.AreEqual(0, d.Warnings.Count, $"{name}: {string.Join("; ", d.Warnings)}");
             Assert.AreEqual(6, d.Categories.Count, name);
@@ -52,13 +52,13 @@ public class StateDgmTemplateTests
         Assert.AreEqual("ZpožděníN", cz.Designs[0].Key);
         Assert.IsTrue(cz.Categories.SelectMany(c => c.States).SelectMany(s => s.Controls).All(c => cz.FindDesign(c.DesignKey) != null));
 
-        // ILTIS = SK + automatika riadena udalostami
-        CollectionAssert.AreEqual(sk.Categories.Select(c => c.States.Count).ToList(), iltis.Categories.Select(c => c.States.Count).ToList());
-        var waits = iltis.Categories.SelectMany(c => c.States).Where(s => s.Wait != null).Select(s => s.Wait!.Expression).ToList();
+        // GTN = SK + automatika riadena udalostami
+        CollectionAssert.AreEqual(sk.Categories.Select(c => c.States.Count).ToList(), gtn.Categories.Select(c => c.States.Count).ToList());
+        var waits = gtn.Categories.SelectMany(c => c.States).Where(s => s.Wait != null).Select(s => s.Wait!.Expression).ToList();
         Assert.AreEqual(8, waits.Count);
         CollectionAssert.AreEquivalent(new[] { "OVC", "Odj", "VVC", "Vj", "OVC", "VVC", "Vj", "Odj" }, waits);
-        Assert.AreEqual(15, iltis.Categories.SelectMany(c => c.States).Count(s => s.HasAutomation));
-        Assert.IsTrue(iltis.Categories.SelectMany(c => c.States).Where(s => s.HasAutomation).All(s => s.AutoMode!.Number == 2 && s.AutoTimePoint != null));
+        Assert.AreEqual(15, gtn.Categories.SelectMany(c => c.States).Count(s => s.HasAutomation));
+        Assert.IsTrue(gtn.Categories.SelectMany(c => c.States).Where(s => s.HasAutomation).All(s => s.AutoMode!.Number == 2 && s.AutoTimePoint != null));
     }
 
     [TestMethod]
@@ -75,7 +75,7 @@ public class StateDgmTemplateTests
         Assert.AreEqual(5, keys.Count);
         Assert.AreEqual("Ukončit nástup", keys["Odjede"], "KEY=Odjede, NAME=Ukončit nástup podla categori.mdx");
 
-        foreach (var file in new[] { "statedgm.txt", "statedgmCZ.txt", "statedgmILTIS.txt" })
+        foreach (var file in new[] { "statedgm.txt", "statedgmCZ.txt", "statedgmGTN.txt" })
         {
             var d = StateDgmDiagram.Load(Path.Combine(dir, file));
             var diags = StateDgmValidator.Validate(d, new StateDgmValidationOptions { ReportKeys = keys.Keys.ToList() });

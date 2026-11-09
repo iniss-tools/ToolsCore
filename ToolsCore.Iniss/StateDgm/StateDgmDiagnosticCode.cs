@@ -86,8 +86,8 @@ public enum StateDgmDiagnosticCode
     /// <summary>Vlastny casovy bod ma kluc zabudovaneho.</summary>
     TimePointShadowsBuiltIn,
 
-    /// <summary><c>Wait</c> caka na udalost ILTISu, ale stanica ILTIS nema.</summary>
-    WaitWithoutIltis,
+    /// <summary><c>Wait</c> caka na udalost GTN, ale stanica rozhranie GTN nema.</summary>
+    WaitWithoutGtn,
 
     /// <summary>Upozornenie z nacitania (napr. nesediaci <c>Num…</c>).</summary>
     LoadWarning,

@@ -32,7 +32,7 @@ public sealed class StateDgmState : StateDgmElement
     /// <summary>Podmienka automatickeho prechodu (vyraz).</summary>
     public string? AutoCondition { get; set; }
 
-    /// <summary>Udalost ILTISu, na ktoru automatika caka (vyraz s konstantami VVC/OVC/ZCV/Vj/Odj).</summary>
+    /// <summary>Udalost GTN, na ktoru automatika caka (vyraz s konstantami VVC/OVC/ZCV/Vj/Odj).</summary>
     public StateDgmDynamic? Wait { get; set; }
 
     /// <summary>Starsia podoba <see cref="Wait" /> ako vyraz; ciselny WaitPath sa pri nacitani prevedie na <c>Wait=VVC</c>.</summary>

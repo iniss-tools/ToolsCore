@@ -13,8 +13,8 @@ public sealed class StateDgmValidationOptions
     /// <summary>Symboly pre vyrazy (druhy vlakov, stanice…).</summary>
     public IExprSymbolProvider? Symbols { get; init; }
 
-    /// <summary>Stanica ma ILTIS - kluc <c>Wait</c> ma zmysel; false = upozornit.</summary>
-    public bool HasIltis { get; init; } = true;
+    /// <summary>Stanica prijima spravy GTN - kluc <c>Wait</c> ma zmysel; false = upozornit.</summary>
+    public bool HasGtn { get; init; } = true;
 
     /// <summary>Hlasit aj informacie (slepe stavy).</summary>
     public bool ReportInfos { get; init; } = true;

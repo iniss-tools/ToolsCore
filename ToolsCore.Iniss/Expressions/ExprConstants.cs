@@ -43,21 +43,21 @@ public static class ExprConstants
         new("State_Standing", 0x80, ExprConstantGroup.State, true)
     ];
 
-    /// <summary>Konstanty udalosti ILTISu - len v kluci <c>Wait</c> (tabulka INISSu 0x559270).</summary>
-    public static readonly IReadOnlyList<ExprConstantInfo> IltisEvents =
+    /// <summary>Konstanty udalosti GTN - len v kluci <c>Wait</c> (tabulka INISSu 0x559270).</summary>
+    public static readonly IReadOnlyList<ExprConstantInfo> GtnEvents =
     [
-        new("VVC", unchecked((int)0x80000000), ExprConstantGroup.IltisEvent),
-        new("OVC", 0x40000000, ExprConstantGroup.IltisEvent),
-        new("ZCV", 0x20000000, ExprConstantGroup.IltisEvent),
-        new("Vj", 0x10000000, ExprConstantGroup.IltisEvent),
-        new("Odj", 0x08000000, ExprConstantGroup.IltisEvent)
+        new("VVC", unchecked((int)0x80000000), ExprConstantGroup.GtnEvent),
+        new("OVC", 0x40000000, ExprConstantGroup.GtnEvent),
+        new("ZCV", 0x20000000, ExprConstantGroup.GtnEvent),
+        new("Vj", 0x10000000, ExprConstantGroup.GtnEvent),
+        new("Odj", 0x08000000, ExprConstantGroup.GtnEvent)
     ];
 
     private static readonly Dictionary<string, ExprConstantInfo> CommonByName =
         Common.ToDictionary(c => c.Name, c => c, StringComparer.OrdinalIgnoreCase);
 
-    private static readonly Dictionary<string, ExprConstantInfo> IltisByName =
-        IltisEvents.ToDictionary(c => c.Name, c => c, StringComparer.OrdinalIgnoreCase);
+    private static readonly Dictionary<string, ExprConstantInfo> GtnByName =
+        GtnEvents.ToDictionary(c => c.Name, c => c, StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Rozpozna identifikator ako konstantu.
@@ -71,7 +71,7 @@ public static class ExprConstants
         if (CommonByName.TryGetValue(name, out var c))
             return new ExprConstantMatch(c.Value, c, null);
 
-        if (context == ExprContext.StateDgmWait && IltisByName.TryGetValue(name, out c))
+        if (context == ExprContext.StateDgmWait && GtnByName.TryGetValue(name, out c))
             return new ExprConstantMatch(c.Value, c, null);
 
         string? key = null;

@@ -6,15 +6,15 @@ namespace ToolsCore.Iniss.Grafikon;
 /// Priznaky grafikonu - 4. stlpec DirList.TXT, rozlozeny tak, ako ho cita INISS: text sa prevedie na velke pismena
 /// a hladaju sa v nom jednotlive znaky bez ohladu na poradie a oddelovace. Ine znaky INISS ignoruje.
 /// </summary>
-/// <param name="Spread"><c>Z</c> - tratova kolaj zo spravy ILTIS sa siri na nasledujuce stanice trasy</param>
-/// <param name="DepartureSetsBothTracks"><c>O</c> - odchod a odchodova cesta z ILTIS menia okrem kolaje odchodu aj
+/// <param name="Spread"><c>Z</c> - tratova kolaj zo spravy GTN sa siri na nasledujuce stanice trasy</param>
+/// <param name="DepartureSetsBothTracks"><c>O</c> - odchod a odchodova cesta zo sprav GTN menia okrem kolaje odchodu aj
 /// kolaj prichodu</param>
 /// <param name="MissingTrain"><c>K</c>/<c>M</c> - co urobi sprava pre vlak, ktory v stanici nie je</param>
 /// <param name="Switch">cislica <c>1</c>-<c>9</c> - grafikon je aktivny len pri spusteni INISSu s prepinacom <c>/N</c></param>
 public readonly record struct DirListFlags(bool Spread, bool DepartureSetsBothTracks, DirListMissingTrain MissingTrain, int? Switch)
 {
     /// <summary>
-    /// Ziadny priznak - grafikon je aktivny vzdy a spravy z ILTIS pre vlak, ktory v stanici nie je, zahadzuje.
+    /// Ziadny priznak - grafikon je aktivny vzdy a spravy GTN pre vlak, ktory v stanici nie je, zahadzuje.
     /// </summary>
     public static DirListFlags None => default;
 

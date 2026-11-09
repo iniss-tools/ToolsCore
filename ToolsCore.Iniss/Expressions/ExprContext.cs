@@ -10,6 +10,6 @@ public enum ExprContext
     /// <summary>Podmienka v TabTab.txt alebo kluc StateDgm.txt okrem <c>Wait</c> (INISS mode 1).</summary>
     Condition,
 
-    /// <summary>Kluc <c>Wait</c> v StateDgm.txt - navyse prijma konstanty udalosti ILTISu (INISS mode 2).</summary>
+    /// <summary>Kluc <c>Wait</c> v StateDgm.txt - navyse prijma konstanty udalosti GTN (INISS mode 2).</summary>
     StateDgmWait
 }
