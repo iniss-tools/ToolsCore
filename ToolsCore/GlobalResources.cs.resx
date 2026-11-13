@@ -32,6 +32,9 @@
   <data name="Global_No" xml:space="preserve">
     <value>Ne</value>
   </data>
+  <data name="Calendar_Month" xml:space="preserve">
+    <value>Měsíc</value>
+  </data>
   <data name="Global_OK" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -82,5 +85,20 @@
   </data>
   <data name="RWarning" xml:space="preserve">
     <value>Upozornění</value>
+  </data>
+  <data name="Dock_Hide" xml:space="preserve">
+    <value>Skrýt</value>
+  </data>
+  <data name="Dock_AutoHide" xml:space="preserve">
+    <value>Automaticky skrýt</value>
+  </data>
+  <data name="Dock_Float" xml:space="preserve">
+    <value>Plovoucí okno</value>
+  </data>
+  <data name="Dock_Dock" xml:space="preserve">
+    <value>Ukotvit</value>
+  </data>
+  <data name="Dock_Options" xml:space="preserve">
+    <value>Možnosti okna</value>
   </data>
 </root>

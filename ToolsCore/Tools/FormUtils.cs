@@ -111,6 +111,12 @@ public static partial class FormUtils
         {
             switch (control)
             {
+                // skryte a plavajuce panely nie su v strome prvkov okna
+                case ExDockManager dock:
+                    foreach (var panel in dock.Panels)
+                        panel.Font = GlobSettings.Fonts.Controls;
+                    ChangeControlsFont(dock.Panels);
+                    break;
                 case GroupBox or Panel or TabControl or Button:
                     control.Font = GlobSettings.Fonts.Controls;
                     break;

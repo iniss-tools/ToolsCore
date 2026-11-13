@@ -399,5 +399,6 @@ public static partial class FormUtils
         foreach (Control dgvc in dgv.Controls)
             if (dgvc is ScrollBar sc)
                 sc.SetDarkScrollBars(theme.DarkScrollBars);
+        GridScrollCorner.Apply(dgv, theme.DarkScrollBars);
     }
 }

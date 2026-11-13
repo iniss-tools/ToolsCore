@@ -96,6 +96,12 @@ public record ConfigBase()
     }
 
     /// <summary>
+    /// Rozlozenie ukotvitelnych panelov hlavneho okna (<c>ExDockManager.SaveLayout</c>); <see langword="null" /> = predvolene.
+    /// </summary>
+    [XmlElement("DockLayout")]
+    public string? DockLayout { get; set; }
+
+    /// <summary>
     /// Vrati alebo nastavi, ci program pri spusteni zistuje novu verziu (najviac raz za den, len zostava z vydania).
     /// </summary>
     [XmlElement("CheckUpdates"), DefaultValue(true)]
@@ -112,6 +118,7 @@ public record ConfigBase()
         MoreInstance = original.MoreInstance;
         Fonts = original.Fonts with { };
         CheckUpdates = original.CheckUpdates;
+        DockLayout = original.DockLayout;
         Shortcuts = original.Shortcuts.Clone();
         Grids = original.Grids.Select(g => g.Clone()).ToList();
     }

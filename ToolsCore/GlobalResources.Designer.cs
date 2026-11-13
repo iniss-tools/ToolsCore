@@ -86,6 +86,51 @@ namespace ToolsCore {
 
         
         /// <summary>
+        ///   Looks up a localized string similar to Skryť.
+        /// </summary>
+        public static string Dock_Hide {
+            get {
+                return ResourceManager.GetString("Dock_Hide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automaticky skryť.
+        /// </summary>
+        public static string Dock_AutoHide {
+            get {
+                return ResourceManager.GetString("Dock_AutoHide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plávajúce okno.
+        /// </summary>
+        public static string Dock_Float {
+            get {
+                return ResourceManager.GetString("Dock_Float", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ukotviť.
+        /// </summary>
+        public static string Dock_Dock {
+            get {
+                return ResourceManager.GetString("Dock_Dock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Možnosti okna.
+        /// </summary>
+        public static string Dock_Options {
+            get {
+                return ResourceManager.GetString("Dock_Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dnes:.
         /// </summary>
         public static string Global_Today {
@@ -130,6 +175,15 @@ namespace ToolsCore {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Mesiac.
+        /// </summary>
+        public static string Calendar_Month {
+            get {
+                return ResourceManager.GetString("Calendar_Month", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
