@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<OutputType>Library</OutputType>
+		<RootNamespace>ToolsCore.CodeEditor</RootNamespace>
+		<AssemblyName>ToolsCore.CodeEditor</AssemblyName>
+		<UseWindowsForms>true</UseWindowsForms>
+		<LangVersion>default</LangVersion>
+		<NeutralLanguage>sk</NeutralLanguage>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoCompleteMenu-ScintillaNET" Version="2.1.1" />
+		<PackageReference Include="Scintilla.NET" Version="5.3.2.9" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\ExControls\ExControls\ExControls.csproj" />
+		<ProjectReference Include="..\ToolsCore\ToolsCore.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+</Project>
