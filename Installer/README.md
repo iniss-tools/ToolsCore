@@ -1,6 +1,6 @@
 # Inštalátory a vydania
 
-Inštalátory programov INISSTools (GVDEditor, RawBankEditor, ElenFontEditor, GTNSimulator, TableSimulator) sú
+Inštalátory programov INISSTools (GVDEditor, GVXEditor, RawBankEditor, ElenFontEditor, GTNSimulator, TableSimulator) sú
 skripty Inno Setup 7 v repozitári programu. Spoločný základ je tu:
 
 | Súbor                 | Obsah                                                                                            |

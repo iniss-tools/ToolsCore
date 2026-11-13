@@ -6,7 +6,7 @@ Repozitár je súčasťou pracovného priečinka `INISSTools` (nie je git repozi
 sú slovenské.
 
 Pravidlá desktopových programov (časť „Desktopové programy (WinForms)“) a logovania platia pre všetky programy nad
-ToolsCore – GVDEditor, RawBankEditor, ElenFontEditor, GTNSimulator, INISSKeygen; ich `AGENTS.md` sa sem odkazujú.
+ToolsCore – GVDEditor, GVXEditor, RawBankEditor, ElenFontEditor, GTNSimulator, INISSKeygen; ich `AGENTS.md` sa sem odkazujú.
 
 ## Štruktúra
 
@@ -31,40 +31,77 @@ WinForms ani ExControls, menné priestory sú spoločné s `ToolsCore`.
   farieb má ToolsCore `InissRegistry`). Katalóg `RegCatalog.g.cs` a texty generuje `tools/gen_registry_catalog.py`
   z `registry.mdx`.
 - `Tools/` – zvuková banka, `TxtProps`/CSV, `ParseUtils`/`StringUtils`/`PathUtils`, transakčné ukladanie viacerých
-  súborov `FileTransaction` (grafikon, globálne nastavenia, banka zvukov); `Updates/` – jadro aktualizácií.
+  súborov `FileTransaction` (grafikon, globálne nastavenia, banka zvukov), kroky späť a znova nad nemennými stavmi
+  `UndoHistory<T>` (GVXEditor); `Updates/` – jadro aktualizácií.
 
 ### ToolsCore.Iniss2
 
 `net10.0` bez WinForms, odkazuje `ToolsCore.Iniss` – súbory INISS2 (.NET, server IniSrv). Testy sú
 v `ToolsCore.Iniss.Tests/Iniss2`.
 
-- `Iniss2Installation` (nájde inštaláciu v koreni aj v priečinku `Server`; `FyzBank.dat` v banke znamená 3.39),
-  `Iniss2Config` (port GTN z `Config.xml`), `RawBank/` – `FyzBankXmlReader`, `FyzBankXmlWriter`.
+- `Iniss2Installation` (nájde inštaláciu v koreni aj v priečinku `Server`, `DataDirectory` z priečinka inštalácie,
+  servera alebo dát; `FyzBank.dat` v banke znamená 3.39), `Iniss2Server` (beh servera: mutex `INISRV_MUTEX` platí len
+  v relácii a neurčí inštaláciu, inštaláciu určí spustený `*IniSrv*.exe` v jej priečinku – server číta vždy `Data`
+  vedľa programu), `Iniss2Config` (z `Config.xml` port GTN, `NoLoadAGV`, `AGVPreTime`, `PPVDataDirectory`, `DataBackupPath`), `RawBank/` – `FyzBankXmlReader`, `FyzBankXmlWriter`.
 - `Grafikon/`:
-  - `DirListXml`, `GvFile` (vlak s trasou a variantmi ako ich drží server – `MosFile` mení druh a delí varianty,
-    `GvValidity` dni z poznámky), `GvStationsFile`, `PositionsDefFile`, `PositionsFile`;
+  - `DirListXml`, `GvFile` (vlak s trasou a variantmi: `Load` číta súbor tak, ako je, `Read`/`ForServer` vracia pohľad
+    servera – stanice mimo DirList bez `Z`, `dcv` z `cv`, `MosFile` mení druh a delí varianty; zapisuje sa vždy súbor,
+    nie pohľad servera; `GvValidity` dni z poznámky), `GvStationsFile`, `PositionsDefFile`, `PositionsFile`;
+  - funkcie `LogText.vb`, označenia nad nimi a popisy z prvého označenia s textom `LogTextFile`; kľúče druhov
+    `TrTypesFile`;
   - hlásenia stanice (`DodatkyFile`, `RazeniFile`, `ForeignFile`, `ReportKeysFile`), stanice v hlásení
     `TrainReportStationsFile` (`StaHlasVl.xml`), `ReportPatternsFile` (`StaHlasB.xml`/`StaHlasC.xml`) a
     `DefaultStationsFile` (`Default.Stations.xml`);
-  - stavový diagram `StateDiagramFile` (`statedgm.xml`, výrazy sú kód VB.NET, príznaky slovami `StateNodeFlags`);
+  - stavový diagram `StateDiagramFile` (`statedgm.xml`, výrazy sú kód VB.NET presne ako v súbore aj s obalom riadkov,
+    názov podmienky `c/@n`, príznaky slovami `StateNodeFlags`), skript hlásení `LogTextFile.ReadText`/`WriteText` (CP1250,
+    konce riadkov ostanú);
   - výluky, odklony a spoločné hlásenia obsluhy `VylukyFile`, `OdklonyFile`, `ConstReportsFile` (`Merge` pridá len
     hlásenia s novým vzorom a stanicami, čísla za najvyšším ako server), pohľad na stanicu `StationTimetable`.
 - `Tables/` – `CommLinesXml` (linky a presmerovanie na simulátor: mení len hodnotu `line`, pri sériovej linke aj
   `typ` na `TCP_CLIENT`, pôvodné v komentári; `Add` doplní linky s novým kľúčom a zvyšok súboru nechá po znakoch),
-  `TablesFile`, `TableCatalogFile` (`CatalogColumn.ContentFor` = obsah 3.39 → názov `inf`), `TabTabXml`,
-  `TrainTextsFile` (`TTVlaky.xml`).
+  `TablesFile` (podmienka `cond`, jas, `windef`), `TableCatalogFile` (`CatalogColumn.ContentFor` = obsah 3.39 → názov
+  `inf`; údaj bez `pos` je ako na serveri riadok 0; prázdne `t`, `inf`, `cls` sa nezapíšu), `TabTabXml` (`ReadGlobal`
+  = prvý TabTabGlobal.xml v poradí DirList ako server), texty tabúľ `TrainTextsFile` (`TTVlaky.xml`, sadu bez textov
+  vlakov nezapíše ako server; `RemoveTrains` ju pre novú stanicu ponechá), `RouteTextsFile` (`TTTrasy.xml`)
+  a `StationTextsFile` (`TTStanice.xml`).
 - `Devices/` – svetlá nástupíšť pre ústredne AK Signal `LightsXml`, audio linky `AudioXml` (len výstup, linka,
   adresa, kanál a fronta), log svetiel servera `LightLogFile` (`LOG\LIGHT<dátum>.xml`, riadok po riadku so
   zdieľaním zápisu).
 - Súbory sa čítajú ako CP1250 bez ohľadu na hlavičku a zapisujú ako CP1250 s hlavičkou windows-1250 (`Iniss2Xml`).
   Zapisovače grafikonu (`Write`) používa export GVDEditora; dni variantu prevádza na českú poznámku
-  `GvValidity.Text`, lebo server iným nerozumie. Sviatky sú vždy české, server krajinu nenastavuje.
+  `GvValidity.Text` ako server a klient. Server číta poznámky po česky aj po slovensky (rovnaké vzory začiatkov slov
+  má `DateLimit`), jazyk ani krajinu sviatkov nič nenastavuje – sviatky sú vždy české.
+- Súbory, ktoré mení GVXEditor (GV.XML, Positions, MOS, Dodatky, Razeni, Foreign, StaHlasVl, TTVlaky, Vyluky,
+  Odklony, PositionsDef, GV.stanice, ReportKeys, ConstReports, StaHlasB/C, Default.Stations, TTTrasy, TTStanice,
+  DirList, statedgm, TabTab, TabTabGlobal, Tables a TCatalog), majú dvojicu `Parse`/`Build` a `Write` cez `Iniss2Xml.Write`: nový súbor sa zapíše celý, existujúci sa
+  upraví na mieste v texte (`Xml/XmlTextPatch` nad polohami `XmlSpanTree` a rozdielom `SequenceDiff`) – zmenia sa len
+  zmenené prvky, komentáre, zápis ostatných prvkov a atribúty či prvky, ktoré `Build` nepozná, ostanú po znakoch; súbor
+  bez zmeny sa nezapíše (`Write` vráti `false`). Výsledok sa prečíta späť a ak sa prvky nedajú spárovať alebo nesedí,
+  zapíše sa celý s Warning v logu. `Build` píše atribúty v poradí XmlSerializer servera a len to, čo server zapisuje
+  (predvolené hodnoty vynecháva, napr. `de="false"`, `do` bez konca); `Parse(Build(x))` musí vrátiť `x`.
 - Doména 3.39 sem nepatrí a kód 3.39 na tento projekt neodkazuje (výnimka je export GVDEditora). Čítače a zapisovače
   ďalších súborov INISS2 pribúdajú, až keď ich niektorý program používa.
+
+### ToolsCore.CodeEditor
+
+WinForms nad `ToolsCore` (Scintilla.NET a AutocompleteMenu-ScintillaNET) – editor kódu GVDEditora (TabTab, stavový
+diagram 3.39) a GVXEditora (VB.NET servera INISS2).
+
+- `CodeEditorBox` (Scintilla s vlastnými posúvačmi pre tmavý režim): `ApplyTheme` podľa schémy, `UseVisualBasic` (lexer
+  `vb` z Lexilla, farby `VisualBasicSyntax` podľa jasu pozadia, čísla riadkov), `SingleLine` (výraz v atribúte – bez
+  okraja a posúvačov, Enter patrí oknu), `SetIssues` (podčiarknutie chýb a varovaní indikátormi s popisom pri myši),
+  `SetSymbols` (dopĺňanie: členy za bodkou, ostatné mená od dvoch znakov), `ShowFindReplace` (okno `FFindReplace`).
+- Texty SK/CZ v `Properties/Resources` (hľadanie a nahradzovanie).
 
 ### ToolsCore (WinForms vrstva)
 
 - `AppInit`, formuláre, `Commands`, `XML` štýly, `FormUtils`, `Utils`, `GlobalResources`, logovanie `Tools/AppLog`.
+- `Tools/AppDock` – ukotviteľné panely hlavného okna (`ExDockManager` s textami `GlobalResources.Dock_*`, obnovenie
+  rozloženia z `ConfigBase.DockLayout`, neplatné len do logu); `ApplyThemeAndFonts` dá písma aj skrytým a plávajúcim
+  panelom (tému im dá `ExDockManager.ApplyTheme`). Používajú ho GVXEditor, GVDEditor, RawBankEditor, ElenFontEditor
+  a GTNSimulator. `SetZoneSize` berie logické body (96 DPI) – správca ich prepočíta podľa DPI okna sám.
+- `Forms/Calendar/` – okno dátumovej poznámky s kalendárom `FDateLimitEdit.SetDateLimit` a pruh dní variant
+  `CalendarStrip` (`CalendarStripData`/`CalendarStripRow`); spoločné pre GVDEditor a GVXEditor.
 - `Utils` (dialógy, grafika, kôš, prvky), `FormUtils` a `ParseUtils`/`StringUtils`/`PathUtils` (Iniss) sú
   `static partial` podľa oblasti – novú metódu dať do zodpovedajúceho súboru.
 - Kódovanie EWA↔WAV len cez `EwaCodec` (aj dĺžka nahrávky `Duration` z hlavičky WAV). Excel len cez `XlsReader`
@@ -162,8 +199,9 @@ Postup a jednorazové nastavenie v `Installer/README.md`.
   operácie `async` + `Task.Run` + `IProgress<T>`, nie BackgroundWorker.
 - Téma: Ex* prvky implementujú `IThemeable` (ExControls `Theming/`: `ExTheme`, `ExThemer`); štandardné prvky
   WinForms štýluje ToolsCore obsluhami v `FormUtils.RegisterThemeHandlers` (`Style.ToExTheme()`). Nový Ex* prvok =
-  `ApplyTheme`, nový štandardný typ = `ExThemer.Register<T>`, nie nová vetva `switch`. Win32 obsahuje len použité
-  deklarácie (v net10 projektoch `[LibraryImport]`).
+  `ApplyTheme`, nový štandardný typ = `ExThemer.Register<T>`, nie nová vetva `switch`. Roh medzi posuvníkmi
+  `DataGridView` kreslí tabuľka systémovou farbou – pri tmavých posuvníkoch ho prekreslí `Tools/GridScrollCorner`.
+  Win32 obsahuje len použité deklarácie (v net10 projektoch `[LibraryImport]`).
 - Dialógy len `Utils.ShowQuestion/ShowWarning/ShowError/ShowInfo` alebo `ExMessageBox.Show`, nikdy
   `MessageBox.Show`. Téma: `ApplyThemeAndFonts()`, dynamické prvky `FormUtils.ChangeStyleOfControls`, používať `Ex*`
   prvky. Ikony len z banky SVG `ToolsCore/Icons` (položky `Icon*` s `IconName`/`IconBadge`, v kóde `AppIcons.Get`,
