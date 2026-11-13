@@ -11,6 +11,15 @@ public sealed record TrackDefinition
     /// <summary>Nazov pre obsluhu.</summary>
     public string Name { get; init; } = "";
 
+    /// <summary>Nazov sektora - obsluha ho vidi za nazvom kolaje (<c>s</c>).</summary>
+    public string Sector { get; init; } = "";
+
+    /// <summary>Text sektora na tabuliach (<c>tabsektor</c>).</summary>
+    public string SectorText { get; init; } = "";
+
+    /// <summary>Zvuk sektora (<c>zvuksektor</c>).</summary>
+    public string SectorSound { get; init; } = "";
+
     /// <summary>Text kolaje na tabuliach.</summary>
     public string TrackText { get; init; } = "";
 

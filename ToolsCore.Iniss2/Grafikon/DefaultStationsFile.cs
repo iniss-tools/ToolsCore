@@ -21,16 +21,7 @@ public static class DefaultStationsFile
     public static List<DefaultStation> Read(string groupDir)
     {
         var file = Path.Combine(groupDir, FileName);
-        if (!File.Exists(file))
-            return [];
-
-        return Iniss2Xml.Load(file).Root!.Elements("s")
-            .Select(element => new DefaultStation(Iniss2Xml.Number(element, "st"), Iniss2Xml.Text(element, "n"))
-            {
-                Short = Iniss2Xml.Text(element, "k") != "false",
-                Long = Iniss2Xml.Text(element, "d") != "false"
-            })
-            .ToList();
+        return File.Exists(file) ? Parse(Iniss2Xml.Load(file).Root!) : [];
     }
 
     /// <summary>
@@ -38,8 +29,19 @@ public static class DefaultStationsFile
     /// </summary>
     /// <param name="groupDir">priecinok grafikonu</param>
     /// <param name="stations">stanice s roznymi cislami</param>
-    public static void Write(string groupDir, IEnumerable<DefaultStation> stations) =>
-        Iniss2Xml.Save(Path.Combine(groupDir, FileName), new XElement("STANICE", stations.Select(station => new XElement("s",
-            new XAttribute("st", station.Station.ToString(CultureInfo.InvariantCulture)), Iniss2Xml.Optional("n", station.Name),
-            station.Short ? null : new XAttribute("k", "false"), station.Long ? null : new XAttribute("d", "false")))));
+    /// <returns><see langword="false" />, ak subor uz mal tento obsah.</returns>
+    public static bool Write(string groupDir, IEnumerable<DefaultStation> stations) =>
+        Iniss2Xml.Write(Path.Combine(groupDir, FileName), Build(stations), root => Build(Parse(root)));
+
+    private static List<DefaultStation> Parse(XElement root) => root.Elements("s")
+        .Select(element => new DefaultStation(Iniss2Xml.Number(element, "st"), Iniss2Xml.Text(element, "n"))
+        {
+            Short = Iniss2Xml.Text(element, "k") != "false",
+            Long = Iniss2Xml.Text(element, "d") != "false"
+        })
+        .ToList();
+
+    private static XElement Build(IEnumerable<DefaultStation> stations) => new("STANICE", stations.Select(station => new XElement("s",
+        new XAttribute("st", station.Station.ToString(CultureInfo.InvariantCulture)), Iniss2Xml.Optional("n", station.Name),
+        station.Short ? null : new XAttribute("k", "false"), station.Long ? null : new XAttribute("d", "false"))));
 }

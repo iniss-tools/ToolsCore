@@ -296,6 +296,22 @@ public class GrafikonReadersTests
     }
 
     [TestMethod]
+    [DataRow("jede v 6,7", "ide v 6,7")]
+    [DataRow("nejede 24.XII.", "nejde 24.XII.")]
+    [DataRow("jede v 1-5 kromě +", "ide v 1-5 okrem +")]
+    [DataRow("jede v 6 včetně +", "ide v 6 vrátane +")]
+    [DataRow("jede denně", "ide denne")]
+    public void Validity_SlovenskaPoznamkaAkoCeska(string czech, string slovak)
+    {
+        // server po ceskom slove skusi zaciatok slova spolocny pre cestinu a slovencinu
+        var from = new DateOnly(2030, 12, 15);
+        var to = new DateOnly(2031, 12, 13);
+
+        Assert.AreEqual(Bits(GvValidity.Days(from, to, czech)), Bits(GvValidity.Days(from, to, slovak)));
+        Assert.AreEqual(GvValidityProblem.None, GvValidity.Check(from, to, slovak));
+    }
+
+    [TestMethod]
     [DataRow(400, true)]
     [DataRow(401, false)]
     public void Validity_TextovaPoznamkaNajviac400Dni(int count, bool valid)
@@ -315,6 +331,45 @@ public class GrafikonReadersTests
 
         Assert.IsEmpty(GvValidity.Days(from, from.AddDays(-2), "").Cast<bool>());
         Assert.IsEmpty(GvValidity.Days(from, from.AddDays(-2), "jede v 1-5").Cast<bool>());
+    }
+
+    [TestMethod]
+    [DataRow("", 401, GvValidityProblem.None)]
+    [DataRow("jede v 1-5", 400, GvValidityProblem.None)]
+    [DataRow("jede v 1-5", 401, GvValidityProblem.PeriodTooLong)]
+    [DataRow("toto nie je poznamka", 7, GvValidityProblem.Invalid)]
+    public void Validity_KontrolaPovieProblemPoznamky(string text, int count, GvValidityProblem expected)
+    {
+        var from = new DateOnly(2030, 1, 7);
+
+        Assert.AreEqual(expected, GvValidity.Check(from, from.AddDays(count - 1), text));
+    }
+
+    [TestMethod]
+    public void StationTimetable_VlakyZPamatiNamiestoSuboru()
+    {
+        ReadTimetable($"""
+            <v o="2030-01-07" d="2030-01-13">
+              <v><z c="{Horany}" o="480" dcv="1" /><z c="{Lipovec}" p="495" f="Z" /></v>
+            </v>
+            """, "");
+        var changed = new GvFile([Lipovec], [
+            new GvTrain(new DateOnly(2030, 1, 7), new DateOnly(2030, 1, 13), [
+                new GvVariant
+                {
+                    Stops =
+                    [
+                        new GvStop { Station = Horany, Departure = 600, Number = "1" },
+                        new GvStop { Station = Lipovec, Arrival = 615, Flags = GvStopFlags.Interest }
+                    ]
+                }
+            ])
+        ]);
+        var item = new DirListItem("Lipovec", Lipovec, "", "", DirListItemFlags.None);
+
+        var timetable = StationTimetable.Read(_dataDir, new DirListGroup("2030", [item]), item, changed);
+
+        Assert.AreEqual(615, timetable.On(new DateOnly(2030, 1, 8)).Single().Minute);
     }
 
     private static readonly string MosTrainXml = $"""
@@ -453,7 +508,7 @@ public class GrafikonReadersTests
 
         var text = GvValidity.Text(from, to, days);
 
-        Assert.DoesNotContain("ide ", text.Replace("jede ", "", StringComparison.Ordinal), "server rozumie len cesky");
+        Assert.DoesNotContain("ide ", text.Replace("jede ", "", StringComparison.Ordinal), "poznamka po cesky ako zo servera");
         Assert.AreEqual(Bits(days), Bits(GvValidity.Days(from, to, text)));
     }
 
@@ -1000,11 +1055,107 @@ public class GrafikonReadersTests
     }
 
     [TestMethod]
+    public void Timetable_NaDenPlatiPrvaVariantaKtoraIde()
+    {
+        // 2030-01-12 je sobota: plati sobotna varianta, v pondelok 2030-01-14 druha
+        var timetable = ReadTimetable($"""
+            <v o="2030-01-07" d="2030-01-20">
+              <v jd="jede v 6">
+                <z c="{Horany}" o="600" dcv="1001" />
+                <z c="{Lipovec}" p="620" o="622" f="Z" />
+              </v>
+              <v>
+                <z c="{Horany}" o="480" dcv="1001" />
+                <z c="{Lipovec}" p="500" o="502" f="Z" />
+              </v>
+            </v>
+            """, """<pos jd="jede v 6" cv="1001" p="2" o="2" /><pos cv="1001" p="1" o="1" />""");
+
+        var saturday = timetable.On(new DateOnly(2030, 1, 12)).Single();
+        var monday = timetable.On(new DateOnly(2030, 1, 14)).Single();
+
+        Assert.AreEqual((620, "2"), (saturday.Minute, saturday.Position!.ArrivalTrack));
+        Assert.AreEqual((500, "1"), (monday.Minute, monday.Position!.ArrivalTrack));
+        Assert.IsEmpty(timetable.On(new DateOnly(2030, 1, 21)));
+    }
+
+    [TestMethod]
+    public void Timetable_NocnyVlakJeVDenPrichoduZoradenyPodlaCasu()
+    {
+        var timetable = ReadTimetable($"""
+            <v o="2030-01-07" d="2030-01-20">
+              <v>
+                <z c="{Horany}" o="1430" dcv="5005" />
+                <z c="{Lipovec}" p="20" o="25" cp="1" co="1" f="Z" />
+              </v>
+            </v>
+            <v o="2030-01-07" d="2030-01-20">
+              <v>
+                <z c="{Horany}" o="10" dcv="6006" />
+                <z c="{Lipovec}" p="15" o="17" f="Z" />
+              </v>
+            </v>
+            """, "");
+
+        var first = timetable.On(new DateOnly(2030, 1, 7));
+        var second = timetable.On(new DateOnly(2030, 1, 8));
+
+        CollectionAssert.AreEqual(new[] { "6006" }, first.Select(call => call.Call.Number).ToArray());
+        CollectionAssert.AreEqual(new[] { "6006", "5005" }, second.Select(call => call.Call.Number).ToArray());
+        Assert.AreEqual(new DateOnly(2030, 1, 7), second[1].Run);
+    }
+
+    [TestMethod]
+    public void Timetable_StanicaBezDefiniciiKolaj()
+    {
+        ReadGv(Train());
+        var item = new DirListItem("Lipovec", Lipovec, "", "", DirListItemFlags.None);
+
+        var timetable = StationTimetable.Read(_dataDir, new DirListGroup("2030", [item]), item);
+
+        Assert.IsEmpty(timetable.Tracks);
+        Assert.HasCount(1, timetable.Calls);
+    }
+
+    [TestMethod]
+    public void GvStanice_PrvySuborPlatiCelyDalsieDoplnaju()
+    {
+        Write(@"2030\GV.stanice.XML", $"""<ST><s k="{Lipovec}" n="Lipovec" /></ST>""");
+        Write(@"2031\GV.stanice.XML", $"""<ST><s k="{Lipovec}" n="Lipovec nový" /><s k="{Horany}" n="Horany" /></ST>""");
+
+        var names = GvStationsFile.ReadNames(_dataDir, [new DirListGroup("2030", []), new DirListGroup("2029", []), new DirListGroup("2031", [])]);
+
+        Assert.AreEqual(("Lipovec", "Horany"), (names[Lipovec], names[Horany]));
+    }
+
+    [TestMethod]
     public void Config_CitaPortGtn()
     {
         Write("Config.xml", """<INISSCFG GTNPort="1090" />""");
 
         Assert.AreEqual(1090, Iniss2Config.Read(_dataDir).GtnPort);
+    }
+
+    [TestMethod]
+    public void Config_AgvAPpv()
+    {
+        Assert.AreEqual((false, Iniss2Config.DefaultAgvPreTime, ""), (Iniss2Config.Read(_dataDir).NoLoadAgv, Iniss2Config.Read(_dataDir).AgvPreTime,
+            Iniss2Config.Read(_dataDir).PpvDataDirectory));
+
+        Write("Config.xml", """<INISSCFG NoLoadAGV="true" AGVPreTime="1440" PPVDataDirectory="\ppv\data" DataBackupPath="D:\zaloha" />""");
+        var config = Iniss2Config.Read(_dataDir);
+
+        Assert.AreEqual((true, 1440, @"\ppv\data", @"D:\zaloha"), (config.NoLoadAgv, config.AgvPreTime, config.PpvDataDirectory, config.DataBackupPath));
+    }
+
+    [TestMethod]
+    public void TrTypes_KluceDruhov()
+    {
+        Assert.IsNull(TrTypesFile.ReadKeys(_dataDir));
+
+        Write(TrTypesFile.FileName, """<TRTYPES><t key="Os" tooltip="Osobný vlak" /><t key="R" /></TRTYPES>""");
+
+        CollectionAssert.AreEqual(new[] { "Os", "R" }, TrTypesFile.ReadKeys(_dataDir));
     }
 
     [TestMethod]

@@ -20,13 +20,7 @@ public static class ConstReportsFile
     public static List<ConstReport> Read(string dataDir)
     {
         var file = Path.Combine(dataDir, FileName);
-        if (!File.Exists(file))
-            return [];
-
-        return Iniss2Xml.Load(file).Root!.Elements("r")
-            .Select(element => new ConstReport(Iniss2Xml.Number(element, "k"), Iniss2Xml.Text(element, "n"), Iniss2Xml.Text(element, "ik"),
-                element.Elements("s").Select(station => int.Parse(station.Value, NumberStyles.Integer, CultureInfo.InvariantCulture)).ToList()))
-            .ToList();
+        return File.Exists(file) ? Parse(Iniss2Xml.Load(file).Root!) : [];
     }
 
     /// <summary>
@@ -34,10 +28,18 @@ public static class ConstReportsFile
     /// </summary>
     /// <param name="dataDir">priecinok dat servera</param>
     /// <param name="reports">hlasenia s roznymi cislami</param>
-    public static void Write(string dataDir, IEnumerable<ConstReport> reports) =>
-        Iniss2Xml.Save(Path.Combine(dataDir, FileName), new XElement("CONSTREPORTS", reports.Select(report => new XElement("r",
-            new XAttribute("k", report.Key), new XAttribute("n", report.Name), new XAttribute("ik", report.Function),
-            report.Stations.Select(station => new XElement("s", station))))));
+    /// <returns><see langword="false" />, ak subor uz mal tento obsah.</returns>
+    public static bool Write(string dataDir, IEnumerable<ConstReport> reports) =>
+        Iniss2Xml.Write(Path.Combine(dataDir, FileName), Build(reports), root => Build(Parse(root)));
+
+    private static List<ConstReport> Parse(XElement root) => root.Elements("r")
+        .Select(element => new ConstReport(Iniss2Xml.Number(element, "k"), Iniss2Xml.Text(element, "n"), Iniss2Xml.Text(element, "ik"),
+            element.Elements("s").Select(station => int.Parse(station.Value, NumberStyles.Integer, CultureInfo.InvariantCulture)).ToList()))
+        .ToList();
+
+    private static XElement Build(IEnumerable<ConstReport> reports) => new("CONSTREPORTS", reports.Select(report => new XElement("r",
+        new XAttribute("k", report.Key), new XAttribute("n", report.Name), new XAttribute("ik", report.Function),
+        report.Stations.Select(station => new XElement("s", station)))));
 
     /// <summary>
     /// Doplni hlasenia do zoznamu. Hlasenie s rovnakym vzorom a stanicami, ake uz v zozname je, sa nepridava a pouzije sa jeho

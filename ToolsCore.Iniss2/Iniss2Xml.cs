@@ -1,7 +1,9 @@
 ﻿using System.Globalization;
 using System.Xml;
 using System.Xml.Linq;
+using Serilog;
 using ToolsCore.Iniss.Tools;
+using ToolsCore.Iniss2.Xml;
 
 namespace ToolsCore.Iniss2;
 
@@ -31,6 +33,67 @@ internal static class Iniss2Xml
             new XDocument(root).Save(writer);
 
         File.Move(temporary, file, true);
+    }
+
+    // novy obsah vznikne vedla a nahradi subor naraz
+    private static void Replace(string file, string text)
+    {
+        var temporary = file + ".tmp";
+        File.WriteAllText(temporary, text, Encodings.Win1250);
+        File.Move(temporary, file, true);
+    }
+
+    /// <summary>
+    /// Priznak <c>true</c>; <c>false</c> server nezapisuje.
+    /// </summary>
+    public static XAttribute? Optional(string name, bool value) => value ? new XAttribute(name, "true") : null;
+
+    /// <summary>
+    /// Logicka hodnota atributu ako u XmlSerializer servera; chybajuci atribut je <see langword="false" />.
+    /// </summary>
+    public static bool Bool(XElement element, string attribute) =>
+        element.Attribute(attribute) is { } value && XmlConvert.ToBoolean(value.Value.Trim());
+
+    /// <summary>
+    /// Zapise subor ako server. Existujuci subor upravi na mieste: zmenia sa len prvky s inym obsahom, komentare, atributy
+    /// a prvky, ktore zapisovac nepozna, a zapis nezmenenych casti ostanu po znakoch. Subor bez zmeny sa nezapisuje.
+    /// </summary>
+    /// <param name="file">subor</param>
+    /// <param name="desired">novy obsah zo zapisovaca</param>
+    /// <param name="canonical">zapisovac nad precitanym obsahom: z korena suboru zostavi to, co by zapisal on</param>
+    /// <returns><see langword="false" />, ak subor uz mal tento obsah.</returns>
+    public static bool Write(string file, XElement desired, Func<XElement, XElement> canonical)
+    {
+        ArgumentNullException.ThrowIfNull(desired);
+        ArgumentNullException.ThrowIfNull(canonical);
+
+        if (!File.Exists(file))
+        {
+            Save(file, desired);
+            return true;
+        }
+
+        var text = File.ReadAllText(file, Encodings.Win1250);
+        var older = canonical(XDocument.Parse(text).Root!);
+        if (XNode.DeepEquals(older, desired))
+            return false;
+
+        string updated;
+        try
+        {
+            updated = XmlTextPatch.Apply(text, older, desired);
+            if (!XNode.DeepEquals(canonical(XDocument.Parse(updated).Root!), desired))
+                throw new InvalidOperationException("Patched file does not read back as written.");
+        }
+        catch (InvalidOperationException e)
+        {
+            Log.Warning(e, "Subor {File} sa nepodarilo upravit na mieste, zapise sa cely bez komentarov", file);
+            Save(file, desired);
+            return true;
+        }
+
+        Replace(file, updated);
+        return true;
     }
 
     /// <summary>

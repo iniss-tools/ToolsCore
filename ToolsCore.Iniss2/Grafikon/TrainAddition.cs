@@ -7,4 +7,8 @@
 /// <param name="Key">nazov hlasenia v LogText alebo cislo zaznamu ConstReports.xml</param>
 /// <param name="Reports">pismena typov hlasenia; prazdne = vsetky typy, <c>-</c> = ziadny</param>
 /// <param name="Validity">datumova poznamka; prazdna = plati vzdy</param>
-public sealed record TrainAddition(string Number, string Key, string Reports, string Validity);
+public sealed record TrainAddition(string Number, string Key, string Reports, string Validity)
+{
+    /// <summary>Obsluha zaznam upravila pre jeden den (atribut <c>de</c>).</summary>
+    public bool EditedForDay { get; init; }
+}

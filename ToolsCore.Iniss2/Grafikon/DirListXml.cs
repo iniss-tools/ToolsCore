@@ -50,6 +50,22 @@ public static class DirListXml
     }
 
     /// <summary>
+    /// Nacita zoznam grafikonov tak, ako je v subore: cislo stanice z atributu <c>s</c> (server ho prepise cislom zo SR70.TXT).
+    /// Na upravu zoznamu - pohlad servera vracia <see cref="Read" />.
+    /// </summary>
+    /// <param name="dataDir">priecinok dat servera</param>
+    public static List<DirListGroup> Load(string dataDir) => Parse(Iniss2Xml.Load(Path.Combine(dataDir, FileName)).Root!);
+
+    /// <summary>
+    /// Zapise zoznam grafikonov. Existujuci subor sa upravi na mieste (komentare a ostatne zaznamy ostanu po znakoch).
+    /// </summary>
+    /// <param name="dataDir">priecinok dat servera</param>
+    /// <param name="groups">grafikony s cislami stanic do atributu <c>s</c></param>
+    /// <returns><see langword="false" />, ak subor uz mal tento obsah.</returns>
+    public static bool Write(string dataDir, IEnumerable<DirListGroup> groups) =>
+        Iniss2Xml.Write(Path.Combine(dataDir, FileName), Build(groups), root => Build(Parse(root)));
+
+    /// <summary>
     /// Doplni stanicu do zoznamu grafikonov. Chybajuci subor alebo grafikon zalozi. Stanicu, ktoru grafikon uz ma, necha tak.
     /// </summary>
     /// <param name="dataDir">priecinok dat servera</param>
@@ -59,23 +75,30 @@ public static class DirListXml
     {
         ArgumentNullException.ThrowIfNull(item);
 
-        var file = Path.Combine(dataDir, FileName);
-        var root = File.Exists(file) ? Iniss2Xml.Load(file).Root! : new XElement("DL");
-
-        var groupElement = root.Elements("g").FirstOrDefault(element => string.Equals(Iniss2Xml.Text(element, "n"), group, StringComparison.OrdinalIgnoreCase));
-        if (groupElement is null)
+        var groups = File.Exists(Path.Combine(dataDir, FileName)) ? Load(dataDir) : [];
+        var index = groups.FindIndex(candidate => string.Equals(candidate.Name, group, StringComparison.OrdinalIgnoreCase));
+        if (index < 0)
         {
-            groupElement = new XElement("g", new XAttribute("n", group));
-            root.Add(groupElement);
+            groups.Add(new DirListGroup(group, []));
+            index = groups.Count - 1;
         }
 
-        if (groupElement.Elements("i").Any(element => string.Equals(Iniss2Xml.Text(element, "d"), item.Directory, StringComparison.OrdinalIgnoreCase)))
+        if (groups[index].Items.Any(existing => string.Equals(existing.Directory, item.Directory, StringComparison.OrdinalIgnoreCase)))
             return;
 
-        groupElement.Add(new XElement("i", new XAttribute("s", item.Station), new XAttribute("d", item.Directory), Iniss2Xml.Optional("tl", item.TableLine),
-            Iniss2Xml.Optional("al", item.AudioLine), Iniss2Xml.Optional("f", Iniss2Xml.FlagText((int)item.Flags, FlagKeys))));
-        Iniss2Xml.Save(file, root);
+        groups[index] = groups[index] with { Items = [.. groups[index].Items, item] };
+        Write(dataDir, groups);
     }
+
+    private static List<DirListGroup> Parse(XElement root) => root.Elements("g").Select(group => new DirListGroup(Iniss2Xml.Text(group, "n"),
+        group.Elements("i").Select(item => new DirListItem(Iniss2Xml.Text(item, "d"), Iniss2Xml.Number(item, "s"), Iniss2Xml.Text(item, "tl"),
+            Iniss2Xml.Text(item, "al"), (DirListItemFlags)Iniss2Xml.Flags(item, "f", FlagKeys))).ToList())).ToList();
+
+    private static XElement Build(IEnumerable<DirListGroup> groups) => new("DL", groups.Select(group => new XElement("g",
+        new XAttribute("n", group.Name),
+        group.Items.Select(item => new XElement("i", new XAttribute("s", item.Station), new XAttribute("d", item.Directory),
+            Iniss2Xml.Optional("tl", item.TableLine), Iniss2Xml.Optional("al", item.AudioLine),
+            Iniss2Xml.Optional("f", Iniss2Xml.FlagText((int)item.Flags, FlagKeys)))))));
 
     /// <summary>
     /// Zapise cislo stanice do jej priecinka.

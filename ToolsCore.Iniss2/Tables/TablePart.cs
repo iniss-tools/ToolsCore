@@ -26,4 +26,13 @@ public sealed record TablePart(string Name, string CatalogKey, string Kind, int 
 
     /// <summary>Kluc tabule, na ktorej cast nadvazuje; prazdny = cast zacina.</summary>
     public string Previous { get; init; } = "";
+
+    /// <summary>Kluc weboveho zdroja dat (len pri druhu INFO).</summary>
+    public string WebSource { get; init; } = "";
+
+    /// <summary>Podmienka zobrazenia vlaku, kod VB.NET typu Boolean; prazdna = vsetky vlaky.</summary>
+    public string Condition { get; init; } = "";
+
+    /// <summary>Rozdelenie zaznamov do multiokien (<c>windef</c>); prazdne = multiokno 0.</summary>
+    public string WindowDefinition { get; init; } = "";
 }

@@ -22,39 +22,57 @@ public static class GvValidity
     /// <returns>bit <c>i</c> plati pre den <paramref name="from" /> plus <c>i</c> dni.</returns>
     public static BitArray Days(DateOnly from, DateOnly to, string? text)
     {
+        var (days, problem) = Expand(from, to, text);
+        if (problem != GvValidityProblem.None)
+            Log.Warning("Datumovu poznamku {Text} sa nepodarilo rozvinut do obdobia {From} - {To}", text, from, to);
+        return days;
+    }
+
+    /// <summary>
+    /// Ci server poznamku do obdobia rozvinie - pozri <see cref="Days" />. Nic nezapisuje do logu.
+    /// </summary>
+    /// <param name="from">prvy den obdobia</param>
+    /// <param name="to">posledny den obdobia</param>
+    /// <param name="text">poznamka</param>
+    public static GvValidityProblem Check(DateOnly from, DateOnly to, string? text) => Expand(from, to, text).Problem;
+
+    private static (BitArray Days, GvValidityProblem Problem) Expand(DateOnly from, DateOnly to, string? text)
+    {
         var count = Math.Max(0, to.DayNumber - from.DayNumber + 1);
 
         if (string.IsNullOrEmpty(text))
-            return new BitArray(count, true);
+            return (new BitArray(count, true), GvValidityProblem.None);
         if (text is "-" or "--")
-            return new BitArray(count, false);
+            return (new BitArray(count, false), GvValidityProblem.None);
 
-        if (count is 0 or > MaxDays)
-            return Failed(from, to, text, count);
+        if (count > MaxDays)
+            return (new BitArray(count), GvValidityProblem.PeriodTooLong);
+        if (count == 0)
+            return (new BitArray(count), GvValidityProblem.Invalid);
 
         if (text.Length == count && text != "1" && text.All(c => c is '0' or '1'))
         {
             var bits = new BitArray(count);
             for (var i = 0; i < count; i++)
                 bits[i] = text[i] == '1';
-            return bits;
+            return (bits, GvValidityProblem.None);
         }
 
         try
         {
             // server pocita sviatky vzdy podla ceskeho kalendara, aj na slovenskych staniciach
             var days = new DateLimit(from, to, insertMarks: false) { HolidayLocale = DateLimit.Locale.Cz }.TextToBitArray(text);
-            return days.Length == count ? days : Failed(from, to, text, count);
+            return days.Length == count ? (days, GvValidityProblem.None) : (new BitArray(count), GvValidityProblem.Invalid);
         }
         catch (DateLimit.ParseException)
         {
-            return Failed(from, to, text, count);
+            return (new BitArray(count), GvValidityProblem.Invalid);
         }
     }
 
     /// <summary>
-    /// Poznamka pre server: text po cesky, inym jazykom server nerozumie. Ked by ho server rozvinul na ine dni, retazec nul
-    /// a jednotiek.
+    /// Poznamka pre server: text po cesky, ako ho pise server aj klient (slovensku poznamku server precita tiez). Ked by ho
+    /// server rozvinul na ine dni, retazec nul a jednotiek.
     /// </summary>
     /// <param name="from">prvy den obdobia</param>
     /// <param name="to">posledny den obdobia</param>
@@ -84,11 +102,5 @@ public static class GvValidity
         {
             DateLimit.Loc = locale;
         }
-    }
-
-    private static BitArray Failed(DateOnly from, DateOnly to, string text, int count)
-    {
-        Log.Warning("Datumovu poznamku {Text} sa nepodarilo rozvinut do obdobia {From} - {To}", text, from, to);
-        return new BitArray(count);
     }
 }

@@ -24,21 +24,28 @@ public static class ForeignFile
     public static List<TrainLanguages> Read(string stationDir)
     {
         var file = Path.Combine(stationDir, FileName);
-        if (!File.Exists(file))
-            return [];
-
-        return Iniss2Xml.Load(file).Root!.Elements("v")
-            .Select(element => new TrainLanguages(Iniss2Xml.Text(element, "n"), Iniss2Xml.Text(element, "jd"),
-                element.Elements("l").Select(language => language.Value).ToList()))
-            .ToList();
+        return File.Exists(file) ? Parse(Iniss2Xml.Load(file).Root!) : [];
     }
 
     /// <summary>
-    /// Zapise zaznamy.
+    /// Zapise zaznamy. Existujuci subor sa upravi na mieste.
     /// </summary>
     /// <param name="stationDir">priecinok stanice</param>
     /// <param name="trains">zaznamy</param>
-    public static void Write(string stationDir, IEnumerable<TrainLanguages> trains) =>
-        Iniss2Xml.Save(Path.Combine(stationDir, FileName), new XElement("FOREIGN", trains.Select(train => new XElement("v",
-            Iniss2Xml.Optional("jd", train.Validity), new XAttribute("n", train.Number), train.Languages.Select(language => new XElement("l", language))))));
+    /// <returns><see langword="false" />, ak subor uz mal tento obsah.</returns>
+    public static bool Write(string stationDir, IEnumerable<TrainLanguages> trains) =>
+        Iniss2Xml.Write(Path.Combine(stationDir, FileName), Build(trains), root => Build(Parse(root)));
+
+    private static List<TrainLanguages> Parse(XElement root) => root.Elements("v")
+        .Select(element => new TrainLanguages(Iniss2Xml.Text(element, "n"), Iniss2Xml.Text(element, "jd"),
+            element.Elements("l").Select(language => language.Value).ToList())
+        {
+            EditedForDay = Iniss2Xml.Bool(element, "de")
+        })
+        .ToList();
+
+    // poradie atributov ako v XmlSerializer servera
+    private static XElement Build(IEnumerable<TrainLanguages> trains) => new("FOREIGN", trains.Select(train => new XElement("v",
+        Iniss2Xml.Optional("jd", train.Validity), new XAttribute("n", train.Number), Iniss2Xml.Optional("de", train.EditedForDay),
+        train.Languages.Select(language => new XElement("l", language)))));
 }

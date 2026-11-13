@@ -215,6 +215,7 @@ public class TablesReadersTests
         Assert.HasCount(2, tables);
         Assert.AreEqual("5400010O.xml", tables[0].SaveFile);
         Assert.AreEqual("", tables[0].Line);
+        Assert.AreEqual(TableDefinition.NoAddress, tables[0].Address);
         Assert.AreEqual("Tabule", tables[1].Line);
         Assert.AreEqual(2, tables[1].Address);
         Assert.AreEqual("Nástupištní LCD", tables[1].Parts[0].CatalogKey);

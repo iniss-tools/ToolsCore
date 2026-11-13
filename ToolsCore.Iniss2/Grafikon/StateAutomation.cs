@@ -9,6 +9,9 @@ public sealed record StateAutomation(string Time)
     /// <summary>Dodatocna podmienka, vyraz typu Boolean; prazdna = plati vzdy.</summary>
     public string Condition { get; init; } = "";
 
+    /// <summary>Nazov podmienky (atribut <c>n</c> prvku <c>c</c>), server ho len cita.</summary>
+    public string ConditionName { get; init; } = "";
+
     /// <summary>Rezim 0 rucne, 1 poloautomat, 2 automat - cislo alebo vyraz typu Byte; prazdny = 0.</summary>
     public string Mode { get; init; } = "";
 

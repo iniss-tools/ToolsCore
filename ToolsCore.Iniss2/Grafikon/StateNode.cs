@@ -18,6 +18,9 @@ public sealed record StateNode(string Key)
     /// <summary>Podmienka stavu, vyraz VB.NET typu Boolean; prazdna = plati vzdy.</summary>
     public string Condition { get; init; } = "";
 
+    /// <summary>Nazov podmienky (atribut <c>n</c> prvku <c>c</c>), server ho len cita.</summary>
+    public string ConditionName { get; init; } = "";
+
     /// <summary>Tlacidlo; null = stav nema tlacidlo.</summary>
     public StateButton? Button { get; init; }
 

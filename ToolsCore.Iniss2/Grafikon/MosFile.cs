@@ -14,10 +14,10 @@ public static class MosFile
     public const string FileName = "MOS.xml";
 
     /// <summary>Druh osobneho vlaku.</summary>
-    internal const string PassengerType = "Os";
+    public const string PassengerType = "Os";
 
     /// <summary>Druh motoroveho osobneho vlaku.</summary>
-    internal const string MotorType = "MOs";
+    public const string MotorType = "MOs";
 
     /// <summary>
     /// Nacita zaznamy v poradi suboru. Chybajuci subor je prazdny zoznam.
@@ -26,22 +26,24 @@ public static class MosFile
     public static List<MosTrain> Read(string stationDir)
     {
         var file = Path.Combine(stationDir, FileName);
-        if (!File.Exists(file))
-            return [];
-
-        return Iniss2Xml.Load(file).Root!.Elements("v")
-            .Select(element => new MosTrain(Iniss2Xml.Text(element, "cv"), Iniss2Xml.Text(element, "jd")))
-            .ToList();
+        return File.Exists(file) ? Parse(Iniss2Xml.Load(file).Root!) : [];
     }
 
     /// <summary>
-    /// Zapise zaznamy. Pre kazde cislo plati prvy zaznam.
+    /// Zapise zaznamy. Pre kazde cislo plati prvy zaznam. Existujuci subor sa upravi na mieste.
     /// </summary>
     /// <param name="stationDir">priecinok stanice</param>
     /// <param name="trains">zaznamy</param>
-    public static void Write(string stationDir, IEnumerable<MosTrain> trains) =>
-        Iniss2Xml.Save(Path.Combine(stationDir, FileName), new XElement("MOS", trains.Select(train => new XElement("v",
-            Iniss2Xml.Optional("jd", train.Validity), new XAttribute("cv", train.Number)))));
+    /// <returns><see langword="false" />, ak subor uz mal tento obsah.</returns>
+    public static bool Write(string stationDir, IEnumerable<MosTrain> trains) =>
+        Iniss2Xml.Write(Path.Combine(stationDir, FileName), Build(trains), root => Build(Parse(root)));
+
+    private static List<MosTrain> Parse(XElement root) => root.Elements("v")
+        .Select(element => new MosTrain(Iniss2Xml.Text(element, "cv"), Iniss2Xml.Text(element, "jd")))
+        .ToList();
+
+    private static XElement Build(IEnumerable<MosTrain> trains) => new("MOS", trains.Select(train => new XElement("v",
+        Iniss2Xml.Optional("jd", train.Validity), new XAttribute("cv", train.Number))));
 
     /// <summary>
     /// Uplatni zaznamy na vlaky ako server: usek vlaku s druhom Os, ktoreho cislo je v MOS.xml niektorej zaujmovej stanice
@@ -49,7 +51,7 @@ public static class MosFile
     /// </summary>
     /// <param name="trains">vlaky s druhom MOs uz prepisanym na Os</param>
     /// <param name="stations">zaznamy podla cisla stanice</param>
-    internal static List<GvTrain> Apply(IReadOnlyList<GvTrain> trains, Dictionary<int, List<MosTrain>> stations)
+    internal static List<GvTrain> Apply(IReadOnlyList<GvTrain> trains, IReadOnlyDictionary<int, List<MosTrain>> stations)
     {
         if (stations.Values.All(records => records.Count == 0))
             return [.. trains];
@@ -58,7 +60,7 @@ public static class MosFile
         return trains.Select(train => Apply(train, trains, stations, ranges)).ToList();
     }
 
-    private static GvTrain Apply(GvTrain train, IReadOnlyList<GvTrain> trains, Dictionary<int, List<MosTrain>> stations,
+    private static GvTrain Apply(GvTrain train, IReadOnlyList<GvTrain> trains, IReadOnlyDictionary<int, List<MosTrain>> stations,
         Dictionary<int, Dictionary<string, (DateOnly From, DateOnly To)>> ranges)
     {
         var variants = train.Variants.ToList();

@@ -81,6 +81,23 @@ public sealed record Iniss2Installation(string ServerDir)
         return null;
     }
 
+    /// <summary>
+    /// Priecinok dat INISS2 podla vybraneho priecinka: instalacie, servera alebo priamo dat (s DirList.xml).
+    /// </summary>
+    /// <param name="path">priecinok vybrany pouzivatelom</param>
+    /// <returns>priecinok dat alebo <see langword="null" />, ak to nie je INISS2.</returns>
+    public static string? DataDirectory(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
+            return null;
+
+        path = Path.GetFullPath(path);
+        if (File.Exists(Path.Combine(path, Grafikon.DirListXml.FileName)))
+            return path;
+
+        return Find(path)?.DataDir;
+    }
+
     private static bool IsServerDir(string dir) =>
         File.Exists(Path.Combine(dir, DataDirName, ConfigFileName)) || HasLanguage(Path.Combine(dir, RawBankDirName));
 

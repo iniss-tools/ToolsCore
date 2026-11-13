@@ -7,4 +7,8 @@
 /// <param name="Validity">datumova poznamka; prazdna = plati vzdy</param>
 /// <param name="Text">text; <c>#</c> oddeluje casti, prazdny text udaj vyprazdni</param>
 /// <param name="Font">cislo pisma; -1 = pismo udaja</param>
-public sealed record TrainText(string Number, string Validity, string Text, int Font);
+public sealed record TrainText(string Number, string Validity, string Text, int Font)
+{
+    /// <summary>Obsluha zaznam upravila pre jeden den (atribut <c>de</c>).</summary>
+    public bool EditedForDay { get; init; }
+}

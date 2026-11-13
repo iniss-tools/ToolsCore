@@ -19,12 +19,7 @@ public static class ReportKeysFile
     public static List<ReportKey> Read(string stationDir)
     {
         var file = Path.Combine(stationDir, FileName);
-        if (!File.Exists(file))
-            return [];
-
-        return Iniss2Xml.Load(file).Root!.Elements("r")
-            .Select(element => new ReportKey(Iniss2Xml.Text(element, "n"), Iniss2Xml.Text(element, "k"), Iniss2Xml.Text(element, "v")))
-            .ToList();
+        return File.Exists(file) ? Parse(Iniss2Xml.Load(file).Root!) : [];
     }
 
     /// <summary>
@@ -32,7 +27,14 @@ public static class ReportKeysFile
     /// </summary>
     /// <param name="stationDir">priecinok stanice</param>
     /// <param name="reports">hlasenia s roznymi nazvami</param>
-    public static void Write(string stationDir, IEnumerable<ReportKey> reports) =>
-        Iniss2Xml.Save(Path.Combine(stationDir, FileName), new XElement("ReportKeys", reports.Select(report => new XElement("r",
-            new XAttribute("n", report.Name), new XAttribute("k", report.Key), new XAttribute("v", report.Categories)))));
+    /// <returns><see langword="false" />, ak subor uz mal tento obsah.</returns>
+    public static bool Write(string stationDir, IEnumerable<ReportKey> reports) =>
+        Iniss2Xml.Write(Path.Combine(stationDir, FileName), Build(reports), root => Build(Parse(root)));
+
+    private static List<ReportKey> Parse(XElement root) => root.Elements("r")
+        .Select(element => new ReportKey(Iniss2Xml.Text(element, "n"), Iniss2Xml.Text(element, "k"), Iniss2Xml.Text(element, "v")))
+        .ToList();
+
+    private static XElement Build(IEnumerable<ReportKey> reports) => new("ReportKeys", reports.Select(report => new XElement("r",
+        new XAttribute("n", report.Name), new XAttribute("k", report.Key), new XAttribute("v", report.Categories))));
 }

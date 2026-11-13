@@ -8,6 +8,9 @@ namespace ToolsCore.Iniss2.Grafikon;
 /// <param name="Validity">datumova poznamka; prazdna = plati vzdy</param>
 public sealed record TrainReportStations(string Number, string Validity)
 {
+    /// <summary>Obsluha zaznam upravila pre jeden den (atribut <c>de</c>).</summary>
+    public bool EditedForDay { get; init; }
+
     /// <summary>Kratke hlasenie, stanice zo smeru (prvok <c>b</c>).</summary>
     public IReadOnlyList<int> ShortFrom { get; init; } = [];
 

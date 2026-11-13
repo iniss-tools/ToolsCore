@@ -28,14 +28,7 @@ public static class ReportPatternsFile
     public static List<IReadOnlyList<ReportPatternStop>> Read(string stationDir, string fileName)
     {
         var file = Path.Combine(stationDir, fileName);
-        if (!File.Exists(file))
-            return [];
-
-        return Iniss2Xml.Load(file).Root!.Elements("vzor")
-            .Select(pattern => (IReadOnlyList<ReportPatternStop>)pattern.Elements("z")
-                .Select(stop => new ReportPatternStop(Iniss2Xml.Number(stop, "s"), Iniss2Xml.Text(stop, "h") == "true"))
-                .ToList())
-            .ToList();
+        return File.Exists(file) ? Parse(Iniss2Xml.Load(file).Root!) : [];
     }
 
     /// <summary>
@@ -44,8 +37,17 @@ public static class ReportPatternsFile
     /// <param name="stationDir">priecinok stanice</param>
     /// <param name="fileName"><see cref="ShortFileName" /> alebo <see cref="LongFileName" /></param>
     /// <param name="patterns">vzory</param>
-    public static void Write(string stationDir, string fileName, IEnumerable<IReadOnlyList<ReportPatternStop>> patterns) =>
-        Iniss2Xml.Save(Path.Combine(stationDir, fileName), new XElement("STAHLAS", patterns.Select(pattern => new XElement("vzor",
-            pattern.Select(stop => new XElement("z", new XAttribute("s", stop.Station.ToString(CultureInfo.InvariantCulture)),
-                stop.Reported ? new XAttribute("h", "true") : null))))));
+    /// <returns><see langword="false" />, ak subor uz mal tento obsah.</returns>
+    public static bool Write(string stationDir, string fileName, IEnumerable<IReadOnlyList<ReportPatternStop>> patterns) =>
+        Iniss2Xml.Write(Path.Combine(stationDir, fileName), Build(patterns), root => Build(Parse(root)));
+
+    private static List<IReadOnlyList<ReportPatternStop>> Parse(XElement root) => root.Elements("vzor")
+        .Select(pattern => (IReadOnlyList<ReportPatternStop>)pattern.Elements("z")
+            .Select(stop => new ReportPatternStop(Iniss2Xml.Number(stop, "s"), Iniss2Xml.Text(stop, "h") == "true"))
+            .ToList())
+        .ToList();
+
+    private static XElement Build(IEnumerable<IReadOnlyList<ReportPatternStop>> patterns) => new("STAHLAS", patterns.Select(pattern => new XElement("vzor",
+        pattern.Select(stop => new XElement("z", new XAttribute("s", stop.Station.ToString(CultureInfo.InvariantCulture)),
+            stop.Reported ? new XAttribute("h", "true") : null)))));
 }

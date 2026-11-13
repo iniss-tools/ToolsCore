@@ -23,8 +23,17 @@ public sealed record GvStop
     /// <summary>Priznaky zastavenia.</summary>
     public GvStopFlags Flags { get; init; }
 
-    /// <summary>Cislo vlaku od tohto bodu; prazdne = bez zmeny.</summary>
+    /// <summary>Cislo vlaku od tohto bodu (atribut <c>dcv</c>), podla neho sa vlak paruje s inymi subormi; prazdne = bez zmeny.</summary>
     public string Number { get; init; } = "";
+
+    /// <summary>
+    /// Cislo, ktore sa hlasi a zobrazuje (atribut <c>cv</c>); prazdne = <see cref="Number" />. Plati len v bode s cislom vlaku,
+    /// server ho do prazdneho <see cref="Number" /> pri nacitani skopiruje.
+    /// </summary>
+    public string DisplayNumber { get; init; } = "";
+
+    /// <summary>Linka nahradnej dopravy od tohto bodu (atribut <c>l</c>); plati len v bode s cislom vlaku.</summary>
+    public string ReplacementLine { get; init; } = "";
 
     /// <summary>Druh vlaku od tohto bodu; prazdny = bez zmeny.</summary>
     public string TrainType { get; init; } = "";
