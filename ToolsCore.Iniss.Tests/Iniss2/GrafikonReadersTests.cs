@@ -1159,6 +1159,14 @@ public class GrafikonReadersTests
     }
 
     [TestMethod]
+    public void TrTypes_DruhySoZvukomATextom()
+    {
+        Write(TrTypesFile.FileName, """<TRTYPES><t key="ALX" tooltip="Alex" sound="Ex" table="ALX" /><t key="R" /></TRTYPES>""");
+
+        CollectionAssert.AreEqual(new[] { new TrType("ALX", "Alex", "Ex", "ALX"), new TrType("R", "", "", "") }, TrTypesFile.Read(_dataDir));
+    }
+
+    [TestMethod]
     public void Config_BezSuboruAleboAtributuJeGtnVypnute()
     {
         Assert.AreEqual(0, Iniss2Config.Read(_dataDir).GtnPort);
