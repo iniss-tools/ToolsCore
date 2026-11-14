@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.ComponentModel;
 using ExControls;
 using ToolsCore.Icons;
 using ToolsCore.XML;
@@ -92,20 +93,24 @@ public static partial class FormUtils
             {
                 tb.BackColor = theme.BoxBackColor;
                 tb.ForeColor = theme.BoxForeColor;
-                tb.BorderStyle = BorderStyle.None;
+                if (tb.BorderStyle != BorderStyle.None)
+                    tb.BorderStyle = BorderStyle.FixedSingle;
             }
 
+            SetBorder(tb, tb.BorderStyle, theme);
             tb.SetDarkScrollBars(theme.DarkScrollBars);
         });
         ExThemer.Register<LinkLabel>((ll, theme) => ll.LinkColor = theme.HighlightBackColor);
-        ExThemer.Register<Label>((l, theme) => l.ForeColor = theme.LabelForeColor);
+        ExThemer.Register<Label>(ApplyLabel);
         ExThemer.Register<TreeView>((tv, theme) =>
         {
             ExThemer.KeepDefaults(tv, theme, nameof(tv.BorderStyle));
             tv.BackColor = theme.BoxBackColor;
             tv.ForeColor = theme.BoxForeColor;
-            if (!theme.UseSystemStyle) tv.BorderStyle = BorderStyle.None;
+            if (!theme.UseSystemStyle && tv.BorderStyle != BorderStyle.None)
+                tv.BorderStyle = BorderStyle.FixedSingle;
 
+            SetBorder(tv, tv.BorderStyle, theme);
             tv.SetDarkScrollBars(theme.DarkScrollBars);
         });
         ExThemer.Register<ListBox>((lb, theme) =>
@@ -113,8 +118,10 @@ public static partial class FormUtils
             ExThemer.KeepDefaults(lb, theme, nameof(lb.BorderStyle));
             lb.BackColor = theme.BoxBackColor;
             lb.ForeColor = theme.BoxForeColor;
-            if (!theme.UseSystemStyle) lb.BorderStyle = BorderStyle.None;
+            if (!theme.UseSystemStyle && lb.BorderStyle != BorderStyle.None)
+                lb.BorderStyle = BorderStyle.FixedSingle;
 
+            SetBorder(lb, lb.BorderStyle, theme);
             lb.SetDarkScrollBars(theme.DarkScrollBars);
         });
         ExThemer.Register<MenuStrip>((ms, theme) =>
@@ -152,6 +159,25 @@ public static partial class FormUtils
             uc.SetDarkScrollBars(theme.DarkScrollBars);
         });
     }
+
+    // Zakazany Label pocita farbu textu z pozadia: tmave este stmavi (text je takmer cierny), pri svetlom a priehladnom
+    // pozadi pouzije sedu SystemColors.ControlDark. Popis bez vlastneho pozadia preto dostane vo vlastnom style priehladne
+    // pozadie - vyzera rovnako (kresli sa pozadie rodica) a zakazany je sedy v oboch rezimoch.
+    private static void ApplyLabel(Label label, ExTheme theme)
+    {
+        ExThemer.KeepDefaults(label, theme, nameof(label.BackColor));
+        label.ForeColor = theme.LabelForeColor;
+        if (!theme.UseSystemStyle && (label.BackColor == Color.Transparent || !HasOwnBackColor(label)))
+            label.BackColor = Color.Transparent;
+    }
+
+    private static bool HasOwnBackColor(Control control) =>
+        TypeDescriptor.GetProperties(control)[nameof(Control.BackColor)]?.ShouldSerializeValue(control) == true;
+
+    // vlastny styl: okraj farbou temy ako ExTextBox (zoznam bez okraja v navrhu ostava bez okraja), systemovy styl:
+    // systemovy okraj z navrhu
+    private static void SetBorder(Control control, BorderStyle style, ExTheme theme) =>
+        control.SetBorderColor(!theme.UseSystemStyle && style != BorderStyle.None ? theme.BorderColor : null);
 
     private static void ApplyToolStrip(ToolStrip ts, ExTheme theme)
     {
