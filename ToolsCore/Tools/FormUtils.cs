@@ -69,8 +69,8 @@ public static partial class FormUtils
     }
 
     /// <summary>
-    /// Povoli alebo zakaze vstupne prvky kontajnera vratane vnorenych panelov a skupin. Popisy ostavaju povolene - zakazany
-    /// Label kresli WinForms systemovou sedou, v tmavej scheme necitatelne.
+    /// Povoli alebo zakaze vstupne prvky kontajnera vratane vnorenych panelov a skupin. Popisy ostavaju povolene - opisuju
+    /// pole a pri zakazanom vstupe sa nezosivia.
     /// </summary>
     /// <param name="container">kontajner s popismi a vstupmi (napr. tabulka podrobnosti)</param>
     /// <param name="enabled">ci su vstupy povolene</param>
@@ -100,7 +100,10 @@ public static partial class FormUtils
     /// <param name="form">upravovaný Form</param>
     public static void SetFormFont(this Form form)
     {
-        form.AutoSize = true;
+        // okno s pevnou velkostou sa zvacsi podla obsahu po zmene pisma; okno s menitelnou velkostou by sa s AutoSize
+        // (GrowOnly) nedalo zmensit pod velkost obsahu - necha si hodnotu z navrhu
+        if (form.FormBorderStyle is not (FormBorderStyle.Sizable or FormBorderStyle.SizableToolWindow))
+            form.AutoSize = true;
         form.Font = GlobSettings.Fonts.Controls;
         ChangeControlsFont(form.Controls);
     }
