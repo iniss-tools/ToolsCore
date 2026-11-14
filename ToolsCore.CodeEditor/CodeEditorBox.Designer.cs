@@ -42,7 +42,7 @@ namespace ToolsCore.CodeEditor
             // 
             // Scintilla
             // 
-            this.scintillaEditor.BorderStyle = ScintillaNET.BorderStyle.FixedSingle;
+            this.scintillaEditor.BorderStyle = ScintillaNET.BorderStyle.None;
             this.scintillaEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scintillaEditor.HScrollBar = false;
             this.scintillaEditor.Location = new System.Drawing.Point(0, 0);
@@ -97,6 +97,7 @@ namespace ToolsCore.CodeEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.scintillaEditor);
             this.Controls.Add(this.pVertical);
             this.Controls.Add(this.pHorizontal);

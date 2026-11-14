@@ -44,6 +44,9 @@ public static class VisualBasicColors
         Syntax("Preprocessor", () => Resources.Scheme_VbPreprocessor, 0x808080, 0x9B9B9B, scheme => scheme.Preprocessor),
         Key("Operator", () => Resources.Scheme_VbOperator, new ColorValue(Color.Black, Color.Empty), new ColorValue(DarkText, Color.Empty), SyntaxParts,
             scheme => scheme.Operator),
+        // farbu nazvu kresli indikator nad textom - bez tucneho pisma
+        Key("Method", () => Resources.Scheme_VbMethod, new ColorValue(Rgb(0x74531F), Color.Empty), new ColorValue(Rgb(0xDCDCAA), Color.Empty),
+            ColorParts.Fore, scheme => scheme.Method),
         Key("LineNumber", () => Resources.Scheme_VbLineNumber, new ColorValue(Rgb(0x2B91AF), Color.White), new ColorValue(Rgb(0x858585), DarkBack),
             ColorParts.ForeBack, scheme => scheme.LineNumber, null),
         Key("Error", () => Resources.Scheme_VbError, new ColorValue(Color.Red, Color.Empty), new ColorValue(Color.FromArgb(244, 71, 71), Color.Empty),

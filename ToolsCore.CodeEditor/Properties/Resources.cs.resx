@@ -168,6 +168,9 @@
   <data name="Scheme_VbOperator" xml:space="preserve">
     <value>Operátor</value>
   </data>
+  <data name="Scheme_VbMethod" xml:space="preserve">
+    <value>Název metody</value>
+  </data>
   <data name="Scheme_VbLineNumber" xml:space="preserve">
     <value>Čísla řádků</value>
   </data>

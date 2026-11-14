@@ -31,6 +31,9 @@ public partial class CodeEditorBox : UserControl
 
     private void Scintilla_UpdateUI(object sender, UpdateUIEventArgs e)
     {
+        if (IsChange(e.Change, UpdateChange.Content) || IsChange(e.Change, UpdateChange.VScroll))
+            MarkVisibleMethods();
+
         if (IsChange(e.Change, UpdateChange.VScroll))
         {
             VScrollBarControl.Minimum = 0;

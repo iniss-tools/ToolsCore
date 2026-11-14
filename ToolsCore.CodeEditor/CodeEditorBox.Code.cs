@@ -13,6 +13,12 @@ public partial class CodeEditorBox
     private const int WarningIndicator = 9;
 
     private readonly List<CodeIssue> _issues = [];
+
+    // nazvy metod (UseVisualBasic) sa oznacuju vo viditelnych riadkoch; verzia textu a riadky poslednho oznacenia - zmena
+    // indikatora vyvola dalsie UpdateUI, bez zmeny textu a posunu sa uz neopakuje
+    private bool _methodNames;
+    private int _textVersion;
+    private (int Version, int First, int Last) _markedMethods = (-1, 0, 0);
     private AutocompleteMenu? _completion;
     private ImageList? _completionImages;
 
@@ -66,8 +72,7 @@ public partial class CodeEditorBox
         sc.SetSelectionForeColor(true, scheme.Highlight.ForeColor);
         sc.SetAdditionalSelBack(scheme.Highlight.BackColor);
         sc.SetAdditionalSelFore(scheme.Highlight.ForeColor);
-        if (!style.ControlsDefaultStyle)
-            sc.BorderStyle = ScintillaNET.BorderStyle.None;
+        ApplyBorder(style);
         if (style.DarkScrollBar)
         {
             VScrollBarControl.SetTheme(WindowsTheme.DarkExplorer);
@@ -76,6 +81,16 @@ public partial class CodeEditorBox
 
         if (_completion is not null)
             ApplyCompletionColors(style);
+    }
+
+    /// <summary>
+    /// Ramik editora okolo textu aj posuvnikov: v systemovom style systemovy, vo vlastnom farbou ramika schemy ako ExTextBox.
+    /// </summary>
+    /// <param name="style">schema programu</param>
+    public void ApplyBorder(XML.Style style)
+    {
+        ArgumentNullException.ThrowIfNull(style);
+        this.SetBorderColor(style.ControlsDefaultStyle ? null : style.ControlsColorScheme.Border.ForeColor);
     }
 
     /// <summary>
@@ -109,6 +124,13 @@ public partial class CodeEditorBox
         UpdateLineNumberWidth();
         sc.TextChanged -= LineNumbers_TextChanged;
         sc.TextChanged += LineNumbers_TextChanged;
+        sc.TextChanged -= Methods_TextChanged;
+        sc.TextChanged += Methods_TextChanged;
+        sc.SizeChanged -= Methods_SizeChanged;
+        sc.SizeChanged += Methods_SizeChanged;
+        _methodNames = true;
+        _markedMethods = (-1, 0, 0);
+        MarkVisibleMethods();
         sc.KeyDown -= SingleLine_KeyDown;
         sc.KeyDown += SingleLine_KeyDown;
         if (SingleLine)
@@ -129,6 +151,27 @@ public partial class CodeEditorBox
     }
 
     private void LineNumbers_TextChanged(object? sender, EventArgs e) => UpdateLineNumberWidth();
+
+    private void Methods_TextChanged(object? sender, EventArgs e) => _textVersion++;
+
+    // vacsie okno ukaze dalsie riadky bez posunu
+    private void Methods_SizeChanged(object? sender, EventArgs e) => MarkVisibleMethods();
+
+    /// <summary>
+    /// Oznaci nazvy metod vo viditelnych riadkoch (po zmene textu alebo posune).
+    /// </summary>
+    private void MarkVisibleMethods()
+    {
+        if (!_methodNames)
+            return;
+        var sc = scintillaEditor;
+        var first = sc.DocLineFromVisible(sc.FirstVisibleLine);
+        var last = sc.DocLineFromVisible(sc.FirstVisibleLine + Math.Max(sc.LinesOnScreen, 1));
+        if (_markedMethods == (_textVersion, first, last))
+            return;
+        _markedMethods = (_textVersion, first, last);
+        VisualBasicMethods.Mark(sc, first, last);
+    }
 
     private void SingleLine_KeyDown(object? sender, KeyEventArgs e)
     {

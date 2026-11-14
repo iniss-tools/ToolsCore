@@ -29,6 +29,9 @@ public sealed class VisualBasicScheme
     /// <summary>Operator.</summary>
     public ColorSetting Operator { get; } = new();
 
+    /// <summary>Nazov metody (volanie aj definicia).</summary>
+    public ColorSetting Method { get; } = new();
+
     /// <summary>Cisla riadkov (text a pozadie okraja).</summary>
     public ColorSetting LineNumber { get; } = new();
 

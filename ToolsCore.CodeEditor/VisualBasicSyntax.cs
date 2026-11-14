@@ -55,6 +55,7 @@ public static class VisualBasicSyntax
         Set(Style.Vb.Date, Pick(0xA31515, 0xD69D85));
         Set(Style.Vb.Preprocessor, Pick(0x808080, 0x9B9B9B));
         Set(Style.Vb.Error, Pick(0xFF0000, 0xF44747));
+        VisualBasicMethods.Configure(scintilla, Pick(0x74531F, 0xDCDCAA));
     }
 
     /// <summary>
@@ -95,5 +96,6 @@ public static class VisualBasicSyntax
         Set(scheme.Error, Style.Vb.Error);
         scintilla.Indicators[8].ForeColor = scheme.Error.ForeColor;
         scintilla.Indicators[9].ForeColor = scheme.Warning.ForeColor;
+        VisualBasicMethods.Configure(scintilla, scheme.Method.ForeColor);
     }
 }

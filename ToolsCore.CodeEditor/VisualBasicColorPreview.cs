@@ -5,8 +5,8 @@ using Style = ToolsCore.XML.Style;
 namespace ToolsCore.CodeEditor;
 
 /// <summary>
-/// Nahlad farieb editora kodu VB.NET na stranke farebnej schemy: ukazka vyrazu zvyraznena ako v editore, s cislami
-/// riadkov a podciarknutim chyby a upozornenia. Klik na cast textu vyberie jej polozku schemy.
+/// Nahlad farieb editora kodu VB.NET na stranke farebnej schemy: ukazka vyrazu zvyraznena ako v editore (aj nazvy metod),
+/// s cislami riadkov a podciarknutim chyby a upozornenia. Klik na cast textu vyberie jej polozku schemy.
 /// </summary>
 internal sealed class VisualBasicColorPreview : Scintilla, IColorPreview
 {
@@ -74,6 +74,7 @@ internal sealed class VisualBasicColorPreview : Scintilla, IColorPreview
         Margins[0].Width = TextWidth(ScintillaNET.Style.LineNumber, "999");
         Mark(ErrorIndicator, ErrorWord);
         Mark(WarningIndicator, WarningWord);
+        VisualBasicMethods.Mark(this, 0, Lines.Count - 1);
         ReadOnly = true;
     }
 
@@ -101,6 +102,8 @@ internal sealed class VisualBasicColorPreview : Scintilla, IColorPreview
             KeyClicked?.Invoke(this, "VisualBasic.Error");
         else if ((indicators & (1u << WarningIndicator)) != 0)
             KeyClicked?.Invoke(this, "VisualBasic.Warning");
+        else if ((indicators & (1u << VisualBasicMethods.Indicator)) != 0)
+            KeyClicked?.Invoke(this, "VisualBasic.Method");
         else if (StyleKeys.TryGetValue(GetStyleAt(position), out var key))
             KeyClicked?.Invoke(this, key);
     }

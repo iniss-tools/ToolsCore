@@ -16,5 +16,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\ToolsCore\ToolsCore.csproj" />
+		<ProjectReference Include="..\ToolsCore.CodeEditor\ToolsCore.CodeEditor.csproj" />
 	</ItemGroup>
 </Project>

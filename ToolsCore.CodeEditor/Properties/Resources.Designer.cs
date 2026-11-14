@@ -209,6 +209,15 @@ namespace ToolsCore.CodeEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Názov metódy.
+        /// </summary>
+        internal static string Scheme_VbMethod {
+            get {
+                return ResourceManager.GetString("Scheme_VbMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Čísla riadkov.
         /// </summary>
         internal static string Scheme_VbLineNumber {
