@@ -47,8 +47,20 @@ v `ToolsCore.Iniss.Tests/Iniss2`.
   - `DirListXml`, `GvFile` (vlak s trasou a variantmi: `Load` číta súbor tak, ako je, `Read`/`ForServer` vracia pohľad
     servera – stanice mimo DirList bez `Z`, `dcv` z `cv`, `MosFile` mení druh a delí varianty; zapisuje sa vždy súbor,
     nie pohľad servera; `GvValidity` dni z poznámky), `GvStationsFile`, `PositionsDefFile`, `PositionsFile`;
-  - funkcie `LogText.vb`, označenia nad nimi a popisy z prvého označenia s textom `LogTextFile`; kľúče druhov
-    `TrTypesFile`;
+  - funkcie `LogText.vb`, označenia nad nimi a popisy z prvého označenia s textom `LogTextFile` (po riadkoch, fungujú
+    aj na neúplnom texte počas písania); kľúče druhov `TrTypesFile`;
+  - skript hlásení ako údaje `Script/`: `LogTextScript` (funkcie triedy `LogText` s rozsahom riadkov, označeniami
+    a komentárom za `End Sub`; úprava vracia nový text, ostatné riadky po znakoch), hlásenie `ScriptReport` (zvuky,
+    pauzy, zakomentované riadky, jazykové bloky a stráž `Jazyk <>`; vstavané metódy servera `BuiltinStep` z katalógu
+    `ScriptBuiltins` s parametrami a predvolenými hodnotami podľa `LogTextBase` a volania funkcií skriptu `CallStep`, oboje
+    len s jednoduchými argumentmi `ScriptArguments` – text, číslo, True/False/Nothing, AddressOf, cesta `VlakS.…`; príkazy
+    oddelené dvojbodkou sa po zápise rozdelia na riadky; stráže `Guards` – `If výraz Then Return` na začiatku, sekcia
+    `ZacatekSekce()`…`KonecSekce(bRollBack:=True)`, podmienky blokov `ScriptBlock.Conditions` – výraz VB.NET ako v kóde,
+    vnorené If a `Else`; zapisovač skladá spoločný začiatok podmienok susedných blokov do jedného If, prázdna vetva je
+    prázdny blok, ElseIf a Select Case ostávajú ručné), `ScriptReportReader` (funkcia je hlásenie, len keď
+    ju `ScriptReportWriter` zapíše späť rovnako – porovnanie bez medzier a prázdnych riadkov; inak ručný kód s dôvodom),
+    `ScriptReports` (zápis na mieste funkcie, nová funkcia za poslednú rovnakého druhu, zmazanie). Mení sa len upravená
+    funkcia;
   - hlásenia stanice (`DodatkyFile`, `RazeniFile`, `ForeignFile`, `ReportKeysFile`), stanice v hlásení
     `TrainReportStationsFile` (`StaHlasVl.xml`), `ReportPatternsFile` (`StaHlasB.xml`/`StaHlasC.xml`) a
     `DefaultStationsFile` (`Default.Stations.xml`);
@@ -88,7 +100,8 @@ WinForms nad `ToolsCore` (Scintilla.NET a AutocompleteMenu-ScintillaNET) – edi
 diagram 3.39) a GVXEditora (VB.NET servera INISS2).
 
 - `CodeEditorBox` (Scintilla s vlastnými posúvačmi pre tmavý režim): `ApplyTheme` podľa schémy, `UseVisualBasic` (lexer
-  `vb` z Lexilla, farby `VisualBasicSyntax` podľa jasu pozadia, čísla riadkov), `SingleLine` (výraz v atribúte – bez
+  `vb` z Lexilla, farby `VisualBasicSyntax` podľa jasu pozadia, čísla riadkov; lexer nemá štýl metód – názov pred `(`
+  prefarbí indikátor `VisualBasicMethods` vo viditeľných riadkoch), `SingleLine` (výraz v atribúte – bez
   okraja a posúvačov, Enter patrí oknu), `SetIssues` (podčiarknutie chýb a varovaní indikátormi s popisom pri myši),
   `SetSymbols` (dopĺňanie: členy za bodkou, ostatné mená od dvoch znakov), `ShowFindReplace` (okno `FFindReplace`).
 - Texty SK/CZ v `Properties/Resources` (hľadanie a nahradzovanie).
@@ -201,6 +214,12 @@ Postup a jednorazové nastavenie v `Installer/README.md`.
   WinForms štýluje ToolsCore obsluhami v `FormUtils.RegisterThemeHandlers` (`Style.ToExTheme()`). Nový Ex* prvok =
   `ApplyTheme`, nový štandardný typ = `ExThemer.Register<T>`, nie nová vetva `switch`. Roh medzi posuvníkmi
   `DataGridView` kreslí tabuľka systémovou farbou – pri tmavých posuvníkoch ho prekreslí `Tools/GridScrollCorner`.
+  Zoznamy, stromy a `RichTextBox` s okrajom v návrhu majú vo vlastnom štýle okraj farbou témy ako `ExTextBox`
+  (`ExTools.SetBorderColor`), prvok bez okraja ostáva bez neho (obsah panelu `ExDockPanel` dať bez okraja – rám kreslí
+  panel); editor kódu má okraj okolo textu aj posuvníkov (`CodeEditorBox.ApplyBorder`).
+  `SetFormFont` zapína `AutoSize` len oknám s pevnou veľkosťou – okno s meniteľnou veľkosťou by sa inak nedalo zmenšiť.
+  Zakázaný `Label` počíta farbu textu z pozadia (tmavé ešte stmaví) – popis bez vlastného pozadia dostane vo vlastnom štýle
+  priehľadné pozadie, zakázaný text je potom sivý v oboch režimoch.
   Win32 obsahuje len použité deklarácie (v net10 projektoch `[LibraryImport]`).
 - Dialógy len `Utils.ShowQuestion/ShowWarning/ShowError/ShowInfo` alebo `ExMessageBox.Show`, nikdy
   `MessageBox.Show`. Téma: `ApplyThemeAndFonts()`, dynamické prvky `FormUtils.ChangeStyleOfControls`, používať `Ex*`
