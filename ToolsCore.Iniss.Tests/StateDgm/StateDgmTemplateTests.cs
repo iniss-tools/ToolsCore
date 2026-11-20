@@ -6,7 +6,7 @@ using ToolsCore.Iniss.StateDgm;
 namespace ToolsCore.Tests.StateDgm;
 
 /// <summary>
-/// Predlohy StateDgm.txt, ktore GVDEditor zapisuje do noveho grafikonu (SK, CZ, SK s automatikou GTN).
+/// Predlohy StateDgm.txt, ktore GVDEditor zapisuje do noveho grafikonu (SK, CZ, SK a CZ s automatikou GTN).
 /// </summary>
 [TestClass]
 [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
@@ -35,8 +35,9 @@ public class StateDgmTemplateTests
         var sk = StateDgmDiagram.Load(Path.Combine(dir, "statedgm.txt"));
         var cz = StateDgmDiagram.Load(Path.Combine(dir, "statedgmCZ.txt"));
         var gtn = StateDgmDiagram.Load(Path.Combine(dir, "statedgmGTN.txt"));
+        var gtnCz = StateDgmDiagram.Load(Path.Combine(dir, "statedgmGTNCZ.txt"));
 
-        foreach (var (name, d) in new[] { ("SK", sk), ("CZ", cz), ("GTN", gtn) })
+        foreach (var (name, d) in new[] { ("SK", sk), ("CZ", cz), ("GTN", gtn), ("GTN CZ", gtnCz) })
         {
             Assert.AreEqual(0, d.Warnings.Count, $"{name}: {string.Join("; ", d.Warnings)}");
             Assert.AreEqual(6, d.Categories.Count, name);
@@ -59,6 +60,12 @@ public class StateDgmTemplateTests
         CollectionAssert.AreEquivalent(new[] { "OVC", "Odj", "VVC", "Vj", "OVC", "VVC", "Vj", "Odj" }, waits);
         Assert.AreEqual(15, gtn.Categories.SelectMany(c => c.States).Count(s => s.HasAutomation));
         Assert.IsTrue(gtn.Categories.SelectMany(c => c.States).Where(s => s.HasAutomation).All(s => s.AutoMode!.Number == 2 && s.AutoTimePoint != null));
+
+        // GTN CZ = GTN s ceskymi nazvami pre obsluhu ako CZ
+        CollectionAssert.AreEqual(cz.Designs.Select(x => x.Key).ToList(), gtnCz.Designs.Select(x => x.Key).ToList());
+        CollectionAssert.AreEqual(cz.Categories.SelectMany(c => c.States).Select(s => s.Name).ToList(), gtnCz.Categories.SelectMany(c => c.States).Select(s => s.Name).ToList());
+        CollectionAssert.AreEqual(gtn.Categories.SelectMany(c => c.States).Select(s => $"{s.AutoMode?.Text}|{s.AutoTimePoint?.Text}|{s.AutoTimePointAdd?.Text}|{s.Wait?.Text}").ToList(),
+            gtnCz.Categories.SelectMany(c => c.States).Select(s => $"{s.AutoMode?.Text}|{s.AutoTimePoint?.Text}|{s.AutoTimePointAdd?.Text}|{s.Wait?.Text}").ToList());
     }
 
     [TestMethod]
@@ -75,7 +82,7 @@ public class StateDgmTemplateTests
         Assert.AreEqual(5, keys.Count);
         Assert.AreEqual("Ukončit nástup", keys["Odjede"], "KEY=Odjede, NAME=Ukončit nástup podla categori.mdx");
 
-        foreach (var file in new[] { "statedgm.txt", "statedgmCZ.txt", "statedgmGTN.txt" })
+        foreach (var file in new[] { "statedgm.txt", "statedgmCZ.txt", "statedgmGTN.txt", "statedgmGTNCZ.txt" })
         {
             var d = StateDgmDiagram.Load(Path.Combine(dir, file));
             var diags = StateDgmValidator.Validate(d, new StateDgmValidationOptions { ReportKeys = keys.Keys.ToList() });
