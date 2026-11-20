@@ -41,6 +41,11 @@ public readonly record struct ElenFontCode(int Id)
     public int ExtendedFont => Id >= 0 && (Id & ExtendedFlag) != 0 ? (Id >> 8) & 0x0F : 0;
 
     /// <summary>
+    /// Poradie pisma v subore pisiem, ktore cislo vyberie: rozsirene pismo n je pismo n, inak pismo s cislom rezu.
+    /// </summary>
+    public int FontIndex => ExtendedFont > 0 ? ExtendedFont : Face;
+
+    /// <summary>
     /// Bity cisla, ktore nie su farba, blikanie, vysoke cislice, rez ani rozsirene pismo (napr. 0x40, ktory
     /// v datach byva vzdy). Pri skladani cisla v <see cref="Compose" /> sa ponechaju, aby sa cislo nezmenilo.
     /// </summary>
