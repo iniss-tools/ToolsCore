@@ -1,0 +1,543 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lHint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="lHint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>729, 40</value>
+  </data>
+  <data name="lHint.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lHint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lHint.Text" xml:space="preserve">
+    <value>Agent alebo iný nástroj s podporou MCP sa pripojí k programu a číta otvorené dáta. Server beží len na tomto počítači a vyžaduje prístupový kľúč.</value>
+  </data>
+  <data name="gbServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 50</value>
+  </data>
+  <data name="gbServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>729, 162</value>
+  </data>
+  <data name="gbServer.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="gbServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="gbServer.Text" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="cboxEnabled.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 24</value>
+  </data>
+  <data name="cboxEnabled.Size" type="System.Drawing.Size, System.Drawing">
+    <value>320, 19</value>
+  </data>
+  <data name="cboxEnabled.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="cboxEnabled.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxEnabled.Text" xml:space="preserve">
+    <value>Zapnúť server MCP pre agentov</value>
+  </data>
+  <data name="lPort.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 59</value>
+  </data>
+  <data name="lPort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 15</value>
+  </data>
+  <data name="lPort.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lPort.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lPort.Text" xml:space="preserve">
+    <value>Port:</value>
+  </data>
+  <data name="nudPort.Location" type="System.Drawing.Point, System.Drawing">
+    <value>52, 56</value>
+  </data>
+  <data name="nudPort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 23</value>
+  </data>
+  <data name="nudPort.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lStatus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>142, 59</value>
+  </data>
+  <data name="lStatus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 15</value>
+  </data>
+  <data name="lStatus.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lStatus.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lStatus.Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="flpButtons.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 86</value>
+  </data>
+  <data name="flpButtons.Size" type="System.Drawing.Size, System.Drawing">
+    <value>380, 33</value>
+  </data>
+  <data name="flpButtons.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="flpButtons.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bClaude.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="bClaude.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 27</value>
+  </data>
+  <data name="bClaude.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="bClaude.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bClaude.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>88, 27</value>
+  </data>
+  <data name="bClaude.Text" xml:space="preserve">
+    <value>Kopírovať pre Claude Code</value>
+  </data>
+  <data name="bVsCode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="bVsCode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 27</value>
+  </data>
+  <data name="bVsCode.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="bVsCode.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bVsCode.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>88, 27</value>
+  </data>
+  <data name="bVsCode.Text" xml:space="preserve">
+    <value>Kopírovať pre VS Code</value>
+  </data>
+  <data name="bAddress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="bAddress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 27</value>
+  </data>
+  <data name="bAddress.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="bAddress.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bAddress.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>88, 27</value>
+  </data>
+  <data name="bAddress.Text" xml:space="preserve">
+    <value>Kopírovať adresu a kľúč</value>
+  </data>
+  <data name="bNewKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="bNewKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 27</value>
+  </data>
+  <data name="bNewKey.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="bNewKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bNewKey.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>88, 27</value>
+  </data>
+  <data name="bNewKey.Text" xml:space="preserve">
+    <value>Nový kľúč</value>
+  </data>
+  <data name="lClients.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 124</value>
+  </data>
+  <data name="lClients.Size" type="System.Drawing.Size, System.Drawing">
+    <value>713, 32</value>
+  </data>
+  <data name="lClients.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="lClients.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lClients.Text" xml:space="preserve">
+    <value>Iný klient s podporou MCP potrebuje adresu servera a hlavičku Authorization s kľúčom, ktoré dá do schránky Kopírovať adresu a kľúč.</value>
+  </data>
+  <data name="gbWrites.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 220</value>
+  </data>
+  <data name="gbWrites.Size" type="System.Drawing.Size, System.Drawing">
+    <value>729, 90</value>
+  </data>
+  <data name="gbWrites.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="gbWrites.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="gbWrites.Text" xml:space="preserve">
+    <value>Zmeny</value>
+  </data>
+  <data name="cboxWrites.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 24</value>
+  </data>
+  <data name="cboxWrites.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 19</value>
+  </data>
+  <data name="cboxWrites.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="cboxWrites.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cboxWrites.Text" xml:space="preserve">
+    <value>Povoliť zmeny cez agenta</value>
+  </data>
+  <data name="lWritesHint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 50</value>
+  </data>
+  <data name="lWritesHint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>713, 32</value>
+  </data>
+  <data name="lWritesHint.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lWritesHint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lWritesHint.Text" xml:space="preserve">
+    <value>Agent mení len otvorené dáta v programe a nikdy ich neuloží. Každú jeho zmenu vrátite príkazom Späť.</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>735, 330</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="&gt;&gt;lHint.Name" xml:space="preserve">
+    <value>lHint</value>
+  </data>
+  <data name="&gt;&gt;lHint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lHint.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lHint.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;gbServer.Name" xml:space="preserve">
+    <value>gbServer</value>
+  </data>
+  <data name="&gt;&gt;gbServer.Type" xml:space="preserve">
+    <value>ExControls.ExGroupBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;gbServer.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gbServer.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;cboxEnabled.Name" xml:space="preserve">
+    <value>cboxEnabled</value>
+  </data>
+  <data name="&gt;&gt;cboxEnabled.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxEnabled.Parent" xml:space="preserve">
+    <value>gbServer</value>
+  </data>
+  <data name="&gt;&gt;cboxEnabled.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;lPort.Name" xml:space="preserve">
+    <value>lPort</value>
+  </data>
+  <data name="&gt;&gt;lPort.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lPort.Parent" xml:space="preserve">
+    <value>gbServer</value>
+  </data>
+  <data name="&gt;&gt;lPort.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;nudPort.Name" xml:space="preserve">
+    <value>nudPort</value>
+  </data>
+  <data name="&gt;&gt;nudPort.Type" xml:space="preserve">
+    <value>ExControls.ExNumericUpDown, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudPort.Parent" xml:space="preserve">
+    <value>gbServer</value>
+  </data>
+  <data name="&gt;&gt;nudPort.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;lStatus.Name" xml:space="preserve">
+    <value>lStatus</value>
+  </data>
+  <data name="&gt;&gt;lStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lStatus.Parent" xml:space="preserve">
+    <value>gbServer</value>
+  </data>
+  <data name="&gt;&gt;lStatus.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;flpButtons.Name" xml:space="preserve">
+    <value>flpButtons</value>
+  </data>
+  <data name="&gt;&gt;flpButtons.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flpButtons.Parent" xml:space="preserve">
+    <value>gbServer</value>
+  </data>
+  <data name="&gt;&gt;flpButtons.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;bClaude.Name" xml:space="preserve">
+    <value>bClaude</value>
+  </data>
+  <data name="&gt;&gt;bClaude.Type" xml:space="preserve">
+    <value>ExControls.ExButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bClaude.Parent" xml:space="preserve">
+    <value>flpButtons</value>
+  </data>
+  <data name="&gt;&gt;bClaude.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;bVsCode.Name" xml:space="preserve">
+    <value>bVsCode</value>
+  </data>
+  <data name="&gt;&gt;bVsCode.Type" xml:space="preserve">
+    <value>ExControls.ExButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bVsCode.Parent" xml:space="preserve">
+    <value>flpButtons</value>
+  </data>
+  <data name="&gt;&gt;bVsCode.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;bAddress.Name" xml:space="preserve">
+    <value>bAddress</value>
+  </data>
+  <data name="&gt;&gt;bAddress.Type" xml:space="preserve">
+    <value>ExControls.ExButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bAddress.Parent" xml:space="preserve">
+    <value>flpButtons</value>
+  </data>
+  <data name="&gt;&gt;bAddress.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;bNewKey.Name" xml:space="preserve">
+    <value>bNewKey</value>
+  </data>
+  <data name="&gt;&gt;bNewKey.Type" xml:space="preserve">
+    <value>ExControls.ExButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bNewKey.Parent" xml:space="preserve">
+    <value>flpButtons</value>
+  </data>
+  <data name="&gt;&gt;bNewKey.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;lClients.Name" xml:space="preserve">
+    <value>lClients</value>
+  </data>
+  <data name="&gt;&gt;lClients.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lClients.Parent" xml:space="preserve">
+    <value>gbServer</value>
+  </data>
+  <data name="&gt;&gt;lClients.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;gbWrites.Name" xml:space="preserve">
+    <value>gbWrites</value>
+  </data>
+  <data name="&gt;&gt;gbWrites.Type" xml:space="preserve">
+    <value>ExControls.ExGroupBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;gbWrites.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gbWrites.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;cboxWrites.Name" xml:space="preserve">
+    <value>cboxWrites</value>
+  </data>
+  <data name="&gt;&gt;cboxWrites.Type" xml:space="preserve">
+    <value>ExControls.ExCheckBox, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cboxWrites.Parent" xml:space="preserve">
+    <value>gbWrites</value>
+  </data>
+  <data name="&gt;&gt;cboxWrites.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;lWritesHint.Name" xml:space="preserve">
+    <value>lWritesHint</value>
+  </data>
+  <data name="&gt;&gt;lWritesHint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lWritesHint.Parent" xml:space="preserve">
+    <value>gbWrites</value>
+  </data>
+  <data name="&gt;&gt;lWritesHint.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>McpSettingsPage</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+</root>

@@ -106,6 +106,25 @@ diagram 3.39) a GVXEditora (VB.NET servera INISS2).
   `SetSymbols` (dopĺňanie: členy za bodkou, ostatné mená od dvoch znakov), `ShowFindReplace` (okno `FFindReplace`).
 - Texty SK/CZ v `Properties/Resources` (hľadanie a nahradzovanie).
 
+### ToolsCore.Mcp
+
+WinForms nad `ToolsCore` s ASP.NET Core (`FrameworkReference`) a `ModelContextProtocol.AspNetCore` – server MCP pre agentov
+v procese programu (GVDEditor, GVXEditor); ostatné programy ho neodkazujú, aby nenesli ASP.NET Core.
+
+- `McpServerHost` (Kestrel len na 127.0.0.1, Streamable HTTP bez relácie, `Authorization: Bearer` kľúč v konštantnom čase,
+  odmietne cudzí `Origin`, upozornenia servera do Serilog) podľa `McpServerDefinition` (názov, pokyny pre agenta pri čítaní
+  a pri zmenách, zostava s nástrojmi): nástroje sú statické metódy tried `[McpServerToolType]` v zostave programu, aj
+  `internal`; s `ReadOnly = false` sa registrujú len s povolením zmien. Služby pre parametre nástrojov (prístup k dátam
+  programu) dodá program v `ApplyAsync`. Chybu spustenia nehádže – je v `Error`, program beží ďalej.
+- `McpSettings` – abstraktné nastavenie v config.xml (atribúty `Enabled`, `AllowWrites`, `Port`, `Key`; kľúč šifrovaný
+  `UserSecret` s entropiou `<Program>.McpServer.Key`); program má odvodenú triedu s názvom servera pre klienta, začiatkom
+  kľúča a predvoleným portom (GVDEditor `gvd_` 5490, GVXEditor `gvx_` 5491 – môžu bežať naraz).
+- `McpSettingsPage` – stránka nastavení Agenti (MCP) do okna nastavení programu (`ExOptionsPanel` s jej inštanciou):
+  texty o dátach programu `HintText`/`WritesText`/`WritesHintText`, `LoadSettings(settings, server)` pri otvorení,
+  `SaveSettings()` pri uložení; kopírovanie konfigurácie pre Claude Code a VS Code alebo adresy a hlavičky s kľúčom
+  pre iného klienta MCP, nový kľúč, stav servera. Texty nesmú pôsobiť, že server ide len s Claude Code a VS Code. Texty SK/CZ
+  v `Properties/Resources`.
+
 ### ToolsCore (WinForms vrstva)
 
 - `AppInit`, formuláre, `Commands`, `XML` štýly, `FormUtils`, `Utils`, `GlobalResources`, logovanie `Tools/AppLog`.
