@@ -1251,4 +1251,58 @@
   <data name="DateLimit_BadDayCode" xml:space="preserve">
     <value>Chybný pevný kód dne {0}.</value>
   </data>
+  <data name="ElenFont_FileNotFound" xml:space="preserve">
+    <value>Soubor {0} neexistuje.</value>
+  </data>
+  <data name="ElenFont_NameMismatch" xml:space="preserve">
+    <value>Název v hlavičce souboru ({0}) se liší od jména souboru ({1}).</value>
+  </data>
+  <data name="ElenFont_TooShort" xml:space="preserve">
+    <value>Soubor má jen {0} B a nemá žádné písmo.</value>
+  </data>
+  <data name="ElenFont_TooLong" xml:space="preserve">
+    <value>Soubor je příliš dlouhý ({0} B). INISS2 načte nejvýše {1} B.</value>
+  </data>
+  <data name="ElenFont_SlotAfterFree" xml:space="preserve">
+    <value>Písmo na místě {0} následuje za volným místem {1}.</value>
+  </data>
+  <data name="ElenFont_BadStart" xml:space="preserve">
+    <value>Písmo na místě {0} začíná na bajtu {1}, předchozí data však končí na bajtu {2}.</value>
+  </data>
+  <data name="ElenFont_StartBeyondEnd" xml:space="preserve">
+    <value>Písmo na místě {0} začíná za koncem souboru.</value>
+  </data>
+  <data name="ElenFont_EndsInsideSymbol" xml:space="preserve">
+    <value>Soubor končí uprostřed znaku {1} písma {0}.</value>
+  </data>
+  <data name="ElenFont_NoFonts" xml:space="preserve">
+    <value>Soubor neobsahuje žádné písmo.</value>
+  </data>
+  <data name="ElenFont_NoTerminator" xml:space="preserve">
+    <value>Soubor nekončí bajtem „a“ hned za posledním písmem (bajt {0}).</value>
+  </data>
+  <data name="ElenFont_InvalidName" xml:space="preserve">
+    <value>Písmo na místě {0} má neplatný název.</value>
+  </data>
+  <data name="ElenFont_BadWidth" xml:space="preserve">
+    <value>Písmo {0} má šířku {1} bodů, podporovaná je 1 až {2}.</value>
+  </data>
+  <data name="ElenFont_ZeroHeight" xml:space="preserve">
+    <value>Písmo {0} má nulovou výšku.</value>
+  </data>
+  <data name="ElenFont_BadProportional" xml:space="preserve">
+    <value>Písmo {0} má neplatný příznak proporcionálního písma ({1}).</value>
+  </data>
+  <data name="ElenFont_TooManyFonts" xml:space="preserve">
+    <value>Soubor může mít nejvýše {0} písem.</value>
+  </data>
+  <data name="ElenFont_Beyond64K" xml:space="preserve">
+    <value>Písmo {0} začíná za hranicí 64 KB.</value>
+  </data>
+  <data name="ElenFont_GlyphSize" xml:space="preserve">
+    <value>Znak písma {0} má jiný rozměr než písmo.</value>
+  </data>
+  <data name="ElenFont_TextTooLong" xml:space="preserve">
+    <value>Název {0} je delší než {1} znaků.</value>
+  </data>
 </root>

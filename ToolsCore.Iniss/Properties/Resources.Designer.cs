@@ -3461,5 +3461,167 @@ namespace ToolsCore.Iniss.Properties {
                 return ResourceManager.GetString("DateLimit_BadDayCode", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Súbor {0} neexistuje..
+        /// </summary>
+        internal static string ElenFont_FileNotFound {
+            get {
+                return ResourceManager.GetString("ElenFont_FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Názov v hlavičke súboru ({0}) sa líši od mena súboru ({1})..
+        /// </summary>
+        internal static string ElenFont_NameMismatch {
+            get {
+                return ResourceManager.GetString("ElenFont_NameMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Súbor má len {0} B a nemá žiadne písmo..
+        /// </summary>
+        internal static string ElenFont_TooShort {
+            get {
+                return ResourceManager.GetString("ElenFont_TooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Súbor je príliš dlhý ({0} B). INISS2 načíta najviac {1} B..
+        /// </summary>
+        internal static string ElenFont_TooLong {
+            get {
+                return ResourceManager.GetString("ElenFont_TooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Písmo na mieste {0} nasleduje za voľným miestom {1}..
+        /// </summary>
+        internal static string ElenFont_SlotAfterFree {
+            get {
+                return ResourceManager.GetString("ElenFont_SlotAfterFree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Písmo na mieste {0} začína na bajte {1}, predchádzajúce údaje však končia na bajte {2}..
+        /// </summary>
+        internal static string ElenFont_BadStart {
+            get {
+                return ResourceManager.GetString("ElenFont_BadStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Písmo na mieste {0} začína za koncom súboru..
+        /// </summary>
+        internal static string ElenFont_StartBeyondEnd {
+            get {
+                return ResourceManager.GetString("ElenFont_StartBeyondEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Súbor končí uprostred znaku {1} písma {0}..
+        /// </summary>
+        internal static string ElenFont_EndsInsideSymbol {
+            get {
+                return ResourceManager.GetString("ElenFont_EndsInsideSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Súbor neobsahuje žiadne písmo..
+        /// </summary>
+        internal static string ElenFont_NoFonts {
+            get {
+                return ResourceManager.GetString("ElenFont_NoFonts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Súbor nekončí bajtom „a“ hneď za posledným písmom (bajt {0})..
+        /// </summary>
+        internal static string ElenFont_NoTerminator {
+            get {
+                return ResourceManager.GetString("ElenFont_NoTerminator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Písmo na mieste {0} má neplatný názov..
+        /// </summary>
+        internal static string ElenFont_InvalidName {
+            get {
+                return ResourceManager.GetString("ElenFont_InvalidName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Písmo {0} má šírku {1} bodov, podporovaná je 1 až {2}..
+        /// </summary>
+        internal static string ElenFont_BadWidth {
+            get {
+                return ResourceManager.GetString("ElenFont_BadWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Písmo {0} má nulovú výšku..
+        /// </summary>
+        internal static string ElenFont_ZeroHeight {
+            get {
+                return ResourceManager.GetString("ElenFont_ZeroHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Písmo {0} má neplatný príznak proporčného písma ({1})..
+        /// </summary>
+        internal static string ElenFont_BadProportional {
+            get {
+                return ResourceManager.GetString("ElenFont_BadProportional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Súbor môže mať najviac {0} písiem..
+        /// </summary>
+        internal static string ElenFont_TooManyFonts {
+            get {
+                return ResourceManager.GetString("ElenFont_TooManyFonts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Písmo {0} začína za hranicou 64 KB..
+        /// </summary>
+        internal static string ElenFont_Beyond64K {
+            get {
+                return ResourceManager.GetString("ElenFont_Beyond64K", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Znak písma {0} má iný rozmer ako písmo..
+        /// </summary>
+        internal static string ElenFont_GlyphSize {
+            get {
+                return ResourceManager.GetString("ElenFont_GlyphSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Názov {0} je dlhší ako {1} znakov..
+        /// </summary>
+        internal static string ElenFont_TextTooLong {
+            get {
+                return ResourceManager.GetString("ElenFont_TextTooLong", resourceCulture);
+            }
+        }
     }
 }

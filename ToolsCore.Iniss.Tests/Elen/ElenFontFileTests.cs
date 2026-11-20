@@ -1,3 +1,4 @@
+using System.Globalization;
 using ToolsCore.Iniss.Elen;
 
 namespace ToolsCore.Tests.Elen;
@@ -101,19 +102,19 @@ public class ElenFontFileTests
     }
 
     [TestMethod]
-    [DataRow("len-hlavicka", "too short")]
-    [DataRow("prilis-dlhy", "too long")]
-    [DataRow("bez-pisiem", "no fonts")]
-    [DataRow("medzera-pred-pismom", "starts at")]
-    [DataRow("pismo-za-volnym-miestom", "after free slot")]
-    [DataRow("nazov-s-riadiacim-znakom", "invalid name")]
-    [DataRow("prazdny-nazov", "invalid name")]
-    [DataRow("sirka-0", "max width")]
-    [DataRow("sirka-17", "max width")]
-    [DataRow("vyska-0", "zero height")]
-    [DataRow("priznak-2", "proportional flag")]
-    [DataRow("bez-koncoveho-a", "byte 'a'")]
-    [DataRow("bajty-za-koncom", "byte 'a'")]
+    [DataRow("len-hlavicka", "nemá žiadne písmo")]
+    [DataRow("prilis-dlhy", "príliš dlhý")]
+    [DataRow("bez-pisiem", "neobsahuje žiadne písmo")]
+    [DataRow("medzera-pred-pismom", "predchádzajúce údaje")]
+    [DataRow("pismo-za-volnym-miestom", "za voľným miestom")]
+    [DataRow("nazov-s-riadiacim-znakom", "neplatný názov")]
+    [DataRow("prazdny-nazov", "neplatný názov")]
+    [DataRow("sirka-0", "má šírku 0")]
+    [DataRow("sirka-17", "má šírku 17")]
+    [DataRow("vyska-0", "nulovú výšku")]
+    [DataRow("priznak-2", "príznak proporčného písma (2)")]
+    [DataRow("bez-koncoveho-a", "bajtom „a“")]
+    [DataRow("bajty-za-koncom", "bajtom „a“")]
     public void Prisny_PoskodenySubor_Chyba(string damage, string message)
     {
         var bytes = Bytes(new ElenFontFile("f", [Font("A", 6, 8, false), Font("B", 12, 8, true)]));
@@ -161,8 +162,18 @@ public class ElenFontFileTests
                 break;
         }
 
-        var e = Assert.ThrowsExactly<FormatException>(() => ElenFontFile.Read(new MemoryStream(bytes), true));
-        Assert.Contains(message, e.Message);
+        // texty chyb su pre obsluhu v jazyku programu
+        var culture = CultureInfo.CurrentUICulture;
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("sk");
+        try
+        {
+            var e = Assert.ThrowsExactly<FormatException>(() => ElenFontFile.Read(new MemoryStream(bytes), true));
+            Assert.Contains(message, e.Message);
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = culture;
+        }
     }
 
     [TestMethod]

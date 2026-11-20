@@ -1,3 +1,6 @@
+using System.Globalization;
+using ToolsCore.Iniss.Properties;
+
 namespace ToolsCore.Iniss.Elen;
 
 /// <summary>
@@ -50,14 +53,14 @@ public sealed class ElenFontFile
     {
         ArgumentException.ThrowIfNullOrEmpty(path);
         if (!File.Exists(path))
-            throw new FileNotFoundException($"File {path} was not found.", path);
+            throw new FileNotFoundException(Text(Resources.ElenFont_FileNotFound, path), path);
 
         using var stream = File.OpenRead(path);
         var file = Read(stream, strict);
 
         var expected = Path.GetFileNameWithoutExtension(path);
         if (strict && file.Name != expected)
-            throw new FormatException($"File {path} have different name ({expected}) than the one defined inside the file: {file.Name}.");
+            throw new FormatException(Text(Resources.ElenFont_NameMismatch, file.Name, expected));
 
         return file;
     }
@@ -81,9 +84,9 @@ public sealed class ElenFontFile
         ArgumentNullException.ThrowIfNull(stream);
         var length = stream.Length;
         if (strict && length <= HeaderSize)
-            throw new FormatException($"File is too short ({length} B) - it has no fonts.");
+            throw new FormatException(Text(Resources.ElenFont_TooShort, length));
         if (strict && length > MaxFileSize)
-            throw new FormatException($"File is too long ({length} B), INISS2 reads at most {MaxFileSize} B.");
+            throw new FormatException(Text(Resources.ElenFont_TooLong, length, MaxFileSize));
 
         using var reader = new BinaryReader(stream, Encoding.ASCII, true);
 
@@ -103,16 +106,16 @@ public sealed class ElenFontFile
             if (positions[i] == HeaderSize && (i != 0 || length <= HeaderSize + 1))
             {
                 if (strict && Array.FindIndex(positions, i, p => p != HeaderSize) is var used and >= 0)
-                    throw new FormatException($"Font slot {used} is used after free slot {i}.");
+                    throw new FormatException(Text(Resources.ElenFont_SlotAfterFree, used + 1, i + 1));
                 break;
             }
 
             if (strict && positions[i] != end)
-                throw new FormatException($"Font {i} starts at {positions[i]}, but the previous data end at {end}.");
+                throw new FormatException(Text(Resources.ElenFont_BadStart, i + 1, positions[i], end));
             if (positions[i] + FontHeaderSize > length)
             {
                 if (strict)
-                    throw new EndOfStreamException($"Font {i} starts beyond the end of the file.");
+                    throw new EndOfStreamException(Text(Resources.ElenFont_StartBeyondEnd, i + 1));
                 break;
             }
 
@@ -134,7 +137,7 @@ public sealed class ElenFontFile
                 if (truncated || stream.Position >= length)
                 {
                     if (strict)
-                        throw new EndOfStreamException($"Font {fontName} ends inside symbol {j}.");
+                        throw new EndOfStreamException(Text(Resources.ElenFont_EndsInsideSymbol, fontName, j));
                     truncated = true;
                     glyphs[j] = new ElenGlyph(0, height, bytesPerRow, new byte[height * bytesPerRow]);
                     continue;
@@ -145,7 +148,7 @@ public sealed class ElenFontFile
                 if (data.Length != height * bytesPerRow)
                 {
                     if (strict)
-                        throw new EndOfStreamException($"Font {fontName} ends inside symbol {j}.");
+                        throw new EndOfStreamException(Text(Resources.ElenFont_EndsInsideSymbol, fontName, j));
                     truncated = true;
                     Array.Resize(ref data, height * bytesPerRow);
                 }
@@ -160,9 +163,9 @@ public sealed class ElenFontFile
         }
 
         if (strict && fonts.Count == 0)
-            throw new FormatException("File contains no fonts.");
+            throw new FormatException(Resources.ElenFont_NoFonts);
         if (strict && (length != end + 1 || ReadByteAt(stream, end) != Terminator))
-            throw new FormatException($"File does not end with byte 'a' right after the last font (at {end}).");
+            throw new FormatException(Text(Resources.ElenFont_NoTerminator, end));
 
         return new ElenFontFile(name, fonts);
     }
@@ -174,13 +177,13 @@ public sealed class ElenFontFile
     {
         var nameEnd = Array.IndexOf(nameBytes, (byte)0);
         if (name.Length == 0 || nameBytes.AsSpan(0, nameEnd < 0 ? nameBytes.Length : nameEnd).ContainsAnyExceptInRange((byte)' ', (byte)'~'))
-            throw new FormatException($"Font {index} has an invalid name.");
+            throw new FormatException(Text(Resources.ElenFont_InvalidName, index + 1));
         if (maxWidth is < 1 or > ElenFont.MaxSupportedWidth)
-            throw new FormatException($"Font {name} has max width {maxWidth}, supported is 1 to {ElenFont.MaxSupportedWidth}.");
+            throw new FormatException(Text(Resources.ElenFont_BadWidth, name, maxWidth, ElenFont.MaxSupportedWidth));
         if (height < 1)
-            throw new FormatException($"Font {name} has zero height.");
+            throw new FormatException(Text(Resources.ElenFont_ZeroHeight, name));
         if (proportional is not (0 or 1))
-            throw new FormatException($"Font {name} has invalid proportional flag {proportional}.");
+            throw new FormatException(Text(Resources.ElenFont_BadProportional, name, proportional));
     }
 
     private static int ReadByteAt(Stream stream, long position)
@@ -207,7 +210,7 @@ public sealed class ElenFontFile
     {
         ArgumentNullException.ThrowIfNull(stream);
         if (Fonts.Count > MaxFonts)
-            throw new FormatException($"Count of fonts must be smaller than {MaxFonts + 1} (max is {MaxFonts}).");
+            throw new FormatException(Text(Resources.ElenFont_TooManyFonts, MaxFonts));
 
         // posuny pisiem sa daju vypocitat vopred - zapis nepotrebuje posuvat prud
         var positions = new ushort[MaxFonts];
@@ -216,7 +219,7 @@ public sealed class ElenFontFile
         for (var i = 0; i < Fonts.Count; i++)
         {
             if (position > ushort.MaxValue)
-                throw new FormatException($"Font {Fonts[i].Name} starts beyond 64 KB.");
+                throw new FormatException(Text(Resources.ElenFont_Beyond64K, Fonts[i].Name));
             positions[i] = (ushort)position;
             position += FontNameSize + 3 + ElenFont.GlyphCount * (1 + Fonts[i].Height * Fonts[i].BytesPerRow);
         }
@@ -239,7 +242,7 @@ public sealed class ElenFontFile
             foreach (var glyph in font.Glyphs)
             {
                 if (glyph.Height != font.Height || glyph.BytesPerRow != font.BytesPerRow)
-                    throw new FormatException($"Symbol of font {font.Name} has different size than the font.");
+                    throw new FormatException(Text(Resources.ElenFont_GlyphSize, font.Name));
                 writer.Write((byte)glyph.Width);
                 writer.Write(glyph.Data);
             }
@@ -247,6 +250,9 @@ public sealed class ElenFontFile
 
         writer.Write(Terminator);
     }
+
+    /// <summary>Text chyby pre obsluhu v jazyku programu.</summary>
+    private static string Text(string format, params object[] args) => string.Format(CultureInfo.CurrentCulture, format, args);
 
     private static string ReadText(byte[] bytes)
     {
@@ -258,7 +264,7 @@ public sealed class ElenFontFile
     {
         ArgumentException.ThrowIfNullOrEmpty(text);
         if (text.Length > size)
-            throw new ArgumentException($"String length must be shorter than {size}.", nameof(text));
+            throw new ArgumentException(Text(Resources.ElenFont_TextTooLong, text, size), nameof(text));
 
         var bytes = new byte[size];
         Encoding.ASCII.GetBytes(text, bytes);

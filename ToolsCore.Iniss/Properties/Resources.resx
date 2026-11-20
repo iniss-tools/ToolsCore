@@ -1251,4 +1251,58 @@
   <data name="DateLimit_BadDayCode" xml:space="preserve">
     <value>Chybný pevný kód dňa {0}.</value>
   </data>
+  <data name="ElenFont_FileNotFound" xml:space="preserve">
+    <value>Súbor {0} neexistuje.</value>
+  </data>
+  <data name="ElenFont_NameMismatch" xml:space="preserve">
+    <value>Názov v hlavičke súboru ({0}) sa líši od mena súboru ({1}).</value>
+  </data>
+  <data name="ElenFont_TooShort" xml:space="preserve">
+    <value>Súbor má len {0} B a nemá žiadne písmo.</value>
+  </data>
+  <data name="ElenFont_TooLong" xml:space="preserve">
+    <value>Súbor je príliš dlhý ({0} B). INISS2 načíta najviac {1} B.</value>
+  </data>
+  <data name="ElenFont_SlotAfterFree" xml:space="preserve">
+    <value>Písmo na mieste {0} nasleduje za voľným miestom {1}.</value>
+  </data>
+  <data name="ElenFont_BadStart" xml:space="preserve">
+    <value>Písmo na mieste {0} začína na bajte {1}, predchádzajúce údaje však končia na bajte {2}.</value>
+  </data>
+  <data name="ElenFont_StartBeyondEnd" xml:space="preserve">
+    <value>Písmo na mieste {0} začína za koncom súboru.</value>
+  </data>
+  <data name="ElenFont_EndsInsideSymbol" xml:space="preserve">
+    <value>Súbor končí uprostred znaku {1} písma {0}.</value>
+  </data>
+  <data name="ElenFont_NoFonts" xml:space="preserve">
+    <value>Súbor neobsahuje žiadne písmo.</value>
+  </data>
+  <data name="ElenFont_NoTerminator" xml:space="preserve">
+    <value>Súbor nekončí bajtom „a“ hneď za posledným písmom (bajt {0}).</value>
+  </data>
+  <data name="ElenFont_InvalidName" xml:space="preserve">
+    <value>Písmo na mieste {0} má neplatný názov.</value>
+  </data>
+  <data name="ElenFont_BadWidth" xml:space="preserve">
+    <value>Písmo {0} má šírku {1} bodov, podporovaná je 1 až {2}.</value>
+  </data>
+  <data name="ElenFont_ZeroHeight" xml:space="preserve">
+    <value>Písmo {0} má nulovú výšku.</value>
+  </data>
+  <data name="ElenFont_BadProportional" xml:space="preserve">
+    <value>Písmo {0} má neplatný príznak proporčného písma ({1}).</value>
+  </data>
+  <data name="ElenFont_TooManyFonts" xml:space="preserve">
+    <value>Súbor môže mať najviac {0} písiem.</value>
+  </data>
+  <data name="ElenFont_Beyond64K" xml:space="preserve">
+    <value>Písmo {0} začína za hranicou 64 KB.</value>
+  </data>
+  <data name="ElenFont_GlyphSize" xml:space="preserve">
+    <value>Znak písma {0} má iný rozmer ako písmo.</value>
+  </data>
+  <data name="ElenFont_TextTooLong" xml:space="preserve">
+    <value>Názov {0} je dlhší ako {1} znakov.</value>
+  </data>
 </root>
