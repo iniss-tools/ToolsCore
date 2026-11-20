@@ -20,7 +20,11 @@ WinForms ani ExControls, menné priestory sú spoločné s `ToolsCore`.
   sviatkov je jediné okolité nastavenie `DateLimit.Loc`, sviatky pre jednu poznámku určí `HolidayLocale`; rovnaké
   poznámky číta aj INISS2.
 - `Elen/` – písma tabúľ ELEN `.bin` (`ElenFontFile`, číta ich aj ElenFontEditor) a význam čísla písma
-  (`ElenFontCode`; popisy pre obsluhu má GVDEditor v rozširujúcich členoch).
+  (`ElenFontCode`, `FontIndex` = poradie písma v súbore; popisy pre obsluhu má GVDEditor v rozširujúcich členoch).
+  Texty výnimiek `ElenFontFile` sú pre obsluhu v `Properties/Resources` (SK/CZ), typy výnimiek (`FormatException`,
+  `EndOfStreamException`, `FileNotFoundException`) nemeniť – chytajú ich GVDEditor aj simulátor. Text po bodoch ako
+  panel `ElenText.Render` → `ElenTextRaster` (znaky vedľa seba podľa šírky, vysoké číslice `0x14`–`0x1F`, kódovanie
+  podľa výrobcu `EncodingFor`).
 - `Grafikon/` – konštanty súborov `GvdFileConsts`, `Station`, `GVDInfo`/`InfoGvdFile`, `DirList`/`DirListFile`,
   `StationTracks` (koľaje z `Pozice_A` pre tabule).
 - `Tables/` – entity tabúľ (`TablePhysical`, `TableCatalog`…), `TablesFile`, `InissTableMap` (tabule inštalácie
@@ -132,6 +136,8 @@ v procese programu (GVDEditor, GVXEditor); ostatné programy ho neodkazujú, aby
   rozloženia z `ConfigBase.DockLayout`, neplatné len do logu); `ApplyThemeAndFonts` dá písma aj skrytým a plávajúcim
   panelom (tému im dá `ExDockManager.ApplyTheme`). Používajú ho GVXEditor, GVDEditor, RawBankEditor, ElenFontEditor
   a GTNSimulator. `SetZoneSize` berie logické body (96 DPI) – správca ich prepočíta podľa DPI okna sám.
+- `Forms/Elen/ElenBoardView` – bodová tabuľa ELEN (LED, veľkosť bodu podľa prvku, blikanie, orámovanie kódu, klik na
+  znak); náhľad na tabuli v ElenFontEditore a `LedPreview` GVDEditora.
 - `Forms/Calendar/` – okno dátumovej poznámky s kalendárom `FDateLimitEdit.SetDateLimit` a pruh dní variant
   `CalendarStrip` (`CalendarStripData`/`CalendarStripRow`); spoločné pre GVDEditor a GVXEditor.
 - `Utils` (dialógy, grafika, kôš, prvky), `FormUtils` a `ParseUtils`/`StringUtils`/`PathUtils` (Iniss) sú
@@ -241,7 +247,11 @@ Postup a jednorazové nastavenie v `Installer/README.md`.
   priehľadné pozadie, zakázaný text je potom sivý v oboch režimoch.
   Win32 obsahuje len použité deklarácie (v net10 projektoch `[LibraryImport]`).
 - Dialógy len `Utils.ShowQuestion/ShowWarning/ShowError/ShowInfo` alebo `ExMessageBox.Show`, nikdy
-  `MessageBox.Show`. Téma: `ApplyThemeAndFonts()`, dynamické prvky `FormUtils.ChangeStyleOfControls`, používať `Ex*`
+  `MessageBox.Show`. Dialóg súboru alebo priečinka zrušený krátko po prvom otvorení v procese čaká v `ShowDialog`
+  na shell až 6 s (okno dialógu už zmizlo, program nereaguje) – preto vždy `await dialog.ShowDialogAsync(form)`
+  (`Utils`, vlastné STA vlákno, vlastník = formulár, v `UserControl` `FindForm()`), nikdy `ShowDialog`. Obsluha môže
+  byť `async void`, po `await` skontrolovať `IsDisposed` a stav, ktorý sa medzitým mohol zmeniť; kým predchádzajúci
+  dialóg nedobehol, ďalší sa neotvorí a vráti `Cancel`. Téma: `ApplyThemeAndFonts()`, dynamické prvky `FormUtils.ChangeStyleOfControls`, používať `Ex*`
   prvky. Ikony len z banky SVG `ToolsCore/Icons` (položky `Icon*` s `IconName`/`IconBadge`, v kóde `AppIcons.Get`,
   zoznamy `IconImages.Fill`), nie PNG – `GlobalResources` má už len šípky trás mapy GVDEditora; novú ikonu doplniť do
   `tools/import_icons.py`, nepoužité ikony z repa mazať.
