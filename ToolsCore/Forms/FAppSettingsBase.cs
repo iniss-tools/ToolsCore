@@ -231,7 +231,7 @@ public partial class FAppSettingsBase : Form
 
     #region Sprava nastaveni
 
-    private void TsmiExport_Click(object? sender, EventArgs e)
+    private async void TsmiExport_Click(object? sender, EventArgs e)
     {
         var program = AppPaths.AppName;
         using var dialog = new SaveFileDialog
@@ -240,7 +240,7 @@ public partial class FAppSettingsBase : Form
             FileName = string.Format(CultureInfo.CurrentCulture, Resources.SettingsTransfer_FileName, program,
                 DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))
         };
-        if (dialog.ShowDialog(this) != DialogResult.OK)
+        if (await dialog.ShowDialogAsync(this) != DialogResult.OK || IsDisposed)
             return;
 
         try
@@ -254,10 +254,10 @@ public partial class FAppSettingsBase : Form
         }
     }
 
-    private void TsmiImport_Click(object? sender, EventArgs e)
+    private async void TsmiImport_Click(object? sender, EventArgs e)
     {
         using var dialog = new OpenFileDialog { Filter = Resources.SettingsTransfer_Filter };
-        if (dialog.ShowDialog(this) != DialogResult.OK)
+        if (await dialog.ShowDialogAsync(this) != DialogResult.OK || IsDisposed)
             return;
 
         if (SettingsTransfer.Check(dialog.FileName, AppPaths.AppName) is { } error)

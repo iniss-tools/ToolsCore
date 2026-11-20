@@ -56,4 +56,70 @@ public static partial class Utils
     {
         return ExMessageBox.Show(text, title ?? GlobalResources.RInfo, buttons, MessageBoxIcon.Information);
     }
+
+    /// <summary>
+    /// Zobrazi dialog suboru alebo priecinka modalne k oknu <paramref name="owner" /> na vlastnom vlakne STA. Dialog
+    /// Windows zruseny kratko po prvom otvoreni v procese caka na dokoncenie inicializacie shellu az 6 s, hoci jeho okno
+    /// hned zmizne - okno programu by zatial nereagovalo. Takto je okno vlastnika po zatvoreni dialogu hned volne
+    /// a vysledok pride, az ked dialog skonci. Kym predchadzajuci dialog v procese nedobehol, dalsi sa neotvori
+    /// (vrati <see cref="DialogResult.Cancel" />) - opakovany klik by ho inak otvoril cez dobiehajuci.
+    /// </summary>
+    /// <param name="dialog">dialog (OpenFileDialog, SaveFileDialog, FolderBrowserDialog); kym uloha nedobehne, nemenit ho</param>
+    /// <param name="owner">okno, ktore je pocas dialogu zakazane - formular, nie vnoreny prvok</param>
+    /// <returns>
+    /// vysledok dialogu; pokracovanie po await bezi znova na vlakne okna, vlastnik mohol byt medzitym zatvoreny
+    /// (skontrolovat <c>IsDisposed</c>)
+    /// </returns>
+    [ExcludeFromCodeCoverage]
+    public static Task<DialogResult> ShowDialogAsync(this CommonDialog dialog, IWin32Window owner)
+    {
+        ArgumentNullException.ThrowIfNull(dialog);
+        ArgumentNullException.ThrowIfNull(owner);
+
+        // handle sa cita na vlakne okna - Control.Handle z ineho vlakna nie je dovoleny
+        var handle = new WindowHandle(owner.Handle);
+        if (Interlocked.Exchange(ref _fileDialogRunning, 1) == 1)
+            return Task.FromResult(DialogResult.Cancel);
+
+        var result = new TaskCompletionSource<DialogResult>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var thread = new Thread(() =>
+        {
+            try
+            {
+                var dialogResult = dialog.ShowDialog(handle);
+                Volatile.Write(ref _fileDialogRunning, 0);
+                result.SetResult(dialogResult);
+            }
+            catch (Exception e)
+            {
+                Volatile.Write(ref _fileDialogRunning, 0);
+                result.SetException(e);
+            }
+        })
+        {
+            IsBackground = true,
+            Name = "FileDialog"
+        };
+        thread.SetApartmentState(ApartmentState.STA);
+        try
+        {
+            thread.Start();
+        }
+        catch
+        {
+            Volatile.Write(ref _fileDialogRunning, 0);
+            throw;
+        }
+
+        return result.Task;
+    }
+
+    /// <summary>1, kym dialog z <see cref="ShowDialogAsync" /> este bezi (aj po zmiznuti jeho okna).</summary>
+    private static int _fileDialogRunning;
+
+    /// <summary>Okno zadane len handlom (vlastnik dialogu na inom vlakne).</summary>
+    private sealed class WindowHandle(IntPtr handle) : IWin32Window
+    {
+        public IntPtr Handle { get; } = handle;
+    }
 }
