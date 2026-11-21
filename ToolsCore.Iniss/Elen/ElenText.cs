@@ -64,7 +64,7 @@ public static class ElenText
         foreach (var item in glyphs)
         {
             var glyph = font.Glyphs[item.Code];
-            // body za sirkou znaku sa nekreslia ako v simulatore tabul (v znamych pismach su zhasnute)
+            // body za sirkou znaku sa nekreslia ako v StationSimulatore (v znamych pismach su zhasnute)
             var columns = Math.Min(item.Width, glyph.BytesPerRow * 8);
             for (var y = 0; y < Math.Min(height, glyph.Height); y++)
             {

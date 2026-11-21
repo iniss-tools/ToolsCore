@@ -1,6 +1,6 @@
 # Inštalátory a vydania
 
-Inštalátory programov INISSTools (GVDEditor, GVXEditor, RawBankEditor, ElenFontEditor, GTNSimulator, TableSimulator) sú
+Inštalátory programov INISSTools (GVDEditor, GVXEditor, RawBankEditor, ElenFontEditor, GTNSimulator, StationSimulator) sú
 skripty Inno Setup 7 v repozitári programu. Spoločný základ je tu:
 
 | Súbor                 | Obsah                                                                                            |
@@ -49,7 +49,7 @@ a položka **Skontrolovať aktualizácie** je v nej nedostupná.
   **Kontrolovať aktualizácie pri spustení programu**) a ručne z ponuky Pomocník. Inštalátor stiahnu, overia veľkosť
   a SHA-256 z `update.json`, program zavrú a spustia `/SILENT /RELAUNCH=1`. Program nainštalovaný inak než
   inštalátorom (podľa `InstallLocation` v kľúči odinštalovania `<AppName>_is1`) len otvorí stránku vydania.
-* TableSimulator (`Infrastructure/Hosting/ServerUpdates`) – dvakrát denne, ak to dovolí nastavenie servera; web ukáže
+* StationSimulator (`Infrastructure/Hosting/ServerUpdates`) – dvakrát denne, ak to dovolí nastavenie servera; web ukáže
   pruh používateľom s oprávnením na nastavenie alebo správu servera. Inštaluje správca ručne.
 
 ## Jednorazové nastavenie
@@ -58,7 +58,7 @@ a položka **Skontrolovať aktualizácie** je v nej nedostupná.
 `release.yml` povolí zápis do repozitára programu (`permissions: contents: write`). Podmienky:
 
 * Repozitár programu aj všetky jeho závislosti (ToolsCore, ExControls, pri GVDEditore a GTNSimulatore aj
-  TableSimulator a GVDEditor) sú verejné – klonujú sa bez prihlásenia. Súkromná závislosť zastaví zostavenie
+  StationSimulator a GVDEditor) sú verejné – klonujú sa bez prihlásenia. Súkromná závislosť zastaví zostavenie
   chybou *Repozitár … sa nepodarilo stiahnuť*.
 * Actions sú v repozitári programu povolené (predvolene sú). Spoločný workflow je vo verejnom ToolsCore, každý
   repozitár ho smie volať.

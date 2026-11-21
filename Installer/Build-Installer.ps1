@@ -18,7 +18,7 @@ param(
     [Parameter(Mandatory = $true)] [string] $Installer,
     # verzia vydania X.Y alebo X.Y.Z
     [Parameter(Mandatory = $true)] [string] $Version,
-    # dotnet publish namiesto dotnet build (TableSimulator)
+    # dotnet publish namiesto dotnet build (StationSimulator)
     [switch] $Publish,
     # adresa update.json posledneho vydania (kontrola aktualizacii); prazdna = zostava bez kontroly aktualizacii
     [string] $UpdateIndex = '',

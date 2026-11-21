@@ -12,7 +12,7 @@ ToolsCore – GVDEditor, GVXEditor, RawBankEditor, ElenFontEditor, GTNSimulator,
 
 ### ToolsCore.Iniss
 
-`net10.0` bez WinForms – doména zdieľaná GVDEditorom, simulátorom tabúľ aj GTNSimulatorom. Nesmie odkazovať na
+`net10.0` bez WinForms – doména zdieľaná GVDEditorom, StationSimulatorom aj GTNSimulatorom. Nesmie odkazovať na
 WinForms ani ExControls, menné priestory sú spoločné s `ToolsCore`.
 
 - `Expressions/`, `StateDgm/`, `TabTab/`.
@@ -192,7 +192,7 @@ Postup a jednorazové nastavenie v `Installer/README.md`.
 
 - Zápis cez statický `Serilog.Log` (`using Serilog;`) – v `ToolsCore.Iniss` (balík `Serilog`) aj v programoch. Kam
   záznamy idú, určuje program: desktop `ToolsCore/Tools/AppLog` (`Start` hneď na začiatku `AppInit.Initialization`,
-  `Stop` pri ukončení a reštarte), server TableSimulator vlastný `SerilogSetup` – záznamy domény tak skončia v logu
+  `Stop` pri ukončení a reštarte), server StationSimulator vlastný `SerilogSetup` – záznamy domény tak skončia v logu
   servera.
 - Desktop: denné súbory `%LocalAppData%\<Program>\logs\<Program>-RRRRMMDD.log` (`AppLog.Directory`, príkaz Pomocník →
   Otvoriť priečinok s logmi = `ErrorReport.OpenLogFolder`), 31 súborov, najviac 10 MB (potom ďalší súbor), `shared` –
@@ -271,7 +271,7 @@ dotnet build ToolsCore.slnx -nologo -v q
 # domena; --filter "FullyQualifiedName~StateDgm"
 dotnet test ToolsCore.Iniss.Tests/ToolsCore.Iniss.Tests.csproj
 dotnet test ToolsCore.slnx
-# instalator vo verzii vydania do artifacts/ (ako workflow; -Publish pre TableSimulator);
+# instalator vo verzii vydania do artifacts/ (ako workflow; -Publish pre StationSimulator);
 # z Git Bash ISCC volat s MSYS_NO_PATHCONV=1
 powershell -File Installer/Build-Installer.ps1 -Project ../GVDEditor/GVDEditor/GVDEditor.csproj `
   -Installer ../GVDEditor/GVDEditorInstaller.iss -Version 1.10

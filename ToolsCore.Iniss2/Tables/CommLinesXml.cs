@@ -21,7 +21,7 @@ public static partial class CommLinesXml
     public const string FileName = "CommLines.xml";
 
     // text komentara je data suboru (bez diakritiky, citatelny aj bez simulatora)
-    private const string Marker = "TableSimulator: povodne line=";
+    private const string Marker = "StationSimulator: povodne line=";
 
     private const string SerialKey = "SERIAL";
     private const string TcpClientKey = "TCP_CLIENT";
@@ -241,6 +241,6 @@ public static partial class CommLinesXml
     [GeneratedRegex(@"(\styp\s*=\s*"")[^""]*("")", RegexOptions.CultureInvariant)]
     private static partial Regex TypeAttribute();
 
-    [GeneratedRegex(@"^TableSimulator: povodne line=""([^""]*)""(?: typ=""([^""]*)"")?$", RegexOptions.CultureInvariant)]
+    [GeneratedRegex(@"^StationSimulator: povodne line=""([^""]*)""(?: typ=""([^""]*)"")?$", RegexOptions.CultureInvariant)]
     private static partial Regex OriginalText();
 }

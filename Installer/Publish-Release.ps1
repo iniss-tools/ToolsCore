@@ -17,7 +17,7 @@ sa oznaci, len ak nie je starsie nez doterajsie posledne (oprava starsej verzie 
 S -DryRun len vypise text vydania a update.json, na GitHub nic neposle (na lokalnu skusku).
 #>
 param(
-    # nazov programu = kluc v update.json (GVDEditor, TableSimulator...)
+    # nazov programu = kluc v update.json (GVDEditor, StationSimulator...)
     [Parameter(Mandatory = $true)] [string] $Program,
     # znacka vX.Y v repozitari programu
     [Parameter(Mandatory = $true)] [string] $Tag,

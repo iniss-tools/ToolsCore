@@ -83,7 +83,7 @@ public class TablesReadersTests
     {
         var updated = CommLinesXml.Redirect(Lines, Target("Seriova", "127.0.0.1:47003"));
 
-        StringAssert.Contains(updated, """<!-- TableSimulator: povodne line="COM1" typ="SERIAL" -->""");
+        StringAssert.Contains(updated, """<!-- StationSimulator: povodne line="COM1" typ="SERIAL" -->""");
         StringAssert.Contains(updated, """<line k="Seriova" typ="TCP_CLIENT" protocol="ELEN" line="127.0.0.1:47003" omit="true" />""");
         Assert.AreEqual(Lines, CommLinesXml.Redirect(updated, new Dictionary<string, string>()));
     }
@@ -123,7 +123,7 @@ public class TablesReadersTests
         var updated = CommLinesXml.Redirect(Lines, Target("Tabule", "127.0.0.1:47001"));
 
         StringAssert.Contains(updated, "line=\"127.0.0.1:47001\"");
-        StringAssert.Contains(updated, "<!-- TableSimulator: povodne line=\"10.0.0.1:10001\" -->");
+        StringAssert.Contains(updated, "<!-- StationSimulator: povodne line=\"10.0.0.1:10001\" -->");
         StringAssert.Contains(updated, "<!-- Linky stanice Lipovec -->", "komentare ostavaju");
         StringAssert.Contains(updated, "<!-- <line k=\"Stara\" typ=\"TCP_CLIENT\" line=\"1.1.1.1:1\" /> -->", "zakomentovana linka sa nemeni");
         StringAssert.Contains(updated, "watchdog=\"60\"");
@@ -155,7 +155,7 @@ public class TablesReadersTests
         var second = CommLinesXml.Redirect(first, Target("Tabule", "127.0.0.1:47009"));
 
         StringAssert.Contains(second, "line=\"127.0.0.1:47009\"");
-        Assert.AreEqual(1, second.Split("TableSimulator:").Length - 1);
+        Assert.AreEqual(1, second.Split("StationSimulator:").Length - 1);
         Assert.AreEqual(Lines, CommLinesXml.Redirect(second, new Dictionary<string, string>()));
     }
 

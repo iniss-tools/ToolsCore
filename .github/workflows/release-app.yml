@@ -23,7 +23,7 @@ on:
         type: string
         required: true
       publish:
-        description: dotnet publish namiesto dotnet build (TableSimulator)
+        description: dotnet publish namiesto dotnet build (StationSimulator)
         type: boolean
         default: false
       dependencies:
@@ -31,7 +31,7 @@ on:
         type: string
         default: ''
       bun:
-        description: Program potrebuje bun (webove rozhranie TableSimulatora)
+        description: Program potrebuje bun (webove rozhranie StationSimulatora)
         type: boolean
         default: false
 

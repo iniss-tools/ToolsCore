@@ -3,7 +3,7 @@ using System.Globalization;
 namespace ToolsCore.Iniss.Registry;
 
 /// <summary>
-/// Presmerovanie liniek INISSu na simulator tabul cez subor .INI vedla programu: sekcia Driver* v .INI uplne nahradi
+/// Presmerovanie liniek INISSu na StationSimulator cez subor .INI vedla programu: sekcia Driver* v .INI uplne nahradi
 /// register, preto sa do nej zapise cela ucinna sekcia s novym TablePort (<c>N=TCP://host:port</c>) a v Environment
 /// sa zapne OutToTableDriver. Povodny stav si subor pamata v komentaroch (INISS ich nevidi), takze zrusenie vrati
 /// presne to, co v nom bolo; register sa nemeni.

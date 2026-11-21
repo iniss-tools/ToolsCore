@@ -3,7 +3,7 @@ using ToolsCore.Iniss.Registry;
 namespace ToolsCore.Tests.Registry;
 
 /// <summary>
-/// Presmerovanie liniek na simulator tabul cez .INI - cela sekcia z registra, povodne hodnoty v komentaroch, navrat.
+/// Presmerovanie liniek na StationSimulator cez .INI - cela sekcia z registra, povodne hodnoty v komentaroch, navrat.
 /// </summary>
 [TestClass]
 public class SimulatorRedirectTests

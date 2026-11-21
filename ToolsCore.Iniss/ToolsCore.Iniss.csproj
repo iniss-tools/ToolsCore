@@ -9,7 +9,7 @@
 		<LangVersion>default</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>
-		<!-- zaznamy cez staticky Serilog.Log; kam idu, urcuje program (ToolsCore AppLog, server TableSimulator) -->
+		<!-- zaznamy cez staticky Serilog.Log; kam idu, urcuje program (ToolsCore AppLog, server StationSimulator) -->
 		<PackageReference Include="Serilog" Version="4.3.0" />
 	</ItemGroup>
 </Project>
