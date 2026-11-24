@@ -382,6 +382,33 @@
   <data name="&gt;&gt;bLogs.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="bReport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="bReport.Location" type="System.Drawing.Point, System.Drawing">
+    <value>304, 10</value>
+  </data>
+  <data name="bReport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 28</value>
+  </data>
+  <data name="bReport.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="bReport.Text" xml:space="preserve">
+    <value>Nahlásiť chybu...</value>
+  </data>
+  <data name="&gt;&gt;bReport.Name" xml:space="preserve">
+    <value>bReport</value>
+  </data>
+  <data name="&gt;&gt;bReport.Type" xml:space="preserve">
+    <value>ExControls.ExButton, ExControls, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bReport.Parent" xml:space="preserve">
+    <value>panelButtons</value>
+  </data>
+  <data name="&gt;&gt;bReport.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="panelButtons.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
@@ -410,7 +437,7 @@
     <value>560, 372</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>480, 200</value>
+    <value>560, 200</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Chyba</value>

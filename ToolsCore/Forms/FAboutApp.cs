@@ -18,11 +18,14 @@ public partial class FAboutApp : Form
 
         linkWeb.Text = LinkConsts.LinkInfoApp;
         linkEmail.Text = LinkConsts.Email;
+        linkGitHub.Text = IssueReport.RepositoryUrl.Replace("https://", "", StringComparison.Ordinal);
     }
 
     private void OnWebLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => Utils.OpenShell(LinkConsts.LinkInfoApp);
 
     private void OnEmailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => Utils.OpenShell("mailto:" + LinkConsts.Email);
+
+    private void OnGitHubLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => Utils.OpenShell(IssueReport.RepositoryUrl);
 
     private void OnHelpButtonClicked(object sender, CancelEventArgs e) => Utils.OpenShell(LinkConsts.LinkInfoApp);
 }

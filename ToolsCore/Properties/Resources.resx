@@ -180,6 +180,9 @@ Nainštalovaná verzia: {1}</value>
   <data name="Error_HideDetails" xml:space="preserve">
     <value>Skryť podrobnosti</value>
   </data>
+  <data name="Report_Cut" xml:space="preserve">
+    <value>… (celý text je v schránke, vložte ho sem)</value>
+  </data>
   <data name="Keymap_MainWindow" xml:space="preserve">
     <value>Hlavné okno</value>
   </data>

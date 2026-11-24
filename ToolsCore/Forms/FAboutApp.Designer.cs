@@ -40,6 +40,8 @@ namespace ToolsCore.Forms
             this.label8 = new System.Windows.Forms.Label();
             this.linkWeb = new System.Windows.Forms.LinkLabel();
             this.linkEmail = new System.Windows.Forms.LinkLabel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.linkGitHub = new System.Windows.Forms.LinkLabel();
             this.groupBox2 = new ExControls.ExGroupBox();
             this.groupBox1 = new ExControls.ExGroupBox();
             this.bOK = new ExControls.ExButton();
@@ -119,7 +121,23 @@ namespace ToolsCore.Forms
             this.linkEmail.Name = "linkEmail";
             this.linkEmail.TabStop = true;
             this.linkEmail.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnEmailLinkClicked);
-            // 
+            //
+            // label9
+            //
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            //
+            // linkGitHub
+            //
+            resources.ApplyResources(this.linkGitHub, "linkGitHub");
+            this.linkGitHub.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.linkGitHub.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.linkGitHub.Name = "linkGitHub";
+            this.linkGitHub.TabStop = true;
+            this.linkGitHub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnGitHubLinkClicked);
+            //
             // groupBox2
             // 
             resources.ApplyResources(this.groupBox2, "groupBox2");
@@ -136,6 +154,8 @@ namespace ToolsCore.Forms
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.linkWeb);
             this.groupBox1.Controls.Add(this.linkEmail);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.linkGitHub);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -175,7 +195,7 @@ namespace ToolsCore.Forms
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(637, 493);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(304, 344);
+            this.MinimumSize = new System.Drawing.Size(304, 364);
             this.Name = "FAboutApp";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -201,6 +221,8 @@ namespace ToolsCore.Forms
         private Label label8;
         private LinkLabel linkWeb;
         private LinkLabel linkEmail;
+        private Label label9;
+        private LinkLabel linkGitHub;
         private ExGroupBox groupBox2;
         private ExGroupBox groupBox1;
         private ExButton bOK;

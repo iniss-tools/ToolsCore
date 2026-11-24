@@ -136,6 +136,9 @@ v procese programu (GVDEditor, GVXEditor); ostatné programy ho neodkazujú, aby
   rozloženia z `ConfigBase.DockLayout`, neplatné len do logu); `ApplyThemeAndFonts` dá písma aj skrytým a plávajúcim
   panelom (tému im dá `ExDockManager.ApplyTheme`). Používajú ho GVXEditor, GVDEditor, RawBankEditor, ElenFontEditor
   a GTNSimulator. `SetZoneSize` berie logické body (96 DPI) – správca ich prepočíta podľa DPI okna sám.
+- `Tools/IssueReport` – formuláre GitHub Issues (tlačidlo v okne chyby `FError`, príkazy `ReportBug` a `SuggestFeature`
+  v Pomocníku programov): repozitár = názov programu, formuláre a `id` polí sú v repozitári `iniss-tools/.github` – meniť
+  oboje (aj web StationSimulatora `lib/issues.ts` a docs `src/data/programs.ts`).
 - `Forms/Elen/ElenBoardView` – bodová tabuľa ELEN (LED, veľkosť bodu podľa prvku, blikanie, orámovanie kódu, klik na
   znak); náhľad na tabuli v ElenFontEditore a `LedPreview` GVDEditora.
 - `Forms/Calendar/` – okno dátumovej poznámky s kalendárom `FDateLimitEdit.SetDateLimit` a pruh dní variant

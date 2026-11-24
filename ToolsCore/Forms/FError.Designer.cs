@@ -40,6 +40,7 @@
             this.bOK = new ExControls.ExButton();
             this.bCopy = new ExControls.ExButton();
             this.bLogs = new ExControls.ExButton();
+            this.bReport = new ExControls.ExButton();
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.panelDetails.SuspendLayout();
@@ -103,6 +104,7 @@
             this.panelButtons.Controls.Add(this.bOK);
             this.panelButtons.Controls.Add(this.bCopy);
             this.panelButtons.Controls.Add(this.bLogs);
+            this.panelButtons.Controls.Add(this.bReport);
             resources.ApplyResources(this.panelButtons, "panelButtons");
             this.panelButtons.Name = "panelButtons";
             //
@@ -126,6 +128,13 @@
             this.bLogs.Name = "bLogs";
             this.bLogs.UseVisualStyleBackColor = true;
             this.bLogs.Click += new System.EventHandler(this.bLogs_Click);
+            //
+            // bReport
+            //
+            resources.ApplyResources(this.bReport, "bReport");
+            this.bReport.Name = "bReport";
+            this.bReport.UseVisualStyleBackColor = true;
+            this.bReport.Click += new System.EventHandler(this.bReport_Click);
             //
             // FError
             //
@@ -165,5 +174,6 @@
         private ExControls.ExButton bOK;
         private ExControls.ExButton bCopy;
         private ExControls.ExButton bLogs;
+        private ExControls.ExButton bReport;
     }
 }

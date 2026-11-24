@@ -223,6 +223,15 @@ namespace ToolsCore.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to … (celý text je v schránke, vložte ho sem).
+        /// </summary>
+        internal static string Report_Cut {
+            get {
+                return ResourceManager.GetString("Report_Cut", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Hlavné okno.
         /// </summary>
         internal static string Keymap_MainWindow {

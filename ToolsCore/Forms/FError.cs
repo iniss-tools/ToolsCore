@@ -5,7 +5,8 @@ using ToolsCore.Tools;
 namespace ToolsCore.Forms;
 
 /// <summary>
-/// Okno chyby: kratka sprava, na poziadanie podrobnosti (cely popis vynimky), kopirovanie do schranky a priecinok logov.
+/// Okno chyby: kratka sprava, na poziadanie podrobnosti (cely popis vynimky), kopirovanie do schranky, priecinok logov
+/// a nahlasenie chyby.
 /// </summary>
 public partial class FError : Form
 {
@@ -23,8 +24,10 @@ public partial class FError : Form
         rtbDetails.Font = new Font("Consolas", 9.75f);
         rtbDetails.Text = details ?? "";
         llDetails.Visible = details is not null;
-        _copyText = string.Format(CultureInfo.InvariantCulture, "{0} {1}\r\n{2:yyyy-MM-dd HH:mm:ss}\r\n\r\n{3}",
-            Application.ProductName, Application.ProductVersion, DateTime.Now, details ?? message);
+        // spravu bez vynimky (napr. chybajuci subor) vie vyriesit obsluha - na nahlasenie nie je
+        bReport.Visible = details is not null;
+        _copyText = IssueReport.HideUserFolder(string.Format(CultureInfo.InvariantCulture, "{0} {1}\r\n{2:yyyy-MM-dd HH:mm:ss}\r\n\r\n{3}",
+            Application.ProductName, Application.ProductVersion, DateTime.Now, details ?? message));
 
         // podrobnosti su na zaciatku skryte - okno ma len hlavicku a tlacidla
         _detailsHeight = panelDetails.Height;
@@ -44,6 +47,12 @@ public partial class FError : Form
     private void bCopy_Click(object? sender, EventArgs e) => Clipboard.SetText(_copyText);
 
     private void bLogs_Click(object? sender, EventArgs e) => ErrorReport.OpenLogFolder();
+
+    private void bReport_Click(object? sender, EventArgs e)
+    {
+        Clipboard.SetText(_copyText);
+        IssueReport.ReportBug(_copyText);
+    }
 
     /// <summary>
     /// Ukaze spravu o chybe bez podrobnosti.

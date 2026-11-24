@@ -120,6 +120,9 @@
   <data name="bLogs.Text" xml:space="preserve">
     <value>Otevřít složku s logy</value>
   </data>
+  <data name="bReport.Text" xml:space="preserve">
+    <value>Nahlásit chybu...</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Chyba</value>
   </data>
