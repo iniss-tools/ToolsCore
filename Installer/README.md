@@ -18,6 +18,7 @@ Workflow vydania je `ToolsCore/.github/workflows/release-app.yml`. Repozitár pr
 
 1. Commitni a pushni všetko, čo do vydania patrí – aj v ToolsCore, ExControls a ďalších repozitároch, ktoré program
    odkazuje. Závislosti sa berú z hlavnej vetvy v čase zostavenia, ich commity sú v texte vydania.
+   V dokumentácii uzavri novinky verzie: dátum a pod nadpis `<Release program="…" tag="vX.Y" />`.
 2. Označ commit programu značkou `vX.Y` (alebo `vX.Y.Z`). Text anotovanej značky je text vydania:
 
    ```bash
